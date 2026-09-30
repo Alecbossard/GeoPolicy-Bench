@@ -5,6 +5,7 @@ import subprocess
 import sys
 import time
 from pathlib import Path
+from geopolicy.io import save_json
 
 main = Path("artifacts/main_runs")
 state_path = Path("artifacts/remaining_stages.json")
@@ -30,7 +31,7 @@ def run(name, cmd):
         "command": cmd,
         "log": str(log),
     }
-    state_path.write_text(json.dumps(state, indent=2))
+    save_json(state_path, state)
     with Path("PROGRESS.md").open("a") as stream:
         stream.write(
             f"\nRemaining-stage {name}: {'complete' if code==0 else 'FAILED'}, wall{time.time()-start:.1f}s, log{log}.\n"
@@ -176,7 +177,7 @@ else:
         "deferred": True,
         "reason": "0/20 nominal success; conditional secondary robustness budget deferred per frozen protocol",
     }
-    state_path.write_text(json.dumps(state, indent=2))
+    save_json(state_path, state)
 run("summarize_primary", [python, "scripts/summarize_results.py"])
 print(
     "All implemented remaining experiment stages complete; final secondary aggregation/documentation/visual QA still required",

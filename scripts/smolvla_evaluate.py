@@ -2,6 +2,8 @@
 
 import argparse
 import json
+import csv
+import hashlib
 import sys
 import time
 from pathlib import Path
@@ -9,11 +11,13 @@ from pathlib import Path
 sys.path.insert(0, str(Path("src").resolve()))
 import numpy as np
 import torch
-from vla_common import load_policy
+from vla_common import load_policy, restore_adapter
 from lerobot.policies.smolvla.processor_smolvla import make_smolvla_pre_post_processors
 from geopolicy.environment import SelectPlace, CAMERAS
 from geopolicy.sensors import student_state, camera_packet
 from geopolicy.evaluation import rgb_packet, CONDITIONS
+from geopolicy.io import save_json
+from resource_watch import ResourceWatch
 
 p = argparse.ArgumentParser()
 p.add_argument("--checkpoint", default="artifacts/smolvla_s0/best.pt")
@@ -26,18 +30,35 @@ p.add_argument("--videos", type=int, default=2)
 a = p.parse_args()
 out = Path(a.out)
 out.mkdir(parents=True, exist_ok=True)
+watch = ResourceWatch(out)
 torch.set_num_threads(2)
+identity = {
+    "checkpoint_sha256": hashlib.sha256(Path(a.checkpoint).read_bytes()).hexdigest(),
+    "execute_steps": a.execute_steps,
+    "first_seed": a.first_seed,
+    "pretrained_revisions": json.loads(Path("configs/pretrained_revisions.json").read_text()),
+}
+if a.first_seed >= 200000:
+    assert json.loads(Path("configs/benchmark_protocol.json").read_text())["frozen"]
+identity_path = out / "evaluation_identity.json"
+if identity_path.exists() and json.loads(identity_path.read_text()) != identity:
+    raise ValueError("Existing VLA evaluation has a different checkpoint/base/recipe")
+identity_path.write_text(json.dumps(identity, indent=2))
 saved = torch.load(a.checkpoint, map_location="cpu", weights_only=False)
 policy, config = load_policy()
-policy.load_state_dict(saved["trainable"], strict=False)
+restore_adapter(policy, saved, a.checkpoint)
 policy.eval()
 pre, post = make_smolvla_pre_post_processors(config, saved["stats"])
 env = SelectPlace(cameras=True)
-rows = []
+rows = json.loads((out / "rollouts.json").read_text()) if (out / "rollouts.json").exists() else []
+completed = {(r["condition"], r["scene_seed"]) for r in rows}
 for condition in a.conditions:
+    condition_start = time.monotonic()
     if condition not in CONDITIONS:
         raise ValueError(condition)
     for seed in range(a.first_seed, a.first_seed + a.episodes):
+        if (condition, seed) in completed:
+            continue
         obs = env.reset_scene(seed)
         policy.reset()
         torch.manual_seed(seed)
@@ -49,6 +70,10 @@ for condition in a.conditions:
         frames = []
         start = time.perf_counter()
         for step in range(env.horizon):
+            watch.sample()
+            if time.monotonic() - condition_start > 3600:
+                env.close()
+                raise TimeoutError("VLA condition exceeded3600s; completed episodes preserved")
             if not queue:
                 t = time.perf_counter()
                 packet = rgb_packet(obs, condition, rng)
@@ -100,7 +125,11 @@ for condition in a.conditions:
             **info,
         }
         rows.append(row)
-        (out / "rollouts.json").write_text(json.dumps(rows, indent=2))
+        save_json(out / "rollouts.json", rows)
+        with (out / "rollouts.csv").open("w", newline="") as stream:
+            writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
+            writer.writeheader()
+            writer.writerows(rows)
         print(json.dumps(row), flush=True)
         if frames:
             import imageio.v2 as iio

@@ -1,0 +1,32 @@
+[
+  {
+    "outcome": "success",
+    "selection": "earliest matching scene in completed fusion_s0 nominal100 test cell",
+    "scene_seed": 200001,
+    "instruction": "Place the green cube in the blue receptacle.",
+    "checkpoint_sha256": "444aa2e097000653ffff70bcc420740f13ffd7e1b26c6bd3e1e444eb4bea9263",
+    "video": "results\\demos\\success.mp4",
+    "gif": "results\\demos\\success.gif",
+    "source_video": "artifacts\\demo_replays\\success\\fusion_s0_nominal_200001_success.mp4",
+    "replay_success_and_step_and_first_action_exact": true,
+    "terminal_placement_error_difference_m": 0.0,
+    "frames": 106,
+    "simulation_seconds": 5.25,
+    "no_generated_or_interpolated_physics_frames": true
+  },
+  {
+    "outcome": "failure",
+    "selection": "earliest matching scene in completed fusion_s0 nominal100 test cell",
+    "scene_seed": 200000,
+    "instruction": "Place the red cube in the blue receptacle.",
+    "checkpoint_sha256": "444aa2e097000653ffff70bcc420740f13ffd7e1b26c6bd3e1e444eb4bea9263",
+    "video": "results\\demos\\failure.mp4",
+    "gif": "results\\demos\\failure.gif",
+    "source_video": "artifacts\\demo_replays\\failure\\fusion_s0_nominal_200000_failure.mp4",
+    "replay_success_and_step_and_first_action_exact": true,
+    "terminal_placement_error_difference_m": 0.0,
+    "frames": 221,
+    "simulation_seconds": 11.0,
+    "no_generated_or_interpolated_physics_frames": true
+  }
+]

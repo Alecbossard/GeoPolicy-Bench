@@ -5,7 +5,7 @@ import time
 from pathlib import Path
 import numpy as np
 import torch
-from vla_common import load_policy, VLADataset, processed_batch
+from vla_common import load_policy, VLADataset, processed_batch, restore_adapter
 from lerobot.policies.smolvla.processor_smolvla import make_smolvla_pre_post_processors
 
 p = argparse.ArgumentParser()
@@ -33,10 +33,16 @@ optimizer = torch.optim.AdamW(named.values(), lr=1e-4, weight_decay=1e-10)
 scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.updates, eta_min=1e-5)
 first = 1
 best = float("inf")
-logs = []
+logs = (
+    json.loads((out / "learning_curve.json").read_text())
+    if (out / "learning_curve.json").exists()
+    else []
+)
 if args.resume:
     ckpt = torch.load(args.resume, map_location="cpu", weights_only=False)
-    policy.load_state_dict(ckpt["trainable"], strict=False)
+    if ckpt["scheduler"]["T_max"] != args.updates or ckpt["accumulation"] != args.accumulation:
+        raise ValueError("Resume must retain original update budget and accumulation")
+    restore_adapter(policy, ckpt, args.resume)
     optimizer.load_state_dict(ckpt["optimizer"])
     scheduler.load_state_dict(ckpt["scheduler"])
     stats = ckpt["stats"]
@@ -99,13 +105,25 @@ for update in range(first, args.updates + 1):
             "base_model": "lerobot/smolvla_base",
             "config": str(config),
             "accumulation": args.accumulation,
+            "pretrained_revisions": json.loads(
+                Path("configs/pretrained_revisions.json").read_text()
+            ),
+            "training_config": {
+                "updates": args.updates,
+                "batch_size": 1,
+                "accumulation": args.accumulation,
+                "seed": 0,
+                "demonstrations": len(train.episodes),
+            },
         }
         temp = out / "latest.tmp"
         torch.save(checkpoint, temp)
         temp.replace(out / "latest.pt")
         if score < best:
             best = score
-            torch.save(checkpoint, out / "best.pt")
+            best_temp = out / "best.tmp"
+            torch.save(checkpoint, best_temp)
+            best_temp.replace(out / "best.pt")
         (out / "learning_curve.json").write_text(json.dumps(logs, indent=2))
         print("SmolVLA validation", update, score, flush=True)
 manifest = {

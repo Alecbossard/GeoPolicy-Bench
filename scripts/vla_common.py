@@ -44,6 +44,27 @@ def load_policy():
     return policy, config
 
 
+def restore_adapter(policy, saved, checkpoint_path):
+    """Adapter deltas require the exact pinned frozen base and complete key set."""
+    revisions = saved.get("pretrained_revisions")
+    if revisions is None:
+        sidecar = Path(checkpoint_path).parent / "base_revisions.json"
+        if not sidecar.exists():
+            raise ValueError("Legacy adapter requires its base_revisions.json sidecar")
+        revisions = json.loads(sidecar.read_text())
+    current = json.loads(Path("configs/pretrained_revisions.json").read_text())
+    if {k: v["sha"] for k, v in revisions.items()} != {k: v["sha"] for k, v in current.items()}:
+        raise ValueError(
+            "Frozen base/tokenizer revision mismatch; do not combine unrelated adapter/base weights"
+        )
+    if saved["base_model"] != "lerobot/smolvla_base":
+        raise ValueError("Unexpected adapter base")
+    expected = {name for name, p in policy.named_parameters() if p.requires_grad}
+    if set(saved["trainable"]) != expected:
+        raise ValueError("Adapter must include every trainable action-expert/projection parameter")
+    policy.load_state_dict(saved["trainable"], strict=False)
+
+
 class VLADataset:
     def __init__(self, root, split="train", limit=200):
         self.episodes = []

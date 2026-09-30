@@ -10,6 +10,7 @@ import torch
 from .environment import SelectPlace, CAMERAS
 from .sensors import camera_packet, student_state, deproject, sample_points, fuse_points
 from .policies import make_policy
+from .io import save_json
 
 CONDITIONS = ("nominal", "occlusion", "depth_degraded", "fixed_camera_missing", "extrinsic_error")
 
@@ -186,6 +187,14 @@ def evaluate_student(
             if (condition, seed) in completed:
                 continue
             obs = env.reset_scene(seed, object_id, goal_id)
+            if object_id is not None or goal_id is not None:
+                digest = hashlib.sha256(student_state(obs).tobytes())
+                for camera in CAMERAS:
+                    digest.update(obs[camera + "_image"].tobytes())
+                    digest.update(obs[camera + "_depth"].tobytes())
+                digest.update(env.sim.data.cam_xpos.tobytes())
+                digest.update(env.sim.data.cam_xmat.tobytes())
+                initial_sensor_sha = digest.hexdigest()
             torch.manual_seed(seed + config.get("seed", 0) * 1000000)
             rng = np.random.default_rng(seed)
             preprocessing = []
@@ -220,6 +229,8 @@ def evaluate_student(
                 obs, _, done, info = env.step(action)
                 if done or info["success"]:
                     break
+            if frames:
+                frames.append(np.concatenate([obs[c + "_image"][::-1] for c in CAMERAS], axis=1))
             record = {
                 "scene_seed": seed,
                 "training_seed": config.get("seed"),
@@ -250,6 +261,8 @@ def evaluate_student(
                 ),
                 **info,
             }
+            if object_id is not None or goal_id is not None:
+                record["initial_rgbd_robot_camera_pose_sha256"] = initial_sensor_sha
             rows.append(record)
             if frames:
                 import imageio.v2 as iio
@@ -260,7 +273,7 @@ def evaluate_student(
                     frames,
                     fps=20,
                 )
-            (out / "rollouts.json").write_text(json.dumps(rows, indent=2))
+            save_json(out / "rollouts.json", rows)
             with (out / "rollouts.csv").open("w", newline="") as stream:
                 writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
                 writer.writeheader()
