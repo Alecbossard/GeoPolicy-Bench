@@ -62,6 +62,7 @@ run("combined_vla", [vla, "scripts/combined_resource_gate.py", "--vla"])
 gpu_env = dict(os.environ)
 gpu_env["GEO_GPU_TESTS"] = "1"
 run("gpu_resume", [py, "-m", "pytest", "tests/test_gpu_resume.py", "-q"], gpu_env)
+run("full_training_resume", [py, "scripts/verify_full_training_resume.py"])
 cpu_env = dict(os.environ)
 cpu_env.pop("GEO_GPU_TESTS", None)
 run("clean_tests", [repro, "-m", "pytest", "-q"], cpu_env)

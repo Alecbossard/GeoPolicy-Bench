@@ -43,6 +43,8 @@ selected_updates = {r["run"]: r["selected_update"] for r in checkpoint_audit["ma
 vla_train = read("artifacts/smolvla_s0/manifest.json")
 onnx = read("results/onnx_report.json")
 reproduction = read("results/clean_reproduction.json")
+full_resume = read("results/full_training_resume.json")
+assert full_resume["all_exact"]
 native_export = read("artifacts/lerobot_dataset/export_report.json")
 compact_resources = read("results/combined_compact_resources.json")
 vla_resources = read("results/combined_vla_resources.json")
@@ -472,6 +474,10 @@ lines += [
     "Its selected checkpoint replay reproduced a validation success with identical first action, "
     "steps and terminal placement (zero difference). The opt-in CUDA test separately verified "
     "an exactly identical next optimizer update after restoring model/optimizer/scheduler and RNG states. "
+    "An actual full-training continuation from mono seed1 update7,500 to8,000 reproduced all500 "
+    "updates: raw weights, EMA, AdamW moments, scheduler, normalization, config, progress and "
+    "Python/NumPy/Torch/CUDA plus minibatch RNG states are bit-identical to the original run. "
+    "Only a disposable copy was optimized; selected benchmark weights were preserved. "
     "Remote GitHub CI was not executed. Full benchmark rerunning still needs the local data and model artifacts.",
     "\n## Limits, artifacts and practiced skills",
     "\nThe benchmark tests a narrow simulated scene distribution and four instruction meanings. "
