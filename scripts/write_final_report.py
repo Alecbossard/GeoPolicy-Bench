@@ -95,6 +95,16 @@ lines = [
     f"versus {percent(aggregate['mono', 'nominal']['mean_success_rate'])} for the same monocular architecture. "
     f"The paired difference is {nominal['fusion_minus_mono_pp']:+.1f} percentage points "
     f"(descriptive crossed-bootstrap 95% interval [{lo:.1f}, {hi:.1f}]). {evidence}",
+    f"\nWith the fixed camera unavailable, fusion retains "
+    f"{percent(aggregate['fusion', 'fixed_camera_missing']['mean_success_rate'])} success versus "
+    f"{percent(aggregate['mono', 'fixed_camera_missing']['mean_success_rate'])} for mono: "
+    f"{comparison['fixed_camera_missing']['fusion_minus_mono_pp']:+.1f}pp "
+    f"(descriptive95% interval "
+    f"[{comparison['fixed_camera_missing']['paired_crossed_bootstrap95_pp'][0]:.1f}, "
+    f"{comparison['fixed_camera_missing']['paired_crossed_bootstrap95_pp'][1]:.1f}]). "
+    "This supports a narrower benefit of the additional wrist view under this camera-loss condition. "
+    "Nominal, occlusion and depth results do not establish a broad fusion advantage; absolute "
+    "success remains low and the extrinsic20-scene comparison is exploratory.",
     "\n## Protocol and scope",
     "\nThe protocol was frozen before principal training and final test. Checkpoints were selected "
     "by fixed offline validation loss, never test success. Mono/fusion share the same 200 successful "
@@ -152,6 +162,8 @@ lines = [
     "initialized with 2,500 supervised updates on 64 clearly labeled scripted bootstrap episodes, "
     "then actually optimized with SB3 PPO for 2,048 on-policy transitions. Task sequencing remains "
     "scripted. Selected teacher demonstrations are rollouts of that PPO checkpoint, not the bootstrap script.",
+    "\nThe exact reward, scripted phases, hyperparameters and a clearly untested reward-design "
+    "hypothesis are documented in the [teacher recipe](teacher_recipe.md).",
     "\n"
     + table(
         ["Control", "Final successful /100", "Test scenes"],

@@ -72,3 +72,5 @@ Remaining-stage profile_mono: complete, wall6.5s, logartifacts\remaining_profile
 Remaining-stage profile_act: complete, wall3.5s, logartifacts\remaining_profile_act.log.
 
 Remaining-stage secondary_training: complete, wall391.8s, logartifacts\remaining_secondary_training.log.
+
+Remaining-stage main_evaluation: complete, wall10533.7s, logartifacts\remaining_main_evaluation.log.
