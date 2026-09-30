@@ -45,8 +45,13 @@ if identity_path.exists() and json.loads(identity_path.read_text()) != identity:
     raise ValueError("Existing VLA evaluation has a different checkpoint/base/recipe")
 identity_path.write_text(json.dumps(identity, indent=2))
 saved = torch.load(a.checkpoint, map_location="cpu", weights_only=False)
+# Full training checkpoints are preserved on disk; inference does not need
+# their large AdamW moment tensors while constructing the frozen base.
+for training_only in ["optimizer", "scheduler", "random", "batch_rng"]:
+    saved.pop(training_only, None)
 policy, config = load_policy()
 restore_adapter(policy, saved, a.checkpoint)
+saved.pop("trainable")  # Already copied into the authentic policy parameters.
 policy.eval()
 pre, post = make_smolvla_pre_post_processors(config, saved["stats"])
 env = SelectPlace(cameras=True)

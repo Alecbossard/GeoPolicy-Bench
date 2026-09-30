@@ -38,6 +38,10 @@ if a.vla:
         [p for p in model.parameters() if p.requires_grad], lr=1e-4, weight_decay=1e-10
     )
     optimizer.load_state_dict(saved["optimizer"])
+    # Optimizer moments are now live on the model device; discard duplicate CPU
+    # checkpoint storage without altering the selected checkpoint on disk.
+    saved.pop("optimizer")
+    saved.pop("trainable")
     jobs = [("smolvla", model, optimizer, batch)]
 else:
     from geopolicy.data import Episodes

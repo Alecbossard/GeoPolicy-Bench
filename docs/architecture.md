@@ -27,4 +27,6 @@ No truth pose, segmentation or curriculum-phase edge enters students. Compact la
 
 All students share clipped7D Cartesian/gripper commands. Learned chunks are executed directly through the validated OSC controller; no object-aware action conversion is applied. Inference computes moving wrist calibration from the robot/simulator camera pose, corresponding to a future calibrated FK transform, not target object truth. See [contracts](contracts.md) and [future physical transfer](calibration_and_transfer.md).
 
+The executed reward, eight curriculum phases, PPO hyperparameters, bootstrap provenance and negative continuation are detailed in the [teacher recipe](teacher_recipe.md).
+
 Training is serial with full optimizer/scheduler/normalization/RNG checkpoints. Test evaluation has independent scene seeds and persists each episode. ONNX exports only the temporal denoiser; point encoding, DDIM iteration and sensor preprocessing remain PyTorch/NumPy. Physical hardware transfer, Isaac and Jetson are outside executed results.
