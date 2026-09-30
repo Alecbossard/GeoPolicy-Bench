@@ -2,11 +2,13 @@
 
 **Work in progress — incomplete benchmark.** Local Panda selection/placement benchmark for instruction-conditioned RGB-D policies. The main question is whether calibrated fixed+wrist RGB-D fusion improves robustness over one fixed camera at equal demonstrations, architecture and optimization budget. A negative result is publishable; no performance gain is presumed.
 
-This repository contains a MuJoCo/robosuite task, an explicitly BC-initialized PPO teacher, lossless trajectory storage, compact ACT and DP3-inspired diffusion adaptations, and closed-loop evaluation. An authentic SmolVLA optimization pilot passed and500-step fine-tuning completed; its exploratory behavior is reported separately. No exact DP3/ACT paper reproduction, official LIBERO score, physical robot transfer or Isaac Lab execution is claimed. Current status and measured milestones: [PROGRESS.md](PROGRESS.md).
+This repository contains a MuJoCo/robosuite task, a BC-initialized PPO teacher, lossless trajectory storage, compact ACT and DP3-inspired diffusion adaptations, and closed-loop evaluation. Nine principal models completed 8,000 updates each on three training seeds. Authentic SmolVLA passed an optimizer memory pilot and completed 500 fine-tuning updates; its exploratory behavior is reported separately. These are independent adaptations, with no exact paper reproduction, official LIBERO score or physical robot transfer claimed. Current execution status: [PROGRESS.md](PROGRESS.md).
+
+The dataset contains 274 raw episodes, including failures. Every student uses the same 200 successful train episodes and 21 validation episodes. The teacher has genuine PPO updates after scripted BC initialization; task sequencing remains a privileged scripted curriculum. Final teacher controls give BC 82/100 and PPO 82/100: PPO learning is verified, with no demonstrated success gain.
 
 ## Local installation
 
-Validated target: Windows, Python 3.11, RTX 4060 Laptop 8 GB. Drivers remain unchanged. Install in an isolated environment:
+Validated target: Windows, Python 3.11, Ryzen 7 7435HS, 16 GB RAM and RTX 4060 Laptop 8 GB. Prerequisites: Git and uv. Install in an isolated environment from the repository root:
 
 ```powershell
 uv venv --python 3.11 .venv
@@ -17,9 +19,11 @@ uv pip install --python .venv\Scripts\python.exe -e .
 .venv\Scripts\python scripts\smoke_lift.py
 ```
 
-The lock file excludes machine-specific editable paths. NumPy1.26.4 is required by the chosen robosuite/mink dependency chain. A clean `.venv-repro` installed these pins and passed12 tests locally. LeRobot uses a separate `.venv-vla` with NumPy2; its metadata-only OSC simulation wheel and compatibility proof are documented below. See [technical decisions](docs/technical_decisions.md) and [contracts](docs/contracts.md).
+The lock file excludes machine-specific editable paths. NumPy 1.26.4 is required by the chosen robosuite/Mink dependency chain. A clean `.venv-repro` installed these pins, passed local tests and reproduced a selected checkpoint rollout exactly. LeRobot uses a separate `.venv-vla` with NumPy 2; its metadata-only OSC wheel and compatibility proof are documented below. See [technical decisions](docs/technical_decisions.md), [contracts](docs/contracts.md) and [artifact/reproduction instructions](docs/artifact_publication.md). Drivers and system settings were not changed. Other platforms are not claimed tested.
 
 ## Commands
+
+These commands document the executed recipe. Restoring the original local artifacts permits hash-verified replay. A fresh collection has new provenance, timings and file hashes: use a separate experiment checkout and freeze its own dataset manifest/protocol before evaluating it. Preserve the historical configs and results in this checkout.
 
 ```powershell
 # Scripted diagnostic/bootstrap, never labeled PPO demonstrations
@@ -49,11 +53,13 @@ Copy-Item artifacts/teacher_pilot/latest.zip artifacts/teacher_selected.zip
 
 Run one GPU training/inference job at a time and prefer serial rendering/model loading on this 16 GB RAM PC. Windows GPU contexts consume committed host memory as well as VRAM. Store data/checkpoints under ignored `artifacts/`; do not commit secrets or model/data blobs. No external publication is performed by these commands.
 
+The CUDA resume test is explicitly opt-in: set `GEO_GPU_TESTS=1`, run `python -m pytest tests/test_gpu_resume.py -q`, then remove that environment variable. Geometry, data/action contracts, splits, masks, instruction scene identity and CPU checkpoint resume are covered by the ordinary suite. Resource guards preserve completed episodes before stopping for persistent temperature ≥90 °C, low disk space or low committed-memory headroom; primary cells and VLA conditions have timeouts.
+
 ## Structure and adaptations
 
 `src/geopolicy/`: runtime, task, sensors, data, PPO teacher, policies, training, evaluation, checkpoint and CLI. `tests/`: geometry, validity masks, split boundaries, instruction counterfactual scene identity, leakage allowlist and exact optimization resume. `scripts/`: runtime/model pilots and controls. `docs/`: decisions and contracts. `artifacts/`: local measured runs, raw trajectories, models, images, videos and reports (ignored).
 
-ACT adaptation: random compact CNN, CVAE latent encoder and Transformer action-chunk decoder, explicit four-dimensional semantic instruction tokens. 3D diffusion adaptation: XYZRGB point encoder with learned attention/max pooling and a declared RGB chromatic prior for four known colors, instruction/proprioception conditioning, temporal FiLM residual denoiser, clean-action prediction/cosine DDPM training and10-step DDIM inference. The two diffusion variants differ only in input views and fusion; fixed512-point budget. No pretrained backbone in these compact policies. SmolVLA uses its authentic pretrained backbone/action model and official preprocessing.
+ACT adaptation: random compact CNN, CVAE latent encoder and Transformer action-chunk decoder, with explicit four-dimensional semantic instruction tokens. Diffusion adaptation: XYZRGB point encoder with learned attention/max pooling and a declared RGB chromatic prior for four known colors, instruction/proprioception conditioning, temporal FiLM residual denoiser, clean-action prediction and 10-step DDIM inference. Mono/fusion differ only in input views and fusion, with a shared 512-point budget. Compact policies have no pretrained backbone. SmolVLA uses its authentic pretrained model and official preprocessing. See [architecture](docs/architecture.md) and [model cards](docs/model_cards.md).
 
 ## LeRobot and SmolVLA environment
 
@@ -69,15 +75,15 @@ uv pip install --python .venv-vla\Scripts\python.exe -r requirements-vla-lock.tx
 .venv-vla\Scripts\python scripts/smolvla_evaluate.py --episodes 20 --first-seed 200000 --out artifacts/smolvla_test --conditions nominal
 ```
 
-The custom wheel changes dependency metadata only, removing unused Mink/qpsolvers requirements; all1176 runtime/assets/license files are byte-identical to upstream. It supports the validated Panda OSC path. Both environments produced identical scene geometry, control response and RGB-D point clouds. This preserves one-process VLA+rendering without merging incompatible NumPy requirements.
+The custom wheel changes dependency metadata only, removing unused Mink/qpsolvers requirements; all 1,176 runtime/assets/license files are byte-identical to upstream. It supports the validated Panda OSC path. Both environments produced identical scene geometry, control response and RGB-D point clouds. This permits one-process VLA inference and rendering with NumPy 2.
 
-The native LeRobot export contains221 episodes/21,687 frames with lossless PNG RGB, Parquet state/action and actual task text. Reloaded RGB/state/actions match source exactly. `depth_point_sidecars.json` maps each LeRobot episode/frame to its source HDF5 (lossless depth, points, transforms, timestamps and hashes). No Hub publication occurs. Main HDF5 failures remain available separately.
+The native LeRobot export contains 221 episodes / 21,687 frames with lossless PNG RGB, Parquet state/action and task text. Reloaded RGB/state/actions match source exactly. `depth_point_sidecars.json` maps each exported episode/frame to its source HDF5 for lossless depth, points, transforms, timestamps and hashes. Main HDF5 failures remain available separately. The original VLA adapter requires its pinned base revisions and mandatory revision sidecar. No Hub publication occurred.
 
 Teacher limitation: a scripted privileged phase machine supplies curriculum waypoints; supervised BC initializes the low-level actor before PPO optimization. PPO is real, but task sequencing is not learned end to end. Distinguish random, scripted, BC-only and PPO controls. Students never see teacher phases, waypoint errors or object truth poses.
 
-## Current limitations
+## Limitations
 
-The instruction vocabulary, rigid objects and scene family are deliberately narrow. Simulation calibration is known; sensor corruptions are controlled approximations. No arbitrary language grounding, unseen geometry, autonomous camera calibration or sim-to-real success is established. A separate transfer interface/calibration procedure and final dataset/model cards will accompany completed experiments.
+The instruction vocabulary, rigid objects and scene family are narrow. Simulation calibration is known and sensor corruptions are controlled approximations. Success is an instantaneous release/placement check. Three seeds give limited estimation of training variability; secondary 20-scene cells are exploratory. ACT and SmolVLA differ in modalities, pretraining and parameter count; VLA uses a different update budget. The [dataset card](docs/dataset_card.md) documents selection and provenance. [Future transfer/calibration](docs/calibration_and_transfer.md) is a procedure and interface, with no physical robot, Isaac or Jetson execution.
 
 ## Sources and credits
 

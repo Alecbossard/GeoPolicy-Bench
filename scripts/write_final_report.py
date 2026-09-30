@@ -1,6 +1,7 @@
 """Render the final report from completed, measured artifacts; no estimated scores."""
 
 import json
+import re
 from datetime import datetime
 from pathlib import Path
 
@@ -37,6 +38,8 @@ teacher = read("results/raw/final_teacher_controls.json")
 teacher_audit = read("results/teacher_update_audit.json")
 teacher_resource = read("results/teacher_resource_profile.json")
 training = read("results/training_manifests.json")
+checkpoint_audit = read("results/checkpoint_audit.json")
+selected_updates = {r["run"]: r["selected_update"] for r in checkpoint_audit["main_runs"]}
 vla_train = read("artifacts/smolvla_s0/manifest.json")
 onnx = read("results/onnx_report.json")
 reproduction = read("results/clean_reproduction.json")
@@ -391,8 +394,33 @@ lines += [
     "Raw rollouts also record wall duration and simulated duration.",
     "\n"
     + table(
-        ["Training run", "Optimization/validation/I/O seconds", "Peak Torch allocated GiB"],
-        [[r["run"], f"{r['wall_seconds']:.1f}", gib(r["peak_torch_vram_bytes"])] for r in training],
+        ["Mode", "Mean nominal wall duration (s)", "Mean simulated duration (s)"],
+        [
+            [m]
+            + [
+                f"{np.mean([r[key] for r in primary['per_seed'] if r['mode']==m and r['condition']=='nominal']):.2f}"
+                for key in ["wall_seconds", "simulation_seconds"]
+            ]
+            for m in ["mono", "fusion", "act"]
+        ],
+    ),
+    "\n"
+    + table(
+        [
+            "Training run",
+            "Selected EMA update /8,000",
+            "Optimization/validation/I/O seconds",
+            "Peak Torch allocated GiB",
+        ],
+        [
+            [
+                r["run"],
+                selected_updates[r["run"]],
+                f"{r['wall_seconds']:.1f}",
+                gib(r["peak_torch_vram_bytes"]),
+            ]
+            for r in training
+        ],
     ),
     "\nTraining manifest times exclude dataset loading/initialization. Matrix process times include "
     "those costs. Torch allocator peaks exclude other GPU processes, driver and renderer allocations.",
@@ -490,5 +518,17 @@ lines.insert(
     lines.index("\n## Principal closed-loop results"),
     "\n![Final teacher controls](../results/figures/teacher_final_controls.png)",
 )
-Path("docs/final_report.md").write_text("\n".join(lines) + "\n", encoding="utf8")
+report_text = "\n".join(lines) + "\n"
+report_text = re.sub(
+    r"\b(all|same|the|with|for|on|and|over|under|first|by|at|every|only|to|contains|uses|received|completed|yielded|achieved|failed|seed|batch|accumulation|de|sur|en)(?=\d)",
+    r"\1 ",
+    report_text,
+)
+report_text = re.sub(
+    r"(?<=\d)(?=updates\b|transitions\b|episodes\b|scenes\b|frames\b|same\b|paired\b|ms\b|cm\b|mm\b|GB\b|GiB\b|Go\b|Hz\b)",
+    " ",
+    report_text,
+)
+report_text = report_text.replace("RTX4060", "RTX 4060").replace("500M vs", "500 M vs")
+Path("docs/final_report.md").write_text(report_text, encoding="utf8")
 print("Measured report written: docs/final_report.md")
