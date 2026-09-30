@@ -1,0 +1,31 @@
+{
+  "checkpoint": "artifacts\\main_runs\\fusion_s0\\best.pt",
+  "batch_size": 1,
+  "horizon": 8,
+  "denoise_steps": 10,
+  "measurements": [
+    {
+      "device": "cpu",
+      "threads": 1,
+      "samples": 50,
+      "p50_ms": 13.435500004561618,
+      "p95_ms": 14.102465036557987
+    },
+    {
+      "device": "cpu",
+      "threads": 2,
+      "samples": 50,
+      "p50_ms": 12.199750024592504,
+      "p95_ms": 13.718914997298269
+    },
+    {
+      "device": "cuda",
+      "threads": 1,
+      "samples": 50,
+      "p50_ms": 29.695850011194125,
+      "p95_ms": 30.535160019644536
+    }
+  ],
+  "cpu_cuda_max_abs_error_same_noise": 0.0004068613052368164,
+  "scope": "policy only; preprocessing/rendering excluded; warmup10; fixed noise for numerical comparison"
+}

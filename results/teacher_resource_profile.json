@@ -1,0 +1,14 @@
+{
+  "scope": "CPU optimizer+training physics, auxiliary non-selected continuation; main teacher/data/checkpoints unchanged",
+  "transitions": 1024,
+  "wall_seconds": 9.120265300036408,
+  "transitions_per_second": 112.27743561318465,
+  "peak_process_rss_bytes": 1091604480,
+  "peak_process_private_bytes": 3361280000,
+  "minimum_system_ram_available_bytes": 7181864960,
+  "device": "cpu",
+  "torch_threads": 2,
+  "parameter_change_l2": 0.5211318135261536,
+  "training_scene_seed_range": "[0,100000), no test scenes",
+  "checkpoint_selected_for_benchmark": false
+}

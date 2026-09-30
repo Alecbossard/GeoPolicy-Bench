@@ -1,0 +1,10 @@
+{
+  "lerobot/smolvla_base": {
+    "sha": "d9f33c94a60fb382c90dea2164c96845bd955e28",
+    "license": "apache-2.0"
+  },
+  "HuggingFaceTB/SmolVLM2-500M-Video-Instruct": {
+    "sha": "7b375e1b73b11138ff12fe22c8f2822d8fe03467",
+    "license": "apache-2.0"
+  }
+}

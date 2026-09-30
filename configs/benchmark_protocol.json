@@ -1,0 +1,127 @@
+{
+  "frozen": true,
+  "frozen_at": "2026-09-30T12:52:58.404791+00:00",
+  "scope": "adapted Panda instruction-conditioned select/place, not official LIBERO",
+  "dataset_manifest_sha256": "21cdc563a5f7e637bc0d9cfcc6a849d2ba5f3eb4fffeca97bdf1d1dd9145cc8f",
+  "training": {
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "modes": [
+      "fusion",
+      "mono",
+      "act"
+    ],
+    "updates": 8000,
+    "batch_size": 32,
+    "successful_train_episodes": 200,
+    "validation_episodes": 21,
+    "horizon": 8,
+    "ema_decay": 0.995,
+    "optimizer": "AdamW lr3e-4 wd1e-5 cosine eta_min3e-5",
+    "precision": "float32",
+    "deterministic_algorithms": true,
+    "selection": "minimum EMA offline validation loss, 20 fixed batches every500 updates",
+    "diffusion": "sample prediction, cosine DDPM100/DDIM10, chroma40 RGB-only prior",
+    "act": "two RGB64 views, CVAE KL1, random CNN"
+  },
+  "evaluation": {
+    "inference_device": "cpu",
+    "torch_threads": 2,
+    "execute_steps": 2,
+    "control_hz": 20,
+    "horizon_control_steps": 220,
+    "main_modes": [
+      "mono",
+      "fusion"
+    ],
+    "conditions": [
+      "nominal",
+      "occlusion",
+      "depth_degraded",
+      "fixed_camera_missing",
+      "extrinsic_error"
+    ],
+    "pilot_episodes_per_condition": 20,
+    "main_episodes_per_condition": {
+      "nominal": 100,
+      "occlusion": 100,
+      "fixed_camera_missing": 100,
+      "depth_degraded": 20,
+      "extrinsic_error": 20
+    },
+    "test_first_scene_seed": 200000,
+    "act_episodes_per_condition": 20,
+    "counterfactual": {
+      "first_scene_seed": 200100,
+      "scenes": 10,
+      "instructions_per_scene": 4,
+      "modes": [
+        "mono",
+        "fusion"
+      ],
+      "training_seeds": [
+        0,
+        1,
+        2
+      ]
+    },
+    "smolvla": {
+      "training_seed": 0,
+      "updates": 500,
+      "accumulation": 4,
+      "train_episodes": 200,
+      "nominal_test_episodes": 20,
+      "ood_conditional": "execute OOD if nominal test contains a success; otherwise report exploratory failure and defer robustness",
+      "frozen_backbone": true
+    },
+    "data_efficiency": {
+      "mode": "fusion",
+      "seed": 0,
+      "subset_episodes": 50,
+      "updates": 8000
+    },
+    "filter_ablation": {
+      "mode": "fusion",
+      "seed": 0,
+      "episodes": 20,
+      "condition": "nominal",
+      "voxel_m": 0
+    },
+    "view_dropout_ablation": {
+      "mode": "fusion",
+      "seed": 0,
+      "probability": 0.2,
+      "updates": 8000,
+      "episodes": 20,
+      "conditions": [
+        "nominal",
+        "fixed_camera_missing"
+      ]
+    },
+    "uncertainty": "paired scene bootstrap within each training seed; report per-seed rates and mean/std across 3 seeds; frames never independent observations"
+  },
+  "pre_final_validation_only": true,
+  "deviations": [
+    "Secondary ACT and VLA cells use20 scenes to preserve3-seed/100-scene main nominal/occlusion/missing-camera comparison. Depth/extrinsic cells20 per seed; label exploratory.",
+    "SmolVLA one seed500 optimizer steps with accumulation4; differences in pretraining/modalities/budget explicit.",
+    "All recipe adjustments used validation only; no test scene used before this freeze."
+  ],
+  "source_sha256": {
+    "src/geopolicy/checkpoint.py": "c73703e1a257b64947744058a1c7dac5e79f153188ecea9dbbda00a7ae681151",
+    "src/geopolicy/cli.py": "578c3d6d49ce055041b0c9bcf5d7c344c4545da1788674cedbddba6134e5713b",
+    "src/geopolicy/data.py": "d11f816dc50b4b07ff08d1b325753e926d6a13c24abd4825376a5d1dc17f6f72",
+    "src/geopolicy/environment.py": "71aede29303492949151347649eafa600cf2e8ca9079e38f4f31187a53759761",
+    "src/geopolicy/evaluation.py": "9eee3cfecd50f044de0f36e111e685bb9adf1d279f3012a7cf29da2ef75eaeeb",
+    "src/geopolicy/exporting.py": "bd843c54a28228c0500d8d1c2dd3a61169470a3faab4eabff8358ea77c4852ec",
+    "src/geopolicy/interfaces.py": "91eeb5064f5f3daee48567de3e02b283b26c9f5ca3ab117fa9b628768cfc3a06",
+    "src/geopolicy/policies.py": "4b3afae11db0d63831fd21c7edb10dda9b3c1555d19a43949428e7d9e05431d8",
+    "src/geopolicy/runtime.py": "a609bf25161a36ba38e7e1084f3abb439faf23885e4a9b528ff756c6d7925710",
+    "src/geopolicy/sensors.py": "1699fe3b57a7d62f1685b865f4f516b55b465e20978b198a1c3b0535cf540fbe",
+    "src/geopolicy/teacher.py": "b96accb9f57ef7bd4b9ad21d1fa94dccac4308fb342b5569a851a1de7a997c63",
+    "src/geopolicy/training.py": "cc9ee8edd6285ecd410666692127effe7162cc00b8a19d237cf7581ebdbe75ce",
+    "src/geopolicy/__init__.py": "a77a5ea6fb7e853daf6b5750336ebff5d59b8bd7b2ad8df28cec5d14ebe9e665"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "updates": [
+    {
+      "checkpoint": "artifacts/teacher_selected.zip",
+      "label": "selected_2048",
+      "actor_parameter_delta_l2_from_bc": 0.060520268976688385,
+      "critic_other_parameter_delta_l2_from_bc": 1.018539547920227,
+      "log_std_delta_l2": 0.005028145853430033
+    },
+    {
+      "checkpoint": "artifacts/teacher_main/latest.zip",
+      "label": "continuation_34816",
+      "actor_parameter_delta_l2_from_bc": 0.22839201986789703,
+      "critic_other_parameter_delta_l2_from_bc": 7.429745674133301,
+      "log_std_delta_l2": 0.017974913120269775
+    }
+  ],
+  "provenance": "BC actor initialization then SB3 on-policy PPO; actor/critic separated",
+  "end_to_end_task_sequencing_claimed": false
+}

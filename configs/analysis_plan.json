@@ -1,0 +1,12 @@
+{
+  "clarification_date": "2026-09-30",
+  "primary_behavior_protocol_changed": false,
+  "primary_estimate": "Mean instruction-correct success across three training seeds, plus each seed's individual rate and sample standard deviation",
+  "paired_comparison": "Fusion minus mono per matched scene and training seed",
+  "comparative_interval": "5000 paired crossed bootstrap draws: resample three training seed rows and shared scene columns with replacement; same scene draw across selected rows",
+  "reason_for_clarification": "Scene IDs are reused across all training seeds. Independently resampling scenes within each seed would discard that crossed dependence. Clarification made before any mono test results or mono/fusion comparative estimate exists, based solely on experimental design.",
+  "descriptive_only": true,
+  "limitations": "Three seeds give limited training-variability estimation. Synthetic scene family is narrow. No frame is an independent experimental unit. Secondary20-scene cells and single-seed ablations exploratory.",
+  "ood_drop": "Nominal minus OOD on the same subset of paired scenes; use only20 nominal scenes when OOD cell has20",
+  "checkpoint_selection": "Frozen offline EMA validation criterion; no changes using final test outcomes"
+}

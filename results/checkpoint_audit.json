@@ -1,0 +1,111 @@
+{
+  "main_runs": [
+    {
+      "run": "mono_s0",
+      "checkpoint": "artifacts/main_runs/mono_s0/best.pt",
+      "sha256": "46cd65b17c2db3cdc6d28292b9bdc96f040052e6660e13c2fbebba49fc5fa579",
+      "selected_update": 8000,
+      "selected_offline_loss": 0.008509903796948493,
+      "precision": [
+        "torch.float32"
+      ],
+      "full_optimizer_scheduler_rng": true
+    },
+    {
+      "run": "mono_s1",
+      "checkpoint": "artifacts/main_runs/mono_s1/best.pt",
+      "sha256": "5e37ba1e7c7fa3ea6d1627d1698bb13b9c9454dac9d22310219f6ab9ac793b71",
+      "selected_update": 7500,
+      "selected_offline_loss": 0.008687722450122237,
+      "precision": [
+        "torch.float32"
+      ],
+      "full_optimizer_scheduler_rng": true
+    },
+    {
+      "run": "mono_s2",
+      "checkpoint": "artifacts/main_runs/mono_s2/best.pt",
+      "sha256": "104e00f84f457e897bcca5e1c3f8661157c5e3a8cf09601c0e4c833dc90125f9",
+      "selected_update": 8000,
+      "selected_offline_loss": 0.009054501913487912,
+      "precision": [
+        "torch.float32"
+      ],
+      "full_optimizer_scheduler_rng": true
+    },
+    {
+      "run": "fusion_s0",
+      "checkpoint": "artifacts/main_runs/fusion_s0/best.pt",
+      "sha256": "444aa2e097000653ffff70bcc420740f13ffd7e1b26c6bd3e1e444eb4bea9263",
+      "selected_update": 8000,
+      "selected_offline_loss": 0.008919162722304464,
+      "precision": [
+        "torch.float32"
+      ],
+      "full_optimizer_scheduler_rng": true
+    },
+    {
+      "run": "fusion_s1",
+      "checkpoint": "artifacts/main_runs/fusion_s1/best.pt",
+      "sha256": "8e9d7c89fd4ea9ce7ab2eab434bb60082435a7fb9ec74389fa3c79a03f8d5447",
+      "selected_update": 7500,
+      "selected_offline_loss": 0.009052903368137777,
+      "precision": [
+        "torch.float32"
+      ],
+      "full_optimizer_scheduler_rng": true
+    },
+    {
+      "run": "fusion_s2",
+      "checkpoint": "artifacts/main_runs/fusion_s2/best.pt",
+      "sha256": "a08333b957f2fd3342a44101b9e7d50f5b5989393c57e66c05d5406ad08ae65f",
+      "selected_update": 8000,
+      "selected_offline_loss": 0.008995480905286967,
+      "precision": [
+        "torch.float32"
+      ],
+      "full_optimizer_scheduler_rng": true
+    },
+    {
+      "run": "act_s0",
+      "checkpoint": "artifacts/main_runs/act_s0/best.pt",
+      "sha256": "5a07ccd0538b34aa37880ef21ce29fd2f936a9f3144e9cad94e86072f40f34bd",
+      "selected_update": 8000,
+      "selected_offline_loss": 0.04417843334376812,
+      "precision": [
+        "torch.float32"
+      ],
+      "full_optimizer_scheduler_rng": true
+    },
+    {
+      "run": "act_s1",
+      "checkpoint": "artifacts/main_runs/act_s1/best.pt",
+      "sha256": "a11daa678f9053ca6618ce0ce14208f5ae3734043f431fd500996f992cafd078",
+      "selected_update": 8000,
+      "selected_offline_loss": 0.04225392760708928,
+      "precision": [
+        "torch.float32"
+      ],
+      "full_optimizer_scheduler_rng": true
+    },
+    {
+      "run": "act_s2",
+      "checkpoint": "artifacts/main_runs/act_s2/best.pt",
+      "sha256": "5dc90d5a1bfe35cd4bf1a3d504f259dd75c15f251fd3a5aac4a425a14fa029f3",
+      "selected_update": 8000,
+      "selected_offline_loss": 0.04313508542254567,
+      "precision": [
+        "torch.float32"
+      ],
+      "full_optimizer_scheduler_rng": true
+    }
+  ],
+  "identical_state_action_normalization": true,
+  "distinct_checkpoint_hashes": 9,
+  "smolvla_trainable_parameter_precision_counts": {
+    "torch.bfloat16": 96607440,
+    "torch.float32": 3273552
+  },
+  "smolvla_saved_update": 500,
+  "smolvla_note": "Native upstream mixed BF16/FP32 modules; no independently added autocast/scaler. Authentic backward/optimizer gate validated."
+}

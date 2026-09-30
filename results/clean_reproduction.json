@@ -1,0 +1,11 @@
+{
+  "source": "artifacts/final_recipe_validation/rollouts.json",
+  "replay": "artifacts/clean_checkpoint_replay/rollouts.json",
+  "scene_seed": 100111,
+  "success_original": true,
+  "success_clean_replay": true,
+  "steps_match": true,
+  "first_action_max_abs_error": 0.0,
+  "terminal_placement_error_abs_difference_m": 0.0,
+  "environment": "fresh .venv-repro from pinned lock"
+}

@@ -1,0 +1,20 @@
+{
+  "note": "Hashes of final execution source with universal newline normalization; Git checkout LF/CRLF does not alter these. Initial frozen protocol retains pre-format/implementation-only-change fingerprints. Primary architecture/hyperparameters unchanged.",
+  "source_sha256_normalized_newlines": {
+    "src/geopolicy/checkpoint.py": "6f94b72c172e316db43624fa7900f7c0398aed5d84bea6e01c93cf342d702d3f",
+    "src/geopolicy/cli.py": "b1b298bb32b1678dfc96a5459ab035ef99733990d6603bec43c6aaf21f2e6139",
+    "src/geopolicy/data.py": "be29aa0c1d97bc716e131d113c6f0b8a4c61125c62b0be5ae549159d5815c80d",
+    "src/geopolicy/environment.py": "d008f6ed4311a0c0539fed918cd12508bca113cc047e3a0e8b33ec8f052215d8",
+    "src/geopolicy/evaluation.py": "57f0fec4fce907a225f9f93da2fbba1cc121a116aa391460b5732f76463fb0b7",
+    "src/geopolicy/exporting.py": "187c05653311fe32704ba3df6bd9c264e27b0085961106826e7946b7ce89ab65",
+    "src/geopolicy/interfaces.py": "a552416da59c08ed0e55575e264f353adf44fa0eec7f2248b0fe4dcff53b58f9",
+    "src/geopolicy/policies.py": "eeef3493c6feb9b13cf667680d9c49a432c377a88ffefb8161ae5eb6beb4d666",
+    "src/geopolicy/runtime.py": "32eb02f4a782a1a74d63951fedd28940d41e8a14bcd3c884c5821991d5cf2973",
+    "src/geopolicy/sensors.py": "b347b2cf26169a5baaf833d3397660a016a8c8085a6d527869caf078c484922d",
+    "src/geopolicy/teacher.py": "1e024d557486507d003aec118fbcb368bb1ef319ae3fa73f83aab386c1cec792",
+    "src/geopolicy/training.py": "f580639ddd7a3d8b852dd11bb5f660e3e060654f3f397e8619d2049677d0bd03",
+    "src/geopolicy/__init__.py": "fd7c85e41756763ba5d26b588e2dd91bbde82a5a6c6b5c555be00587b2e71689"
+  },
+  "dataset_manifest_sha256_canonical_json": "c776996097089d08a233e50c4e0edfa8a85d6e431e00058f543ee62496d43410",
+  "analysis_plan": "configs/analysis_plan.json"
+}

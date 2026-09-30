@@ -1,0 +1,10 @@
+{
+  "episodes_per_control": 40,
+  "scenes": 10,
+  "instructions_per_scene": 4,
+  "identical_initial_geometry_asserted": true,
+  "success_counts": {
+    "scripted_reference": 40,
+    "ppo_selected": 34
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "mujoco": {
+    "latest": "3.14.0",
+    "python": ">=3.10",
+    "license": "Apache-2.0"
+  },
+  "robosuite": {
+    "latest": "1.5.2",
+    "python": ">=3",
+    "license": null
+  },
+  "torch": {
+    "latest": "2.14.0",
+    "python": ">=3.10",
+    "license": "Apache-2.0 AND Apache-2.0 WITH LLVM-exception AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND MIT"
+  },
+  "lerobot": {
+    "latest": "0.6.1",
+    "python": ">=3.12",
+    "license": "Apache-2.0"
+  },
+  "stable-baselines3": {
+    "latest": "2.9.0",
+    "python": ">=3.10",
+    "license": "MIT"
+  },
+  "diffusers": {
+    "latest": "0.40.0",
+    "python": ">=3.10.0",
+    "license": "Apache 2.0 License"
+  },
+  "google-deepmind/mujoco": {
+    "license": {
+      "key": "apache-2.0",
+      "name": "Apache License 2.0",
+      "spdx_id": "Apache-2.0",
+      "url": "https://api.github.com/licenses/apache-2.0",
+      "node_id": "MDc6TGljZW5zZTI="
+    },
+    "url": "https://github.com/google-deepmind/mujoco",
+    "head": "b3dd9e6172a4d5c2bebe523efb43921939e29eb0"
+  },
+  "ARISE-Initiative/robosuite": {
+    "license": {
+      "key": "other",
+      "name": "Other",
+      "spdx_id": "NOASSERTION",
+      "url": null,
+      "node_id": "MDc6TGljZW5zZTA="
+    },
+    "url": "https://github.com/ARISE-Initiative/robosuite",
+    "head": "5ce6643f3092639d08f7b0f90ed1c6a84f50552c"
+  },
+  "huggingface/lerobot": {
+    "license": {
+      "key": "apache-2.0",
+      "name": "Apache License 2.0",
+      "spdx_id": "Apache-2.0",
+      "url": "https://api.github.com/licenses/apache-2.0",
+      "node_id": "MDc6TGljZW5zZTI="
+    },
+    "url": "https://github.com/huggingface/lerobot",
+    "head": "e0d50211ef236143ae867228662b7dfaba554f02"
+  },
+  "real-stanford/diffusion_policy": {
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit",
+      "node_id": "MDc6TGljZW5zZTEz"
+    },
+    "url": "https://github.com/real-stanford/diffusion_policy",
+    "head": "5ba07ac6661db573af695b419a7947ecb704690f"
+  },
+  "YanjieZe/3D-Diffusion-Policy": {
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit",
+      "node_id": "MDc6TGljZW5zZTEz"
+    },
+    "url": "https://github.com/YanjieZe/3D-Diffusion-Policy",
+    "head": "47385d9d6f5bde3f2ebdf2400ecb8261cc9e6b97"
+  }
+}

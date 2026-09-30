@@ -1,0 +1,18 @@
+{
+  "training_episodes": 200,
+  "robot_near_static_action_jump_candidates": 0,
+  "sensor_near_static_action_jumps": 0,
+  "examples": [],
+  "criteria": {
+    "joint_delta_rad": 0.0005,
+    "joint_velocity_delta_rad_s": 0.001,
+    "eef_delta_m": 0.0005,
+    "quaternion_delta": 0.001,
+    "gripper_delta_m": 0.0001,
+    "rgb_mean_abs_delta_uint8": 0.15,
+    "depth_mean_abs_delta_m": 0.0001,
+    "action_xyz_l2_jump": 0.3
+  },
+  "interpretation": "Heuristic evidence of action-label ambiguity near timed teacher phase boundaries. Current-frame observations have no history/timer. Does not prove unlearnability or establish the cause of final policy failures.",
+  "test_data_used": false
+}

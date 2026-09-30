@@ -1,0 +1,5 @@
+# Matplotlib SVG path data intentionally includes trailing coordinate whitespace.
+*.svg -whitespace
+*.png binary
+*.gif binary
+*.mp4 binary

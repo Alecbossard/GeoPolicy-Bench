@@ -1,0 +1,31 @@
+{
+  "checkpoint": "artifacts\\main_runs\\mono_s0\\best.pt",
+  "batch_size": 1,
+  "horizon": 8,
+  "denoise_steps": 10,
+  "measurements": [
+    {
+      "device": "cpu",
+      "threads": 1,
+      "samples": 50,
+      "p50_ms": 13.517600018531084,
+      "p95_ms": 14.061630037031136
+    },
+    {
+      "device": "cpu",
+      "threads": 2,
+      "samples": 50,
+      "p50_ms": 11.763249960495159,
+      "p95_ms": 12.095589973614551
+    },
+    {
+      "device": "cuda",
+      "threads": 1,
+      "samples": 50,
+      "p50_ms": 29.67029996216297,
+      "p95_ms": 30.275475018424913
+    }
+  ],
+  "cpu_cuda_max_abs_error_same_noise": 0.0002868175506591797,
+  "scope": "policy only; preprocessing/rendering excluded; warmup10; fixed noise for numerical comparison"
+}

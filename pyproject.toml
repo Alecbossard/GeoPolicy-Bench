@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "geopolicy-bench"
+version = "0.1.0"
+description = "Instruction-conditioned Panda policies and RGB-D fusion robustness benchmark"
+requires-python = ">=3.11,<3.12"
+dependencies = ["numpy==1.26.4", "mujoco==3.3.7", "robosuite==1.5.2", "torch==2.7.1", "torchvision==0.22.1", "stable-baselines3==2.7.0", "h5py==3.14.0", "scipy==1.15.3", "matplotlib==3.10.5", "imageio==2.37.0", "imageio-ffmpeg==0.6.0", "pyyaml==6.0.2", "psutil==7.0.0"]
+
+[project.optional-dependencies]
+test = ["pytest==8.4.1"]
+export = ["onnx==1.18.0", "onnxruntime-gpu==1.22.0"]
+
+[project.scripts]
+geopolicy = "geopolicy.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["gpu: needs CUDA", "simulation: needs MuJoCo rendering"]
