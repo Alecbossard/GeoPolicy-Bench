@@ -1,0 +1,25 @@
+{
+  "source_checkpoint": "artifacts\\main_runs\\mono_s1\\best.pt",
+  "reference_final": "artifacts\\main_runs\\mono_s1\\latest.pt",
+  "disposable_replay": "artifacts\\full_training_resume\\latest.pt",
+  "from_update": 7500,
+  "to_update": 8000,
+  "actual_replayed_optimizer_updates": 500,
+  "device": "cuda",
+  "seed": 1,
+  "mode": "mono",
+  "same200_training_demonstrations": true,
+  "exact_checks": {
+    "model": true,
+    "optimizer": true,
+    "scheduler": true,
+    "normalization": true,
+    "config": true,
+    "progress": true,
+    "random": true,
+    "extra": true
+  },
+  "maximum_raw_model_weight_difference": 0.0,
+  "all_exact": true,
+  "selected_benchmark_checkpoints_modified": false
+}

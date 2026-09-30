@@ -1,0 +1,47 @@
+[
+  {
+    "mode": "act",
+    "batch_size": 32,
+    "horizon": 8,
+    "loss": 0.08787462115287781,
+    "probe_delta_l2": 0.0008597824489697814,
+    "peak_torch_allocated_bytes": 129034752,
+    "peak_torch_reserved_bytes": 155189248,
+    "gpu_used_free_mib_temperature_c": "1721, 6236, 49",
+    "process_rss_bytes": 1912541184,
+    "process_private_bytes": 5081100288,
+    "optimizer_states_loaded_and_live": true,
+    "dual_rgbd_renderer_live": true,
+    "selected_benchmark_checkpoint_modified": false
+  },
+  {
+    "mode": "mono",
+    "batch_size": 32,
+    "horizon": 8,
+    "loss": 0.004389818292111158,
+    "probe_delta_l2": 6.294598279055208e-05,
+    "peak_torch_allocated_bytes": 143898624,
+    "peak_torch_reserved_bytes": 176160768,
+    "gpu_used_free_mib_temperature_c": "1761, 6196, 49",
+    "process_rss_bytes": 2161344512,
+    "process_private_bytes": 5433147392,
+    "optimizer_states_loaded_and_live": true,
+    "dual_rgbd_renderer_live": true,
+    "selected_benchmark_checkpoint_modified": false
+  },
+  {
+    "mode": "fusion",
+    "batch_size": 32,
+    "horizon": 8,
+    "loss": 0.0050743697211146355,
+    "probe_delta_l2": 6.63318278384395e-05,
+    "peak_torch_allocated_bytes": 143898624,
+    "peak_torch_reserved_bytes": 176160768,
+    "gpu_used_free_mib_temperature_c": "1761, 6196, 49",
+    "process_rss_bytes": 2162593792,
+    "process_private_bytes": 5454909440,
+    "optimizer_states_loaded_and_live": true,
+    "dual_rgbd_renderer_live": true,
+    "selected_benchmark_checkpoint_modified": false
+  }
+]

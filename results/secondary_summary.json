@@ -1,0 +1,169 @@
+{
+  "counterfactuals": [
+    {
+      "mode": "mono",
+      "training_seed": 0,
+      "scenes": 10,
+      "rollouts": 40,
+      "success_count": 13,
+      "scenes_all_four_success": 0,
+      "initial_observations_identical_across_instructions": true,
+      "mean_first_action_l2_change_object_instruction": 0.06281203191228349,
+      "mean_first_action_l2_change_goal_instruction": 0.0444500120622046,
+      "note": "First-action differences demonstrate conditioning, not correct completion; all-four success is the stricter behavioral measure."
+    },
+    {
+      "mode": "mono",
+      "training_seed": 1,
+      "scenes": 10,
+      "rollouts": 40,
+      "success_count": 15,
+      "scenes_all_four_success": 0,
+      "initial_observations_identical_across_instructions": true,
+      "mean_first_action_l2_change_object_instruction": 0.1503588242565574,
+      "mean_first_action_l2_change_goal_instruction": 0.2037224031737967,
+      "note": "First-action differences demonstrate conditioning, not correct completion; all-four success is the stricter behavioral measure."
+    },
+    {
+      "mode": "mono",
+      "training_seed": 2,
+      "scenes": 10,
+      "rollouts": 40,
+      "success_count": 15,
+      "scenes_all_four_success": 0,
+      "initial_observations_identical_across_instructions": true,
+      "mean_first_action_l2_change_object_instruction": 0.11736168849575102,
+      "mean_first_action_l2_change_goal_instruction": 0.30523272867997875,
+      "note": "First-action differences demonstrate conditioning, not correct completion; all-four success is the stricter behavioral measure."
+    },
+    {
+      "mode": "fusion",
+      "training_seed": 0,
+      "scenes": 10,
+      "rollouts": 40,
+      "success_count": 14,
+      "scenes_all_four_success": 0,
+      "initial_observations_identical_across_instructions": true,
+      "mean_first_action_l2_change_object_instruction": 0.11458365558098771,
+      "mean_first_action_l2_change_goal_instruction": 0.10499452387284829,
+      "note": "First-action differences demonstrate conditioning, not correct completion; all-four success is the stricter behavioral measure."
+    },
+    {
+      "mode": "fusion",
+      "training_seed": 1,
+      "scenes": 10,
+      "rollouts": 40,
+      "success_count": 17,
+      "scenes_all_four_success": 0,
+      "initial_observations_identical_across_instructions": true,
+      "mean_first_action_l2_change_object_instruction": 0.11162168007196079,
+      "mean_first_action_l2_change_goal_instruction": 0.09833060592162288,
+      "note": "First-action differences demonstrate conditioning, not correct completion; all-four success is the stricter behavioral measure."
+    },
+    {
+      "mode": "fusion",
+      "training_seed": 2,
+      "scenes": 10,
+      "rollouts": 40,
+      "success_count": 13,
+      "scenes_all_four_success": 0,
+      "initial_observations_identical_across_instructions": true,
+      "mean_first_action_l2_change_object_instruction": 0.1282664838953627,
+      "mean_first_action_l2_change_goal_instruction": 0.2937247782469422,
+      "note": "First-action differences demonstrate conditioning, not correct completion; all-four success is the stricter behavioral measure."
+    }
+  ],
+  "counterfactual_initial_observation_audit": {
+    "records": 240,
+    "distinct_scenes": 10,
+    "identical_across_all_four_instructions_both_modes_and_three_training_seeds": true
+  },
+  "single_seed_ablations": [
+    {
+      "variant": "data50",
+      "condition": "nominal",
+      "training_seed": 0,
+      "episodes": 20,
+      "success_count": 5,
+      "baseline200_success_count": 5,
+      "paired_success_difference_pp": 0.0,
+      "success_labels_matching_baseline": 18,
+      "collision_labels_matching_baseline": 16,
+      "max_placement_error_difference_m": 0.3563692840933691
+    },
+    {
+      "variant": "view_dropout",
+      "condition": "fixed_camera_missing",
+      "training_seed": 0,
+      "episodes": 20,
+      "success_count": 4,
+      "baseline200_success_count": 3,
+      "paired_success_difference_pp": 5.0,
+      "success_labels_matching_baseline": 19,
+      "collision_labels_matching_baseline": 17,
+      "max_placement_error_difference_m": 0.4016172756533813
+    },
+    {
+      "variant": "view_dropout",
+      "condition": "nominal",
+      "training_seed": 0,
+      "episodes": 20,
+      "success_count": 5,
+      "baseline200_success_count": 5,
+      "paired_success_difference_pp": 0.0,
+      "success_labels_matching_baseline": 20,
+      "collision_labels_matching_baseline": 15,
+      "max_placement_error_difference_m": 0.15485059248563882
+    },
+    {
+      "variant": "no_voxel",
+      "condition": "nominal",
+      "training_seed": 0,
+      "episodes": 20,
+      "success_count": 4,
+      "baseline200_success_count": 5,
+      "paired_success_difference_pp": -5.0,
+      "success_labels_matching_baseline": 19,
+      "collision_labels_matching_baseline": 18,
+      "max_placement_error_difference_m": 0.45598730364441314
+    },
+    {
+      "variant": "onnx",
+      "condition": "nominal",
+      "training_seed": 0,
+      "episodes": 20,
+      "success_count": 5,
+      "baseline200_success_count": 5,
+      "paired_success_difference_pp": 0.0,
+      "success_labels_matching_baseline": 20,
+      "collision_labels_matching_baseline": 17,
+      "max_placement_error_difference_m": 0.05192418611010827
+    }
+  ],
+  "ablation_scope": {
+    "data50": "First50 successful subset vs200, identical8000-update budget; one seed, not a data-efficiency curve.",
+    "view_dropout": "20% probability of one randomly selected retained view; separate checkpointed dropout RNG preserves sampled frame sequence.",
+    "no_voxel": "Inference-only voxel removal, unchanged crop/512point budget/model; not a retrained filtering study.",
+    "onnx": "Only denoiser exported; same checkpoint/point encoder/DDIM. Physics need not be bit-exact."
+  },
+  "smolvla": {
+    "training_seed": 0,
+    "nominal_episodes": 20,
+    "success_count": 0,
+    "wrong_target_count": 0,
+    "wrong_destination_count": 0,
+    "drop_count": 0,
+    "collision_count": 5,
+    "mean_terminal_xy_error_m": 0.211628561193654,
+    "mean_wall_seconds": 73.10135157499,
+    "mean_simulation_seconds": 11.0,
+    "mean_episode_preprocess_p50_ms": 1.4713299938762248,
+    "mean_episode_preprocess_p95_ms": 1.7678950010201788,
+    "mean_episode_policy_p50_ms": 612.5326874940811,
+    "mean_episode_policy_p95_ms": 744.5662342568642,
+    "mean_episode_total_p50_ms": 614.0578074999212,
+    "mean_episode_total_p95_ms": 746.209599502846,
+    "not_budget_matched": "500 optimizer steps/accum4/batch1, pretrained450M vs compact8000/batch32/no pretraining. Exploratory one seed.",
+    "ood_deferred_if_zero_nominal": true
+  }
+}

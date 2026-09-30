@@ -1,10 +1,28 @@
 # GeoPolicy Bench
 
-**Work in progress — incomplete benchmark.** Local Panda selection/placement benchmark for instruction-conditioned RGB-D policies. The main question is whether calibrated fixed+wrist RGB-D fusion improves robustness over one fixed camera at equal demonstrations, architecture and optimization budget. A negative result is publishable; no performance gain is presumed.
+**Completed local benchmark.** Panda selection/placement with instruction-conditioned RGB-D policies. The experiment tests whether calibrated fixed+wrist fusion improves robustness over one fixed camera at equal demonstrations, architecture and optimization budget. The experimental core, closed-loop evaluations, resource gates and reproduction checks are complete; all artifacts remain local.
 
 This repository contains a MuJoCo/robosuite task, a BC-initialized PPO teacher, lossless trajectory storage, compact ACT and DP3-inspired diffusion adaptations, and closed-loop evaluation. Nine principal models completed 8,000 updates each on three training seeds. Authentic SmolVLA passed an optimizer memory pilot and completed 500 fine-tuning updates; its exploratory behavior is reported separately. These are independent adaptations, with no exact paper reproduction, official LIBERO score or physical robot transfer claimed. Current execution status: [PROGRESS.md](PROGRESS.md).
 
 The dataset contains 274 raw episodes, including failures. Every student uses the same 200 successful train episodes and 21 validation episodes. The teacher has genuine PPO updates after scripted BC initialization; task sequencing remains a privileged scripted curriculum. Final teacher controls give BC 82/100 and PPO 82/100: PPO learning is verified, with no demonstrated success gain.
+
+## Measured results
+
+| Condition | Mono success | Fusion success | Paired fusion minus mono, descriptive 95% interval |
+| --- | --- | --- | --- |
+| Nominal | 30.3% | 30.7% | +0.3 pp [−5.0, +5.0] |
+| Fixed-view occlusion | 23.7% | 29.3% | +5.7 pp [−2.0, +13.3] |
+| Fixed view missing | 1.0% | 17.0% | +16.0 pp [+9.0, +23.0] |
+
+Rates are means over three training seeds, with 100 shared test scenes per seed and condition. Intervals resample both training seeds and paired scene columns. These runs support a camera-loss benefit within this scene family; nominal performance does not establish a fusion advantage. Absolute success remains low. Depth/extrinsic checks use 20 scenes per seed and are exploratory.
+
+Compact ACT scores 0/20 nominal successes for each of three seeds. Fine-tuned SmolVLA scores 0/20; its conditional OOD budget is deferred under the frozen protocol. No learned mono/fusion model completes all four instruction changes on any counterfactual scene. These negative outcomes constrain the conclusions.
+
+See the [measured final report](docs/final_report.md), [model cards](docs/model_cards.md), [principal raw CSV](results/raw/student_rollouts.csv) and [secondary summary](results/secondary_summary.json). The report includes seed-level metrics, uncertainty, failures, latency, resources, learning curves and provenance. [Success video](results/demos/success.mp4) and [failure video](results/demos/failure.mp4) replay actual test episodes with verified actions and terminal states.
+
+![Paired fusion comparison](results/figures/paired_fusion_difference.png)
+
+Clean pinned-environment verification passed 13 CPU tests; the separate opt-in CUDA test passed. Replaying the last 500 updates of a trained diffusion model reproduced weights, EMA, optimizer, scheduler and RNG states exactly. The trained ONNX denoiser export preserves the surrounding PyTorch policy and passed numerical and paired closed-loop checks.
 
 ## Local installation
 
@@ -31,7 +49,7 @@ These commands document the executed recipe. Restoring the original local artifa
 # Actual BC-initialized on-policy PPO pilot and continuation
 .venv\Scripts\python -m geopolicy.cli teacher-train --out artifacts/teacher_pilot --steps 2048
 .venv\Scripts\python -m geopolicy.cli teacher-train --out artifacts/teacher_main --steps 32768 --resume artifacts/teacher_pilot/latest.zip
-# Actual selected teacher was the2048-step pilot, chosen on validation
+# Actual selected teacher was the 2048-step pilot, chosen on validation
 Copy-Item artifacts/teacher_pilot/latest.zip artifacts/teacher_selected.zip
 # Lossless collection with explicit checkpoint hash/provenance
 .venv\Scripts\python -m geopolicy.cli collect --out artifacts/dataset --episodes 250 --first-seed 1000 --teacher artifacts/teacher_selected.zip
@@ -49,6 +67,10 @@ Copy-Item artifacts/teacher_pilot/latest.zip artifacts/teacher_selected.zip
 # Predefined secondary training and deployment export
 .venv\Scripts\python scripts/run_secondary_training.py
 .venv\Scripts\python scripts/export_and_check.py
+# Resume the remaining predefined experiments after an interruption
+.venv\Scripts\python scripts/run_remaining.py
+# Run in a separate process; waits for the above pipeline before final GPU gates
+.venv\Scripts\python scripts/finish_after_pipeline.py
 ```
 
 Run one GPU training/inference job at a time and prefer serial rendering/model loading on this 16 GB RAM PC. Windows GPU contexts consume committed host memory as well as VRAM. Store data/checkpoints under ignored `artifacts/`; do not commit secrets or model/data blobs. No external publication is performed by these commands.

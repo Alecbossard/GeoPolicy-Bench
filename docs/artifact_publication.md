@@ -7,12 +7,12 @@ The repository is local. No GitHub repository, Hub dataset or model has been pub
 | Local path | Contents | Role |
 | --- | --- | --- |
 | `artifacts/dataset/` | 274 lossless HDF5 episodes, including failures | Main source collection; `configs/dataset_manifest.json` records hashes and selected episode IDs |
-| `artifacts/teacher_selected.zip` | Selected BC-initialized PPO checkpoint | Actual demonstration actor; selected at2,048 PPO transitions |
+| `artifacts/teacher_selected.zip` | Selected BC-initialized PPO checkpoint | Actual demonstration actor; selected at 2,048 PPO transitions |
 | `artifacts/teacher_pilot/` | Initial/BC/PPO controls, optimizer and RNG artifacts | Provenance and teacher learning |
-| `artifacts/teacher_main/` | Negative continuation to34,816 total transitions | Diagnostic; never selected for data |
+| `artifacts/teacher_main/` | Negative continuation to 34,816 total transitions | Diagnostic; never selected for data |
 | `artifacts/main_runs/{mono,fusion,act}_s{0,1,2}/` | Best/latest checkpoints, manifests, learning curves and resources | Nine principal models; best selected only by offline validation |
 | `artifacts/secondary_runs/` | 50-demo and view-dropout models | Predeclared single-seed ablations |
-| `artifacts/smolvla_s0/` | Trainable adapter, AdamW/scheduler/RNG/statistics, curves and manifest | Actual500-update fine-tuning; requires pinned base |
+| `artifacts/smolvla_s0/` | Trainable adapter, AdamW/scheduler/RNG/statistics, curves and manifest | Actual 500-update fine-tuning; requires pinned base |
 | `artifacts/lerobot_dataset/` | Reloaded native LeRobot RGB/state/action/text export and source sidecar index | Compatible data distribution; depth remains lossless HDF5 |
 | `artifacts/final_evaluations/` | Per-cell raw rollouts, evaluation identity, execution logs and sample videos | Primary closed-loop evidence |
 | `artifacts/counterfactual_evaluations/` | Four instructions per identical scene | Instruction-dependent behavior and initial sensor hashes |

@@ -1,0 +1,53 @@
+{
+  "verified_at": "2026-09-30T20:56:40+02:00",
+  "core_complete": true,
+  "raw_csv_counts": {
+    "student_rollouts": 2340,
+    "counterfactual_rollouts": 240,
+    "secondary_rollouts": 100,
+    "smolvla_nominal": 20
+  },
+  "experimental_stages_complete": true,
+  "finalization_stages_complete": [
+    "combined_compact",
+    "combined_vla",
+    "gpu_resume",
+    "full_training_resume",
+    "clean_tests",
+    "secondary_summary",
+    "final_report"
+  ],
+  "smolvla_ood_deferred": {
+    "deferred": true,
+    "reason": "0/20 nominal success; conditional secondary robustness budget deferred per frozen protocol"
+  },
+  "local_markdown_links_verified": 36,
+  "selected_nine_compact_checkpoint_hashes_unchanged": true,
+  "selected_teacher_checkpoint_hash_unchanged": true,
+  "selected_vla_checkpoint_hash_unchanged": true,
+  "smolvla_checkpoint_sha256": "11bc3761e811dec8e6d6c7ac6b29ded10ea83491af0072ab7c81a7be5e526713",
+  "source_fingerprints_verified": 57,
+  "clean_cpu_tests_passed": 13,
+  "default_gpu_test_skipped": 1,
+  "separate_cuda_test_passed": 1,
+  "full500_update_resume_bit_exact": true,
+  "dependency_checks": {
+    ".venv": 62,
+    ".venv-repro": 62,
+    ".venv-vla": 110
+  },
+  "visual_review": [
+    "teacher_final_controls",
+    "secondary_ablations",
+    "success_rates",
+    "paired_fusion_difference",
+    "student_learning_curves",
+    "success_final",
+    "failure_final"
+  ],
+  "no_external_publication": true,
+  "cv_profile_modified": false,
+  "system_settings_modified": false,
+  "heavy_project_processes_remaining": false,
+  "limitations": "Narrow simulation scene family; instantaneous center-proximity success; low student success; no consistent nominal fusion gain; no PPO success gain over BC; no all-four counterfactual completion; SmolVLA nominal0/20; no physical robot/Isaac/Jetson."
+}

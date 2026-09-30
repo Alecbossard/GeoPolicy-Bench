@@ -1,6 +1,6 @@
 # GeoPolicy Bench — progress
 
-Status: PAUSED at the explicit user request on 2026-09-30; benchmark INCOMPLETE. One principal agent; local execution only.
+Status: COMPLETE — experimental core and final verification finished locally on 2026-09-30. One principal agent; local execution only.
 
 ## Objective and authoritative context
 Compare compact instruction-conditioned 3D diffusion, single fixed RGB-D versus fixed+wrist fusion, at equal demonstrations and optimization budget. Panda selection/placement in MuJoCo/robosuite; ACT baseline; real PPO expert. SmolVLA conditional on measured optimization pilot. No GitHub/Hub publication authorized.
@@ -10,37 +10,35 @@ Read the complete implementation prompt and the three referenced context files. 
 Windows: Ryzen 7 7435HS, 8 cores/16 threads; 16 GB physical RAM, ~6.3 GB initially free. C: ~65.7 GiB free. RTX 4060 Laptop 8188 MiB, ~7422 MiB initially free, 42 C, 75 W cap. Driver 591.66 exposes CUDA 13.1 compatibility (not toolkit installation). Python 3.11, 3.12, 3.13 installed. uv 0.9.29, Git available. Existing Ubuntu WSL: Python 3.12.3, ~7.6 GiB RAM limit, GPU visible. Its virtual disk reported capacity is not physical free space. No system settings altered.
 
 ## Completed
-- Context read; project directory created (previously absent).
-- Initial hardware audit and official-source research.
+- Main Panda task, dual RGB-D geometry/action contracts, Lift smoke, lossless episode storage/reload and student information boundaries validated.
+- Real BC-initialized PPO optimization verified; selected actor collected 274 traceable episodes. Failed continuation retained. Final BC and PPO controls both 82/100, with no PPO success gain demonstrated.
+- The same 200 successful training and 21 validation demonstrations used for nine ACT/mono/fusion models; three seeds each, 8,000 real optimization updates each.
+- Frozen primary test complete: 2,340 rollouts across five conditions, per-seed CSV/JSON and paired crossed-bootstrap intervals. Counterfactuals: 240 rollouts; secondary ablations/export: 100 rollouts.
+- Authentic SmolVLA fine-tuning completed 500 optimizer updates and its final nominal test completed 20 rollouts (0/20 success). Conditional OOD deferred under the frozen zero-success gate, with measured evidence.
+- Native LeRobot export reloaded exactly: 221 episodes / 21,687 frames. Trained denoiser ONNX export checked numerically and in paired closed-loop evaluation.
+- Actual trained-model optimizer steps with loaded AdamW states and both RGB-D renderers alive passed for ACT, mono, fusion and SmolVLA, preserving more than 1 GiB whole-device VRAM headroom.
+- Fresh pinned environment: 13 tests passed, one optional GPU test skipped by default; separate CUDA test passed. Selected validation rollout reproduced exactly. Actual last 500 CUDA training updates reproduced raw weights, EMA, optimizer, scheduler, normalization, config, progress and all RNG states bit-exactly.
+- Final report, English README, dataset/model cards, contracts, licenses, manifests, figures and success/failure videos complete. Primary/new figures and both demo endpoint images visually reviewed. All 36 local documentation links resolve.
+- All three environments pass dependency consistency checks. All nine selected compact checkpoint hashes, selected teacher hash and VLA adapter hash unchanged after final gates. Final 57 source fingerprints and canonical dataset manifest verified.
 
-## Current snapshot — PAUSED, 2026-09-30T19:26:18+02:00
-The user requested pause. All project evaluation/orchestration processes have been stopped; no automatic resumption is scheduled. Completed checkpoints and atomic rollout files are preserved. No serious PC issue caused this pause.
+## Current snapshot — COMPLETE, 2026-09-30T20:58:40+02:00
+No project training/evaluation/orchestration process remains active. GPU returned to approximately 7,266 MiB free at 44 C after jobs exited. No system, driver, pagefile or BIOS settings changed. No external publication or CV/profile modification occurred.
 
-All nine primary students finished training. The 2,340 primary rollouts, 240 counterfactual rollouts and 100 secondary ablation/export rollouts are complete. SmolVLA fine-tuning is complete; its nominal test is partial: 10/20 completed scenes, 0 successes so far. These partial results are not a final test conclusion. The interrupted episode will restart; completed scenes are skipped.
+Final evidence: `docs/final_report.md`, `results/final_verification.json`, `results/benchmark_summary.json`, `results/secondary_summary.json`, `results/full_training_resume.json`, `results/combined_*_resources.json` and raw CSV/JSON under `results/raw/`. Full trajectories/checkpoints/cache remain local under ignored `artifacts/`. Publication/restoration paths are in `docs/artifact_publication.md`.
 
-Primary result tables and plots exist. Final combined memory gates, exact full-training resume verification, final clean test suite, secondary summary, final report and final artifact review remain pending. The project has not reached its completion criteria. CV/profile and external publication remain unchanged.
+## Scientific outcome and limits
+Nominal fusion 30.7% versus mono 30.3%; paired +0.3 percentage points, descriptive 95% interval [-5, +5], so no consistent nominal gain is established. Fixed-camera-loss fusion 17% versus mono 1%; +16 points [9, 23] supports a limited benefit within this scene family. Occlusion remains uncertain; depth/extrinsic cells are exploratory. ACT nominal is 0/20 for all three seeds; SmolVLA is 0/20. None of the six mono/fusion model runs completes all four instructions on any of ten counterfactual scenes. Low success, wrong-target behavior, engineered color prior and instantaneous center-proximity success constrain claims.
 
-Pause inventory: `artifacts/pause_state.json`. Completed stage flags: `artifacts/remaining_stages.json`. On explicit user resumption, run the following from the project directory in separate processes; the finalizer waits for the remaining pipeline:
+## Deferred scope
+No required core gate remains. SmolVLA OOD is deferred by the predeclared 0/20 gate, rather than OOM. Stacking, additional tasks/seeds/language, TensorRT, physical robot transfer, Isaac and Jetson are unexecuted extensions. The executed export is an ONNX denoiser subgraph, with surrounding PyTorch preprocessing/point encoding/DDIM. Future transfer interfaces/calibration are documented without claiming hardware execution.
 
-```powershell
-.venv\Scripts\python.exe scripts/run_remaining.py
-.venv\Scripts\python.exe scripts/finish_after_pipeline.py
-```
+## Processes/checkpoints and reproducibility
+Resumed pipeline session 30720 and finalizer session 86124 both exited successfully. Logs: `artifacts/remaining_pipeline_resume.log`, `artifacts/finalization_pipeline_resume.log`; complete stage flags: `artifacts/remaining_stages.json`, `artifacts/finalization_stages.json`. Historical pause inventory is preserved in `artifacts/pause_state.json`; the user's later resumption superseded it.
 
-The pipeline skips completed stages and SmolVLA skips saved scenes. Keep the same checkpoints, pinned base revisions, evaluation identity and frozen protocol. No training or evaluation is running while paused.
-
-## Remaining gates
-1. Finish frozen main student closed-loop test (mono/fusion3seeds,100 principal cells/20 exploratory),ACT20cells,counterfactuals,SmolVLA20nominal,secondary ablations and ONNXpairedclosed-loop.
-2. Combined optimizer+dual-renderer resource gates,actual CUDA exact-next-update resume,final clean tests and aggregate figures/report.
-3. Final visual QA,model cards/README/source hashes/local Git audit;no external publication.
-
-## Active processes/checkpoints/results
-Remaining pipeline exec session34403,artifacts/remaining_pipeline.log and remaining_stages.json. Active stage main_evaluation,artifacts/remaining_main_evaluation.log;per-cell artifacts/final_evaluations/{mode}_s{seed}/{condition}/rollouts.json+CSV+identity+execution.log;checkpoint hashes match. Finalization exec session2641 waits for all experimental stages in artifacts/finalization_pipeline.log;resumable final gates use artifacts/finalization_stages.json. Old waiting session81756 was stopped cleanly before any child started and replaced to include actual500-update full-training replay. Principal training session11067 finished;all checkpoints artifacts/main_runs/{mode}_s{seed}/{best,latest}.pt. All secondary checkpoints artifacts/secondary_runs/. Data/weights remain ignored. Resource guards monitor temperature/disk and training/VLA commit;normal observed temperatures~43–53C. Pipeline serially performs remaining main/counterfactual/ablation/VLA experiments. Do not launch a second heavy GPU job.
+Principal checkpoints: `artifacts/main_runs/{mode}_s{seed}/{best,latest}.pt`; secondary checkpoints: `artifacts/secondary_runs/`; VLA adapter/base revision sidecar: `artifacts/smolvla_s0/`; selected teacher: `artifacts/teacher_selected.zip`; raw dataset: `artifacts/dataset/`. Best compact checkpoints store live training weights plus selected EMA in `extra.ema`; evaluation loads EMA and continuation restores the matching optimizer/live state. Do not alter the frozen protocol or dataset manifest to rerun a new collection; use a separate experiment checkout.
 
 ## Next action
-Monitor serial remaining pipeline and finalization. Report generator scripts/write_final_report.py consumes completed primary/secondary/resource artifacts and refuses incomplete gates. Publication/replay instructions are in docs/artifact_publication.md. Every completed test episode is persisted and resume identity verified. Never adjust the frozen primary recipe using final test outcomes. Final opt-in CUDA exact-next-update test runs AFTER heavy pipeline jobs complete. Finish visual QA/documentation/source fingerprints/Git only after actual results exist.
-
-Additional final gate: scripts/verify_full_training_resume.py replays mono seed1 from selected update7,500 to8,000 in a disposable copy and compares raw weights/EMA/optimizer/scheduler/normalization/config/progress/all RNGs with the original latest checkpoint. It is queued after VLA/GPU gates. Teacher reward/phases and a clearly untested reward-design hypothesis are documented in docs/teacher_recipe.md. VLA inference discards unused AdamW CPU storage while loading the authentic base; selected checkpoint files are unchanged.
+The local repository is ready for review and optional publication when explicitly requested. The final report proposes a factual CV bullet; it was not applied. No automatic restart or further experiment is pending.
 
 ## Historical milestones (superseded process/status notes below)
 
@@ -96,3 +94,21 @@ Remaining-stage evaluate_view_dropout: complete, wall318.7s, logartifacts\remain
 Remaining-stage evaluate_no_voxel: complete, wall159.7s, logartifacts\remaining_evaluate_no_voxel.log.
 
 Remaining-stage evaluate_onnx: complete, wall97.0s, logartifacts\remaining_evaluate_onnx.log.
+
+Remaining-stage smolvla_nominal: complete, wall992.7s, logartifacts\remaining_smolvla_nominal.log.
+
+Remaining-stage summarize_primary: complete, wall5.2s, logartifacts\remaining_summarize_primary.log.
+
+Finalizationcombined_compact: complete,logartifacts\finalize_combined_compact.log.
+
+Finalizationcombined_vla: complete,logartifacts\finalize_combined_vla.log.
+
+Finalizationgpu_resume: complete,logartifacts\finalize_gpu_resume.log.
+
+Finalizationfull_training_resume: complete,logartifacts\finalize_full_training_resume.log.
+
+Finalizationclean_tests: complete,logartifacts\finalize_clean_tests.log.
+
+Finalizationsecondary_summary: complete,logartifacts\finalize_secondary_summary.log.
+
+Finalizationfinal_report: complete,logartifacts\finalize_final_report.log.

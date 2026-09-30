@@ -1,0 +1,17 @@
+[
+  {
+    "mode": "smolvla",
+    "batch_size": 1,
+    "horizon": 8,
+    "loss": 0.027877800166606903,
+    "probe_delta_l2": 0.0002475623332429677,
+    "peak_torch_allocated_bytes": 2132283392,
+    "peak_torch_reserved_bytes": 2275409920,
+    "gpu_used_free_mib_temperature_c": "3791, 4166, 49",
+    "process_rss_bytes": 4441694208,
+    "process_private_bytes": 10532548608,
+    "optimizer_states_loaded_and_live": true,
+    "dual_rgbd_renderer_live": true,
+    "selected_benchmark_checkpoint_modified": false
+  }
+]

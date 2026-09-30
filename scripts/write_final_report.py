@@ -86,7 +86,7 @@ evidence = (
 )
 lines = [
     "# GeoPolicy Bench — measured final report",
-    f"\nGenerated {datetime.now().isoformat(timespec='seconds')} from completed local artifacts.",
+    f"\nGenerated {datetime.now().astimezone().isoformat(timespec='seconds')} from completed local artifacts.",
     "\nThe experimental core ran on one RTX 4060 Laptop 8 GB / Ryzen 7 7435HS / 16 GB RAM Windows PC. "
     "Nine compact models were trained and evaluated in 2,340 primary closed-loop rollouts. "
     "A real pretrained SmolVLA model was additionally fine-tuned and tested. "
@@ -99,12 +99,12 @@ lines = [
     f"{percent(aggregate['fusion', 'fixed_camera_missing']['mean_success_rate'])} success versus "
     f"{percent(aggregate['mono', 'fixed_camera_missing']['mean_success_rate'])} for mono: "
     f"{comparison['fixed_camera_missing']['fusion_minus_mono_pp']:+.1f}pp "
-    f"(descriptive95% interval "
+    f"(descriptive 95% interval "
     f"[{comparison['fixed_camera_missing']['paired_crossed_bootstrap95_pp'][0]:.1f}, "
     f"{comparison['fixed_camera_missing']['paired_crossed_bootstrap95_pp'][1]:.1f}]). "
     "This supports a narrower benefit of the additional wrist view under this camera-loss condition. "
     "Nominal, occlusion and depth results do not establish a broad fusion advantage; absolute "
-    "success remains low and the extrinsic20-scene comparison is exploratory.",
+    "success remains low and the extrinsic 20-scene comparison is exploratory.",
     "\n## Protocol and scope",
     "\nThe protocol was frozen before principal training and final test. Checkpoints were selected "
     "by fixed offline validation loss, never test success. Mono/fusion share the same 200 successful "
@@ -140,8 +140,8 @@ lines = [
             [
                 "SmolVLA",
                 "450,046,176 total; 99,880,992 trainable",
-                "Two RGB128 resized/padded512 + robot state + text",
-                "1 / 500 / 1, accumulation4",
+                "Two RGB128 resized/padded 512 + robot state + text",
+                "1 / 500 / 1, accumulation 4",
                 "Pinned authentic base; VLM frozen",
             ],
         ],
@@ -150,7 +150,7 @@ lines = [
     "colors, positional/color-slot randomization and a distractor. Successful placement requires "
     "the instructed cube to have previously lifted, lie within 4.3 cm XY of the chosen tray, be at "
     "the accepted height and be released. This is an instantaneous condition, not a sustained "
-    "stability test. Wrong target, wrong destination, drops and contacts are separately recorded. "
+    "stability or full-containment test. Wrong target, wrong destination, drops and contacts are separately recorded. "
     "Collision denotes robot/gripper contact penetrating table/tray-wall/distractor by over1mm. "
     "Students receive only RGB-D, calibration, allowed robot proprioception and instruction. "
     "Object truth, segmentation and teacher phases are excluded from student batches.",
@@ -174,7 +174,7 @@ lines = [
     ),
     f"\nThe selected actor changed by L2={teacher_audit['updates'][0]['actor_parameter_delta_l2_from_bc']:.6f} "
     f"from BC; critic/other parameters changed by {teacher_audit['updates'][0]['critic_other_parameter_delta_l2_from_bc']:.6f}. "
-    "Optimization is verified, but PPO did not improve final success over BC (both82/100). "
+    "Optimization is verified, but PPO did not improve final success over BC (both 82/100). "
     "A continuation to34,816 total transitions regressed to2/20 validation success and was not selected. "
     "Teacher reference counterfactuals on10 additional test scenes ×4 instructions yielded40/40 "
     "for the script and34/40 for selected PPO, with identical initial geometry across instructions.",
@@ -182,8 +182,8 @@ lines = [
     f"{teacher_resource['transitions_per_second']:.1f} transitions/s, "
     f"RSS {gib(teacher_resource['peak_process_rss_bytes'])} GiB and private committed memory "
     f"{gib(teacher_resource['peak_process_private_bytes'])} GiB. These auxiliary updates did not produce benchmark data or selected weights.",
-    "\nThe raw collection contains274 lossless HDF5 episodes:250 train (208 success,42 failure) "
-    "and24 validation (21 success,3 failure), approximately2.09GB. The first200 successful train "
+    "\nThe raw collection contains274 lossless HDF5 episodes: 250 train (208 success, 42 failure) "
+    "and24 validation (21 success, 3 failure), approximately 2.09 GB. The first200 successful train "
     "episodes and all21 successful validation episodes are identically selected for every student. "
     "Per-file SHA256, teacher provenance, scene seeds, images/depth/calibration, timestamps, states "
     "and actions were audited. No test scene occurs in training, including teacher training. "
@@ -197,9 +197,9 @@ lines = [
     + table(
         [
             "Condition",
-            "Mono seed0/1/2",
-            "Fusion seed0/1/2",
-            "ACT seed0/1/2",
+            "Mono seed 0/1/2",
+            "Fusion seed 0/1/2",
+            "ACT seed 0/1/2",
             "n per seed mono/fusion; ACT",
         ],
         [
@@ -220,7 +220,7 @@ lines = [
             "Fusion mean ± seed SD",
             "Mono mean ± seed SD",
             "Paired fusion−mono (pp)",
-            "Crossed bootstrap95% (pp)",
+            "Crossed bootstrap 95% (pp)",
         ],
         [
             [
@@ -239,12 +239,12 @@ lines = [
     "\nThe bootstrap resamples training seeds and shared paired scene columns together (5,000 draws). "
     "Individual seed Wilson intervals and all raw metrics are in the JSON/CSV outputs. Three seeds "
     "give limited training-variability estimation; frames are not independent observations. "
-    "Depth/extrinsic cells and ACT have20 scenes per seed and remain exploratory. The OOD drop "
+    "Depth/extrinsic cells and ACT have 20 scenes per seed and remain exploratory. The OOD drop "
     "is paired with the same nominal scene subset, including first20 rather than all100 when appropriate. "
     "RGB-only ACT sees no change under depth-only or extrinsic-only perturbation; those conditions are input no-ops.",
     "\n"
     + table(
-        ["Mode / condition", "Paired nominal−OOD drop, seed0/1/2 (pp)"],
+        ["Mode / condition", "Paired nominal−OOD drop, seed 0/1/2 (pp)"],
         [
             [
                 m + " / " + condition_names[c],
@@ -287,13 +287,20 @@ lines = [
             for m in ["mono", "fusion", "act"]
         ],
     ),
-    "\nTerminal placement errors include failed rollouts. Wrong-target flags include any non-target "
-    "cube lift/tray entry and may coexist with eventual target success. Rates therefore are not "
+    "\nTerminal placement errors include failed rollouts. Wrong-target flags include non-target "
+    "cube lift at any point or tray proximity at the endpoint, and may coexist with eventual target success. Rates are not "
     "exclusive categories.",
     "\n## Instruction counterfactuals and ablations",
-    "\nEach student counterfactual cell reuses10 physical scenes with all4 instructions. "
+    "\nEach student counterfactual cell reuses 10 physical scenes with all4 instructions. "
     "Hash equality of initial RGB, depth, allowed robot state and camera poses is asserted across "
     "instructions. Changes in first action indicate conditioning, while all-four completion is the stricter measure.",
+    "\nAll 240 initial-observation records were identical across the four instructions, both "
+    "model modes and all three training seeds within each scene; the10 scene hashes were distinct. "
+    f"{sum(r['scenes_all_four_success'] for r in secondary['counterfactuals'])} of the "
+    f"{sum(r['scenes'] for r in secondary['counterfactuals'])} model/scene groups completed all four instructions. "
+    "This is a substantial "
+    "limitation of the learned behavior, even though each model succeeds on some individual "
+    "instructions and its actions respond to the instruction.",
     "\n"
     + table(
         [
@@ -326,39 +333,57 @@ lines = [
         ],
     ),
     "\n![Secondary ablations](../results/figures/secondary_ablations.png)",
-    "\nThese are one-seed,20-paired-scene checks. The50-demo variant uses the first50 of the "
-    "same successful demonstrations at equal8,000-update budget; this is not a data-efficiency "
+    "\nThese are one-seed, 20-paired-scene checks. The 50-demo variant uses the first50 of the "
+    "same successful demonstrations at equal 8,000-update budget; this is not a data-efficiency "
     "curve. View dropout retains one random view with20% probability and uses a separate "
     "checkpointed RNG to preserve minibatch frame sampling. No-voxel changes inference filtering "
-    "only with identical512-point budget and fixed weights; it is not a retrained ablation. "
+    "only with identical 512-point budget and fixed weights; it is not a retrained ablation. "
     "A factorial study of filtering/pretraining/architecture is outside this experiment.",
     "\n## SmolVLA and negative experiments",
-    f"\nAuthentic SmolVLA received500 optimizer updates (batch1, accumulation4, one seed) on "
-    f"the same200 demonstrations in {vla_train['wall_seconds']:.1f}s optimization-window time. "
+    f"\nAuthentic SmolVLA received500 optimizer updates (batch 1, accumulation 4, one seed) on "
+    f"the same200 demonstrations in {vla_train['wall_seconds']:.1f} s optimization-window time. "
     "The frozen pretrained VLM and official preprocessing were retained. Trainable modules "
     "are natively BF16/FP32; no additional AMP/scaler was enabled. A real forward/backward/optimizer "
     "pilot passed before fine-tuning. Pinned upstream model/tokenizer revisions and adapter provenance are retained.",
     f"\nFinal SmolVLA nominal success: **{secondary['smolvla']['success_count']}/20**; "
     f"wrong target {secondary['smolvla']['wrong_target_count']}/20, collisions {secondary['smolvla']['collision_count']}/20. "
     f"Mean of per-episode policy P50/P95: {secondary['smolvla']['mean_episode_policy_p50_ms']:.1f} / "
-    f"{secondary['smolvla']['mean_episode_policy_p95_ms']:.1f}ms per8-action chunk. "
-    "Execution uses only2 actions per inference; this does not establish20Hz real-time deployment.",
+    f"{secondary['smolvla']['mean_episode_policy_p95_ms']:.1f}ms per 8-action chunk. "
+    "Execution uses only2 actions per inference; this does not establish 20 Hz real-time deployment.",
+    f"\nSmolVLA wrong destination: {secondary['smolvla']['wrong_destination_count']}/20; "
+    f"drops: {secondary['smolvla']['drop_count']}/20; mean terminal XY error: "
+    f"{100 * secondary['smolvla']['mean_terminal_xy_error_m']:.2f} cm. Mean wall duration "
+    f"{secondary['smolvla']['mean_wall_seconds']:.2f} s versus "
+    f"{secondary['smolvla']['mean_simulation_seconds']:.2f} simulated seconds per episode. "
+    "The nominal test was interrupted and resumed from saved rows; wall-clock latency reflects both sessions.",
+    "\n"
+    + table(
+        ["SmolVLA component", "Mean episode P50 (ms)", "Mean episode P95 (ms)"],
+        [
+            [
+                component,
+                f"{secondary['smolvla']['mean_episode_' + component + '_p50_ms']:.2f}",
+                f"{secondary['smolvla']['mean_episode_' + component + '_p95_ms']:.2f}",
+            ]
+            for component in ["preprocess", "policy", "total"]
+        ],
+    ),
     (
-        "\nSmolVLA OOD was deferred because0/20 nominal success triggered the predeclared secondary-budget gate; "
+        "\nSmolVLA OOD was deferred because 0/20 nominal success triggered the predeclared secondary-budget gate; "
         "fine-tuning itself succeeded, and deferral is not attributed to OOM."
         if secondary["smolvla"]["ood_deferred_if_zero_nominal"]
         else "\nSmolVLA OOD successful /20: "
         + "; ".join(f"{c}: {n}" for c, n in secondary["smolvla"]["ood"].items())
         + "."
     ),
-    "\nRetained negative pilots: epsilon-prediction diffusion40d/1,000updates yielded0/20 "
-    "validation successes despite decreasing loss; sample-prediction/legacy-prior200d/2,000updates "
+    "\nRetained negative pilots: epsilon-prediction diffusion 40-demo/1,000updates yielded0/20 "
+    "validation successes despite decreasing loss; sample-prediction/legacy-prior 200-demo/2,000updates "
     "yielded2/20 (8/20 lifted). Final chroma40 recipe was chosen using validation before freezing "
     "the main protocol. A heuristic observation-aliasing diagnostic on200 train episodes found "
     "zero candidates under its near-static-state/label-jump criteria. It does not demonstrate "
     "aliasing; limitations of current-frame policies and timed teacher phases remain hypotheses.",
     "\n## Runtime, resources and deployment export",
-    "\nPolicy-only profiles warm up10 calls and time50 batch1 chunks, excluding rendering and "
+    "\nPolicy-only profiles warm up 10 calls and time 50 batch 1 chunks, excluding rendering and "
     "preprocessing. Compact weights are FP32; native CUDA kernel dispatch may use default TF32. "
     "The main benchmark uses two-thread CPU PyTorch consistently. GPU microprofiles show small "
     "compact models can be slower on this workload; dispatch overhead is a hypothesis, not a traced conclusion.",
@@ -467,16 +492,16 @@ lines += [
     f"\nONNX opset17 exports only the FP32 temporal denoiser. Point encoding, preprocessing and "
     f"the10-step DDIM loop remain PyTorch. Maximum subgraph error is {onnx['max_abs_error']:.3g}; "
     f"full normalized DDIM action error {onnx['full_ddim_normalized_action_max_abs_error']:.3g}. "
-    f"CPU2 policy-only medians are {onnx['full_policy_cpu2_measurements']['pytorch']['p50_ms']:.2f}ms "
+    f"CPU with two threads policy-only medians are {onnx['full_policy_cpu2_measurements']['pytorch']['p50_ms']:.2f}ms "
     f"PyTorch and {onnx['full_policy_cpu2_measurements']['onnx_denoiser']['p50_ms']:.2f}ms with ONNX denoiser. "
-    "The separate20-scene paired validation gives6/20 for both,20/20 success labels agree, "
+    "The separate 20-scene paired validation gives 6/20 for both, 20/20 success labels agree, "
     "18/20 collision labels agree and terminal placement differs by up to1.34mm. Final paired "
     "test results appear in the ablation table. Physics equivalence is not bit-exact. TensorRT/Jetson were not executed.",
     "\nA future RGB-D/action interface validates shapes, units, transforms and command limits; "
     "the calibration procedure is documented. No physical robot transfer, hardware connection "
     "or Isaac Sim/Lab run occurred.",
     "\n## Demonstrations and reproduction",
-    "\nThe success and failure videos replay the earliest successful and failed fusion seed0 "
+    "\nThe success and failure videos replay the earliest successful and failed fusion seed 0 "
     "nominal test episodes respectively (200001/200000). Replay actions, steps and final placement "
     "match the source metrics exactly. Videos show actual fixed/wrist simulator frames, "
     "including the final state; magnification uses nearest-neighbor sampling.",
@@ -486,7 +511,7 @@ lines += [
     "Its selected checkpoint replay reproduced a validation success with identical first action, "
     "steps and terminal placement (zero difference). The opt-in CUDA test separately verified "
     "an exactly identical next optimizer update after restoring model/optimizer/scheduler and RNG states. "
-    "An actual full-training continuation from mono seed1 update7,500 to8,000 reproduced all500 "
+    "An actual full-training continuation from mono seed 1 update 7,500 to8,000 reproduced all500 "
     "updates: raw weights, EMA, AdamW moments, scheduler, normalization, config, progress and "
     "Python/NumPy/Torch/CUDA plus minibatch RNG states are bit-identical to the original run. "
     "Only a disposable copy was optimized; selected benchmark weights were preserved. "
@@ -497,7 +522,7 @@ lines += [
     "three training seeds are used. Low success rates and wrong-target behavior must be read "
     "alongside any fusion advantage. BC supplies most teacher competence; no PPO improvement "
     "is claimed. SmolVLA/pretraining/ACT results cannot isolate architecture effects at equal compute. "
-    "Secondary20-scene checks do not support a broad data-efficiency or robustness claim.",
+    "Secondary 20-scene checks do not support a broad data-efficiency or robustness claim.",
     "\nExecuted skills: simulated control and reward design; supervised actor initialization and "
     "on-policy PPO updates; lossless provenance-aware robot trajectory collection; dynamic RGB-D "
     "geometry/fusion; ACT/CVAE and diffusion policy training; authentic VLA fine-tuning; paired "
