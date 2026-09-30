@@ -1,6 +1,6 @@
 # GeoPolicy Bench — progress
 
-Status: INCOMPLETE. Started 2026-09-30. One principal agent; local execution only.
+Status: PAUSED at the explicit user request on 2026-09-30; benchmark INCOMPLETE. One principal agent; local execution only.
 
 ## Objective and authoritative context
 Compare compact instruction-conditioned 3D diffusion, single fixed RGB-D versus fixed+wrist fusion, at equal demonstrations and optimization budget. Panda selection/placement in MuJoCo/robosuite; ACT baseline; real PPO expert. SmolVLA conditional on measured optimization pilot. No GitHub/Hub publication authorized.
@@ -13,9 +13,21 @@ Windows: Ryzen 7 7435HS, 8 cores/16 threads; 16 GB physical RAM, ~6.3 GB initial
 - Context read; project directory created (previously absent).
 - Initial hardware audit and official-source research.
 
-## Current snapshot — 2026-09-30 18:29 Europe/Paris
-Native runtime/task/teacher/data/geometry/learning/resume gates passed.274 raw episodes;selected200 successful train+21 validation. LeRobot export221episodes/21,687frames reloaded with exact RGB/state/action equality. SmolVLA actual500-step fine-tuning completed, two validation failures, full test pending. All9 principal students (ACT/mono/fusion3seeds each) completed8000 updates;controlled50-demo and view-dropout training also completed. Primary test protocol frozen;all3 mono AND fusion seeds finished all5conditions (2,040 rollouts). ACT seed0 complete;seed1 fixed-camera-missing active;2,211/2,340 primary rollouts recorded at18:28. Completed ACT cells0%success are preserved as negative results. Teacher final100-scene controls:initial0/100,script100/100,BC82/100,PPO82/100. No PPO gain demonstrated. Same-scene four-instruction controls:script40/40,PPO34/40 across10scenes,initialgeometry equality asserted.
-Clean .venv-repro created from portable pins, dependency check passes;13 CPU tests exist plus a separate opt-in GPU test, with final clean-suite verification queued. Clean RGB-D smoke and one selected-checkpoint replay passed;first action/steps/terminal placement exactly match. ONNX trained denoiser export succeeds (max absolute~1.07e-6;full DDIM~4.77e-7), CPU policy-only medians12.18ms PyTorch/4.91ms ONNX;paired validation successes6/20 both,20/20 success labels agree,18/20 collision labels agree. Main inference remains frozen CPU PyTorch;ONNX comparison is separate. Actual success/failure test replays are generated and visually checked in results/demos/. Measured final report renderer is ready, but runs only after completed data and resource gates.
+## Current snapshot — PAUSED, 2026-09-30T19:26:18+02:00
+The user requested pause. All project evaluation/orchestration processes have been stopped; no automatic resumption is scheduled. Completed checkpoints and atomic rollout files are preserved. No serious PC issue caused this pause.
+
+All nine primary students finished training. The 2,340 primary rollouts, 240 counterfactual rollouts and 100 secondary ablation/export rollouts are complete. SmolVLA fine-tuning is complete; its nominal test is partial: 10/20 completed scenes, 0 successes so far. These partial results are not a final test conclusion. The interrupted episode will restart; completed scenes are skipped.
+
+Primary result tables and plots exist. Final combined memory gates, exact full-training resume verification, final clean test suite, secondary summary, final report and final artifact review remain pending. The project has not reached its completion criteria. CV/profile and external publication remain unchanged.
+
+Pause inventory: `artifacts/pause_state.json`. Completed stage flags: `artifacts/remaining_stages.json`. On explicit user resumption, run the following from the project directory in separate processes; the finalizer waits for the remaining pipeline:
+
+```powershell
+.venv\Scripts\python.exe scripts/run_remaining.py
+.venv\Scripts\python.exe scripts/finish_after_pipeline.py
+```
+
+The pipeline skips completed stages and SmolVLA skips saved scenes. Keep the same checkpoints, pinned base revisions, evaluation identity and frozen protocol. No training or evaluation is running while paused.
 
 ## Remaining gates
 1. Finish frozen main student closed-loop test (mono/fusion3seeds,100 principal cells/20 exploratory),ACT20cells,counterfactuals,SmolVLA20nominal,secondary ablations and ONNXpairedclosed-loop.
@@ -74,3 +86,13 @@ Remaining-stage profile_act: complete, wall3.5s, logartifacts\remaining_profile_
 Remaining-stage secondary_training: complete, wall391.8s, logartifacts\remaining_secondary_training.log.
 
 Remaining-stage main_evaluation: complete, wall10533.7s, logartifacts\remaining_main_evaluation.log.
+
+Remaining-stage counterfactual_evaluation: complete, wall1266.1s, logartifacts\remaining_counterfactual_evaluation.log.
+
+Remaining-stage evaluate_data50: complete, wall163.3s, logartifacts\remaining_evaluate_data50.log.
+
+Remaining-stage evaluate_view_dropout: complete, wall318.7s, logartifacts\remaining_evaluate_view_dropout.log.
+
+Remaining-stage evaluate_no_voxel: complete, wall159.7s, logartifacts\remaining_evaluate_no_voxel.log.
+
+Remaining-stage evaluate_onnx: complete, wall97.0s, logartifacts\remaining_evaluate_onnx.log.
