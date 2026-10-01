@@ -35,6 +35,10 @@ and earliest unsuccessful nominal final-test scenes are disclosed, when present.
 These examples demonstrate reproducibility, not aggregate reliability. The
 separate pinned `.venv-repro` verification is saved in
 `results/v2/clean_reproduction.json`.
+An additional replay in a copied source-and-bundle-only directory, without any
+original dataset or V1/main training weights, is recorded in
+`results/v2/portable_demo_verification.json`. The same pinned interpreter is used;
+the package import path is checked to belong to the isolated directory.
 
 ## Inspect without rerunning hours of experiments
 

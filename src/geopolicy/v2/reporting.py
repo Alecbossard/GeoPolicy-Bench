@@ -336,6 +336,9 @@ def report(recipe):
         checkpoint_hash_verified=True,
     )
     save_json("results/v2/clean_reproduction.json", clean_report)
+    from .demo import verify_portable
+
+    verify_portable(str(clean))
     write_documents(recipe, summary, demo)
     from .preservation import preserve_v1
 

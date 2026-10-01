@@ -96,6 +96,11 @@ def verify_delivery():
     assert all(
         r["all_actions_and_selected_object_positions_exact"] for r in clean["demo"]["episodes"]
     )
+    portable = read("results/v2/portable_demo_verification.json")
+    assert portable["verified"] and portable["no_training_dataset_or_original_weights_present"]
+    assert all(
+        r["all_actions_and_selected_object_positions_exact"] for r in portable["replay"]["episodes"]
+    )
     bundle = Path("artifacts/v2/demo")
     meta = read(bundle / "bundle.json")
     assert file_hash(bundle / "policy.pt") == meta["checkpoint_sha256"]
@@ -130,6 +135,7 @@ def verify_delivery():
         all_frozen_sources_and_registered_checkpoints_unchanged=True,
         compact_bundle_members_byte_exact=True,
         clean_demo_all_actions_and_object_positions_exact=True,
+        isolated_demo_without_training_data_or_original_weights=True,
         local_document_links_verified=links,
         v1=preserve_v1(),
     )
