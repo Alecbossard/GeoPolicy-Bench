@@ -1,0 +1,28 @@
+{
+  "verified": true,
+  "isolated_source_directory": "C:\\Users\\Alec\\Documents\\ChatGPT\\GeoPolicy-Bench\\artifacts\\v2\\portable_demo",
+  "imported_package": "C:\\Users\\Alec\\Documents\\ChatGPT\\GeoPolicy-Bench\\artifacts\\v2\\portable_demo\\src\\geopolicy\\__init__.py",
+  "no_training_dataset_or_original_weights_present": true,
+  "executable": "C:\\Users\\Alec\\Documents\\ChatGPT\\GeoPolicy-Bench\\.venv-repro\\Scripts\\python.exe",
+  "replay": {
+    "verified": true,
+    "episodes": [
+      {
+        "scene_seed": 300012,
+        "stable_success": true,
+        "first_action_exact": true,
+        "sensor_hash_exact": true,
+        "steps_exact": true,
+        "all_actions_and_selected_object_positions_exact": true
+      },
+      {
+        "scene_seed": 300000,
+        "stable_success": false,
+        "first_action_exact": true,
+        "sensor_hash_exact": true,
+        "steps_exact": true,
+        "all_actions_and_selected_object_positions_exact": true
+      }
+    ]
+  }
+}

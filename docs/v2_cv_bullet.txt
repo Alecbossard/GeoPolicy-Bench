@@ -1,0 +1,1 @@
+• Conçu un benchmark de manipulation Panda sous MuJoCo/robosuite : comparaison RGB-D fixe/poignet/fusion et ablation du prior couleur (21 modèles, trois seeds, 3 150 rollouts réservés) ; placement stable testé, reprise exacte des checkpoints et démonstration locale reproduite.

@@ -1,0 +1,6 @@
+{
+  "source": "artifacts\\v2\\main_runs\\fusion_prior_s0\\best.pt",
+  "source_sha256": "7bbed8d9aff298b564b56f4deaf3f3daa8ba60195c71326f0a7158aab7bd9aba",
+  "compact_sha256": "c5119e3221e546fa57ed3e8c3df069ef9fbf99e1ba3b8c5ee852f32419944208",
+  "ema_tensor_exact": true
+}

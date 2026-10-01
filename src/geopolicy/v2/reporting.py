@@ -351,6 +351,8 @@ def write_documents(recipe, summary, demo):
     cells = summary["cells"]
     comparisons = summary["comparisons"]
     before = summary["before_after"]
+    fusion_before = next(c for c in before if c["model"] == "fusion")
+    act_before = next(c for c in before if c["model"] == "act")
     table = markdown_table(
         ["Model", "Condition", "Stable /150", "Seeds (success /50)", "Ever V1 instant /150"],
         [
@@ -475,6 +477,8 @@ def write_documents(recipe, summary, demo):
 
 All results below were actually executed locally. V1 is retained at tag `geopolicy-v1-2026-09-30` (542f132); its original results, weights, source and historical report are unchanged. The new evaluation uses a stricter stable-placement criterion and longer 240-step horizon, so historical instantaneous rates are contextual figures. The before/after table re-evaluates preserved V1 checkpoints on exactly the same new scenes and metric.
 
+**Outcome:** the checks and reproduction are stronger, but no nominal manipulation improvement over preserved V1 is demonstrated. Observed fusion successes were V1 {fusion_before['v1_successes']}/150 and V2 {fusion_before['v2_successes']}/150; ACT was V1 {act_before['v1_successes']}/150 and V2 {act_before['v2_successes']}/150. The targeted ACT search did not produce a reliable learned baseline. The fusion advantage over wrist-only and the nominal manual-prior effect remain uncertain; the full paired intervals and negative experiments are below. V1 remains the performance reference, and V2 is a separate diagnostic study.
+
 ## Question and controls
 
 Does calibrated fixed+wrist RGB-D fusion help beyond either view alone, and how much does the manual color prior contribute? Six diffusion variants cross fixed/wrist/fusion with prior present/absent. All use the same 200 training episodes extended with 30 actual PPO-teacher steps after the original end, the same 21 validation episodes, frozen V1 normalization, 7D OSC actions, 512 points, 8-step prediction, 2-step execution, 8,000 updates, batch 32 and three training seeds. The prior ablation removes the additive chromatic attention bias; it retains learned attention and explicit XYZRGB moments. RGB still contains colors. The models are compact independent adaptations, without pretrained vision.
@@ -545,11 +549,11 @@ One GPU job at a time on RTX 4060 Laptop 8 GB; all optimizations FP32. Per-prese
 
 Executed final counts: {summary['rollout_counts']['main']} main, {summary['rollout_counts']['before_after']} fair before/after, {summary['rollout_counts']['counterfactual']} counterfactual rollouts. Raw CSV/JSON live in `results/v2/raw`; per-step traces and checkpoints remain in local ignored `artifacts/v2`. Before opening final test, all original 274 HDF5 hashes, 42 original checkpoints and 122 tracked V1 files passed checks; all 221 augmented prefixes are array-exact. Continuing the real fusion checkpoint for its last 500 updates reproduced model, optimizer, scheduler, EMA and configuration exactly. Test outputs are hash-bound to frozen checkpoints and source. See `results/v2/pretest_verification.json` and `results/v2/v1_preservation.json`.
 
-The compact local demo bundle contains only an EMA policy, recipe, hashes and raw expected examples. It needs no training data or pretrained-model download. The earliest success and earliest failure of predeclared fusion-prior seed 0 are shown, when present; this selection is disclosed and is not aggregate evidence. A separate pinned `.venv-repro` passed V2 tests and replayed the compact checkpoint with exact first actions, steps, initial sensor hashes and success labels. See `results/v2/clean_reproduction.json` and [reproduction instructions](v2_reproduction.md).
+The compact local demo bundle contains only an EMA policy, recipe, hashes and raw expected examples. It needs no training data or pretrained-model download. The earliest success and earliest failure of predeclared fusion-prior seed 0 are shown, when present; this selection is disclosed and is not aggregate evidence. A separate pinned `.venv-repro` passed V2 tests and replayed the compact checkpoint with every action and selected-object position identical, plus matching steps, initial sensor hashes and success labels. A second replay used an isolated copy of the source and bundle with no training dataset or original training weights present. See [clean replay](../results/v2/clean_reproduction.json), [isolated replay](../results/v2/portable_demo_verification.json) and [reproduction instructions](v2_reproduction.md). The final [delivery audit](../results/v2/delivery_verification.json) recomputes the strict dwell from all recorded final traces and verifies frozen identities and ZIP contents; XY containment uses the saved evaluator flag rather than an independent geometry implementation.
 
 ## Limits and defensible claims
 
-Absolute manipulation reliability remains the limiting factor. Three seeds and 50 scenes cannot establish broad robot-learning superiority. Simulation uses known calibration, rigid colored cubes, four semantic tokens, selected successful demonstrations and a privileged phase-based BC-initialized PPO teacher. No real robot, Isaac, Jetson, open-vocabulary instruction or sim-to-real transfer was executed. Hardware timings apply to this PC. Negative ACT/3D pilots and failed V1 PPO/SmolVLA runs remain visible. There is no online publication or CV modification.
+Absolute manipulation reliability remains the limiting factor. Three seeds and 50 scenes cannot establish broad robot-learning superiority. Simulation uses known calibration, rigid colored cubes, two one-hot instruction pairs, selected successful demonstrations and a privileged phase-based BC-initialized PPO teacher. No real robot, Isaac, Jetson, open-vocabulary instruction or sim-to-real transfer was executed. Hardware timings apply to this PC. Negative ACT/3D pilots and failed V1 PPO/SmolVLA runs remain visible. There is no online publication or CV modification.
 """
     Path("docs/v2_report.md").write_text(text, encoding="utf8")
     nominal = next(c for c in cells if c["model"] == "fusion_prior" and c["condition"] == "nominal")
@@ -560,7 +564,8 @@ Absolute manipulation reliability remains the limiting factor. Three seeds and 5
         and c["b"] == "fixed_prior"
         and c["condition"] == "fixed_camera_missing"
     )
-    bullet = f"• Conçu un benchmark de manipulation Panda sous MuJoCo/robosuite : comparaison RGB-D fixe/poignet/fusion et ablation du prior couleur (21 modèles, trois seeds, {summary['rollout_counts']['main']:,} rollouts réservés) ; placement stable testé, reprise exacte des checkpoints et démonstration locale reproduite.\n"
+    rollout_count = f"{summary['rollout_counts']['main']:,}".replace(",", " ")
+    bullet = f"• Conçu un benchmark de manipulation Panda sous MuJoCo/robosuite : comparaison RGB-D fixe/poignet/fusion et ablation du prior couleur (21 modèles, trois seeds, {rollout_count} rollouts réservés) ; placement stable testé, reprise exacte des checkpoints et démonstration locale reproduite.\n"
     Path("docs/v2_cv_bullet.txt").write_text(bullet, encoding="utf8")
     chosen_success = next((r for r in demo["expected_rollouts"] if r["stable_success"]), None)
     chosen_failure = next((r for r in demo["expected_rollouts"] if not r["stable_success"]), None)
@@ -616,6 +621,8 @@ Absolute manipulation reliability remains the limiting factor. Three seeds and 5
 
 **Measured V2:** fusion achieved **{nominal['successes']}/150 ({nominal['success_percent']:.1f}%) stable nominal placements** over three training seeds and 50 reserved scenes. Under missing fixed camera, fusion minus fixed was **{loss['difference_pp']:+.1f} pp**, descriptive 95% interval **[{loss['interval95_pp'][0]:+.1f}, {loss['interval95_pp'][1]:+.1f}]**. This is a compact simulation study with limited reliability; a positive point estimate alone does not establish superiority. The selected compact ACT achieved {act_nominal['successes']}/150 stable nominal placements.
 
+V2 strengthens verification and reproduction without demonstrating a nominal performance gain: preserved V1 fusion scored {fusion_before['v1_successes']}/150 on the same new stable criterion. The targeted ACT search did not yield a reliable learned baseline. V1 remains preserved as the performance reference.
+
 {overview}
 
 With the fixed camera absent, fusion minus wrist-only was {loss_wrist['difference_pp']:+.1f} pp [{loss_wrist['interval95_pp'][0]:+.1f}, {loss_wrist['interval95_pp'][1]:+.1f}]. For nominal fusion, manual prior on minus off was {prior_effect['difference_pp']:+.1f} pp [{prior_effect['interval95_pp'][0]:+.1f}, {prior_effect['interval95_pp'][1]:+.1f}]. These descriptive 95% intervals distinguish the surviving wrist sensor from fusion and the manual prior; all ablations and failures are in the report.
@@ -649,7 +656,7 @@ The strict success metric requires full contained placement, low object speed, a
 
 On the same new nominal test and stable criterion, preserved V1 fusion scored {fusion_before['v1_successes']}/150 versus V2 {fusion_before['v2_successes']}/150. The V2 recipe changes multiple components; this does not identify one causal improvement. V1 historical instantaneous scores remain intact at tag `geopolicy-v1-2026-09-30`, with its [original README](docs/v1/README_original.md) and [original report](docs/final_report.md). All new experiments are separate under `artifacts/v2` and `results/v2`.
 
-Known calibrated simulation, two colored cubes, two receptacles and four semantic instruction tokens; no pretrained vision, real-robot transfer, open-vocabulary grounding or official ACT/DP3 reproduction claimed. A scripted phase curriculum initializes a real PPO teacher; its historical PPO update showed no success gain over BC. PPO and SmolVLA remain secondary V1 extensions. Three seeds, narrow scenes, negative outcomes and residual failures limit the conclusions. Nothing was published online and the user's CV was not edited.
+Known calibrated simulation, two colored cubes, two receptacles and an instruction vector containing two one-hot pairs; no pretrained vision, real-robot transfer, open-vocabulary grounding or official ACT/DP3 reproduction claimed. A scripted phase curriculum initializes a real PPO teacher; its historical PPO update showed no success gain over BC. PPO and SmolVLA remain secondary V1 extensions. Three seeds, narrow scenes, negative outcomes and residual failures limit the conclusions. Nothing was published online and the user's CV was not edited.
 
 [Architecture and sources](docs/architecture.md) · [V2 design](docs/v2_design.md) · [Third-party notices](docs/THIRD_PARTY_NOTICES.md) · [Factual CV bullet proposal](docs/v2_cv_bullet.txt)
 """

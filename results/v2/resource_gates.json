@@ -1,0 +1,170 @@
+{
+  "act_history_binary": {
+    "name": "act_history_binary",
+    "parameters": 1060071,
+    "batch_size": 32,
+    "optimizer_states_live": true,
+    "dual_render_live": true,
+    "exact_next_update_resume": true,
+    "parameter_delta_l2": 0.39936734729083495,
+    "peak_allocated_bytes": 137167872,
+    "peak_reserved_bytes": 163577856,
+    "resources": {
+      "time": 1790844441.790207,
+      "gpu_used_free_mib_temperature_c": [
+        1136.0,
+        6821.0,
+        44.0
+      ],
+      "free_commit_bytes": 6635163648,
+      "free_disk_bytes": 48339156992,
+      "available_ram_bytes": 7869243392,
+      "rss_bytes": 1823399936,
+      "private_bytes": 4902281216
+    }
+  },
+  "act_instruction_broadcast": {
+    "name": "act_instruction_broadcast",
+    "parameters": 1060071,
+    "batch_size": 32,
+    "optimizer_states_live": true,
+    "dual_render_live": true,
+    "exact_next_update_resume": true,
+    "parameter_delta_l2": 0.3889670492394876,
+    "peak_allocated_bytes": 137200128,
+    "peak_reserved_bytes": 163577856,
+    "resources": {
+      "time": 1790845795.7051277,
+      "gpu_used_free_mib_temperature_c": [
+        1133.0,
+        6824.0,
+        43.0
+      ],
+      "free_commit_bytes": 6598803456,
+      "free_disk_bytes": 48013512704,
+      "available_ram_bytes": 7836082176,
+      "rss_bytes": 1818427392,
+      "private_bytes": 4904415232
+    }
+  },
+  "act_point": {
+    "name": "act_point",
+    "parameters": 852807,
+    "batch_size": 32,
+    "optimizer_states_live": true,
+    "dual_render_live": true,
+    "exact_next_update_resume": true,
+    "parameter_delta_l2": 0.3714395291556071,
+    "peak_allocated_bytes": 146961920,
+    "peak_reserved_bytes": 192937984,
+    "resources": {
+      "time": 1790844676.0604181,
+      "gpu_used_free_mib_temperature_c": [
+        1157.0,
+        6800.0,
+        44.0
+      ],
+      "free_commit_bytes": 6326833152,
+      "free_disk_bytes": 48282333184,
+      "available_ram_bytes": 7698141184,
+      "rss_bytes": 2018390016,
+      "private_bytes": 5218660352
+    }
+  },
+  "act_prior_only": {
+    "name": "act_prior_only",
+    "parameters": 1051239,
+    "batch_size": 32,
+    "optimizer_states_live": true,
+    "dual_render_live": true,
+    "exact_next_update_resume": true,
+    "parameter_delta_l2": 0.390449584125459,
+    "peak_allocated_bytes": 136876544,
+    "peak_reserved_bytes": 163577856,
+    "resources": {
+      "time": 1790844209.7195165,
+      "gpu_used_free_mib_temperature_c": [
+        1136.0,
+        6821.0,
+        44.0
+      ],
+      "free_commit_bytes": 6605344768,
+      "free_disk_bytes": 48394702848,
+      "available_ram_bytes": 7826997248,
+      "rss_bytes": 1812086784,
+      "private_bytes": 4891914240
+    }
+  },
+  "diffusion_binary": {
+    "name": "diffusion_binary",
+    "parameters": 1122383,
+    "batch_size": 32,
+    "optimizer_states_live": true,
+    "dual_render_live": true,
+    "exact_next_update_resume": true,
+    "parameter_delta_l2": 0.4614510800594896,
+    "peak_allocated_bytes": 162409472,
+    "peak_reserved_bytes": 207618048,
+    "resources": {
+      "time": 1790843800.1559556,
+      "gpu_used_free_mib_temperature_c": [
+        1176.0,
+        6781.0,
+        44.0
+      ],
+      "free_commit_bytes": 6111727616,
+      "free_disk_bytes": 48537165824,
+      "available_ram_bytes": 7524749312,
+      "rss_bytes": 2162610176,
+      "private_bytes": 5413797888
+    }
+  },
+  "diffusion_history": {
+    "name": "diffusion_history",
+    "parameters": 1140047,
+    "batch_size": 32,
+    "optimizer_states_live": true,
+    "dual_render_live": true,
+    "exact_next_update_resume": true,
+    "parameter_delta_l2": 0.44959965329647955,
+    "peak_allocated_bytes": 162983424,
+    "peak_reserved_bytes": 207618048,
+    "resources": {
+      "time": 1790844006.2867439,
+      "gpu_used_free_mib_temperature_c": [
+        1171.0,
+        6786.0,
+        44.0
+      ],
+      "free_commit_bytes": 6100545536,
+      "free_disk_bytes": 48464166912,
+      "available_ram_bytes": 7502581760,
+      "rss_bytes": 2159546368,
+      "private_bytes": 5404717056
+    }
+  },
+  "diffusion_suffix_only": {
+    "name": "diffusion_suffix_only",
+    "parameters": 1088455,
+    "batch_size": 32,
+    "optimizer_states_live": true,
+    "dual_render_live": true,
+    "exact_next_update_resume": true,
+    "parameter_delta_l2": 0.4628625850926314,
+    "peak_allocated_bytes": 152609792,
+    "peak_reserved_bytes": 201326592,
+    "resources": {
+      "time": 1790843599.0569801,
+      "gpu_used_free_mib_temperature_c": [
+        1171.0,
+        6786.0,
+        44.0
+      ],
+      "free_commit_bytes": 6197022720,
+      "free_disk_bytes": 48608788480,
+      "available_ram_bytes": 7563784192,
+      "rss_bytes": 2151682048,
+      "private_bytes": 5387743232
+    }
+  }
+}

@@ -1,0 +1,15 @@
+[
+  {
+    "time": 1790873689.1132183,
+    "gpu_used_free_mib_temperature_c": [
+      1257.0,
+      6700.0,
+      42.0
+    ],
+    "free_commit_bytes": 2788913152,
+    "free_disk_bytes": 45206450176,
+    "available_ram_bytes": 5026869248,
+    "rss_bytes": 1175269376,
+    "private_bytes": 3879497728
+  }
+]

@@ -1,0 +1,23 @@
+{
+  "verified": true,
+  "rollout_counts": {
+    "main": 3150,
+    "before_after": 300,
+    "counterfactual": 360
+  },
+  "trace_steps_verified": 892474,
+  "strict_score_recomputed_from_recorded_signals": true,
+  "geometry_containment_uses_saved_evaluator_flag": true,
+  "all_frozen_sources_and_registered_checkpoints_unchanged": true,
+  "compact_bundle_members_byte_exact": true,
+  "clean_demo_all_actions_and_object_positions_exact": true,
+  "isolated_demo_without_training_data_or_original_weights": true,
+  "local_document_links_verified": 19,
+  "v1": {
+    "version1_preserved": true,
+    "tag": "geopolicy-v1-2026-09-30",
+    "original_files": 122,
+    "selected_checkpoints": 11,
+    "all_original_checkpoints": 42
+  }
+}

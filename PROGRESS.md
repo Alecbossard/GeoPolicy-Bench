@@ -1,27 +1,33 @@
 # GeoPolicy Bench — version 2 progress
 
-Status: INCOMPLETE V2, started 2026-10-01. One principal agent; local work only.
+Status: COMPLETE V2 — experiments and delivery verification finished locally on 2026-10-01. One principal agent; no project worker remains active.
 
-## Objective
-Improve manipulation reliability and ACT diagnostics; compare fixed/wrist/fusion and manual-prior ablations; simplify reproduction. Preserve V1 measurements and checkpoints. Select recipes on validation and use disjoint reserved final tests with three training seeds. No CV edits or external publication.
+## Objective and preservation
+Improve diagnosis, stable-placement scoring, view/prior comparison and reproduction. V1 is preserved at tag `geopolicy-v1-2026-09-30` (542f132): all 42 original checkpoints and 122 tracked source/config/result files are hash-verified; all 274 original HDF5 files were checked before reserved evaluation. Historical `docs/final_report.md` is unchanged. All new experiments, including negative and intermediate runs, are separate under `artifacts/v2` and `results/v2`. Branch: `codex/geopolicy-v2`. No CV was edited and nothing was published online.
 
-## Preservation
-V1 Git tag `geopolicy-v1-2026-09-30`, commit `542f132`. New branch `codex/geopolicy-v2`. Historical source, raw results, configs and all selected weights are hash-inventoried in `configs/v2/v1_inventory.json`. Original README/report copied to `docs/v1`. New outputs only `artifacts/v2` and `results/v2`.
+## Executed study
+Seven corrected 3,000-update targeted pilots, including the adaptive instruction-broadcast ACT control, selected diffusion_history and act_history_binary on validation. Disjoint confirmation gave 0/20 for each, without retuning. A matched original-data control scored 4/20 versus 1/20 with continued data; it was outside the preset ranking and does not support a continuation benefit. Ten completed intermediate main runs plus a partial checkpoint remain archived.
 
-## Current stage
-All seven corrected targeted pilots completed. Stable validation (/20): diffusion suffix-only1, binary2, history/binary2; RGB ACT prior-only1, history/binary1; ACT3D0; adaptive RGB instruction-broadcast0. The broadcast hypothesis was motivated by recorded-frame instruction sensitivity, not final/confirmation results, and adds no parameters. It was rejected. Selected diffusion_history and act_history_binary by the unchanged ranking rule. Final confirmation: diffusion100280-100299; ACT100320-100339. Earlier confirmations and all intermediate results remain separate.
+All 21 final models completed 8,000 updates at batch 32 over the same 200 training and 21 validation episodes: fixed/wrist/fusion crossed with prior on/off, plus selected ACT, each on three training seeds. The final protocol, checkpoints, dataset, normalization and evaluator sources were frozen before reserved-test access.
 
-All 21 final main runs are complete: 8,000 updates/batch 32/three seeds, fixed/wrist/fusion × prior on/off plus selected ACT. Dataset and normalization are frozen. Auxiliary gripper supervision fixes the intermediate 7D diffusion channel issue; ten intermediate completed runs and a partial checkpoint remain archived, without reserved test access. Pretest verification passed 20 CPU tests, exact live/recorded inputs, all 221 augmented prefixes, all 274 original episode hashes, and bit-exact continuation of the real fusion run over its last 500 updates.
+All planned final episodes completed: 3,150 main, 300 fair V1 before/after, and 360 instruction controls (3,810 total). Full raw tables are in `results/v2/raw`; all per-step traces and resume checkpoints remain local. Supervisor session 61113 exited successfully; all study stages, including delivery/report, completed with return code 0. Logs: `artifacts/v2/study_pipeline.log`, `artifacts/v2/study_logs`.
 
-The final protocol was frozen before reserved-test access. Reserved evaluation is now running serially under study supervisor session 61113; log `artifacts/v2/study_pipeline.log`. Read current counts with `python -m geopolicy.v2 status`. Main configurations and stage identities support exact recovery. No CV edited, no online publication. Original 42 checkpoints and 122 tracked files remain hash-verified.
+## Measured outcome
+No nominal performance improvement is demonstrated. On the same new scenes and stable criterion, fusion V1 scored 16/150 versus V2 10/150 (difference −4.0 pp, descriptive 95% interval [−13.3, +4.0]); ACT V1 scored 9/150 versus V2 0/150. The targeted ACT search did not produce a reliable learned baseline. V1 remains the performance reference; V2 strengthens measurement and reproduction.
 
-## Remaining
-1. Finish the planned 3,150 main, 300 fair V1 before/after and 360 counterfactual reserved rollouts.
-2. Aggregate actual seeds/uncertainty and failures, create the compact local checkpoint/video demo, verify it in the separate pinned environment and review the report/README/CV bullet.
-3. Final preservation/source audit and local Git snapshot only. No CV modifications or online publication.
+With fixed camera absent, V2 fusion scored 14/150 versus fixed 1/150 (+8.7 pp [2.7, 16.0]) and wrist-only 7/150 (+4.7 pp [−2.0, 12.0]). The wrist comparison and nominal manual-prior effect (+3.3 pp [−2.7, 9.3]) remain uncertain. No selected policy completed all four instructions on any of 30 scene-seed pairs. Report: `docs/v2_report.md`. Low loss is not treated as manipulation success.
 
-## Restart
-`python -m geopolicy.v2 status` reads progress without Torch/GPU loading. `python -m geopolicy.v2 pilots` resumes corrected pilots. `python -m geopolicy.v2 study` waits for them and resumes the main study with identical checkpoints. Do not start a second supervisor while one is active. See `docs/v2_reproduction.md` for exact requirements.
+## Verification and deliverables
+- Pretest: 20 CPU tests, actual CUDA/dual-render resource gates for seven presets, exact recorded/live observations, all 221 augmented prefixes, and bit-exact continuation of the real final fusion run over its last 500 updates.
+- Final audit: all 3,810 rollouts and 892,474 trace steps passed strict dwell recomputation; all frozen sources/checkpoints unchanged. XY containment uses the saved evaluator flag. Evidence: `results/v2/delivery_verification.json`.
+- Compact EMA checkpoint and raw expected examples: `artifacts/v2/demo_bundle.zip`. Separate pinned-environment replay and isolated source-and-bundle-only replay both reproduced every action and selected-object position exactly, without training data or original training weights.
+- Actual earliest success/failure of predeclared fusion-prior seed 0: videos in `results/v2/demo`. Video start/middle/end frames and the comparison figure were visually reviewed; success places the red cube in the blue tray, failure selects the green cube. Evidence: `results/v2/visual_verification.json`.
+- Concise README, before/after report, configuration/model documentation and reproducible commands completed. Factual CV bullet proposal only: `docs/v2_cv_bullet.txt`.
+
+## Reproduce or inspect
+Run from the project root using the existing pinned environment:
+`python -m geopolicy.v2 status`, `python -m geopolicy.v2 demo`, or `python -m geopolicy.v2.delivery`.
+Full commands/artifact requirements: `docs/v2_reproduction.md`. The study is complete; no automatic restart is pending. Intentional new experiments require separate output paths and a new validation/test identity. The frozen V2 primary metric is retained, including continuous open-hand posture during its one-second dwell.
 
 ## Version 1 completed log
 
@@ -307,3 +313,127 @@ V2 study verification/pretest: complete; `artifacts\v2\study_logs\verification_p
 V2 study test/fixed_prior_s0: complete; `artifacts\v2\study_logs\test_fixed_prior_s0.log`.
 
 V2 study test/fixed_prior_s1: complete; `artifacts\v2\study_logs\test_fixed_prior_s1.log`.
+
+V2 study test/fixed_prior_s2: complete; `artifacts\v2\study_logs\test_fixed_prior_s2.log`.
+
+V2 study test/fixed_no_prior_s0: complete; `artifacts\v2\study_logs\test_fixed_no_prior_s0.log`.
+
+V2 study test/fixed_no_prior_s1: complete; `artifacts\v2\study_logs\test_fixed_no_prior_s1.log`.
+
+V2 study test/fixed_no_prior_s2: complete; `artifacts\v2\study_logs\test_fixed_no_prior_s2.log`.
+
+V2 study test/wrist_prior_s0: complete; `artifacts\v2\study_logs\test_wrist_prior_s0.log`.
+
+V2 study test/wrist_prior_s1: complete; `artifacts\v2\study_logs\test_wrist_prior_s1.log`.
+
+V2 study test/wrist_prior_s2: complete; `artifacts\v2\study_logs\test_wrist_prior_s2.log`.
+
+V2 study test/wrist_no_prior_s0: complete; `artifacts\v2\study_logs\test_wrist_no_prior_s0.log`.
+
+V2 study test/wrist_no_prior_s1: complete; `artifacts\v2\study_logs\test_wrist_no_prior_s1.log`.
+
+V2 study test/wrist_no_prior_s2: complete; `artifacts\v2\study_logs\test_wrist_no_prior_s2.log`.
+
+V2 study test/fusion_prior_s0: complete; `artifacts\v2\study_logs\test_fusion_prior_s0.log`.
+
+V2 study test/fusion_prior_s1: complete; `artifacts\v2\study_logs\test_fusion_prior_s1.log`.
+
+V2 study test/fusion_prior_s2: complete; `artifacts\v2\study_logs\test_fusion_prior_s2.log`.
+
+V2 study test/fusion_no_prior_s0: complete; `artifacts\v2\study_logs\test_fusion_no_prior_s0.log`.
+
+V2 study test/fusion_no_prior_s1: complete; `artifacts\v2\study_logs\test_fusion_no_prior_s1.log`.
+
+V2 study test/fusion_no_prior_s2: complete; `artifacts\v2\study_logs\test_fusion_no_prior_s2.log`.
+
+V2 study test/act_selected_s0: complete; `artifacts\v2\study_logs\test_act_selected_s0.log`.
+
+V2 study test/act_selected_s1: complete; `artifacts\v2\study_logs\test_act_selected_s1.log`.
+
+V2 study test/act_selected_s2: complete; `artifacts\v2\study_logs\test_act_selected_s2.log`.
+
+V2 study before_after/fusion_s0: complete; `artifacts\v2\study_logs\before_after_fusion_s0.log`.
+
+V2 study before_after/fusion_s1: complete; `artifacts\v2\study_logs\before_after_fusion_s1.log`.
+
+V2 study before_after/fusion_s2: complete; `artifacts\v2\study_logs\before_after_fusion_s2.log`.
+
+V2 study before_after/act_s0: complete; `artifacts\v2\study_logs\before_after_act_s0.log`.
+
+V2 study before_after/act_s1: complete; `artifacts\v2\study_logs\before_after_act_s1.log`.
+
+V2 study before_after/act_s2: complete; `artifacts\v2\study_logs\before_after_act_s2.log`.
+
+V2 study counterfactual/fusion_prior_s0_o0_g0: complete; `artifacts\v2\study_logs\counterfactual_fusion_prior_s0_o0_g0.log`.
+
+V2 study counterfactual/fusion_prior_s0_o0_g1: complete; `artifacts\v2\study_logs\counterfactual_fusion_prior_s0_o0_g1.log`.
+
+V2 study counterfactual/fusion_prior_s0_o1_g0: complete; `artifacts\v2\study_logs\counterfactual_fusion_prior_s0_o1_g0.log`.
+
+V2 study counterfactual/fusion_prior_s0_o1_g1: complete; `artifacts\v2\study_logs\counterfactual_fusion_prior_s0_o1_g1.log`.
+
+V2 study counterfactual/fusion_prior_s1_o0_g0: complete; `artifacts\v2\study_logs\counterfactual_fusion_prior_s1_o0_g0.log`.
+
+V2 study counterfactual/fusion_prior_s1_o0_g1: complete; `artifacts\v2\study_logs\counterfactual_fusion_prior_s1_o0_g1.log`.
+
+V2 study counterfactual/fusion_prior_s1_o1_g0: complete; `artifacts\v2\study_logs\counterfactual_fusion_prior_s1_o1_g0.log`.
+
+V2 study counterfactual/fusion_prior_s1_o1_g1: complete; `artifacts\v2\study_logs\counterfactual_fusion_prior_s1_o1_g1.log`.
+
+V2 study counterfactual/fusion_prior_s2_o0_g0: complete; `artifacts\v2\study_logs\counterfactual_fusion_prior_s2_o0_g0.log`.
+
+V2 study counterfactual/fusion_prior_s2_o0_g1: complete; `artifacts\v2\study_logs\counterfactual_fusion_prior_s2_o0_g1.log`.
+
+V2 study counterfactual/fusion_prior_s2_o1_g0: complete; `artifacts\v2\study_logs\counterfactual_fusion_prior_s2_o1_g0.log`.
+
+V2 study counterfactual/fusion_prior_s2_o1_g1: complete; `artifacts\v2\study_logs\counterfactual_fusion_prior_s2_o1_g1.log`.
+
+V2 study counterfactual/fusion_no_prior_s0_o0_g0: complete; `artifacts\v2\study_logs\counterfactual_fusion_no_prior_s0_o0_g0.log`.
+
+V2 study counterfactual/fusion_no_prior_s0_o0_g1: complete; `artifacts\v2\study_logs\counterfactual_fusion_no_prior_s0_o0_g1.log`.
+
+V2 study counterfactual/fusion_no_prior_s0_o1_g0: complete; `artifacts\v2\study_logs\counterfactual_fusion_no_prior_s0_o1_g0.log`.
+
+V2 study counterfactual/fusion_no_prior_s0_o1_g1: complete; `artifacts\v2\study_logs\counterfactual_fusion_no_prior_s0_o1_g1.log`.
+
+V2 study counterfactual/fusion_no_prior_s1_o0_g0: complete; `artifacts\v2\study_logs\counterfactual_fusion_no_prior_s1_o0_g0.log`.
+
+V2 study counterfactual/fusion_no_prior_s1_o0_g1: complete; `artifacts\v2\study_logs\counterfactual_fusion_no_prior_s1_o0_g1.log`.
+
+V2 study counterfactual/fusion_no_prior_s1_o1_g0: complete; `artifacts\v2\study_logs\counterfactual_fusion_no_prior_s1_o1_g0.log`.
+
+V2 study counterfactual/fusion_no_prior_s1_o1_g1: complete; `artifacts\v2\study_logs\counterfactual_fusion_no_prior_s1_o1_g1.log`.
+
+V2 study counterfactual/fusion_no_prior_s2_o0_g0: complete; `artifacts\v2\study_logs\counterfactual_fusion_no_prior_s2_o0_g0.log`.
+
+V2 study counterfactual/fusion_no_prior_s2_o0_g1: complete; `artifacts\v2\study_logs\counterfactual_fusion_no_prior_s2_o0_g1.log`.
+
+V2 study counterfactual/fusion_no_prior_s2_o1_g0: complete; `artifacts\v2\study_logs\counterfactual_fusion_no_prior_s2_o1_g0.log`.
+
+V2 study counterfactual/fusion_no_prior_s2_o1_g1: complete; `artifacts\v2\study_logs\counterfactual_fusion_no_prior_s2_o1_g1.log`.
+
+V2 study counterfactual/act_selected_s0_o0_g0: complete; `artifacts\v2\study_logs\counterfactual_act_selected_s0_o0_g0.log`.
+
+V2 study counterfactual/act_selected_s0_o0_g1: complete; `artifacts\v2\study_logs\counterfactual_act_selected_s0_o0_g1.log`.
+
+V2 study counterfactual/act_selected_s0_o1_g0: complete; `artifacts\v2\study_logs\counterfactual_act_selected_s0_o1_g0.log`.
+
+V2 study counterfactual/act_selected_s0_o1_g1: complete; `artifacts\v2\study_logs\counterfactual_act_selected_s0_o1_g1.log`.
+
+V2 study counterfactual/act_selected_s1_o0_g0: complete; `artifacts\v2\study_logs\counterfactual_act_selected_s1_o0_g0.log`.
+
+V2 study counterfactual/act_selected_s1_o0_g1: complete; `artifacts\v2\study_logs\counterfactual_act_selected_s1_o0_g1.log`.
+
+V2 study counterfactual/act_selected_s1_o1_g0: complete; `artifacts\v2\study_logs\counterfactual_act_selected_s1_o1_g0.log`.
+
+V2 study counterfactual/act_selected_s1_o1_g1: complete; `artifacts\v2\study_logs\counterfactual_act_selected_s1_o1_g1.log`.
+
+V2 study counterfactual/act_selected_s2_o0_g0: complete; `artifacts\v2\study_logs\counterfactual_act_selected_s2_o0_g0.log`.
+
+V2 study counterfactual/act_selected_s2_o0_g1: complete; `artifacts\v2\study_logs\counterfactual_act_selected_s2_o0_g1.log`.
+
+V2 study counterfactual/act_selected_s2_o1_g0: complete; `artifacts\v2\study_logs\counterfactual_act_selected_s2_o1_g0.log`.
+
+V2 study counterfactual/act_selected_s2_o1_g1: complete; `artifacts\v2\study_logs\counterfactual_act_selected_s2_o1_g1.log`.
+
+V2 study delivery/report: complete; `artifacts\v2\study_logs\delivery_report.log`.

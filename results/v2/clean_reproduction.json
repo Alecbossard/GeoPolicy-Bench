@@ -1,0 +1,26 @@
+{
+  "tests": ".......                                                                  [100%]\n7 passed in 4.14s\n",
+  "demo": {
+    "verified": true,
+    "episodes": [
+      {
+        "scene_seed": 300012,
+        "stable_success": true,
+        "first_action_exact": true,
+        "sensor_hash_exact": true,
+        "steps_exact": true,
+        "all_actions_and_selected_object_positions_exact": true
+      },
+      {
+        "scene_seed": 300000,
+        "stable_success": false,
+        "first_action_exact": true,
+        "sensor_hash_exact": true,
+        "steps_exact": true,
+        "all_actions_and_selected_object_positions_exact": true
+      }
+    ]
+  },
+  "executable": ".venv-repro\\Scripts\\python.exe",
+  "checkpoint_hash_verified": true
+}

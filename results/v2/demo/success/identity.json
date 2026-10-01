@@ -1,0 +1,12 @@
+{
+  "checkpoint_sha256": "7bbed8d9aff298b564b56f4deaf3f3daa8ba60195c71326f0a7158aab7bd9aba",
+  "recipe_sha256": "1ec5ff6e5d329ac5521209a9bd166ffef3f226b63330ed446fef9de146a1df0b",
+  "first_seed": 300012,
+  "episodes": 1,
+  "conditions": [
+    "nominal"
+  ],
+  "reference": false,
+  "object_id": null,
+  "goal_id": null
+}

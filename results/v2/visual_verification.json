@@ -1,0 +1,30 @@
+{
+  "verified": true,
+  "review": "Human-readable visual inspection through image tools of comparison figure and start/middle/end frames of the actual disclosed videos.",
+  "figure": "results/v2/figures/main_comparison.png",
+  "videos": [
+    {
+      "video": "results/v2/demo/success/nominal_300012_stable.mp4",
+      "frames": 124,
+      "fps": 20.0,
+      "extracted": [
+        "C:\\Users\\Alec\\Documents\\ChatGPT\\GeoPolicy-Bench\\artifacts\\v2\\visual_qa\\success_0000.png",
+        "C:\\Users\\Alec\\Documents\\ChatGPT\\GeoPolicy-Bench\\artifacts\\v2\\visual_qa\\success_0062.png",
+        "C:\\Users\\Alec\\Documents\\ChatGPT\\GeoPolicy-Bench\\artifacts\\v2\\visual_qa\\success_0123.png"
+      ]
+    },
+    {
+      "video": "results/v2/demo/failure/nominal_300000_failure.mp4",
+      "frames": 241,
+      "fps": 20.0,
+      "extracted": [
+        "C:\\Users\\Alec\\Documents\\ChatGPT\\GeoPolicy-Bench\\artifacts\\v2\\visual_qa\\failure_0000.png",
+        "C:\\Users\\Alec\\Documents\\ChatGPT\\GeoPolicy-Bench\\artifacts\\v2\\visual_qa\\failure_0120.png",
+        "C:\\Users\\Alec\\Documents\\ChatGPT\\GeoPolicy-Bench\\artifacts\\v2\\visual_qa\\failure_0240.png"
+      ]
+    }
+  ],
+  "success_observation": "The red cube is grasped and ends in the blue tray with fingers open.",
+  "failure_observation": "The green cube is placed in the blue tray while the requested red cube remains on the table.",
+  "scope": "Visual presentation check; aggregate success evidence comes from recorded strict-metric evaluation."
+}
