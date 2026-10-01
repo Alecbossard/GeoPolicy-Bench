@@ -1,0 +1,32 @@
+{
+  "validation_first_seed": 100200,
+  "episodes": 20,
+  "unassisted_stable_successes": 2,
+  "reserved_test_used": false,
+  "learned_baseline": false,
+  "interpretation": "Ground-truth scripted motion/gripper replaces one component only. A difference measures the effect of that intervention in these scenes, not a unique architectural cause or a learned success gain.",
+  "motion_oracle_stable_successes": 16,
+  "motion_oracle_success_scene_seeds": [
+    100201,
+    100202,
+    100203,
+    100204,
+    100205,
+    100206,
+    100207,
+    100208,
+    100209,
+    100210,
+    100212,
+    100213,
+    100214,
+    100216,
+    100217,
+    100219
+  ],
+  "gripper_oracle_stable_successes": 2,
+  "gripper_oracle_success_scene_seeds": [
+    100200,
+    100213
+  ]
+}

@@ -19,5 +19,6 @@
   "causal_history_exact": true,
   "robot_snapshots_do_not_alias": true,
   "moving_wrist_calibration_and_points_exact": true,
+  "actual_wrist_batch_unchanged_by_fixed_corruption": true,
   "reserved_test_used": false
 }

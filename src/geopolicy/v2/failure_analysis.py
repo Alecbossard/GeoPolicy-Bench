@@ -33,6 +33,15 @@ def analyze_folder(folder):
                 candidates.append(i)
         first = min(candidates) if candidates else None
         tail = trace[first:] if first is not None else []
+        free_pose_closed_hand_samples = sum(
+            t["full_xy_containment"]
+            and 0.816 < t["selected_xyz_m"][2] < 0.855
+            and not t["finger_contact_selected"]
+            and t["selected_linear_speed_m_s"] <= 0.02
+            and t["selected_angular_speed_rad_s"] <= 0.25
+            and t["finger_width_m"] < 0.045
+            for t in tail
+        )
         details.append(
             dict(
                 scene_seed=row["scene_seed"],
@@ -40,6 +49,7 @@ def analyze_folder(folder):
                 failure_stage=row["failure_stage"],
                 stable_success=row["stable_success"],
                 gripper_sign_switches=switches,
+                stable_free_object_samples_blocked_by_closed_hand=free_pose_closed_hand_samples,
                 first_contained_release_step=first,
                 closing_command_after_candidate=bool(
                     tail and any(t["gripper_command"] > 0 for t in tail)

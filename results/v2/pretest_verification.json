@@ -1,0 +1,74 @@
+{
+  "v1": {
+    "version1_preserved": true,
+    "tag": "geopolicy-v1-2026-09-30",
+    "original_files": 122,
+    "selected_checkpoints": 11,
+    "all_original_checkpoints": 42
+  },
+  "pytest": {
+    "returncode": 0,
+    "output": "....................                                                     [100%]\n20 passed, 1 deselected in 6.25s\n"
+  },
+  "original_hdf5_hashes_verified": 274,
+  "augmented_prefixes_array_exact": 221,
+  "live_recorded_inputs": {
+    "scene_seed": 100000,
+    "frames_checked": 10,
+    "errors": {
+      "fixed/points": 0,
+      "fixed/point_mask": 0,
+      "fixed/state": 0,
+      "fixed/instruction": 0,
+      "wrist/points": 0,
+      "wrist/point_mask": 0,
+      "wrist/state": 0,
+      "wrist/instruction": 0,
+      "fusion/points": 0,
+      "fusion/point_mask": 0,
+      "fusion/state": 0,
+      "fusion/instruction": 0
+    },
+    "rgb_exact": true,
+    "causal_history_exact": true,
+    "robot_snapshots_do_not_alias": true,
+    "moving_wrist_calibration_and_points_exact": true,
+    "actual_wrist_batch_unchanged_by_fixed_corruption": true,
+    "reserved_test_used": false
+  },
+  "act_validation_component_interventions": {
+    "validation_first_seed": 100200,
+    "episodes": 20,
+    "unassisted_stable_successes": 2,
+    "reserved_test_used": false,
+    "learned_baseline": false,
+    "interpretation": "Ground-truth scripted motion/gripper replaces one component only. A difference measures the effect of that intervention in these scenes, not a unique architectural cause or a learned success gain.",
+    "motion_oracle_stable_successes": 16,
+    "motion_oracle_success_scene_seeds": [
+      100201,
+      100202,
+      100203,
+      100204,
+      100205,
+      100206,
+      100207,
+      100208,
+      100209,
+      100210,
+      100212,
+      100213,
+      100214,
+      100216,
+      100217,
+      100219
+    ],
+    "gripper_oracle_stable_successes": 2,
+    "gripper_oracle_success_scene_seeds": [
+      100200,
+      100213
+    ]
+  },
+  "matched_main_runs_verified": 21,
+  "real_500_update_resume_bit_exact": true,
+  "resume_source": "artifacts\\v2\\main_runs\\fusion_prior_s0\\resume_probe.pt"
+}

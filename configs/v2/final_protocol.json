@@ -1,0 +1,384 @@
+{
+  "version": 2,
+  "recipe": {
+    "version": 2,
+    "dataset": "artifacts/v2/dataset",
+    "dataset_manifest": "configs/v2/dataset_manifest.json",
+    "artifacts": "artifacts/v2",
+    "results": "results/v2",
+    "training": {
+      "demonstrations": 200,
+      "updates": 8000,
+      "pilot_updates": 3000,
+      "batch_size": 32,
+      "learning_rate": 0.0003,
+      "weight_decay": 1e-05,
+      "minimum_learning_rate": 3e-05,
+      "ema_decay": 0.995,
+      "validation_interval": 500,
+      "validation_batches": 20,
+      "horizon": 8,
+      "history": 1,
+      "execute_steps": 2,
+      "inference_steps": 10,
+      "point_budget": 512,
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "diffusion_gripper_aux_weight": 0.1
+    },
+    "evaluation": {
+      "control_hz": 20,
+      "maximum_steps": 240,
+      "validation_first_seed": 100200,
+      "validation_episodes": 20,
+      "confirmation_first_seed": 100280,
+      "confirmation_episodes": 20,
+      "reserved_test_first_seed": 300000,
+      "test_episodes": 50,
+      "conditions": [
+        "nominal",
+        "occlusion",
+        "fixed_camera_missing"
+      ],
+      "counterfactual_first_seed": 300100,
+      "counterfactual_scenes": 10,
+      "device": "cpu",
+      "torch_threads": 2
+    },
+    "stability": {
+      "minimum_seconds": 1.0,
+      "maximum_linear_speed_m_s": 0.02,
+      "maximum_angular_speed_rad_s": 0.25,
+      "minimum_finger_width_m": 0.045,
+      "tray_inner_half_xy_m": [
+        0.063,
+        0.06
+      ],
+      "containment_margin_m": 0.001,
+      "cube_half_extent_m": 0.021,
+      "center_height_m": [
+        0.816,
+        0.855
+      ],
+      "minimum_previous_lift_m": 0.89
+    },
+    "resource_limits": {
+      "minimum_free_disk_gib": 12,
+      "minimum_free_gpu_mib": 1024,
+      "minimum_free_commit_mib": 512,
+      "maximum_temperature_c": 90,
+      "consecutive_unsafe_samples": 3,
+      "sample_interval_seconds": 15,
+      "training_timeout_seconds": 1800,
+      "cell_timeout_seconds": 1800
+    },
+    "data_extension": {
+      "post_release_steps": 30,
+      "normalization_path": "configs/v2/normalization.json"
+    }
+  },
+  "recipe_sha256": "1ec5ff6e5d329ac5521209a9bd166ffef3f226b63330ed446fef9de146a1df0b",
+  "selected": {
+    "selected": {
+      "diffusion": "diffusion_history",
+      "act": "act_history_binary"
+    },
+    "pilot_scores": {
+      "diffusion_suffix_only": {
+        "stable_successes": 1,
+        "wrong_object_lifts": 3,
+        "collision_episodes": 5,
+        "transport_reached": 1,
+        "episodes": 20
+      },
+      "diffusion_binary": {
+        "stable_successes": 2,
+        "wrong_object_lifts": 3,
+        "collision_episodes": 8,
+        "transport_reached": 2,
+        "episodes": 20
+      },
+      "diffusion_history": {
+        "stable_successes": 2,
+        "wrong_object_lifts": 2,
+        "collision_episodes": 1,
+        "transport_reached": 2,
+        "episodes": 20
+      },
+      "act_prior_only": {
+        "stable_successes": 1,
+        "wrong_object_lifts": 4,
+        "collision_episodes": 8,
+        "transport_reached": 1,
+        "episodes": 20
+      },
+      "act_history_binary": {
+        "stable_successes": 1,
+        "wrong_object_lifts": 3,
+        "collision_episodes": 11,
+        "transport_reached": 1,
+        "episodes": 20
+      },
+      "act_point": {
+        "stable_successes": 0,
+        "wrong_object_lifts": 2,
+        "collision_episodes": 0,
+        "transport_reached": 0,
+        "episodes": 20
+      },
+      "act_instruction_broadcast": {
+        "stable_successes": 0,
+        "wrong_object_lifts": 0,
+        "collision_episodes": 20,
+        "transport_reached": 0,
+        "episodes": 20
+      }
+    },
+    "rule": {
+      "test_data_used": false,
+      "primary": "Maximize stable success count on validation 100200-100219",
+      "tie_breakers": [
+        "fewer wrong-object lifts",
+        "fewer collision flags",
+        "more episodes reaching correct destination",
+        "simpler predeclared preset order"
+      ],
+      "confirmation": "Diffusion: disjoint100280-100299. ACT: fresh100320-100339 after adaptive validation-only broadcast pilot; do not retune on confirmation/test.",
+      "family_comparison": "All final fixed/wrist/fusion prior-on/off diffusion models use the selected common architecture/recipe and equal8000 updates on3 seeds",
+      "intermediate_v2a": "Archived before reserved testing after finding unsupervised seventh diffusion channel; initial confirmation 100240-100259 retained, not reused for final confirmation",
+      "adaptive_act_pilot": "Seventh preset added after six validation pilots, motivated by V1 input sensitivity; same parameters/data/3000 updates. Ranking unchanged; never used reserved test."
+    },
+    "reserved_test_used": false
+  },
+  "jobs": [
+    {
+      "name": "fixed_prior",
+      "seed": 0,
+      "run_config": "configs/v2/runs/fixed_prior_s0.json",
+      "checkpoint": "artifacts/v2/main_runs/fixed_prior_s0/best.pt"
+    },
+    {
+      "name": "fixed_prior",
+      "seed": 1,
+      "run_config": "configs/v2/runs/fixed_prior_s1.json",
+      "checkpoint": "artifacts/v2/main_runs/fixed_prior_s1/best.pt"
+    },
+    {
+      "name": "fixed_prior",
+      "seed": 2,
+      "run_config": "configs/v2/runs/fixed_prior_s2.json",
+      "checkpoint": "artifacts/v2/main_runs/fixed_prior_s2/best.pt"
+    },
+    {
+      "name": "fixed_no_prior",
+      "seed": 0,
+      "run_config": "configs/v2/runs/fixed_no_prior_s0.json",
+      "checkpoint": "artifacts/v2/main_runs/fixed_no_prior_s0/best.pt"
+    },
+    {
+      "name": "fixed_no_prior",
+      "seed": 1,
+      "run_config": "configs/v2/runs/fixed_no_prior_s1.json",
+      "checkpoint": "artifacts/v2/main_runs/fixed_no_prior_s1/best.pt"
+    },
+    {
+      "name": "fixed_no_prior",
+      "seed": 2,
+      "run_config": "configs/v2/runs/fixed_no_prior_s2.json",
+      "checkpoint": "artifacts/v2/main_runs/fixed_no_prior_s2/best.pt"
+    },
+    {
+      "name": "wrist_prior",
+      "seed": 0,
+      "run_config": "configs/v2/runs/wrist_prior_s0.json",
+      "checkpoint": "artifacts/v2/main_runs/wrist_prior_s0/best.pt"
+    },
+    {
+      "name": "wrist_prior",
+      "seed": 1,
+      "run_config": "configs/v2/runs/wrist_prior_s1.json",
+      "checkpoint": "artifacts/v2/main_runs/wrist_prior_s1/best.pt"
+    },
+    {
+      "name": "wrist_prior",
+      "seed": 2,
+      "run_config": "configs/v2/runs/wrist_prior_s2.json",
+      "checkpoint": "artifacts/v2/main_runs/wrist_prior_s2/best.pt"
+    },
+    {
+      "name": "wrist_no_prior",
+      "seed": 0,
+      "run_config": "configs/v2/runs/wrist_no_prior_s0.json",
+      "checkpoint": "artifacts/v2/main_runs/wrist_no_prior_s0/best.pt"
+    },
+    {
+      "name": "wrist_no_prior",
+      "seed": 1,
+      "run_config": "configs/v2/runs/wrist_no_prior_s1.json",
+      "checkpoint": "artifacts/v2/main_runs/wrist_no_prior_s1/best.pt"
+    },
+    {
+      "name": "wrist_no_prior",
+      "seed": 2,
+      "run_config": "configs/v2/runs/wrist_no_prior_s2.json",
+      "checkpoint": "artifacts/v2/main_runs/wrist_no_prior_s2/best.pt"
+    },
+    {
+      "name": "fusion_prior",
+      "seed": 0,
+      "run_config": "configs/v2/runs/fusion_prior_s0.json",
+      "checkpoint": "artifacts/v2/main_runs/fusion_prior_s0/best.pt"
+    },
+    {
+      "name": "fusion_prior",
+      "seed": 1,
+      "run_config": "configs/v2/runs/fusion_prior_s1.json",
+      "checkpoint": "artifacts/v2/main_runs/fusion_prior_s1/best.pt"
+    },
+    {
+      "name": "fusion_prior",
+      "seed": 2,
+      "run_config": "configs/v2/runs/fusion_prior_s2.json",
+      "checkpoint": "artifacts/v2/main_runs/fusion_prior_s2/best.pt"
+    },
+    {
+      "name": "fusion_no_prior",
+      "seed": 0,
+      "run_config": "configs/v2/runs/fusion_no_prior_s0.json",
+      "checkpoint": "artifacts/v2/main_runs/fusion_no_prior_s0/best.pt"
+    },
+    {
+      "name": "fusion_no_prior",
+      "seed": 1,
+      "run_config": "configs/v2/runs/fusion_no_prior_s1.json",
+      "checkpoint": "artifacts/v2/main_runs/fusion_no_prior_s1/best.pt"
+    },
+    {
+      "name": "fusion_no_prior",
+      "seed": 2,
+      "run_config": "configs/v2/runs/fusion_no_prior_s2.json",
+      "checkpoint": "artifacts/v2/main_runs/fusion_no_prior_s2/best.pt"
+    },
+    {
+      "name": "act_selected",
+      "seed": 0,
+      "run_config": "configs/v2/runs/act_selected_s0.json",
+      "checkpoint": "artifacts/v2/main_runs/act_selected_s0/best.pt"
+    },
+    {
+      "name": "act_selected",
+      "seed": 1,
+      "run_config": "configs/v2/runs/act_selected_s1.json",
+      "checkpoint": "artifacts/v2/main_runs/act_selected_s1/best.pt"
+    },
+    {
+      "name": "act_selected",
+      "seed": 2,
+      "run_config": "configs/v2/runs/act_selected_s2.json",
+      "checkpoint": "artifacts/v2/main_runs/act_selected_s2/best.pt"
+    }
+  ],
+  "registered_checkpoint_hashes": [
+    "36a85f8487b47bdc0bc7e5a191da85a978235c4ae0357d3fc4343bf08b5648cb",
+    "09f6fa7dcfe23410b557d1d16eea019fd9871503db83d3d8017f14e0d2d1ad70",
+    "ec6271cc42946f7bfd539cbdf98ce1f23934c81a2001dd6516110074f26395fa",
+    "10c58405e4699edf788e883a280345030c17a41caf797c82017857827778cb2d",
+    "f98ee8a5ce76fb5a3777d0496fecc10df27308cbdae6d0cb111900c1c93a6f0a",
+    "6bd4379e9599bf9c6b0ab2c571eb047647638d52686d14b352aa8368849125c4",
+    "af181bd19db4d1c35300d3ff281bceb55a698e8349f86b69bd3b76c1644beb07",
+    "96c2e722ec21b2a7c4ea35505472eceefdf56cbb1598560eecdd2aeb6980a5b0",
+    "ce89d9e570c2a595adc076b2a74bc1491343189a3508f6421bb55d6f8751e462",
+    "134fb1cffb9ab0206571ddbc6fcf0cfb0305297ec00a005869a1cf5b960c6122",
+    "d9073d54e920865b2254042c7d1cb56b9e436880748ef93af3f77cb18c8c295a",
+    "b8794ab6fe75e599c7948d62c3b0a62d3f7e9f336fc898112872e4953191475f",
+    "7bbed8d9aff298b564b56f4deaf3f3daa8ba60195c71326f0a7158aab7bd9aba",
+    "31ff8da79e55baf64f9820caef2ac41a2336589dfb4ddedf6fb47ddee12054be",
+    "4008f4f06767681375d2c09cd0916e7bda219ce7f252c6cb524d45025f6f9f45",
+    "6d0791863077e8be268c9a4f800e41a71ab9c10f023c00ae0186348c1994c221",
+    "6f9a2913deefcb26120b4b5dd79415317c5ad2ff4c7034a8d8dc174aebdb9874",
+    "6a91d29d06b184ee9a7be4da0ee0ab0b0cd750830e4a38c99362171cbb8578be",
+    "21ca9bb9a4988795c7d4a8525bbaa494fb9d6ce64ee37c3342c4ec7135e65226",
+    "96126d2d128cf834ebd42c68ea9fbbeafadec3d5fa4c6417f6b56796454698bf",
+    "fd22ccd4faf5232b1f3105e2aa1956e68e4690f59f61c06824523af25b855574",
+    "444aa2e097000653ffff70bcc420740f13ffd7e1b26c6bd3e1e444eb4bea9263",
+    "8e9d7c89fd4ea9ce7ab2eab434bb60082435a7fb9ec74389fa3c79a03f8d5447",
+    "a08333b957f2fd3342a44101b9e7d50f5b5989393c57e66c05d5406ad08ae65f",
+    "5a07ccd0538b34aa37880ef21ce29fd2f936a9f3144e9cad94e86072f40f34bd",
+    "a11daa678f9053ca6618ce0ce14208f5ae3734043f431fd500996f992cafd078",
+    "5dc90d5a1bfe35cd4bf1a3d504f259dd75c15f251fd3a5aac4a425a14fa029f3"
+  ],
+  "checkpoints": {
+    "artifacts/v2/main_runs/fixed_prior_s0/best.pt": "36a85f8487b47bdc0bc7e5a191da85a978235c4ae0357d3fc4343bf08b5648cb",
+    "artifacts/v2/main_runs/fixed_prior_s1/best.pt": "09f6fa7dcfe23410b557d1d16eea019fd9871503db83d3d8017f14e0d2d1ad70",
+    "artifacts/v2/main_runs/fixed_prior_s2/best.pt": "ec6271cc42946f7bfd539cbdf98ce1f23934c81a2001dd6516110074f26395fa",
+    "artifacts/v2/main_runs/fixed_no_prior_s0/best.pt": "10c58405e4699edf788e883a280345030c17a41caf797c82017857827778cb2d",
+    "artifacts/v2/main_runs/fixed_no_prior_s1/best.pt": "f98ee8a5ce76fb5a3777d0496fecc10df27308cbdae6d0cb111900c1c93a6f0a",
+    "artifacts/v2/main_runs/fixed_no_prior_s2/best.pt": "6bd4379e9599bf9c6b0ab2c571eb047647638d52686d14b352aa8368849125c4",
+    "artifacts/v2/main_runs/wrist_prior_s0/best.pt": "af181bd19db4d1c35300d3ff281bceb55a698e8349f86b69bd3b76c1644beb07",
+    "artifacts/v2/main_runs/wrist_prior_s1/best.pt": "96c2e722ec21b2a7c4ea35505472eceefdf56cbb1598560eecdd2aeb6980a5b0",
+    "artifacts/v2/main_runs/wrist_prior_s2/best.pt": "ce89d9e570c2a595adc076b2a74bc1491343189a3508f6421bb55d6f8751e462",
+    "artifacts/v2/main_runs/wrist_no_prior_s0/best.pt": "134fb1cffb9ab0206571ddbc6fcf0cfb0305297ec00a005869a1cf5b960c6122",
+    "artifacts/v2/main_runs/wrist_no_prior_s1/best.pt": "d9073d54e920865b2254042c7d1cb56b9e436880748ef93af3f77cb18c8c295a",
+    "artifacts/v2/main_runs/wrist_no_prior_s2/best.pt": "b8794ab6fe75e599c7948d62c3b0a62d3f7e9f336fc898112872e4953191475f",
+    "artifacts/v2/main_runs/fusion_prior_s0/best.pt": "7bbed8d9aff298b564b56f4deaf3f3daa8ba60195c71326f0a7158aab7bd9aba",
+    "artifacts/v2/main_runs/fusion_prior_s1/best.pt": "31ff8da79e55baf64f9820caef2ac41a2336589dfb4ddedf6fb47ddee12054be",
+    "artifacts/v2/main_runs/fusion_prior_s2/best.pt": "4008f4f06767681375d2c09cd0916e7bda219ce7f252c6cb524d45025f6f9f45",
+    "artifacts/v2/main_runs/fusion_no_prior_s0/best.pt": "6d0791863077e8be268c9a4f800e41a71ab9c10f023c00ae0186348c1994c221",
+    "artifacts/v2/main_runs/fusion_no_prior_s1/best.pt": "6f9a2913deefcb26120b4b5dd79415317c5ad2ff4c7034a8d8dc174aebdb9874",
+    "artifacts/v2/main_runs/fusion_no_prior_s2/best.pt": "6a91d29d06b184ee9a7be4da0ee0ab0b0cd750830e4a38c99362171cbb8578be",
+    "artifacts/v2/main_runs/act_selected_s0/best.pt": "21ca9bb9a4988795c7d4a8525bbaa494fb9d6ce64ee37c3342c4ec7135e65226",
+    "artifacts/v2/main_runs/act_selected_s1/best.pt": "96126d2d128cf834ebd42c68ea9fbbeafadec3d5fa4c6417f6b56796454698bf",
+    "artifacts/v2/main_runs/act_selected_s2/best.pt": "fd22ccd4faf5232b1f3105e2aa1956e68e4690f59f61c06824523af25b855574",
+    "artifacts/main_runs/fusion_s0/best.pt": "444aa2e097000653ffff70bcc420740f13ffd7e1b26c6bd3e1e444eb4bea9263",
+    "artifacts/main_runs/fusion_s1/best.pt": "8e9d7c89fd4ea9ce7ab2eab434bb60082435a7fb9ec74389fa3c79a03f8d5447",
+    "artifacts/main_runs/fusion_s2/best.pt": "a08333b957f2fd3342a44101b9e7d50f5b5989393c57e66c05d5406ad08ae65f",
+    "artifacts/main_runs/act_s0/best.pt": "5a07ccd0538b34aa37880ef21ce29fd2f936a9f3144e9cad94e86072f40f34bd",
+    "artifacts/main_runs/act_s1/best.pt": "a11daa678f9053ca6618ce0ce14208f5ae3734043f431fd500996f992cafd078",
+    "artifacts/main_runs/act_s2/best.pt": "5dc90d5a1bfe35cd4bf1a3d504f259dd75c15f251fd3a5aac4a425a14fa029f3"
+  },
+  "evaluation_source_hashes": {
+    "src/geopolicy/environment.py": "d008f6ed4311a0c0539fed918cd12508bca113cc047e3a0e8b33ec8f052215d8",
+    "src/geopolicy/sensors.py": "b347b2cf26169a5baaf833d3397660a016a8c8085a6d527869caf078c484922d",
+    "src/geopolicy/evaluation.py": "30f03de01f20c8136ce72b77650b4643dfff0b05ef81b5630a5ee471af0db54b",
+    "src/geopolicy/policies.py": "eeef3493c6feb9b13cf667680d9c49a432c377a88ffefb8161ae5eb6beb4d666",
+    "src/geopolicy/v2/evaluation.py": "762235c92077cc7ef4d27d01b873d6503cfa0165dfbe0b08b8835dc9567a8c80",
+    "src/geopolicy/v2/metrics.py": "1360ee61b401a18592162aa4baf77f9fd53402074d56535aceb2bf20f0770681",
+    "src/geopolicy/v2/data.py": "9616d7e06e5a8ac024155070ebb0bdb2a27c036487e1a996b1226e527544ab1d",
+    "src/geopolicy/v2/models.py": "bd82cbea6bc786d6c1d361d9f774ea1fd6baea8b0d2fbe7900950021f083c317",
+    "src/geopolicy/v2/config.py": "7ee3da3181fad40a93eb4cb9ace3d7c8de0401ca5068c8287ced31ba1125361c",
+    "src/geopolicy/v2/resources.py": "abcff0cde59e1860b27d6777a78ecc6dc09b9b992b726036e1f5dd5ff38186e8"
+  },
+  "evaluation_source_hash_algorithm": "SHA256 of bytes with CRLF normalized to LF",
+  "frozen_at_utc": "2026-10-01T10:25:31.362840+00:00",
+  "dataset_manifest_sha256": "40bd5da3c8f85c9561dfe1f13fc9a4540353ae8286ec52bbad244e92271fd123",
+  "normalization_sha256": "f44f3608bea39627d8c534451c316bb16f4af31d62e62175efaf356ec7eb4417",
+  "primary_comparisons": [
+    "fusion_prior vs fixed_prior, nominal",
+    "fusion_prior vs fixed_prior, fixed_camera_missing",
+    "fusion_prior vs wrist_prior, fixed_camera_missing",
+    "fusion_prior vs fusion_no_prior, nominal"
+  ],
+  "statistics": "Paired scene and training-seed crossed bootstrap; 10000 draws, RNG 81, percentile 95% intervals; primary and exploratory comparisons are descriptive, without multiplicity correction.",
+  "confirmation": {
+    "diffusion_first_seed": 100280,
+    "act": {
+      "preset": "act_instruction_broadcast",
+      "hypothesis": "A lone instruction token may have weak influence among128 image tokens; broadcast its learned embedding without adding parameters. Local sensitivity motivates the test but does not prove causality.",
+      "validation_first_seed": 100200,
+      "validation_episodes": 20,
+      "confirmation_first_seed": 100320,
+      "confirmation_episodes": 20,
+      "updates": 3000,
+      "seed": 0,
+      "previous_confirmation_retained": "artifacts/v2/initial_act_confirmation",
+      "reserved_test_used": false
+    },
+    "retuning_on_confirmation": false
+  },
+  "before_after": "Preserved V1 fusion and ACT re-evaluated on the same new nominal scenes, horizon and stable metric; recipe changes are bundled, not attributed individually.",
+  "counterfactual": "10 physically identical scenes x four instructions x three seeds for fusion prior on/off and selected ACT; all-four completion is the strict score.",
+  "frozen_before_first_reserved_rollout": true
+}

@@ -526,7 +526,7 @@ The full V2 recipe bundles continued data, causal history, loss/output changes a
 
 {failure_table}
 
-Stages are evaluator-only geometric/contact proxies: selection (wrong object lifted without selected lift, or no target approach), grasp (no selected lift), transport (no correct destination reach), release (no full contained open-finger release), unstable (release seen but no continuous stable interval). They are mutually exclusive failure labels, not a claim that the teacher phase machine was inferred. Collision and wrong-target flags remain separate; success is not certified collision-free.
+Stages are evaluator-only geometric/contact proxies: selection (wrong object lifted without selected lift, or no target approach), grasp (no selected lift), transport (no correct destination reach), release (no full contained open-finger release), unstable (release seen but no continuous stable interval). They are mutually exclusive failure labels, not a claim that the teacher phase machine was inferred. The JSON label `unstable_placement` means the complete post-release criterion was not held for one second: it can reflect hand closure even when the cube itself remains still. It is not proof of physical object instability; positions, speeds and contacts in the trace distinguish these cases. Collision and wrong-target flags remain separate; success is not certified collision-free.
 
 {cf_table}
 
@@ -534,7 +534,7 @@ All four instructions reuse identical RGB, depth, camera poses and robot state a
 
 ## Stable placement contract
 
-At 20 Hz, valid samples must span one continuous second (at least 21 samples). The selected cube must previously lift above 0.89 m, have center height 0.816–0.855 m and all rotated XY corners contained in the chosen tray's inner half-extents [0.063, 0.060] m minus 1 mm margin. Fingers must be open at least 45 mm with no selected-object finger contact, object linear speed ≤0.02 m/s and angular speed ≤0.25 rad/s. Invalid samples reset the interval. The policy keeps acting throughout verification, with no assisted release. Evaluation ends at stable success or 240 steps. The tray dimensions are specific to this simulator asset; the criterion measures a one-second dwell, not indefinite stability or general collision safety. Unit tests cover interruption, transient crossing, contact, finger width, speed, containment and prior lift.
+At 20 Hz, valid samples must span one continuous second (at least 21 samples). The selected cube must previously lift above 0.89 m, have center height 0.816–0.855 m and all rotated XY corners contained in the chosen tray's inner half-extents [0.063, 0.060] m minus 1 mm margin. Fingers must be open at least 45 mm with no selected-object finger contact, object linear speed ≤0.02 m/s and angular speed ≤0.25 rad/s. Invalid samples reset the interval. This primary protocol also requires fingers to remain open throughout the dwell; closing empty fingers after withdrawing can therefore fail the strict score despite an otherwise stable object. This conservative robot-ending-posture requirement is explicit, and raw traces retain object pose/speed and hand width so it is not misattributed to object motion. The policy keeps acting throughout verification, with no assisted release. Evaluation ends at stable success or 240 steps. The tray dimensions are specific to this simulator asset; the criterion measures a one-second dwell, not indefinite stability or general collision safety. Unit tests cover interruption, transient crossing, contact, finger width, speed, containment and prior lift.
 
 ## Execution, verification and reproduction
 
@@ -600,7 +600,7 @@ No training data is needed for the demo. Weights stay local under ignored `artif
 
 Six diffusion variants: fixed, wrist and fusion, each with/without the chromatic prior. Same 200 successful demonstration prefixes plus 30 recorded PPO-teacher steps after release, 21 validation episodes, frozen normalization, 7D actions, 512 points, 8,000 updates, batch 32, three training seeds. Seven targeted 3,000-update pilots select the recipe on validation; a new frozen test uses 50 shared scenes in nominal, fixed occlusion and fixed-camera-loss conditions. ACT is a compact RGB adaptation with different capacity; a rejected 3D ACT-style pilot is reported separately.
 
-Success now requires a full contained placement, fingers open and no object contact, low object speed, maintained for one continuous second while the policy keeps acting. Failure traces distinguish target selection, grasp, transport, release and post-release stability. Normalization, rendering alignment, physical gripper sign and real checkpoint continuation were verified. Per-frame loss is not evidence of manipulation success.
+The strict success metric requires full contained placement, low object speed, and fingers kept open without finger/object contact for one continuous second while the policy keeps acting. Closing the empty hand during that dwell can fail this conservative score; such a failure alone does not prove the object moved. Failure traces distinguish target selection, grasp, transport, release and post-release stability. Normalization, rendering alignment, physical gripper sign and real checkpoint continuation were verified. Per-frame loss is not evidence of manipulation success.
 
 ## Before/after and limits
 
