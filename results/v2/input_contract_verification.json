@@ -1,0 +1,23 @@
+{
+  "scene_seed": 100000,
+  "frames_checked": 10,
+  "errors": {
+    "fixed/points": 0,
+    "fixed/point_mask": 0,
+    "fixed/state": 0,
+    "fixed/instruction": 0,
+    "wrist/points": 0,
+    "wrist/point_mask": 0,
+    "wrist/state": 0,
+    "wrist/instruction": 0,
+    "fusion/points": 0,
+    "fusion/point_mask": 0,
+    "fusion/state": 0,
+    "fusion/instruction": 0
+  },
+  "rgb_exact": true,
+  "causal_history_exact": true,
+  "robot_snapshots_do_not_alias": true,
+  "moving_wrist_calibration_and_points_exact": true,
+  "reserved_test_used": false
+}

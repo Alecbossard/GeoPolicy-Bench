@@ -124,6 +124,7 @@ class StageTracker:
         self.trace.append(
             {
                 "time_s": float(env.sim.data.time),
+                "action": np.asarray(action).tolist(),
                 "gripper_command": float(action[6]),
                 "finger_width_m": width,
                 "finger_contact_selected": finger_contact,

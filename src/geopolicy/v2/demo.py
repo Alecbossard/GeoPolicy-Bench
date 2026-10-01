@@ -48,6 +48,12 @@ def build_demo(recipe):
             selected.append(matches[0])
     save_json(root / "recipe.json", recipe)
     save_json(root / "expected_rollouts.json", selected)
+    for record in selected:
+        label = "success" if record["stable_success"] else "failure"
+        trace = Path(
+            f"artifacts/v2/test/fusion_prior_s0/traces/{record['condition']}_{record['scene_seed']}.json"
+        )
+        shutil.copyfile(trace, root / f"expected_{label}_trace.json")
     metadata = dict(
         checkpoint_sha256=compact_sha,
         recipe_sha256=json_hash(recipe),
@@ -122,6 +128,24 @@ def replay_demo(bundle, out):
             actual["initial_rgbd_robot_camera_pose_sha256"]
             == record["initial_rgbd_robot_camera_pose_sha256"]
         )
+        expected_trace = json.loads((root / f"expected_{label}_trace.json").read_text())
+        actual_trace = json.loads(
+            (
+                Path(out) / label / "traces" / f"{record['condition']}_{record['scene_seed']}.json"
+            ).read_text()
+        )
+        assert len(expected_trace) == len(actual_trace)
+        for a, b in zip(expected_trace, actual_trace):
+            for field in [
+                "action",
+                "selected_xyz_m",
+                "finger_width_m",
+                "grasp_selected",
+                "finger_contact_selected",
+                "valid_stability_sample",
+                "stable_success",
+            ]:
+                np.testing.assert_array_equal(a[field], b[field])
         reports.append(
             dict(
                 scene_seed=record["scene_seed"],
@@ -129,6 +153,7 @@ def replay_demo(bundle, out):
                 first_action_exact=True,
                 sensor_hash_exact=True,
                 steps_exact=True,
+                all_actions_and_selected_object_positions_exact=True,
             )
         )
     save_json(Path(out) / "verification.json", dict(verified=True, episodes=reports))

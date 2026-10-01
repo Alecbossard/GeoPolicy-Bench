@@ -49,6 +49,9 @@ def markdown_table(headers, records):
 
 
 def report(recipe):
+    from .failure_analysis import analyze_v1
+
+    analyze_v1()
     plan = read("configs/v2/main_plan.json")["jobs"]
     e = recipe["evaluation"]
     scenes = list(
@@ -223,6 +226,44 @@ def report(recipe):
             writer = csv.DictWriter(stream, fieldnames=sorted({k for r in records for k in r}))
             writer.writeheader()
             writer.writerows(records)
+    validation_raw = []
+    for group, parent in [
+        ("diagnostic", "diagnostics"),
+        ("pilot", "pilot_evaluations"),
+        ("confirmation", "confirmation"),
+    ]:
+        for path in sorted(Path(f"artifacts/v2/{parent}").glob("*/rollouts.json")):
+            validation_raw.extend(
+                dict(group=group, model=path.parent.name, **row) for row in read(path)
+            )
+    save_json("results/v2/raw/validation_rollouts.json", validation_raw)
+    with Path("results/v2/raw/validation_rollouts.csv").open(
+        "w", newline="", encoding="utf8"
+    ) as stream:
+        writer = csv.DictWriter(stream, fieldnames=sorted({k for r in validation_raw for k in r}))
+        writer.writeheader()
+        writer.writerows(validation_raw)
+    save_json(
+        "results/v2/training_manifests.json",
+        {
+            f"{j['name']}_s{j['seed']}": read(Path(j["checkpoint"]).parent / "manifest.json")
+            for j in plan
+        },
+    )
+    save_json(
+        "results/v2/learning_curves.json",
+        {
+            f"{j['name']}_s{j['seed']}": read(Path(j["checkpoint"]).parent / "learning_curve.json")
+            for j in plan
+        },
+    )
+    save_json(
+        "results/v2/resource_gates.json",
+        {
+            p.parent.name: read(p)
+            for p in sorted(Path("artifacts/v2/gates").glob("*/gate_report.json"))
+        },
+    )
     import matplotlib
 
     matplotlib.use("Agg")

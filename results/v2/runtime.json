@@ -1,0 +1,18 @@
+{
+  "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+  "executable": "C:\\Users\\Alec\\Documents\\ChatGPT\\GeoPolicy-Bench\\.venv\\Scripts\\python.exe",
+  "platform": "Windows-10-10.0.26300-SP0",
+  "packages": {
+    "numpy": "1.26.4",
+    "torch": "2.7.1+cu128",
+    "torchvision": "0.22.1+cu128",
+    "mujoco": "3.3.7",
+    "robosuite": "1.5.2",
+    "h5py": "3.14.0",
+    "stable-baselines3": "2.7.0",
+    "psutil": "7.0.0",
+    "matplotlib": "3.10.5",
+    "pytest": "8.4.1"
+  },
+  "nvidia_smi": "NVIDIA GeForce RTX 4060 Laptop GPU, 591.66, 8188 MiB, 7148 MiB, 46"
+}
