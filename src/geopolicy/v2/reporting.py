@@ -72,6 +72,19 @@ def report(recipe):
             r["initial_rgbd_robot_camera_pose_sha256"]
         )
     assert all(len(v) == 1 for v in identities.values()), "Unpaired final scene geometry"
+    for name in ["wrist_prior", "wrist_no_prior"]:
+        baseline = {
+            (r["training_seed"], r["scene_seed"]): r
+            for r in grouped[name]
+            if r["condition"] == "nominal"
+        }
+        for row in grouped[name]:
+            paired = baseline[row["training_seed"], row["scene_seed"]]
+            assert (
+                row["stable_success"] == paired["stable_success"]
+                and row["steps"] == paired["steps"]
+            )
+            np.testing.assert_array_equal(row["first_action"], paired["first_action"])
     cells = []
     arrays = {}
     for name, rows in grouped.items():
@@ -207,6 +220,7 @@ def report(recipe):
             main=len(raw), before_after=len(before_raw), counterfactual=len(cf_raw)
         ),
         paired_main_initial_sensors=True,
+        wrist_only_outcomes_unchanged_by_fixed_corruption=True,
         identical_counterfactual_sensors=True,
         suffix_control=dict(
             original_successes=sum(r["stable_success"] for r in control),

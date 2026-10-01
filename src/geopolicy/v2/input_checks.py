@@ -34,6 +34,13 @@ def check_inputs(recipe):
                 for view in ["fixed", "wrist", "fusion"]:
                     cfg = dict(mode="diffusion", view=view, history=4, point_budget=512)
                     batch = live_batch(env, obs, history, cfg, norm)
+                    if view == "wrist":
+                        for condition in ["occlusion", "fixed_camera_missing"]:
+                            unchanged = live_batch(env, obs, history, cfg, norm, condition)
+                            for key in batch:
+                                np.testing.assert_array_equal(
+                                    batch[key].numpy(), unchanged[key].numpy()
+                                )
                     points, mask = fuse_points(
                         [
                             (source[c + "/points"][t], source[c + "/mask"][t])
@@ -74,6 +81,7 @@ def check_inputs(recipe):
         causal_history_exact=True,
         robot_snapshots_do_not_alias=True,
         moving_wrist_calibration_and_points_exact=True,
+        actual_wrist_batch_unchanged_by_fixed_corruption=True,
         reserved_test_used=False,
     )
     save_json("results/v2/input_contract_verification.json", result)

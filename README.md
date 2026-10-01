@@ -1,3 +1,5 @@
+> V2 improvements are in progress. The measured figures below describe preserved V1. See [current progress](PROGRESS.md); V2 will be reported only after reserved testing and verification.
+
 # GeoPolicy Bench
 
 **Completed local benchmark.** Panda selection/placement with instruction-conditioned RGB-D policies. The experiment tests whether calibrated fixed+wrist fusion improves robustness over one fixed camera at equal demonstrations, architecture and optimization budget. The experimental core, closed-loop evaluations, resource gates and reproduction checks are complete; all artifacts remain local.
