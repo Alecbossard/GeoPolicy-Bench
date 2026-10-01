@@ -42,6 +42,9 @@ def verify(recipe):
                     np.testing.assert_array_equal(a[key][:], b[key][:n])
             assert len(b["state"]) == n + recipe["data_extension"]["post_release_steps"]
     report["augmented_prefixes_array_exact"] = len(augmented["episodes"])
+    from .input_checks import check_inputs
+
+    report["live_recorded_inputs"] = check_inputs(recipe)
     plan = json.loads(Path("configs/v2/main_plan.json").read_text())
     for job in plan["jobs"]:
         manifest = json.loads((Path(job["checkpoint"]).parent / "manifest.json").read_text())
@@ -64,6 +67,8 @@ def verify(recipe):
     def exact(a, b):
         if isinstance(a, torch.Tensor):
             assert torch.equal(a, b)
+        elif isinstance(a, np.ndarray):
+            np.testing.assert_array_equal(a, b)
         elif isinstance(a, dict):
             assert a.keys() == b.keys()
             for k in a:
@@ -75,8 +80,10 @@ def verify(recipe):
         else:
             assert a == b
 
-    for key in ["model", "optimizer", "scheduler", "extra", "config", "progress"]:
+    for key in ["model", "optimizer", "scheduler", "extra", "config", "normalization", "random"]:
         exact(expected[key], actual[key])
+    for key in ["update", "best_validation"]:
+        exact(expected["progress"][key], actual["progress"][key])
     report["real_500_update_resume_bit_exact"] = True
     report["resume_source"] = str(root / "resume_probe.pt")
     save_json("results/v2/pretest_verification.json", report)

@@ -9,24 +9,24 @@ Improve manipulation reliability and ACT diagnostics; compare fixed/wrist/fusion
 V1 Git tag `geopolicy-v1-2026-09-30`, commit `542f132`. New branch `codex/geopolicy-v2`. Historical source, raw results, configs and all selected weights are hash-inventoried in `configs/v2/v1_inventory.json`. Original README/report copied to `docs/v1`. New outputs only `artifacts/v2` and `results/v2`.
 
 ## Current stage
-V1 diagnostic controls completed on 20 fresh validation scenes: ACT stable 2/20, mono 4/20, fusion 1/20, scripted reference 20/20. Fusion's instantaneous count is 6/20: four episodes reach/release in the correct tray but subsequently lose stable placement. Stages are recorded in per-step traces. These are validation diagnostics, distinct from historical final test results.
+V2 dataset continuation is complete: 221 episodes, 30 real PPO post-release frames each, exact replay of original robot-state prefixes and 221 stable teacher continuations. All V1 files remain read-only. Augmented metadata retains original-prefix metrics explicitly; actual HDF5 lengths include the continuation.
 
-ACT recorded-frame posterior/prior normalized L1 both ~0.05496; future-action latent makes negligible difference. First-frame RGB and normalized robot state match live inference exactly; action normalization roundtrip error ~6e-8. Physical gripper probe confirms -1 opens and +1 closes. No incorrect preprocessing, normalization or sign has been demonstrated. Low loss is not taken as behavioral success.
+Six targeted 3,000-update pilots and all optimizer/render/resume gates completed. Stable validation counts (/20): diffusion suffix only 1, binary gripper 3, four-state history plus binary 4; RGB ACT prior-only 1, history/binary 1; 3D action-chunk adaptation 0. The matched original-data diffusion control scored 4/20 versus continuation-only 1/20. Independent confirmation: selected diffusion 4/20, selected RGB ACT 0/20. None of these figures is a final-test result or proof of a general improvement.
 
-Original dataset stops at instantaneous success. Dataset continuation process session 47487 records 30 actual PPO post-release frames for the same 200/21 episode IDs into `artifacts/v2/dataset`, checks prefix robot-state replay below 1e-6 and retains original normalization. Log `artifacts/v2/augmentation.log`; resume via `python -m geopolicy.v2 augment`. The original dataset is read-only.
+Selected recipes: diffusion_history and act_history_binary, according to the predeclared validation rule. Serial main training is underway: fixed/wrist/fusion × manual prior on/off × three seeds, plus selected ACT × three seeds; 21 runs at 8,000 updates, batch 32. Central config remains unchanged. No reserved test has been accessed. The supervisor was reloaded once before freeze to apply newline-normalized source identities; interrupted fixed-prior seed 1 resumed from its 2,500-update checkpoint. Completed raw logs are retained.
 
-Pilot supervisor session 90515 waits for the complete new manifest, then runs six serial optimizer/render/resume gates, targeted 3,000-update pilots and 20-scene validation evaluations. Log `artifacts/v2/pilot_pipeline.log`; stage state `artifacts/v2/pilot_stages.json`; restart `python -m geopolicy.v2 pilots`. Candidate hypotheses: post-release data alone, separate gripper sign classification, causal state history; RGB ACT zero-latent training, history/gripper ACT, and a clearly named 3D action-chunk Transformer adaptation. Final view/prior comparisons will share the selected common recipe, demonstrations, actions and 8,000-update budget on three seeds.
+Active supervisor: unified exec session 36064. Log `artifacts/v2/study_pipeline.log`; stage state `artifacts/v2/study_stages.json`. One heavy GPU child at a time. Check running processes before restarting `python -m geopolicy.v2 study`.
 
-Central configs: `configs/v2/recipe.json` for new experiments and immutable `configs/v2/diagnostic_recipe.json` for original-data diagnostics. Metric tests and named wrist-view/history tests pass (4). No reserved test scene accessed.
+V2 tests: five meaningful tests passed (continuous stability/contact/containment, causal history, wrist-camera-loss semantics, physical gripper decoding). Before reserved evaluation, the pipeline will verify all original hashes, every augmented prefix, recorded/live RGB/points/history and a real 500-update checkpoint continuation, then freeze checkpoints and core evaluator sources.
 
 ## Remaining
-1. Complete stage diagnostics and meaningful fixes; targeted ACT and manipulation pilots on validation.
-2. Measure actual optimizer/render resources and train selected view/prior comparisons at equal budgets on three seeds.
-3. Freeze selected protocol; evaluate disjoint reserved final scenes, preserving negative results and uncertainty.
-4. Short local-checkpoint demo, raw results, before/after report, concise English README, clean reproduction/tests and final V1-preservation audit.
+1. Finish the 21 matched main trainings; verify real resume and data/input contracts.
+2. Freeze the protocol and execute 3,150 main reserved rollouts, 300 fair V1 before/after rollouts and 360 counterfactual rollouts.
+3. Aggregate actual seed results and uncertainty, preserve failures, generate the short compact local-checkpoint demo and verify it in the separate pinned environment.
+4. Review the before/after report, short README, proposed factual CV bullet and final preservation/source audit; local Git snapshot only.
 
 ## Restart
-Run `.venv\Scripts\python -m geopolicy.v2 diagnose` to resume completed diagnostic scene rows. Subsequent commands and process identities will be recorded here. Check for existing jobs before starting another. One heavy GPU job at a time; configured temperature, disk and Windows commit guards remain active.
+`python -m geopolicy.v2 study` resumes completed stages and identical checkpoints. `python -m geopolicy.v2 pilots` resumes targeted pilots, now complete. Never start a second supervisor while one is active. See `docs/v2_reproduction.md` for exact artifact requirements. No online publication or CV edit.
 
 ## Version 1 completed log
 
@@ -190,3 +190,7 @@ V2 study control/original_data_evaluate: complete; `artifacts\v2\study_logs\cont
 V2 study confirmation/diffusion: complete; `artifacts\v2\study_logs\confirmation_diffusion.log`.
 
 V2 study confirmation/act: complete; `artifacts\v2\study_logs\confirmation_act.log`.
+
+V2 study train/fixed_prior_s0: complete; `artifacts\v2\study_logs\train_fixed_prior_s0.log`.
+
+V2 study train/fixed_prior_s1: complete; `artifacts\v2\study_logs\train_fixed_prior_s1.log`.

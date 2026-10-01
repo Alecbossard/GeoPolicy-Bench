@@ -1,10 +1,12 @@
 """Read-only laptop resource monitoring with configured limits."""
 
 import ctypes
+import json
 import os
 import shutil
 import subprocess
 import time
+from pathlib import Path
 import psutil
 from geopolicy.io import save_json
 
@@ -14,7 +16,8 @@ class ResourceWatch:
         self.out, self.limits = out, limits
         self.previous = 0
         self.hot = self.low_commit = 0
-        self.rows = []
+        existing = Path(out) / "resources.json"
+        self.rows = json.loads(existing.read_text()) if existing.exists() else []
 
     def sample(self, force=False):
         if not force and time.monotonic() - self.previous < self.limits["sample_interval_seconds"]:

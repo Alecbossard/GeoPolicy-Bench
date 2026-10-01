@@ -54,6 +54,7 @@ def train(recipe, cfg, out, resume=None):
         optimizer, cfg["updates"], eta_min=train_cfg["minimum_learning_rate"]
     )
     start_update = 0
+    elapsed_before = 0.0
     best = float("inf")
     curve = (
         json.loads((out / "learning_curve.json").read_text())
@@ -68,6 +69,10 @@ def train(recipe, cfg, out, resume=None):
         rng.bit_generator.state = saved["extra"]["batch_rng"]
         start_update = saved["progress"]["update"]
         best = saved["progress"]["best_validation"]
+        curve = [row for row in curve if row["update"] <= start_update]
+        elapsed_before = saved["progress"].get(
+            "optimization_seconds", curve[-1]["seconds"] if curve else 0.0
+        )
     torch.cuda.reset_peak_memory_stats()
     start = time.monotonic()
     for update in range(start_update + 1, cfg["updates"] + 1):
@@ -91,7 +96,7 @@ def train(recipe, cfg, out, resume=None):
                 {
                     "update": update,
                     "training_loss": float(loss),
-                    "seconds": time.monotonic() - start,
+                    "seconds": elapsed_before + time.monotonic() - start,
                     **metrics,
                 }
             )
@@ -117,7 +122,11 @@ def train(recipe, cfg, out, resume=None):
             restore_random(state)
             score = float(np.mean(scores))
             curve[-1]["validation_loss"] = score
-            progress = {"update": update, "best_validation": min(best, score)}
+            progress = {
+                "update": update,
+                "best_validation": min(best, score),
+                "optimization_seconds": elapsed_before + time.monotonic() - start,
+            }
             extra = {"ema": ema.state_dict(), "batch_rng": rng.bit_generator.state}
             save(out / "latest.pt", net, optimizer, scheduler, norm, cfg, progress, extra)
             if update == cfg["updates"] - 500:
@@ -131,7 +140,7 @@ def train(recipe, cfg, out, resume=None):
         "config": cfg,
         "parameters": sum(p.numel() for p in net.parameters()),
         "trainable_parameters": sum(p.numel() for p in net.parameters() if p.requires_grad),
-        "optimization_seconds": time.monotonic() - start,
+        "optimization_seconds": elapsed_before + time.monotonic() - start,
         "peak_allocated_bytes": torch.cuda.max_memory_allocated(),
         "peak_reserved_bytes": torch.cuda.max_memory_reserved(),
         "best_validation_loss": best,

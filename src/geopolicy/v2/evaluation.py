@@ -12,7 +12,7 @@ from geopolicy.evaluation import observation_batch
 from geopolicy.policies import make_policy
 from geopolicy.io import save_json
 from geopolicy.sensors import student_state
-from .config import file_hash, json_hash
+from .config import file_hash, json_hash, source_hash
 from .metrics import StageTracker
 from .resources import ResourceWatch
 
@@ -66,7 +66,7 @@ def evaluate(
             assert equivalence["source_sha256"] in protocol["registered_checkpoint_hashes"]
             assert equivalence["ema_tensor_exact"]
         for path, expected in protocol["evaluation_source_hashes"].items():
-            assert file_hash(path) == expected, f"Evaluation source changed after freeze: {path}"
+            assert source_hash(path) == expected, f"Evaluation source changed after freeze: {path}"
         if demo_record is not None:
             assert episodes == 1 and first_seed == demo_record["scene_seed"]
             assert list(conditions) == [demo_record["condition"]]

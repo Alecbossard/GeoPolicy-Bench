@@ -6,7 +6,7 @@ import sys
 import time
 from pathlib import Path
 from geopolicy.io import save_json
-from .config import file_hash, json_hash
+from .config import file_hash, json_hash, source_hash
 
 
 def read(path):
@@ -134,6 +134,12 @@ def make_plan(recipe, chosen):
 
 
 def freeze_protocol(recipe, jobs, selected):
+    from datetime import datetime, timezone
+
+    target = Path("configs/v2/final_protocol.json")
+    frozen_at = (
+        read(target)["frozen_at_utc"] if target.exists() else datetime.now(timezone.utc).isoformat()
+    )
     checkpoints = [j["checkpoint"] for j in jobs] + [
         f"artifacts/main_runs/{mode}_s{seed}/best.pt"
         for mode in ["fusion", "act"]
@@ -157,7 +163,9 @@ def freeze_protocol(recipe, jobs, selected):
         jobs=jobs,
         registered_checkpoint_hashes=[file_hash(p) for p in checkpoints],
         checkpoints={p: file_hash(p) for p in checkpoints},
-        evaluation_source_hashes={p: file_hash(p) for p in sources},
+        evaluation_source_hashes={p: source_hash(p) for p in sources},
+        evaluation_source_hash_algorithm="SHA256 of bytes with CRLF normalized to LF",
+        frozen_at_utc=frozen_at,
         dataset_manifest_sha256=file_hash(recipe["dataset_manifest"]),
         normalization_sha256=file_hash(recipe["data_extension"]["normalization_path"]),
         primary_comparisons=[
@@ -172,7 +180,6 @@ def freeze_protocol(recipe, jobs, selected):
         counterfactual="10 physically identical scenes x four instructions x three seeds for fusion prior on/off and selected ACT; all-four completion is the strict score.",
         frozen_before_first_reserved_rollout=True,
     )
-    target = Path("configs/v2/final_protocol.json")
     if target.exists():
         assert read(target) == protocol, "Cannot change an already frozen protocol"
     else:

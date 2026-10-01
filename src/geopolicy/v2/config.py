@@ -27,3 +27,8 @@ def file_hash(path):
         while chunk := stream.read(8 * 1024**2):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def source_hash(path):
+    """Freeze code while allowing Git's Windows CRLF/LF checkout conversion."""
+    return hashlib.sha256(Path(path).read_bytes().replace(b"\r\n", b"\n")).hexdigest()
