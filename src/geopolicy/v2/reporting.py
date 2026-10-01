@@ -393,7 +393,7 @@ def write_documents(recipe, summary, demo):
             "Grasp",
             "Transport",
             "Release",
-            "Unstable",
+            "Post-release criterion",
         ],
         [
             (
@@ -488,7 +488,7 @@ The first-frame input sensitivity interventions are in `results/v2/act_input_sen
 
 {oracle_table}
 
-These paired component interventions use the same100200–100219 validation scenes. The script replaces all six motion channels or only the gripper command, using ground-truth object/goal waypoints and privileged phase timing. They quantify the effect of those substitutions under feedback, not a unique perception/architecture cause. No oracle output counts as learned-baseline improvement, no final-test oracle is allowed, and these diagnostic results do not retune the frozen main choices. The unassisted score and stage traces remain the baseline evidence.
+These paired component interventions use the same 100200–100219 validation scenes. Replacing the six motion commands raises the score from {oracle['unassisted_stable_successes']}/20 to {oracle['motion_oracle_stable_successes']}/20; replacing only the gripper gives {oracle['gripper_oracle_stable_successes']}/20. This localizes a substantial bottleneck to the learned motion-command path under these interventions, rather than establishing a gripper-sign bug. The script uses ground-truth object/goal waypoints and privileged phase timing, so the intervention does not isolate perception, temporal prediction or architectural capacity as a unique cause. No oracle output counts as learned-baseline improvement, no final-test oracle is allowed, and these diagnostic results do not retune the frozen main choices. The unassisted score and stage traces remain the baseline evidence.
 
 The original demonstrations terminate at the instantaneous metric. All 221 exact-prefix trajectories were continued for 30 actual selected-PPO-teacher steps; all extended teacher trajectories achieved sustained stability. This demonstrates that recording covers post-release behavior. In a matched 3,000-update seed-0 control, original data gave {suffix['original_successes']}/20 stable placements versus {suffix['extended_successes']}/20 after continuation. This small control neither isolates every mechanism nor demonstrates a general gain. All negative pilots and source data are retained.
 
@@ -496,7 +496,7 @@ The original demonstrations terminate at the instantaneous metric. All 221 exact
 
 An intermediate V2 binary-gripper variant left the seventh diffusion output unsupervised while still using it as part of the iterative DDIM state. On the same diagnostic batch its seventh-output gradient L1 was 0 without auxiliary supervision and 7.00354 with it. This is a demonstrated structural defect introduced in V2's intermediate adaptation, not in preserved V1. Its contribution to manipulation failures was not isolated causally. A 0.1-weight normalized-gripper MSE now trains that internal channel while the separate classifier still provides the physical sign command. Seven targeted tests cover this, rotated-corner containment and the existing contracts.
 
-Before any reserved test, ten completed intermediate 8,000-update runs and one partial checkpoint, plus all pilots/initial confirmation, were archived separately in `artifacts/v2/intermediate_v2a`. Their negative results are retained in `results/v2/intermediate_v2a_summary.json` and the validation raw table. Pilot selection was repeated after the correction using the validation set; new independent confirmation uses 100280–100299. Final budgets remain 8,000 updates per model. The additional compute is recorded as intermediate diagnostic work, not silently counted as one training run or used to select on the test.
+Before any reserved test, ten completed intermediate 8,000-update runs and one partial checkpoint, plus all pilots/initial confirmation, were archived separately in `artifacts/v2/intermediate_v2a`. Their negative results are retained in `results/v2/intermediate_v2a_summary.json` and the validation raw table. Pilot selection was repeated after the correction using the validation set; final independent confirmation uses 100280–100299 for diffusion and 100320–100339 for ACT. Final budgets remain 8,000 updates per model. The additional compute is recorded as intermediate diagnostic work, not silently counted as one training run or used to select on the test.
 
 ## Validation-only selection
 

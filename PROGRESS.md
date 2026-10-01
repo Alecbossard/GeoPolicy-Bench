@@ -11,15 +11,14 @@ V1 Git tag `geopolicy-v1-2026-09-30`, commit `542f132`. New branch `codex/geopol
 ## Current stage
 All seven corrected targeted pilots completed. Stable validation (/20): diffusion suffix-only1, binary2, history/binary2; RGB ACT prior-only1, history/binary1; ACT3D0; adaptive RGB instruction-broadcast0. The broadcast hypothesis was motivated by recorded-frame instruction sensitivity, not final/confirmation results, and adds no parameters. It was rejected. Selected diffusion_history and act_history_binary by the unchanged ranking rule. Final confirmation: diffusion100280-100299; ACT100320-100339. Earlier confirmations and all intermediate results remain separate.
 
-Two final main runs are complete; the third resumes its saved checkpoint. All21 matched runs remain8000updates/batch32/three seeds, fixed/wrist/fusion×prior on/off plus selected ACT. Dataset and normalization are frozen. Aux gripper supervision fixes the intermediate 7D diffusion channel issue; ten intermediate completed runs and a partial checkpoint remain archived, without reserved test access. Six V2 tests passed; actual recorded/live RGB, point and history parity verified on10 real steps.
+All 21 final main runs are complete: 8,000 updates/batch 32/three seeds, fixed/wrist/fusion × prior on/off plus selected ACT. Dataset and normalization are frozen. Auxiliary gripper supervision fixes the intermediate 7D diffusion channel issue; ten intermediate completed runs and a partial checkpoint remain archived, without reserved test access. Pretest verification passed 20 CPU tests, exact live/recorded inputs, all 221 augmented prefixes, all 274 original episode hashes, and bit-exact continuation of the real fusion run over its last 500 updates.
 
-Active study supervisor session61113; log `artifacts/v2/study_pipeline.log`. Pilot session51790 completed. One heavy GPU child at a time. Main configurations and stage identities support exact recovery. No reserved test has been accessed, no CV edited, no online publication. Original42checkpoints and122tracked files remain hash-verified.
+The final protocol was frozen before reserved-test access. Reserved evaluation is now running serially under study supervisor session 61113; log `artifacts/v2/study_pipeline.log`. Read current counts with `python -m geopolicy.v2 status`. Main configurations and stage identities support exact recovery. No CV edited, no online publication. Original 42 checkpoints and 122 tracked files remain hash-verified.
 
 ## Remaining
-1. Finish corrected pilots and independent confirmation; train all 21 main runs under the selected common recipe.
-2. Verify all original/extended data and real 500-update recovery; freeze the protocol and execute 3,150 main, 300 fair V1 before/after and 360 counterfactual reserved rollouts.
-3. Aggregate actual seeds/uncertainty and failures, create the compact local checkpoint/video demo, verify it in the separate pinned environment and review the report/README/CV bullet.
-4. Final preservation/source audit and local Git snapshot only. No CV modifications or online publication.
+1. Finish the planned 3,150 main, 300 fair V1 before/after and 360 counterfactual reserved rollouts.
+2. Aggregate actual seeds/uncertainty and failures, create the compact local checkpoint/video demo, verify it in the separate pinned environment and review the report/README/CV bullet.
+3. Final preservation/source audit and local Git snapshot only. No CV modifications or online publication.
 
 ## Restart
 `python -m geopolicy.v2 status` reads progress without Torch/GPU loading. `python -m geopolicy.v2 pilots` resumes corrected pilots. `python -m geopolicy.v2 study` waits for them and resumes the main study with identical checkpoints. Do not start a second supervisor while one is active. See `docs/v2_reproduction.md` for exact requirements.
@@ -266,3 +265,45 @@ V2 pilot act_instruction_broadcast/evaluate: complete; log `artifacts\v2\pilot_a
 V2 study confirmation/act: complete; `artifacts\v2\study_logs\confirmation_act.log`.
 
 V2 study train/fixed_prior_s2: complete; `artifacts\v2\study_logs\train_fixed_prior_s2.log`.
+
+V2 study train/fixed_no_prior_s0: complete; `artifacts\v2\study_logs\train_fixed_no_prior_s0.log`.
+
+V2 study train/fixed_no_prior_s1: complete; `artifacts\v2\study_logs\train_fixed_no_prior_s1.log`.
+
+V2 study train/fixed_no_prior_s2: complete; `artifacts\v2\study_logs\train_fixed_no_prior_s2.log`.
+
+V2 study train/wrist_prior_s0: complete; `artifacts\v2\study_logs\train_wrist_prior_s0.log`.
+
+V2 study train/wrist_prior_s1: complete; `artifacts\v2\study_logs\train_wrist_prior_s1.log`.
+
+V2 study train/wrist_prior_s2: complete; `artifacts\v2\study_logs\train_wrist_prior_s2.log`.
+
+V2 study train/wrist_no_prior_s0: complete; `artifacts\v2\study_logs\train_wrist_no_prior_s0.log`.
+
+V2 study train/wrist_no_prior_s1: complete; `artifacts\v2\study_logs\train_wrist_no_prior_s1.log`.
+
+V2 study train/wrist_no_prior_s2: complete; `artifacts\v2\study_logs\train_wrist_no_prior_s2.log`.
+
+V2 study train/fusion_prior_s0: complete; `artifacts\v2\study_logs\train_fusion_prior_s0.log`.
+
+V2 study train/fusion_prior_s1: complete; `artifacts\v2\study_logs\train_fusion_prior_s1.log`.
+
+V2 study train/fusion_prior_s2: complete; `artifacts\v2\study_logs\train_fusion_prior_s2.log`.
+
+V2 study train/fusion_no_prior_s0: complete; `artifacts\v2\study_logs\train_fusion_no_prior_s0.log`.
+
+V2 study train/fusion_no_prior_s1: complete; `artifacts\v2\study_logs\train_fusion_no_prior_s1.log`.
+
+V2 study train/fusion_no_prior_s2: complete; `artifacts\v2\study_logs\train_fusion_no_prior_s2.log`.
+
+V2 study train/act_selected_s0: complete; `artifacts\v2\study_logs\train_act_selected_s0.log`.
+
+V2 study train/act_selected_s1: complete; `artifacts\v2\study_logs\train_act_selected_s1.log`.
+
+V2 study train/act_selected_s2: complete; `artifacts\v2\study_logs\train_act_selected_s2.log`.
+
+V2 study verification/pretest: complete; `artifacts\v2\study_logs\verification_pretest.log`.
+
+V2 study test/fixed_prior_s0: complete; `artifacts\v2\study_logs\test_fixed_prior_s0.log`.
+
+V2 study test/fixed_prior_s1: complete; `artifacts\v2\study_logs\test_fixed_prior_s1.log`.

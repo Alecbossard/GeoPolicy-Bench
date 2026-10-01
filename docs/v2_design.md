@@ -25,6 +25,10 @@ samples. The policy continues issuing actions during verification; no evaluator
 waypoint, object-aware correction or assisted release is applied. The historical
 instantaneous score is also logged separately. Stage classifications are
 measured geometric/contact proxies, not access to the teacher's phase variable.
+The primary metric requires the fingers to remain open throughout that dwell.
+Closing an empty withdrawn hand can therefore fail the score while the object
+remains still. The post-release failure label refers to the full criterion, not
+necessarily physical object instability; traces retain pose, speed and contacts.
 
 `configs/v2/recipe.json` centralizes dimensions, budgets, limits and scene ranges.
 All compact variants use exactly the same 200 successful V1 training episodes,
@@ -33,8 +37,11 @@ fixed only, wrist only, fusion; chromatic prior present/absent. A missing fixed
 camera must not remove the wrist from a wrist-only policy.
 
 Pilot recipe selection uses validation seeds 100200–100219, followed by separate
-confirmation seeds 100280–100299 (the initial intermediate recipe used 100240–100259,
-retained separately). Final scenes start at 300000, disjoint from V1
+confirmation seeds 100280–100299 for diffusion and 100320–100339 for the final ACT
+selection. Earlier confirmations are retained separately. The seventh ACT
+instruction-broadcast pilot was an adaptive validation hypothesis, motivated by
+recorded-frame sensitivity diagnostics; it scored 0/20 and was rejected without
+changing the ranking rule. Final scenes start at 300000, disjoint from V1
 tests, and must not run before a final protocol and selected recipes are frozen.
 Main comparisons retain three training seeds. No selection on final test results.
 PPO and SmolVLA remain historical extensions unless these diagnostics justify work.

@@ -7,7 +7,8 @@ and original runtime pins are retained; no system settings or drivers are change
 ## Short demonstration
 
 The local `artifacts/v2/demo_bundle.zip` contains `policy.pt`, `recipe.json`,
-`bundle.json`, `expected_rollouts.json` and a short README. The checkpoint holds
+`bundle.json`, `expected_rollouts.json`, the expected per-step success/failure
+traces (when present), and a short README. The checkpoint holds
 only the selected EMA parameters and normalization, with no optimizer state.
 Its tensor identity against the selected training file is verified in
 `configs/v2/demo_equivalence.json`. Nothing is uploaded or downloaded from a model
@@ -40,6 +41,7 @@ separate pinned `.venv-repro` verification is saved in
 ```powershell
 .venv\Scripts\python -m pytest -q -m "not gpu"
 .venv\Scripts\python -m geopolicy.v2 preserve
+.venv\Scripts\python -m geopolicy.v2 status
 ```
 
 Read `results/v2/summary.json`, the three CSV/JSON tables in `results/v2/raw`,
@@ -65,7 +67,10 @@ These commands require all preserved V1 weights, the original 274 HDF5 episodes,
 the selected PPO teacher, and the V2 dataset/checkpoints for completed stages.
 `augment` reads original files, skips completed V2 episodes, records 30 real
 post-release PPO-teacher actions and retains original normalization.
-`pilots` executes the six declared diagnostic recipes.
+`pilots` executes the six initial diagnostic recipes and the additional adaptive
+ACT instruction-broadcast control. That seventh hypothesis was added after the
+initial validation diagnostics, before the reserved test, without changing the
+ranking rule; its negative result is retained.
 `study` selects only from validation, reports independent confirmation, trains
 21 main models, verifies real recovery, freezes the final protocol, and evaluates
 the registered checkpoints. It writes results and the local bundle. Stage state
@@ -88,8 +93,9 @@ weights or code under V2's test identity.
 ## Configuration and information contract
 
 `configs/v2/recipe.json` centralizes all important budgets, dimensions, stability
-thresholds, resource limits and scene ranges. `presets.py` names six targeted
-hypotheses. `configs/v2/runs` records every main network and seed.
+thresholds, resource limits and scene ranges. `presets.py` names the seven targeted
+hypotheses; `configs/v2/act_diagnostic.json` records the adaptive ACT rationale
+and its fresh confirmation seeds. `configs/v2/runs` records every main network and seed.
 `diagnostic_recipe.json` preserves the original-data diagnostic identity;
 `original_data_recipe.json` specifies the matched dataset-continuation control.
 
