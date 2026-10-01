@@ -1,0 +1,47 @@
+{
+  "repository_url": "https://github.com/Alecbossard/GeoPolicy-Bench",
+  "visibility": "public",
+  "default_branch": "main",
+  "release_url": "https://github.com/Alecbossard/GeoPolicy-Bench/releases/tag/v2-demo",
+  "release_archive_sha256": "9d91f1ae971386ce2b710cbb32cedf0e18113f8d88ac6a51e5137c4ce1eeefa1",
+  "public_download_checksum_verified": true,
+  "fresh_clone_package_import_verified": true,
+  "fresh_clone_without_original_training_data_or_weights": true,
+  "fresh_clone_replay": {
+    "verified": true,
+    "episodes": [
+      {
+        "scene_seed": 300012,
+        "stable_success": true,
+        "first_action_exact": true,
+        "sensor_hash_exact": true,
+        "steps_exact": true,
+        "all_actions_and_selected_object_positions_exact": true
+      },
+      {
+        "scene_seed": 300000,
+        "stable_success": false,
+        "first_action_exact": true,
+        "sensor_hash_exact": true,
+        "steps_exact": true,
+        "all_actions_and_selected_object_positions_exact": true
+      }
+    ]
+  },
+  "github_ci_at_verified_presentation_commit": {
+    "conclusion": "success",
+    "headSha": "60efe56b2b7d8fe3ef602bb74a5fa5d6f1b042d6",
+    "status": "completed",
+    "url": "https://github.com/Alecbossard/GeoPolicy-Bench/actions/runs/36903332307"
+  },
+  "ci_cpu_tests_passed": 19,
+  "ci_local_links_verified": 78,
+  "github_readme_images_loaded": true,
+  "github_mermaid_rendered": true,
+  "scientific_snapshot_tags_preserved": [
+    "geopolicy-v1-2026-09-30",
+    "geopolicy-v2-2026-10-01"
+  ],
+  "frozen_model_and_evaluator_changes": false,
+  "scope": "Publication and reproduction verification only; no new training or change to scientific outcome tables."
+}

@@ -2,7 +2,7 @@
 
 **A controlled study of RGB-D camera fusion for Panda manipulation.**
 
-[![CPU checks](https://github.com/Alecbossard/GeoPolicy-Bench/actions/workflows/checks.yml/badge.svg)](https://github.com/Alecbossard/GeoPolicy-Bench/actions/workflows/checks.yml) · [MIT](LICENSE) · Windows / Python 3.11
+[![CPU checks](https://github.com/Alecbossard/GeoPolicy-Bench/actions/workflows/checks.yml/badge.svg?branch=main)](https://github.com/Alecbossard/GeoPolicy-Bench/actions/workflows/checks.yml) · [MIT](LICENSE) · Windows / Python 3.11
 
 Does a calibrated fixed + wrist camera policy place the requested cube more reliably than either view alone? How much of the result comes from an engineered color prior?
 
@@ -15,8 +15,8 @@ This project implements compact point-cloud diffusion and RGB ACT-style policies
 <table>
 <tr><th>Correct placement</th><th>Wrong cube selected</th></tr>
 <tr>
-<td><img src="docs/media/v2_success.gif" alt="Panda places the requested red cube in the blue tray" width="400"></td>
-<td><img src="docs/media/v2_failure.gif" alt="Panda places the green cube instead of the requested red cube" width="400"></td>
+<td><img src="docs/media/v2_success.gif" alt="Panda places the requested red cube in the blue tray" width="360"></td>
+<td><img src="docs/media/v2_failure.gif" alt="Panda places the green cube instead of the requested red cube" width="360"></td>
 </tr>
 <tr><td>Red cube → blue tray; stable for one second.</td><td>Green cube → blue tray; the requested red cube stays on the table.</td></tr>
 </table>

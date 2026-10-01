@@ -553,7 +553,7 @@ The compact local demo bundle contains only an EMA policy, recipe, hashes and ra
 
 ## Limits and defensible claims
 
-Absolute manipulation reliability remains the limiting factor. Three seeds and 50 scenes cannot establish broad robot-learning superiority. Simulation uses known calibration, rigid colored cubes, two one-hot instruction pairs, selected successful demonstrations and a privileged phase-based BC-initialized PPO teacher. No real robot, Isaac, Jetson, open-vocabulary instruction or sim-to-real transfer was executed. Hardware timings apply to this PC. Negative ACT/3D pilots and failed V1 PPO/SmolVLA runs remain visible. There is no online publication or CV modification.
+Absolute manipulation reliability remains the limiting factor. Three seeds and 50 scenes cannot establish broad robot-learning superiority. Simulation uses known calibration, rigid colored cubes, two one-hot instruction pairs, selected successful demonstrations and a privileged phase-based BC-initialized PPO teacher. No real robot, Isaac, Jetson, open-vocabulary instruction or sim-to-real transfer was executed. Hardware timings apply to this PC. Negative ACT/3D pilots and failed V1 PPO/SmolVLA runs remain visible. The scientific V2 study was completed locally before the later GitHub presentation request. The CV was not modified.
 """
     Path("docs/v2_report.md").write_text(text, encoding="utf8")
     nominal = next(c for c in cells if c["model"] == "fusion_prior" and c["condition"] == "nominal")

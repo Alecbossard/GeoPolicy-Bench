@@ -1,8 +1,8 @@
 # GitHub presentation — 2026-10-01
 
-Status: presentation prepared and locally checked; remote publication verification in progress. Repository: `Alecbossard/GeoPolicy-Bench`. The user requested GitHub publication after the scientific V2 snapshot below. No new training or changes to frozen scientific outcomes are part of this presentation work.
+Status: COMPLETE — public repository, release, GitHub CI and fresh-clone replay verified. Repository: https://github.com/Alecbossard/GeoPolicy-Bench. Release: https://github.com/Alecbossard/GeoPolicy-Bench/releases/tag/v2-demo. The user requested GitHub publication after the scientific V2 snapshot below. No new training or changes to frozen scientific outcomes are part of this presentation work.
 
-The curated front page includes actual success/failure animations, balanced results, reproduction and limits. A compact release bundle with SHA-256 verification supports the short demo. CPU contracts and publication/link checks run in GitHub Actions; full data and training artifacts remain local. Historical notes about no online publication below refer to the earlier scientific delivery.
+The curated front page includes actual success/failure animations, balanced results, reproduction and limits. A compact release bundle with SHA-256 verification supports the short demo. CPU contracts and publication/link checks run in GitHub Actions; full data and training artifacts remain local. GitHub CI passed 19 CPU tests and 78 publication/link checks. The release ZIP was downloaded publicly from a fresh clone, verified against SHA-256, and replayed with every action and selected-object position identical. Historical notes about no online publication below refer to the earlier scientific delivery.
 
 ---
 
