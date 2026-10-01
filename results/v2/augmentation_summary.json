@@ -1,0 +1,8 @@
+{
+  "episodes": 221,
+  "post_release_steps_per_episode": 30,
+  "prefix_state_replay_max_error": 0,
+  "stable_teacher_continuations": 221,
+  "bytes": 1889376851,
+  "source_v1_files_unchanged": true
+}

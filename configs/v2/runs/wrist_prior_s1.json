@@ -1,0 +1,43 @@
+{
+  "mode": "diffusion",
+  "view": "wrist",
+  "history": 4,
+  "binary_gripper": true,
+  "color_prior": "chroma40",
+  "version": 2,
+  "name": "wrist_prior",
+  "seed": 1,
+  "updates": 8000,
+  "batch_size": 32,
+  "horizon": 8,
+  "execute_steps": 2,
+  "inference_steps": 10,
+  "point_budget": 512,
+  "rgb_resolution": 64,
+  "normalization_path": "configs/v2/normalization.json",
+  "training_recipe": {
+    "demonstrations": 200,
+    "updates": 8000,
+    "pilot_updates": 3000,
+    "batch_size": 32,
+    "learning_rate": 0.0003,
+    "weight_decay": 1e-05,
+    "minimum_learning_rate": 3e-05,
+    "ema_decay": 0.995,
+    "validation_interval": 500,
+    "validation_batches": 20,
+    "horizon": 8,
+    "history": 1,
+    "execute_steps": 2,
+    "inference_steps": 10,
+    "point_budget": 512,
+    "seeds": [
+      0,
+      1,
+      2
+    ]
+  },
+  "dataset_manifest_sha256": "40bd5da3c8f85c9561dfe1f13fc9a4540353ae8286ec52bbad244e92271fd123",
+  "normalization_sha256": "f44f3608bea39627d8c534451c316bb16f4af31d62e62175efaf356ec7eb4417",
+  "recipe_sha256": "5bd9a08ff906c2f96ed7299f34d5b65b4e96f09ed822e5e9ff9b29aec69752d4"
+}

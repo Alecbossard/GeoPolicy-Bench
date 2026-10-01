@@ -1,0 +1,63 @@
+{
+  "selected": {
+    "diffusion": "diffusion_history",
+    "act": "act_history_binary"
+  },
+  "pilot_scores": {
+    "diffusion_suffix_only": {
+      "stable_successes": 1,
+      "wrong_object_lifts": 3,
+      "collision_episodes": 5,
+      "transport_reached": 1,
+      "episodes": 20
+    },
+    "diffusion_binary": {
+      "stable_successes": 3,
+      "wrong_object_lifts": 5,
+      "collision_episodes": 7,
+      "transport_reached": 3,
+      "episodes": 20
+    },
+    "diffusion_history": {
+      "stable_successes": 4,
+      "wrong_object_lifts": 4,
+      "collision_episodes": 5,
+      "transport_reached": 4,
+      "episodes": 20
+    },
+    "act_prior_only": {
+      "stable_successes": 1,
+      "wrong_object_lifts": 4,
+      "collision_episodes": 8,
+      "transport_reached": 1,
+      "episodes": 20
+    },
+    "act_history_binary": {
+      "stable_successes": 1,
+      "wrong_object_lifts": 3,
+      "collision_episodes": 11,
+      "transport_reached": 1,
+      "episodes": 20
+    },
+    "act_point": {
+      "stable_successes": 0,
+      "wrong_object_lifts": 2,
+      "collision_episodes": 0,
+      "transport_reached": 0,
+      "episodes": 20
+    }
+  },
+  "rule": {
+    "test_data_used": false,
+    "primary": "Maximize stable success count on validation 100200-100219",
+    "tie_breakers": [
+      "fewer wrong-object lifts",
+      "fewer collision flags",
+      "more episodes reaching correct destination",
+      "simpler predeclared preset order"
+    ],
+    "confirmation": "Report disjoint 100240-100259; do not retune on confirmation or test",
+    "family_comparison": "All final fixed/wrist/fusion prior-on/off diffusion models use the selected common architecture/recipe and equal8000 updates on3 seeds"
+  },
+  "reserved_test_used": false
+}

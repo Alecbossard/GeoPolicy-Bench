@@ -1,0 +1,131 @@
+{
+  "recipe_sha256": "5bd9a08ff906c2f96ed7299f34d5b65b4e96f09ed822e5e9ff9b29aec69752d4",
+  "jobs": [
+    {
+      "name": "fixed_prior",
+      "seed": 0,
+      "run_config": "configs/v2/runs/fixed_prior_s0.json",
+      "checkpoint": "artifacts/v2/main_runs/fixed_prior_s0/best.pt"
+    },
+    {
+      "name": "fixed_prior",
+      "seed": 1,
+      "run_config": "configs/v2/runs/fixed_prior_s1.json",
+      "checkpoint": "artifacts/v2/main_runs/fixed_prior_s1/best.pt"
+    },
+    {
+      "name": "fixed_prior",
+      "seed": 2,
+      "run_config": "configs/v2/runs/fixed_prior_s2.json",
+      "checkpoint": "artifacts/v2/main_runs/fixed_prior_s2/best.pt"
+    },
+    {
+      "name": "fixed_no_prior",
+      "seed": 0,
+      "run_config": "configs/v2/runs/fixed_no_prior_s0.json",
+      "checkpoint": "artifacts/v2/main_runs/fixed_no_prior_s0/best.pt"
+    },
+    {
+      "name": "fixed_no_prior",
+      "seed": 1,
+      "run_config": "configs/v2/runs/fixed_no_prior_s1.json",
+      "checkpoint": "artifacts/v2/main_runs/fixed_no_prior_s1/best.pt"
+    },
+    {
+      "name": "fixed_no_prior",
+      "seed": 2,
+      "run_config": "configs/v2/runs/fixed_no_prior_s2.json",
+      "checkpoint": "artifacts/v2/main_runs/fixed_no_prior_s2/best.pt"
+    },
+    {
+      "name": "wrist_prior",
+      "seed": 0,
+      "run_config": "configs/v2/runs/wrist_prior_s0.json",
+      "checkpoint": "artifacts/v2/main_runs/wrist_prior_s0/best.pt"
+    },
+    {
+      "name": "wrist_prior",
+      "seed": 1,
+      "run_config": "configs/v2/runs/wrist_prior_s1.json",
+      "checkpoint": "artifacts/v2/main_runs/wrist_prior_s1/best.pt"
+    },
+    {
+      "name": "wrist_prior",
+      "seed": 2,
+      "run_config": "configs/v2/runs/wrist_prior_s2.json",
+      "checkpoint": "artifacts/v2/main_runs/wrist_prior_s2/best.pt"
+    },
+    {
+      "name": "wrist_no_prior",
+      "seed": 0,
+      "run_config": "configs/v2/runs/wrist_no_prior_s0.json",
+      "checkpoint": "artifacts/v2/main_runs/wrist_no_prior_s0/best.pt"
+    },
+    {
+      "name": "wrist_no_prior",
+      "seed": 1,
+      "run_config": "configs/v2/runs/wrist_no_prior_s1.json",
+      "checkpoint": "artifacts/v2/main_runs/wrist_no_prior_s1/best.pt"
+    },
+    {
+      "name": "wrist_no_prior",
+      "seed": 2,
+      "run_config": "configs/v2/runs/wrist_no_prior_s2.json",
+      "checkpoint": "artifacts/v2/main_runs/wrist_no_prior_s2/best.pt"
+    },
+    {
+      "name": "fusion_prior",
+      "seed": 0,
+      "run_config": "configs/v2/runs/fusion_prior_s0.json",
+      "checkpoint": "artifacts/v2/main_runs/fusion_prior_s0/best.pt"
+    },
+    {
+      "name": "fusion_prior",
+      "seed": 1,
+      "run_config": "configs/v2/runs/fusion_prior_s1.json",
+      "checkpoint": "artifacts/v2/main_runs/fusion_prior_s1/best.pt"
+    },
+    {
+      "name": "fusion_prior",
+      "seed": 2,
+      "run_config": "configs/v2/runs/fusion_prior_s2.json",
+      "checkpoint": "artifacts/v2/main_runs/fusion_prior_s2/best.pt"
+    },
+    {
+      "name": "fusion_no_prior",
+      "seed": 0,
+      "run_config": "configs/v2/runs/fusion_no_prior_s0.json",
+      "checkpoint": "artifacts/v2/main_runs/fusion_no_prior_s0/best.pt"
+    },
+    {
+      "name": "fusion_no_prior",
+      "seed": 1,
+      "run_config": "configs/v2/runs/fusion_no_prior_s1.json",
+      "checkpoint": "artifacts/v2/main_runs/fusion_no_prior_s1/best.pt"
+    },
+    {
+      "name": "fusion_no_prior",
+      "seed": 2,
+      "run_config": "configs/v2/runs/fusion_no_prior_s2.json",
+      "checkpoint": "artifacts/v2/main_runs/fusion_no_prior_s2/best.pt"
+    },
+    {
+      "name": "act_selected",
+      "seed": 0,
+      "run_config": "configs/v2/runs/act_selected_s0.json",
+      "checkpoint": "artifacts/v2/main_runs/act_selected_s0/best.pt"
+    },
+    {
+      "name": "act_selected",
+      "seed": 1,
+      "run_config": "configs/v2/runs/act_selected_s1.json",
+      "checkpoint": "artifacts/v2/main_runs/act_selected_s1/best.pt"
+    },
+    {
+      "name": "act_selected",
+      "seed": 2,
+      "run_config": "configs/v2/runs/act_selected_s2.json",
+      "checkpoint": "artifacts/v2/main_runs/act_selected_s2/best.pt"
+    }
+  ]
+}

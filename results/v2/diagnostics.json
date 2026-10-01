@@ -1,0 +1,40 @@
+{
+  "preservation": {
+    "version1_preserved": true,
+    "tag": "geopolicy-v1-2026-09-30",
+    "original_files": 122,
+    "selected_checkpoints": 11
+  },
+  "test_data_used": false,
+  "act_recorded_validation": {
+    "prior": {
+      "normalized_l1": 0.05496051264926791,
+      "xyz_command_mae": 0.03564917147159576,
+      "gripper_sign_accuracy": 0.9982855632901192,
+      "first_action_gripper_sign_accuracy": 0.99765625
+    },
+    "posterior_oracle": {
+      "normalized_l1": 0.054959542490541934,
+      "xyz_command_mae": 0.03564551882445812,
+      "gripper_sign_accuracy": 0.9982855632901192,
+      "first_action_gripper_sign_accuracy": 0.99765625
+    }
+  },
+  "act_note": "Posterior uses future actions and is an offline oracle only. Zero-latent inference is standard upstream, not itself a bug.",
+  "first_frame_train_inference_consistency": {
+    "scene_seed": 100000,
+    "rgb_max_abs_error": 0.0,
+    "normalized_state_max_abs_error": 0.0
+  },
+  "action_normalization_roundtrip_max_error": 5.960464477539063e-08,
+  "physical_gripper_sign_probe": {
+    "-1": {
+      "before_m": 0.041666,
+      "after_m": 0.07605277226489633
+    },
+    "1": {
+      "before_m": 0.041666,
+      "after_m": 0.00398553239815557
+    }
+  }
+}

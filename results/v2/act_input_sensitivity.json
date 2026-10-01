@@ -1,0 +1,27 @@
+{
+  "validation_first_frames": 21,
+  "interventions": {
+    "zero_images": {
+      "mean_abs_xyz_command_change": 0.3598579466342926,
+      "first_xyz_command_l2_change": 0.6309807300567627,
+      "first_gripper_sign_changes": 0
+    },
+    "permuted_images": {
+      "mean_abs_xyz_command_change": 0.015403645113110542,
+      "first_xyz_command_l2_change": 0.039752859622240067,
+      "first_gripper_sign_changes": 0
+    },
+    "flipped_object_token": {
+      "mean_abs_xyz_command_change": 0.003807663917541504,
+      "first_xyz_command_l2_change": 0.007068719249218702,
+      "first_gripper_sign_changes": 0
+    },
+    "flipped_goal_token": {
+      "mean_abs_xyz_command_change": 0.0020045985002070665,
+      "first_xyz_command_l2_change": 0.003647026838734746,
+      "first_gripper_sign_changes": 0
+    }
+  },
+  "test_data_used": false,
+  "interpretation": "Sensitivity is a local functional probe, not proof of correct grounding or a demonstrated cause of closed-loop failure."
+}

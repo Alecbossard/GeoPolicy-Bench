@@ -1,3 +1,35 @@
+# GeoPolicy Bench — version 2 progress
+
+Status: INCOMPLETE V2, started 2026-10-01. One principal agent; local work only.
+
+## Objective
+Improve manipulation reliability and ACT diagnostics; compare fixed/wrist/fusion and manual-prior ablations; simplify reproduction. Preserve V1 measurements and checkpoints. Select recipes on validation and use disjoint reserved final tests with three training seeds. No CV edits or external publication.
+
+## Preservation
+V1 Git tag `geopolicy-v1-2026-09-30`, commit `542f132`. New branch `codex/geopolicy-v2`. Historical source, raw results, configs and all selected weights are hash-inventoried in `configs/v2/v1_inventory.json`. Original README/report copied to `docs/v1`. New outputs only `artifacts/v2` and `results/v2`.
+
+## Current stage
+V1 diagnostic controls completed on 20 fresh validation scenes: ACT stable 2/20, mono 4/20, fusion 1/20, scripted reference 20/20. Fusion's instantaneous count is 6/20: four episodes reach/release in the correct tray but subsequently lose stable placement. Stages are recorded in per-step traces. These are validation diagnostics, distinct from historical final test results.
+
+ACT recorded-frame posterior/prior normalized L1 both ~0.05496; future-action latent makes negligible difference. First-frame RGB and normalized robot state match live inference exactly; action normalization roundtrip error ~6e-8. Physical gripper probe confirms -1 opens and +1 closes. No incorrect preprocessing, normalization or sign has been demonstrated. Low loss is not taken as behavioral success.
+
+Original dataset stops at instantaneous success. Dataset continuation process session 47487 records 30 actual PPO post-release frames for the same 200/21 episode IDs into `artifacts/v2/dataset`, checks prefix robot-state replay below 1e-6 and retains original normalization. Log `artifacts/v2/augmentation.log`; resume via `python -m geopolicy.v2 augment`. The original dataset is read-only.
+
+Pilot supervisor session 90515 waits for the complete new manifest, then runs six serial optimizer/render/resume gates, targeted 3,000-update pilots and 20-scene validation evaluations. Log `artifacts/v2/pilot_pipeline.log`; stage state `artifacts/v2/pilot_stages.json`; restart `python -m geopolicy.v2 pilots`. Candidate hypotheses: post-release data alone, separate gripper sign classification, causal state history; RGB ACT zero-latent training, history/gripper ACT, and a clearly named 3D action-chunk Transformer adaptation. Final view/prior comparisons will share the selected common recipe, demonstrations, actions and 8,000-update budget on three seeds.
+
+Central configs: `configs/v2/recipe.json` for new experiments and immutable `configs/v2/diagnostic_recipe.json` for original-data diagnostics. Metric tests and named wrist-view/history tests pass (4). No reserved test scene accessed.
+
+## Remaining
+1. Complete stage diagnostics and meaningful fixes; targeted ACT and manipulation pilots on validation.
+2. Measure actual optimizer/render resources and train selected view/prior comparisons at equal budgets on three seeds.
+3. Freeze selected protocol; evaluate disjoint reserved final scenes, preserving negative results and uncertainty.
+4. Short local-checkpoint demo, raw results, before/after report, concise English README, clean reproduction/tests and final V1-preservation audit.
+
+## Restart
+Run `.venv\Scripts\python -m geopolicy.v2 diagnose` to resume completed diagnostic scene rows. Subsequent commands and process identities will be recorded here. Check for existing jobs before starting another. One heavy GPU job at a time; configured temperature, disk and Windows commit guards remain active.
+
+## Version 1 completed log
+
 # GeoPolicy Bench — progress
 
 Status: COMPLETE — experimental core and final verification finished locally on 2026-09-30. One principal agent; local execution only.
@@ -112,3 +144,49 @@ Finalizationclean_tests: complete,logartifacts\finalize_clean_tests.log.
 Finalizationsecondary_summary: complete,logartifacts\finalize_secondary_summary.log.
 
 Finalizationfinal_report: complete,logartifacts\finalize_final_report.log.
+
+V2 pilot diffusion_suffix_only/gate: complete; log `artifacts\v2\pilot_diffusion_suffix_only_gate.log`.
+
+V2 pilot diffusion_suffix_only/train: complete; log `artifacts\v2\pilot_diffusion_suffix_only_train.log`.
+
+V2 pilot diffusion_suffix_only/evaluate: complete; log `artifacts\v2\pilot_diffusion_suffix_only_evaluate.log`.
+
+V2 pilot diffusion_binary/gate: complete; log `artifacts\v2\pilot_diffusion_binary_gate.log`.
+
+V2 pilot diffusion_binary/train: complete; log `artifacts\v2\pilot_diffusion_binary_train.log`.
+
+V2 pilot diffusion_binary/evaluate: complete; log `artifacts\v2\pilot_diffusion_binary_evaluate.log`.
+
+V2 pilot diffusion_history/gate: complete; log `artifacts\v2\pilot_diffusion_history_gate.log`.
+
+V2 pilot diffusion_history/train: complete; log `artifacts\v2\pilot_diffusion_history_train.log`.
+
+V2 pilot diffusion_history/evaluate: complete; log `artifacts\v2\pilot_diffusion_history_evaluate.log`.
+
+V2 pilot act_prior_only/gate: complete; log `artifacts\v2\pilot_act_prior_only_gate.log`.
+
+V2 pilot act_prior_only/train: complete; log `artifacts\v2\pilot_act_prior_only_train.log`.
+
+V2 pilot act_prior_only/evaluate: complete; log `artifacts\v2\pilot_act_prior_only_evaluate.log`.
+
+V2 pilot act_history_binary/gate: complete; log `artifacts\v2\pilot_act_history_binary_gate.log`.
+
+V2 pilot act_history_binary/train: complete; log `artifacts\v2\pilot_act_history_binary_train.log`.
+
+V2 pilot act_history_binary/evaluate: complete; log `artifacts\v2\pilot_act_history_binary_evaluate.log`.
+
+V2 pilot act_point/gate: complete; log `artifacts\v2\pilot_act_point_gate.log`.
+
+V2 pilot act_point/train: complete; log `artifacts\v2\pilot_act_point_train.log`.
+
+V2 pilot act_point/evaluate: complete; log `artifacts\v2\pilot_act_point_evaluate.log`.
+
+V2 study diagnostics/input_sensitivity: complete; `artifacts\v2\study_logs\diagnostics_input_sensitivity.log`.
+
+V2 study control/original_data_train: complete; `artifacts\v2\study_logs\control_original_data_train.log`.
+
+V2 study control/original_data_evaluate: complete; `artifacts\v2\study_logs\control_original_data_evaluate.log`.
+
+V2 study confirmation/diffusion: complete; `artifacts\v2\study_logs\confirmation_diffusion.log`.
+
+V2 study confirmation/act: complete; `artifacts\v2\study_logs\confirmation_act.log`.

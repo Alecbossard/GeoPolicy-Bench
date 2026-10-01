@@ -1,0 +1,79 @@
+{
+  "version": 2,
+  "dataset": "artifacts/v2/dataset",
+  "dataset_manifest": "configs/v2/dataset_manifest.json",
+  "artifacts": "artifacts/v2",
+  "results": "results/v2",
+  "training": {
+    "demonstrations": 200,
+    "updates": 8000,
+    "pilot_updates": 3000,
+    "batch_size": 32,
+    "learning_rate": 0.0003,
+    "weight_decay": 1e-05,
+    "minimum_learning_rate": 3e-05,
+    "ema_decay": 0.995,
+    "validation_interval": 500,
+    "validation_batches": 20,
+    "horizon": 8,
+    "history": 1,
+    "execute_steps": 2,
+    "inference_steps": 10,
+    "point_budget": 512,
+    "seeds": [
+      0,
+      1,
+      2
+    ]
+  },
+  "evaluation": {
+    "control_hz": 20,
+    "maximum_steps": 240,
+    "validation_first_seed": 100200,
+    "validation_episodes": 20,
+    "confirmation_first_seed": 100240,
+    "confirmation_episodes": 20,
+    "reserved_test_first_seed": 300000,
+    "test_episodes": 50,
+    "conditions": [
+      "nominal",
+      "occlusion",
+      "fixed_camera_missing"
+    ],
+    "counterfactual_first_seed": 300100,
+    "counterfactual_scenes": 10,
+    "device": "cpu",
+    "torch_threads": 2
+  },
+  "stability": {
+    "minimum_seconds": 1.0,
+    "maximum_linear_speed_m_s": 0.02,
+    "maximum_angular_speed_rad_s": 0.25,
+    "minimum_finger_width_m": 0.045,
+    "tray_inner_half_xy_m": [
+      0.063,
+      0.06
+    ],
+    "containment_margin_m": 0.001,
+    "cube_half_extent_m": 0.021,
+    "center_height_m": [
+      0.816,
+      0.855
+    ],
+    "minimum_previous_lift_m": 0.89
+  },
+  "resource_limits": {
+    "minimum_free_disk_gib": 12,
+    "minimum_free_gpu_mib": 1024,
+    "minimum_free_commit_mib": 512,
+    "maximum_temperature_c": 90,
+    "consecutive_unsafe_samples": 3,
+    "sample_interval_seconds": 15,
+    "training_timeout_seconds": 1800,
+    "cell_timeout_seconds": 1800
+  },
+  "data_extension": {
+    "post_release_steps": 30,
+    "normalization_path": "configs/v2/normalization.json"
+  }
+}
