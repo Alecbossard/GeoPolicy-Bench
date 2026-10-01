@@ -574,11 +574,51 @@ Absolute manipulation reliability remains the limiting factor. Three seeds and 5
     act_nominal = next(
         c for c in cells if c["model"] == "act_selected" and c["condition"] == "nominal"
     )
+    overview = markdown_table(
+        ["Policy", "Nominal stable /150", "Fixed camera absent: stable /150"],
+        [
+            (
+                label,
+                next(
+                    c["successes"]
+                    for c in cells
+                    if c["model"] == model and c["condition"] == "nominal"
+                ),
+                next(
+                    c["successes"]
+                    for c in cells
+                    if c["model"] == model and c["condition"] == "fixed_camera_missing"
+                ),
+            )
+            for model, label in [
+                ("fixed_prior", "Fixed RGB-D + prior"),
+                ("wrist_prior", "Wrist RGB-D + prior"),
+                ("fusion_prior", "Fusion RGB-D + prior"),
+                ("act_selected", "Selected compact RGB ACT"),
+            ]
+        ],
+    )
+    loss_wrist = next(
+        c
+        for c in comparisons
+        if c["a"] == "fusion_prior"
+        and c["b"] == "wrist_prior"
+        and c["condition"] == "fixed_camera_missing"
+    )
+    prior_effect = next(
+        c
+        for c in comparisons
+        if c["a"] == "fusion_prior" and c["b"] == "fusion_no_prior" and c["condition"] == "nominal"
+    )
     readme = f"""# GeoPolicy-Bench
 
 **Question:** does calibrated fixed+wrist RGB-D fusion improve instruction-conditioned Panda placement beyond either camera alone, and how much comes from a manual color prior?
 
 **Measured V2:** fusion achieved **{nominal['successes']}/150 ({nominal['success_percent']:.1f}%) stable nominal placements** over three training seeds and 50 reserved scenes. Under missing fixed camera, fusion minus fixed was **{loss['difference_pp']:+.1f} pp**, descriptive 95% interval **[{loss['interval95_pp'][0]:+.1f}, {loss['interval95_pp'][1]:+.1f}]**. This is a compact simulation study with limited reliability; a positive point estimate alone does not establish superiority. The selected compact ACT achieved {act_nominal['successes']}/150 stable nominal placements.
+
+{overview}
+
+With the fixed camera absent, fusion minus wrist-only was {loss_wrist['difference_pp']:+.1f} pp [{loss_wrist['interval95_pp'][0]:+.1f}, {loss_wrist['interval95_pp'][1]:+.1f}]. For nominal fusion, manual prior on minus off was {prior_effect['difference_pp']:+.1f} pp [{prior_effect['interval95_pp'][0]:+.1f}, {prior_effect['interval95_pp'][1]:+.1f}]. These descriptive 95% intervals distinguish the surviving wrist sensor from fusion and the manual prior; all ablations and failures are in the report.
 
 {video_links} — actual disclosed test episodes, local checkpoint replay verified in a separate pinned environment.
 
