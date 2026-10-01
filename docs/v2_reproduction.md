@@ -107,6 +107,11 @@ weights or code under V2's test identity.
 thresholds, resource limits and scene ranges. `presets.py` names the seven targeted
 hypotheses; `configs/v2/act_diagnostic.json` records the adaptive ACT rationale
 and its fresh confirmation seeds. `configs/v2/runs` records every main network and seed.
+The recipe contains base defaults; named presets override history, gripper output
+and conditioning. In particular, `training.history = 1` is the base default,
+whereas all selected final models have effective `history = 4`. Use the run JSON
+and checkpoint configuration for the executed model, not the base default alone.
+Checkpoint manifests retain both values explicitly to make that override visible.
 `diagnostic_recipe.json` preserves the original-data diagnostic identity;
 `original_data_recipe.json` specifies the matched dataset-continuation control.
 
