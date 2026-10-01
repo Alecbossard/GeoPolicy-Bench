@@ -42,6 +42,8 @@ separate pinned `.venv-repro` verification is saved in
 .venv\Scripts\python -m pytest -q -m "not gpu"
 .venv\Scripts\python -m geopolicy.v2 preserve
 .venv\Scripts\python -m geopolicy.v2 status
+# After the study and report are complete: audit all saved final traces and demo
+.venv\Scripts\python -m geopolicy.v2.delivery
 ```
 
 Read `results/v2/summary.json`, the three CSV/JSON tables in `results/v2/raw`,
@@ -49,6 +51,11 @@ Read `results/v2/summary.json`, the three CSV/JSON tables in `results/v2/raw`,
 `results/v2/pretest_verification.json`. The tracked raw tables contain every final
 success and failure. Per-step traces, training curves, resource samples,
 optimizers and checkpoints live locally under ignored `artifacts/v2`.
+The delivery audit needs those local traces and checkpoints. It independently
+recomputes the strict dwell from saved signals, checks frozen source/checkpoint
+identities and the compact ZIP, and writes `results/v2/delivery_verification.json`.
+XY containment uses the saved evaluator flag; this is an evidence consistency
+check, not an independent simulator geometry implementation.
 
 ## Resume the executed study
 
