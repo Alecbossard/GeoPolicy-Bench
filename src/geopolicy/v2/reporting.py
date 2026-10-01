@@ -530,7 +530,7 @@ Stages are evaluator-only geometric/contact proxies: selection (wrong object lif
 
 {cf_table}
 
-All four instructions reuse identical RGB, depth, camera poses and robot state at initialization; sensor hashes were verified across views/seeds and instruction changes. Instruction tokens change; no object truth enters student inputs. Strict all-four completion and individual rates constrain language-grounding claims. Tokens encode only four known combinations; this is not open-vocabulary language understanding.
+All four instructions reuse identical RGB, depth, camera poses and robot state at initialization; sensor hashes were verified across views/seeds and instruction changes. Instruction tokens change; no object truth enters student inputs. The four-value instruction vector concatenates two one-hot pairs (red/green object and blue/yellow destination); the displayed sentence is generated from these labels, with no learned text encoder. Strict all-four completion and individual rates constrain grounding claims across these four known combinations; this is not open-vocabulary language understanding.
 
 ## Stable placement contract
 

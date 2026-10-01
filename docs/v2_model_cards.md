@@ -68,8 +68,10 @@ apply to final view/prior comparisons and selected ACT; targeted pilots are
 single-seed and remain exploratory.
 
 Truth object/goal poses and teacher phases are excluded from every student
-input. Four one-hot tokens encode the known instruction combinations; this is
-semantic task conditioning, not open-vocabulary language understanding.
+input. A four-value vector concatenates two one-hot pairs: red/green target and
+blue/yellow destination. The text sentence is rendered from those labels;
+there is no learned text encoder. This is semantic task conditioning across
+four known combinations, not open-vocabulary language understanding.
 Evaluation uses truth only for scoring stages, errors, contacts and sustained
 placement. Student actions continue during the stability dwell without teacher
 waypoints, automatic gripper release or evaluator intervention.

@@ -117,7 +117,8 @@ exactly. The suffix is the preserved actual PPO actor, not relabeled scripted BC
 
 State inputs are a robot-only allowlist, optionally with four causal snapshots.
 ACT uses RGB; diffusion uses calibrated XYZRGB, including named-camera selection.
-Instruction input is four semantic one-hot tokens. Ground-truth cube and tray
+Instruction input is a four-value vector containing two one-hot pairs (object
+and destination); no learned text encoder is used. Ground-truth cube and tray
 states are confined to teacher generation and evaluation. The fixed-camera-loss
 condition preserves the wrist-only observation. All point policies have a total
 512-point budget, independent of view count. The prior ablation removes manual
