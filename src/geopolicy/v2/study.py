@@ -218,7 +218,11 @@ def freeze_protocol(recipe, jobs, selected):
             "fusion_prior vs fusion_no_prior, nominal",
         ],
         statistics="Paired scene and training-seed crossed bootstrap; 10000 draws, RNG 81, percentile 95% intervals; primary and exploratory comparisons are descriptive, without multiplicity correction.",
-        confirmation=f"{recipe['evaluation']['confirmation_first_seed']}-{recipe['evaluation']['confirmation_first_seed']+recipe['evaluation']['confirmation_episodes']-1} reported without retuning",
+        confirmation={
+            "diffusion_first_seed": recipe["evaluation"]["confirmation_first_seed"],
+            "act": read("configs/v2/act_diagnostic.json"),
+            "retuning_on_confirmation": False,
+        },
         before_after="Preserved V1 fusion and ACT re-evaluated on the same new nominal scenes, horizon and stable metric; recipe changes are bundled, not attributed individually.",
         counterfactual="10 physically identical scenes x four instructions x three seeds for fusion prior on/off and selected ACT; all-four completion is the strict score.",
         frozen_before_first_reserved_rollout=True,
@@ -274,6 +278,9 @@ def run_study(recipe):
     )
     selected = selection(recipe)
     for family, name in selected["selected"].items():
+        confirmation_first = recipe["evaluation"]["confirmation_first_seed"]
+        if family == "act":
+            confirmation_first = read("configs/v2/act_diagnostic.json")["confirmation_first_seed"]
         stage(
             f"confirmation/{family}",
             [
@@ -283,7 +290,7 @@ def run_study(recipe):
                 "--out",
                 f"artifacts/v2/confirmation/{family}",
                 "--first-seed",
-                str(recipe["evaluation"]["confirmation_first_seed"]),
+                str(confirmation_first),
                 "--episodes",
                 str(recipe["evaluation"]["confirmation_episodes"]),
             ],

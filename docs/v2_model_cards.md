@@ -17,6 +17,15 @@ at inference. The posterior remains an offline oracle for diagnosis only. V2
 freezes its unused modules and trains the deployed path directly. Total and
 trainable parameter counts differ and are recorded per checkpoint.
 
+An additional validation-only `act_instruction_broadcast` pilot adds the existing
+learned instruction embedding to every visual token, without adding parameters.
+It tests a hypothesis motivated by weak first-frame instruction sensitivity;
+that sensitivity is not a demonstrated root cause. The initial six corrected
+pilots were followed by this adaptive seventh pilot, all at 3,000 updates and
+the same demonstrations/actions. It scored 0/20 stable placements and was not
+selected. After it, ACT confirmation uses fresh seeds 100320–100339; diffusion
+retains 100280–100299. The earlier ACT confirmation remains separately archived.
+
 Diffusion uses point MLP features, learned instruction-conditioned attention,
 max pooling, explicit XYZRGB attention moments and a FiLM temporal denoiser.
 The six view/prior variants share architecture, parameters, optimization,

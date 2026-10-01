@@ -256,6 +256,12 @@ def report(recipe):
                 dict(group="intermediate_v2a_" + parent, model=path.parent.name, **row)
                 for row in read(path)
             )
+    actor_initial = Path("artifacts/v2/initial_act_confirmation/rollouts/rollouts.json")
+    if actor_initial.exists():
+        validation_raw.extend(
+            dict(group="initial_act_confirmation", model="act_history_binary", **row)
+            for row in read(actor_initial)
+        )
     save_json("results/v2/raw/validation_rollouts.json", validation_raw)
     with Path("results/v2/raw/validation_rollouts.csv").open(
         "w", newline="", encoding="utf8"
@@ -468,11 +474,11 @@ Before any reserved test, ten completed intermediate 8,000-update runs and one p
 
 ## Validation-only selection
 
-Six 3,000-update pilots used the same optimizer and data budget. Selection rule was recorded before comparative results: most stable successes, then fewer wrong-object lifts, fewer collisions, more correct transport, then declared order. Selected diffusion: `{selection['selected']['diffusion']}`; selected ACT: `{selection['selected']['act']}`. Disjoint confirmation {recipe['evaluation']['confirmation_first_seed']}–{recipe['evaluation']['confirmation_first_seed']+recipe['evaluation']['confirmation_episodes']-1}, reported without retuning: {confirm_text}.
+Six initial corrected 3,000-update pilots used the same optimizer and data budget. A seventh RGB ACT pilot adaptively broadcasts the learned instruction embedding to all visual tokens, motivated by the recorded first-frame sensitivity probe. It adds no parameters and keeps the same data/update budget; its 0/20 stable result rejects this improvement on validation. The original ranking rule remained unchanged. Selection rule was recorded before comparative results: most stable successes, then fewer wrong-object lifts, fewer collisions, more correct transport, then declared order. Selected diffusion: `{selection['selected']['diffusion']}`; selected ACT: `{selection['selected']['act']}`. Disjoint confirmation: diffusion 100280–100299, ACT 100320–100339, reported without retuning: {confirm_text}.
 
 {pilot_table}
 
-Main choices, hashes, budgets and source identities were frozen in `configs/v2/final_protocol.json` before any new reserved test. Final scenes 300000–300049 are distinct from the V1 test and all validation scenes. Results cannot change the selected recipe. Three training seeds are crossed with 50 identical scenes per condition. Bootstrap resamples training seeds and paired scene columns jointly (10,000 draws, RNG 81); percentile intervals are descriptive, with only three training seeds, no multiplicity correction, and no claim about unseen scene families. An all-zero observed sample does not establish a zero population probability.
+The additional ACT diagnostic is specified in `configs/v2/act_diagnostic.json`; earlier ACT confirmation is retained separately. Main choices, hashes, budgets and source identities were frozen in `configs/v2/final_protocol.json` before any new reserved test. Final scenes 300000–300049 are distinct from the V1 test and all validation scenes. Results cannot change the selected recipe. Three training seeds are crossed with 50 identical scenes per condition. Bootstrap resamples training seeds and paired scene columns jointly (10,000 draws, RNG 81); percentile intervals are descriptive, with only three training seeds, no multiplicity correction, and no claim about unseen scene families. An all-zero observed sample does not establish a zero population probability.
 
 ## New reserved test
 
@@ -566,7 +572,7 @@ No training data is needed for the demo. Weights stay local under ignored `artif
 
 ## What is controlled
 
-Six diffusion variants: fixed, wrist and fusion, each with/without the chromatic prior. Same 200 successful demonstration prefixes plus 30 recorded PPO-teacher steps after release, 21 validation episodes, frozen normalization, 7D actions, 512 points, 8,000 updates, batch 32, three training seeds. Six targeted 3,000-update pilots select the recipe on validation; a new frozen test uses 50 shared scenes in nominal, fixed occlusion and fixed-camera-loss conditions. ACT is a compact RGB adaptation with different capacity; a rejected 3D ACT-style pilot is reported separately.
+Six diffusion variants: fixed, wrist and fusion, each with/without the chromatic prior. Same 200 successful demonstration prefixes plus 30 recorded PPO-teacher steps after release, 21 validation episodes, frozen normalization, 7D actions, 512 points, 8,000 updates, batch 32, three training seeds. Seven targeted 3,000-update pilots select the recipe on validation; a new frozen test uses 50 shared scenes in nominal, fixed occlusion and fixed-camera-loss conditions. ACT is a compact RGB adaptation with different capacity; a rejected 3D ACT-style pilot is reported separately.
 
 Success now requires a full contained placement, fingers open and no object contact, low object speed, maintained for one continuous second while the policy keeps acting. Failure traces distinguish target selection, grasp, transport, release and post-release stability. Normalization, rendering alignment, physical gripper sign and real checkpoint continuation were verified. Per-frame loss is not evidence of manipulation success.
 

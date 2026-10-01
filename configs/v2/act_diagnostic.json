@@ -1,0 +1,12 @@
+{
+  "preset": "act_instruction_broadcast",
+  "hypothesis": "A lone instruction token may have weak influence among128 image tokens; broadcast its learned embedding without adding parameters. Local sensitivity motivates the test but does not prove causality.",
+  "validation_first_seed": 100200,
+  "validation_episodes": 20,
+  "confirmation_first_seed": 100320,
+  "confirmation_episodes": 20,
+  "updates": 3000,
+  "seed": 0,
+  "previous_confirmation_retained": "artifacts/v2/initial_act_confirmation",
+  "reserved_test_used": false
+}

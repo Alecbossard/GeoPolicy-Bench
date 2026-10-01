@@ -45,6 +45,14 @@ PILOTS = {
         "binary_gripper": True,
         "color_prior": "chroma40",
     },
+    "act_instruction_broadcast": {
+        "mode": "act_rgb_prior",
+        "view": "fusion",
+        "history": 4,
+        "binary_gripper": True,
+        "color_prior": False,
+        "broadcast_instruction": True,
+    },
 }
 
 

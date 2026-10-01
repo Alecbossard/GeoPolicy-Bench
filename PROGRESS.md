@@ -9,13 +9,11 @@ Improve manipulation reliability and ACT diagnostics; compare fixed/wrist/fusion
 V1 Git tag `geopolicy-v1-2026-09-30`, commit `542f132`. New branch `codex/geopolicy-v2`. Historical source, raw results, configs and all selected weights are hash-inventoried in `configs/v2/v1_inventory.json`. Original README/report copied to `docs/v1`. New outputs only `artifacts/v2` and `results/v2`.
 
 ## Current stage
-Dataset continuation is complete: 221 episodes, 30 actual preserved-PPO-teacher post-release frames each. Original robot-state replay error is zero; all extended teacher trajectories satisfy the stable criterion. Original files and all 42 V1 checkpoints remain hash-verified and unchanged. Recorded/live RGB, moving-wrist/fixed/fused points and four-state robot histories are array-exact on ten real validation steps.
+All seven corrected targeted pilots completed. Stable validation (/20): diffusion suffix-only1, binary2, history/binary2; RGB ACT prior-only1, history/binary1; ACT3D0; adaptive RGB instruction-broadcast0. The broadcast hypothesis was motivated by recorded-frame instruction sensitivity, not final/confirmation results, and adds no parameters. It was rejected. Selected diffusion_history and act_history_binary by the unchanged ranking rule. Final confirmation: diffusion100280-100299; ACT100320-100339. Earlier confirmations and all intermediate results remain separate.
 
-An intermediate V2 binary-gripper implementation left its seventh diffusion output unsupervised while retaining it in DDIM. Same-batch output-gradient L1: 0 before, 7.00354 with the correction. This proves a structural issue, not its behavioral contribution. Auxiliary normalized-gripper MSE weight 0.1 now supervises that channel. Ten completed intermediate main runs, one partial checkpoint and all pilot/confirmation results are preserved in `artifacts/v2/intermediate_v2a`; their source/config snapshot and summary are retained. No reserved test has been accessed.
+Two final main runs are complete; the third resumes its saved checkpoint. All21 matched runs remain8000updates/batch32/three seeds, fixed/wrist/fusion×prior on/off plus selected ACT. Dataset and normalization are frozen. Aux gripper supervision fixes the intermediate 7D diffusion channel issue; ten intermediate completed runs and a partial checkpoint remain archived, without reserved test access. Six V2 tests passed; actual recorded/live RGB, point and history parity verified on10 real steps.
 
-The six corrected 3,000-update pilots are now running serially, with actual optimizer/render/resume gates. Fresh selection uses the predeclared validation rule. New independent confirmation is 100280–100299; initial 100240–100259 confirmation remains archived. Dataset, action contract and demonstration count are unchanged. The final matrix remains 21 models, 8,000 updates/batch32, three seeds, with fixed/wrist/fusion and manual-prior on/off.
-
-Active pilot supervisor: unified exec session 80848, log `artifacts/v2/pilot_pipeline.log`. Waiting study supervisor: session 31445, log `artifacts/v2/study_pipeline.log`. One heavy GPU child at a time. Check running processes before launching either supervisor. Six V2 tests pass, including direct seventh-channel and physical gripper decoding checks.
+Active study supervisor session61113; log `artifacts/v2/study_pipeline.log`. Pilot session51790 completed. One heavy GPU child at a time. Main configurations and stage identities support exact recovery. No reserved test has been accessed, no CV edited, no online publication. Original42checkpoints and122tracked files remain hash-verified.
 
 ## Remaining
 1. Finish corrected pilots and independent confirmation; train all 21 main runs under the selected common recipe.
@@ -224,3 +222,47 @@ V2 pilot diffusion_binary/evaluate: complete; log `artifacts\v2\pilot_diffusion_
 V2 pilot diffusion_history/gate: complete; log `artifacts\v2\pilot_diffusion_history_gate.log`.
 
 V2 pilot diffusion_history/train: complete; log `artifacts\v2\pilot_diffusion_history_train.log`.
+
+V2 pilot diffusion_history/evaluate: complete; log `artifacts\v2\pilot_diffusion_history_evaluate.log`.
+
+V2 pilot act_prior_only/gate: complete; log `artifacts\v2\pilot_act_prior_only_gate.log`.
+
+V2 pilot act_prior_only/train: complete; log `artifacts\v2\pilot_act_prior_only_train.log`.
+
+V2 pilot act_prior_only/evaluate: complete; log `artifacts\v2\pilot_act_prior_only_evaluate.log`.
+
+V2 pilot act_history_binary/gate: complete; log `artifacts\v2\pilot_act_history_binary_gate.log`.
+
+V2 pilot act_history_binary/train: complete; log `artifacts\v2\pilot_act_history_binary_train.log`.
+
+V2 pilot act_history_binary/evaluate: complete; log `artifacts\v2\pilot_act_history_binary_evaluate.log`.
+
+V2 pilot act_point/gate: complete; log `artifacts\v2\pilot_act_point_gate.log`.
+
+V2 pilot act_point/train: complete; log `artifacts\v2\pilot_act_point_train.log`.
+
+V2 pilot act_point/evaluate: complete; log `artifacts\v2\pilot_act_point_evaluate.log`.
+
+V2 study diagnostics/input_sensitivity: complete; `artifacts\v2\study_logs\diagnostics_input_sensitivity.log`.
+
+V2 study control/original_data_train: complete; `artifacts\v2\study_logs\control_original_data_train.log`.
+
+V2 study control/original_data_evaluate: complete; `artifacts\v2\study_logs\control_original_data_evaluate.log`.
+
+V2 study confirmation/diffusion: complete; `artifacts\v2\study_logs\confirmation_diffusion.log`.
+
+V2 study confirmation/act: complete; `artifacts\v2\study_logs\confirmation_act.log`.
+
+V2 study train/fixed_prior_s0: complete; `artifacts\v2\study_logs\train_fixed_prior_s0.log`.
+
+V2 study train/fixed_prior_s1: complete; `artifacts\v2\study_logs\train_fixed_prior_s1.log`.
+
+V2 pilot act_instruction_broadcast/gate: complete; log `artifacts\v2\pilot_act_instruction_broadcast_gate.log`.
+
+V2 pilot act_instruction_broadcast/train: complete; log `artifacts\v2\pilot_act_instruction_broadcast_train.log`.
+
+V2 pilot act_instruction_broadcast/evaluate: complete; log `artifacts\v2\pilot_act_instruction_broadcast_evaluate.log`.
+
+V2 study confirmation/act: complete; `artifacts\v2\study_logs\confirmation_act.log`.
+
+V2 study train/fixed_prior_s2: complete; `artifacts\v2\study_logs\train_fixed_prior_s2.log`.

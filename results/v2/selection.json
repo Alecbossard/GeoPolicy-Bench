@@ -12,17 +12,17 @@
       "episodes": 20
     },
     "diffusion_binary": {
-      "stable_successes": 3,
-      "wrong_object_lifts": 5,
-      "collision_episodes": 7,
-      "transport_reached": 3,
+      "stable_successes": 2,
+      "wrong_object_lifts": 3,
+      "collision_episodes": 8,
+      "transport_reached": 2,
       "episodes": 20
     },
     "diffusion_history": {
-      "stable_successes": 4,
-      "wrong_object_lifts": 4,
-      "collision_episodes": 5,
-      "transport_reached": 4,
+      "stable_successes": 2,
+      "wrong_object_lifts": 2,
+      "collision_episodes": 1,
+      "transport_reached": 2,
       "episodes": 20
     },
     "act_prior_only": {
@@ -45,6 +45,13 @@
       "collision_episodes": 0,
       "transport_reached": 0,
       "episodes": 20
+    },
+    "act_instruction_broadcast": {
+      "stable_successes": 0,
+      "wrong_object_lifts": 0,
+      "collision_episodes": 20,
+      "transport_reached": 0,
+      "episodes": 20
     }
   },
   "rule": {
@@ -56,8 +63,10 @@
       "more episodes reaching correct destination",
       "simpler predeclared preset order"
     ],
-    "confirmation": "Report disjoint 100240-100259; do not retune on confirmation or test",
-    "family_comparison": "All final fixed/wrist/fusion prior-on/off diffusion models use the selected common architecture/recipe and equal8000 updates on3 seeds"
+    "confirmation": "Diffusion: disjoint100280-100299. ACT: fresh100320-100339 after adaptive validation-only broadcast pilot; do not retune on confirmation/test.",
+    "family_comparison": "All final fixed/wrist/fusion prior-on/off diffusion models use the selected common architecture/recipe and equal8000 updates on3 seeds",
+    "intermediate_v2a": "Archived before reserved testing after finding unsupervised seventh diffusion channel; initial confirmation 100240-100259 retained, not reused for final confirmation",
+    "adaptive_act_pilot": "Seventh preset added after six validation pilots, motivated by V1 input sensitivity; same parameters/data/3000 updates. Ranking unchanged; never used reserved test."
   },
   "reserved_test_used": false
 }

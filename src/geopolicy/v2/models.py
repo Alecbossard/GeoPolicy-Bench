@@ -77,12 +77,28 @@ class ACTPrior(ACT, ActionLoss):
     def __init__(self, cfg, norm):
         super().__init__(state_dim=23 * cfg["history"], horizon=cfg["horizon"])
         self.binary_gripper = cfg["binary_gripper"]
+        self.broadcast_instruction = cfg.get("broadcast_instruction", False)
         self.install_normalization(norm)
         for module in [self.vae, self.stats, self.actions]:
             for parameter in module.parameters():
                 parameter.requires_grad = False
         self.cls.requires_grad = False
         self.vae_pos.requires_grad = False
+
+    def forward(self, batch, targets=None):
+        if not self.broadcast_instruction:
+            return super().forward(batch, targets)
+        assert targets is None, "Broadcast ACT optimizes only its deployed zero-latent path"
+        state = self.state(batch["state"])
+        language = self.language(batch["instruction"])
+        size = len(state)
+        rgb = batch["rgb"].reshape(size * 2, 3, 64, 64)
+        image = self.cnn(rgb).flatten(2).transpose(1, 2).reshape(size, 128, -1) + self.image_pos
+        image = image + language[:, None]
+        latent = self.latent(state.new_zeros(size, self.latent_dim))
+        memory = torch.cat([state[:, None], language[:, None], latent[:, None], image], 1)
+        prediction = self.out(self.decoder(self.queries.expand(size, -1, -1), memory))
+        return prediction, state.sum() * 0
 
     def loss(self, batch):
         prediction = self(batch)[0]

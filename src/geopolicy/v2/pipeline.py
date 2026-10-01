@@ -77,6 +77,6 @@ def run_pilots(recipe):
             if code:
                 raise RuntimeError(f"Pilot stage failed: {key}; see {log}")
     print(
-        "All six targeted pilots complete; selection/confirmation and frozen main experiments remain",
+        f"All {len(PILOTS)} targeted pilots complete; selection/confirmation and frozen main experiments remain",
         flush=True,
     )
