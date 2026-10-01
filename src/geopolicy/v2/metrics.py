@@ -49,6 +49,14 @@ def placement_valid(
     )
 
 
+def cube_inside_tray(position, rotation, goal, config):
+    corners = np.array(list(itertools.product([-1, 1], repeat=3))) * config["cube_half_extent_m"]
+    corners = corners @ rotation.T + position
+    offsets = np.abs(corners[:, :2] - goal[:2])
+    bound = np.array(config["tray_inner_half_xy_m"]) - config["containment_margin_m"]
+    return bool(np.all(offsets <= bound))
+
+
 class StageTracker:
     def __init__(self, config):
         self.config = config
@@ -76,11 +84,7 @@ class StageTracker:
         position = positions[selected]
         goal = env.goal_positions[env.target_goal]
         matrix = env.sim.data.body_xmat[env.object_ids[selected]].reshape(3, 3)
-        corners = np.array(list(itertools.product([-1, 1], repeat=3))) * cfg["cube_half_extent_m"]
-        corners = corners @ matrix.T + position
-        offsets = np.abs(corners[:, :2] - goal[:2])
-        bound = np.array(cfg["tray_inner_half_xy_m"]) - cfg["containment_margin_m"]
-        inside = bool(np.all(offsets <= bound))
+        inside = cube_inside_tray(position, matrix, goal, cfg)
         qvel = np.asarray(env.sim.data.get_joint_qvel(obj.joints[0]))
         linear = float(np.linalg.norm(qvel[:3]))
         angular = float(np.linalg.norm(qvel[3:]))

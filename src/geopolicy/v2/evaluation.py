@@ -49,6 +49,7 @@ def evaluate(
     goal_id=None,
     frozen=False,
     demo_record=None,
+    oracle_component=None,
 ):
     torch.set_num_threads(recipe["evaluation"]["torch_threads"])
     out = Path(out)
@@ -58,6 +59,9 @@ def evaluate(
         assert frozen and freeze.exists(), "Reserved test is locked until protocol freeze"
         protocol = json.loads(freeze.read_text())
         assert protocol["recipe_sha256"] == json_hash(recipe), "Recipe changed after test freeze"
+        assert set(conditions) <= set(
+            recipe["evaluation"]["conditions"]
+        ), "Unregistered test condition"
         checkpoint_hash = file_hash(checkpoint)
         if checkpoint_hash not in protocol["registered_checkpoint_hashes"]:
             assert demo_record is not None, "Unregistered checkpoint"
@@ -91,6 +95,9 @@ def evaluate(
         "object_id": object_id,
         "goal_id": goal_id,
     }
+    if oracle_component is not None:
+        assert first_seed < 200000 and oracle_component in ["motion", "gripper"]
+        identity["privileged_diagnostic_oracle_component"] = oracle_component
     ip = out / "identity.json"
     if ip.exists():
         assert json.loads(ip.read_text()) == identity, "Evaluation identity mismatch"
@@ -159,6 +166,13 @@ def evaluate(
                                 )
                             )
                         action = queue.pop(0)
+                    if oracle_component is not None:
+                        action = np.asarray(action).copy()
+                        oracle = env.reference_action()
+                        if oracle_component == "motion":
+                            action[:6] = oracle[:6]
+                        else:
+                            action[6] = oracle[6]
                     if scene - first_seed < videos:
                         frames.append(
                             np.concatenate([obs[c + "_image"][::-1] for c in CAMERAS], axis=1)
@@ -199,6 +213,8 @@ def evaluate(
                     **tracker.summary(),
                 }
                 record["success"] = record["stable_success"]
+                if oracle_component is not None:
+                    record["privileged_diagnostic_oracle_component"] = oracle_component
                 for name, values in [("policy", policy_times), ("preprocess", pre_times)]:
                     for q in [50, 95]:
                         record[f"{name}_p{q}_ms"] = (

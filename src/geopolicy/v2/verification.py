@@ -45,6 +45,9 @@ def verify(recipe):
     from .input_checks import check_inputs
 
     report["live_recorded_inputs"] = check_inputs(recipe)
+    from .act_oracle import diagnose_components
+
+    report["act_validation_component_interventions"] = diagnose_components()
     plan = json.loads(Path("configs/v2/main_plan.json").read_text())
     for job in plan["jobs"]:
         manifest = json.loads((Path(job["checkpoint"]).parent / "manifest.json").read_text())

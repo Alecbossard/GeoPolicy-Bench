@@ -243,6 +243,7 @@ def report(recipe):
     validation_raw = []
     for group, parent in [
         ("diagnostic", "diagnostics"),
+        ("privileged_component_diagnostic", "act_oracle"),
         ("pilot", "pilot_evaluations"),
         ("confirmation", "confirmation"),
     ]:
@@ -423,6 +424,27 @@ def write_documents(recipe, summary, demo):
         ],
     )
     diagnostics = read("results/v2/diagnostics.json")
+    oracle = read("results/v2/act_component_interventions.json")
+    oracle_table = markdown_table(
+        ["Validation ACT control", "Stable /20", "Meaning"],
+        [
+            (
+                "Unassisted preserved ACT",
+                oracle["unassisted_stable_successes"],
+                "Learned controller",
+            ),
+            (
+                "Scripted privileged motion + ACT gripper",
+                oracle["motion_oracle_stable_successes"],
+                "Diagnostic intervention only",
+            ),
+            (
+                "ACT motion + scripted privileged gripper",
+                oracle["gripper_oracle_stable_successes"],
+                "Diagnostic intervention only",
+            ),
+        ],
+    )
     prior = diagnostics["act_recorded_validation"]["prior"]
     posterior = diagnostics["act_recorded_validation"]["posterior_oracle"]
     confirm = {
@@ -464,11 +486,15 @@ V1 ACT on recorded validation: normalized L1 prior {prior['normalized_l1']:.6f},
 
 The first-frame input sensitivity interventions are in `results/v2/act_input_sensitivity.json`. Image permutation and instruction flips change the output locally, but this does not prove grounded task behavior or identify a unique cause. Grasp and selection dominate the fresh V1 validation failures. V1 ACT's historical 0/60 nominal test remains unchanged; it achieved 2/20 on the new stable-metric diagnostic validation set, so '0%' is not an intrinsic impossibility claim. The scripted diagnostic reference achieved 20/20 stable placements; students receive none of its truth-pose waypoints.
 
+{oracle_table}
+
+These paired component interventions use the same100200–100219 validation scenes. The script replaces all six motion channels or only the gripper command, using ground-truth object/goal waypoints and privileged phase timing. They quantify the effect of those substitutions under feedback, not a unique perception/architecture cause. No oracle output counts as learned-baseline improvement, no final-test oracle is allowed, and these diagnostic results do not retune the frozen main choices. The unassisted score and stage traces remain the baseline evidence.
+
 The original demonstrations terminate at the instantaneous metric. All 221 exact-prefix trajectories were continued for 30 actual selected-PPO-teacher steps; all extended teacher trajectories achieved sustained stability. This demonstrates that recording covers post-release behavior. In a matched 3,000-update seed-0 control, original data gave {suffix['original_successes']}/20 stable placements versus {suffix['extended_successes']}/20 after continuation. This small control neither isolates every mechanism nor demonstrates a general gain. All negative pilots and source data are retained.
 
 ## Intermediate implementation correction
 
-An intermediate V2 binary-gripper variant left the seventh diffusion output unsupervised while still using it as part of the iterative DDIM state. On the same diagnostic batch its seventh-output gradient L1 was 0 without auxiliary supervision and 7.00354 with it. This is a demonstrated structural defect introduced in V2's intermediate adaptation, not in preserved V1. Its contribution to manipulation failures was not isolated causally. A 0.1-weight normalized-gripper MSE now trains that internal channel while the separate classifier still provides the physical sign command. Six targeted tests cover this and the existing contracts.
+An intermediate V2 binary-gripper variant left the seventh diffusion output unsupervised while still using it as part of the iterative DDIM state. On the same diagnostic batch its seventh-output gradient L1 was 0 without auxiliary supervision and 7.00354 with it. This is a demonstrated structural defect introduced in V2's intermediate adaptation, not in preserved V1. Its contribution to manipulation failures was not isolated causally. A 0.1-weight normalized-gripper MSE now trains that internal channel while the separate classifier still provides the physical sign command. Seven targeted tests cover this, rotated-corner containment and the existing contracts.
 
 Before any reserved test, ten completed intermediate 8,000-update runs and one partial checkpoint, plus all pilots/initial confirmation, were archived separately in `artifacts/v2/intermediate_v2a`. Their negative results are retained in `results/v2/intermediate_v2a_summary.json` and the validation raw table. Pilot selection was repeated after the correction using the validation set; new independent confirmation uses 100280–100299. Final budgets remain 8,000 updates per model. The additional compute is recorded as intermediate diagnostic work, not silently counted as one training run or used to select on the test.
 
@@ -531,7 +557,7 @@ Absolute manipulation reliability remains the limiting factor. Three seeds and 5
         and c["b"] == "fixed_prior"
         and c["condition"] == "fixed_camera_missing"
     )
-    bullet = f"• Conception et audit d’un benchmark MuJoCo/robosuite de manipulation Panda : comparaison RGB-D fixe/poignet/fusion et ablation du prior couleur, 21 modèles sur trois seeds et {summary['rollout_counts']['main']} rollouts de test réservés ; critère de placement stable testé, checkpoints de reprise et démonstration locale reproduite. Fusion : {nominal['success_percent']:.1f}% de placements stables en nominal ; résultats négatifs ACT documentés.\n"
+    bullet = f"• Conçu un benchmark de manipulation Panda sous MuJoCo/robosuite : comparaison RGB-D fixe/poignet/fusion et ablation du prior couleur (21 modèles, trois seeds, {summary['rollout_counts']['main']:,} rollouts réservés) ; placement stable testé, reprise exacte des checkpoints et démonstration locale reproduite.\n"
     Path("docs/v2_cv_bullet.txt").write_text(bullet, encoding="utf8")
     chosen_success = next((r for r in demo["expected_rollouts"] if r["stable_success"]), None)
     chosen_failure = next((r for r in demo["expected_rollouts"] if not r["stable_success"]), None)

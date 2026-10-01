@@ -33,3 +33,20 @@ def test_one_finger_contact_or_motion_blocks_released_stability():
         ("previously_lifted", False),
     ]:
         assert not placement_valid(**dict(sample, **{key: value}))
+
+
+def test_rotated_cube_rejects_center_only_false_positive():
+    import numpy as np
+    from geopolicy.v2.config import read_recipe
+    from geopolicy.v2.metrics import cube_inside_tray
+
+    cfg = read_recipe()["stability"]
+    center = np.array([0.04, 0.0, 0.83])
+    goal = np.array([0.0, 0.0, 0.813])
+    assert np.linalg.norm(center[:2] - goal[:2]) < 0.043
+    assert cube_inside_tray(center, np.eye(3), goal, cfg)
+    angle = np.pi / 4
+    rotated = np.array(
+        [[np.cos(angle), -np.sin(angle), 0], [np.sin(angle), np.cos(angle), 0], [0, 0, 1]]
+    )
+    assert not cube_inside_tray(center, rotated, goal, cfg)
