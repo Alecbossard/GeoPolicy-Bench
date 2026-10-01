@@ -16,6 +16,7 @@ def main():
     sub.add_parser("study")
     sub.add_parser("report")
     sub.add_parser("verify")
+    sub.add_parser("status")
     d = sub.add_parser("demo")
     d.add_argument("--bundle", default="artifacts/v2/demo")
     d.add_argument("--out", default="artifacts/v2/demo_reproduced")
@@ -72,6 +73,11 @@ def main():
         from .study import run_study
 
         run_study(recipe)
+    elif args.command == "status":
+        import json
+        from .study import status
+
+        print(json.dumps(status(), indent=2))
     elif args.command == "report":
         from .reporting import report
 

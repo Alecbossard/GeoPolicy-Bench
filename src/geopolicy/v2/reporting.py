@@ -236,6 +236,12 @@ def report(recipe):
             validation_raw.extend(
                 dict(group=group, model=path.parent.name, **row) for row in read(path)
             )
+    for parent in ["pilot_evaluations", "confirmation"]:
+        for path in sorted(Path(f"artifacts/v2/intermediate_v2a/{parent}").glob("*/rollouts.json")):
+            validation_raw.extend(
+                dict(group="intermediate_v2a_" + parent, model=path.parent.name, **row)
+                for row in read(path)
+            )
     save_json("results/v2/raw/validation_rollouts.json", validation_raw)
     with Path("results/v2/raw/validation_rollouts.csv").open(
         "w", newline="", encoding="utf8"
@@ -428,7 +434,7 @@ All results below were actually executed locally. V1 is retained at tag `geopoli
 
 Does calibrated fixed+wrist RGB-D fusion help beyond either view alone, and how much does the manual color prior contribute? Six diffusion variants cross fixed/wrist/fusion with prior present/absent. All use the same 200 training episodes extended with 30 actual PPO-teacher steps after the original end, the same 21 validation episodes, frozen V1 normalization, 7D OSC actions, 512 points, 8-step prediction, 2-step execution, 8,000 updates, batch 32 and three training seeds. The prior ablation removes the additive chromatic attention bias; it retains learned attention and explicit XYZRGB moments. RGB still contains colors. The models are compact independent adaptations, without pretrained vision.
 
-The selected ACT uses `{selection['selected']['act']}`: a compact random-CNN RGB action-chunk Transformer, trained directly on its zero-latent deployment path, with causal proprioceptive history and binary gripper output. Its modality and capacity differ from diffusion; its equal optimizer budget does not establish architectural parity with original ACT. The rejected `act_point` was an explicit 3D adaptation, not an official RGB ACT reproduction. PPO and SmolVLA remain the unchanged V1 extensions; no new improvement is claimed for them.
+The selected ACT uses `{selection['selected']['act']}`: a compact random-CNN RGB action-chunk Transformer, trained directly on its zero-latent deployment path, with the selected proprioceptive history and gripper output. Its modality and capacity differ from diffusion; its equal optimizer budget does not establish architectural parity with original ACT. The rejected `act_point` was an explicit 3D adaptation, not an official RGB ACT reproduction. PPO and SmolVLA remain the unchanged V1 extensions; no new improvement is claimed for them.
 
 ## Diagnoses before increasing budgets
 
@@ -438,11 +444,17 @@ V1 ACT on recorded validation: normalized L1 prior {prior['normalized_l1']:.6f},
 
 The first-frame input sensitivity interventions are in `results/v2/act_input_sensitivity.json`. Image permutation and instruction flips change the output locally, but this does not prove grounded task behavior or identify a unique cause. Grasp and selection dominate the fresh V1 validation failures. V1 ACT's historical 0/60 nominal test remains unchanged; it achieved 2/20 on the new stable-metric diagnostic validation set, so '0%' is not an intrinsic impossibility claim. The scripted diagnostic reference achieved 20/20 stable placements; students receive none of its truth-pose waypoints.
 
-The original demonstrations terminate at the instantaneous metric. All 221 exact-prefix trajectories were continued for 30 actual selected-PPO-teacher steps; all achieved sustained stability during continuation. This demonstrates that recording covers post-release behavior. In a matched 3,000-update seed-0 control, original data gave {suffix['original_successes']}/20 stable placements versus {suffix['extended_successes']}/20 after continuation. This small control neither isolates every mechanism nor demonstrates a general gain. All negative pilots and source data are retained.
+The original demonstrations terminate at the instantaneous metric. All 221 exact-prefix trajectories were continued for 30 actual selected-PPO-teacher steps; all extended teacher trajectories achieved sustained stability. This demonstrates that recording covers post-release behavior. In a matched 3,000-update seed-0 control, original data gave {suffix['original_successes']}/20 stable placements versus {suffix['extended_successes']}/20 after continuation. This small control neither isolates every mechanism nor demonstrates a general gain. All negative pilots and source data are retained.
+
+## Intermediate implementation correction
+
+An intermediate V2 binary-gripper variant left the seventh diffusion output unsupervised while still using it as part of the iterative DDIM state. On the same diagnostic batch its seventh-output gradient L1 was 0 without auxiliary supervision and 7.00354 with it. This is a demonstrated structural defect introduced in V2's intermediate adaptation, not in preserved V1. Its contribution to manipulation failures was not isolated causally. A 0.1-weight normalized-gripper MSE now trains that internal channel while the separate classifier still provides the physical sign command. Six targeted tests cover this and the existing contracts.
+
+Before any reserved test, ten completed intermediate 8,000-update runs and one partial checkpoint, plus all pilots/initial confirmation, were archived separately in `artifacts/v2/intermediate_v2a`. Their negative results are retained in `results/v2/intermediate_v2a_summary.json` and the validation raw table. Pilot selection was repeated after the correction using the validation set; new independent confirmation uses 100280–100299. Final budgets remain 8,000 updates per model. The additional compute is recorded as intermediate diagnostic work, not silently counted as one training run or used to select on the test.
 
 ## Validation-only selection
 
-Six 3,000-update pilots used the same optimizer and data budget. Selection rule was recorded before comparative results: most stable successes, then fewer wrong-object lifts, fewer collisions, more correct transport, then declared order. Selected diffusion: `{selection['selected']['diffusion']}`; selected ACT: `{selection['selected']['act']}`. Disjoint confirmation 100240–100259, reported without retuning: {confirm_text}.
+Six 3,000-update pilots used the same optimizer and data budget. Selection rule was recorded before comparative results: most stable successes, then fewer wrong-object lifts, fewer collisions, more correct transport, then declared order. Selected diffusion: `{selection['selected']['diffusion']}`; selected ACT: `{selection['selected']['act']}`. Disjoint confirmation {recipe['evaluation']['confirmation_first_seed']}–{recipe['evaluation']['confirmation_first_seed']+recipe['evaluation']['confirmation_episodes']-1}, reported without retuning: {confirm_text}.
 
 {pilot_table}
 

@@ -24,14 +24,15 @@
       0,
       1,
       2
-    ]
+    ],
+    "diffusion_gripper_aux_weight": 0.1
   },
   "evaluation": {
     "control_hz": 20,
     "maximum_steps": 240,
     "validation_first_seed": 100200,
     "validation_episodes": 20,
-    "confirmation_first_seed": 100240,
+    "confirmation_first_seed": 100280,
     "confirmation_episodes": 20,
     "reserved_test_first_seed": 300000,
     "test_episodes": 50,

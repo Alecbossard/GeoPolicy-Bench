@@ -33,7 +33,20 @@ fixed only, wrist only, fusion; chromatic prior present/absent. A missing fixed
 camera must not remove the wrist from a wrist-only policy.
 
 Pilot recipe selection uses validation seeds 100200–100219, followed by separate
-confirmation seeds 100240–100259. Final scenes start at 300000, disjoint from V1
+confirmation seeds 100280–100299 (the initial intermediate recipe used 100240–100259,
+retained separately). Final scenes start at 300000, disjoint from V1
 tests, and must not run before a final protocol and selected recipes are frozen.
 Main comparisons retain three training seeds. No selection on final test results.
 PPO and SmolVLA remain historical extensions unless these diagnostics justify work.
+
+Before opening the reserved test, an intermediate binary-gripper diffusion
+implementation was found to leave its seventh diffusion output unsupervised,
+despite retaining that channel in iterative denoising. Its old and corrected
+seventh-output gradients were measured as zero and nonzero on the same diagnostic
+batch. This is a demonstrated structural issue; its behavioral contribution is
+not an isolated causal result. Ten completed intermediate main trainings, a
+partial checkpoint and all pilot/confirmation results are archived under
+`artifacts/v2/intermediate_v2a`. The correction adds 0.1-weight auxiliary gripper
+MSE, then repeats validation selection and uses fresh independent confirmation.
+No reserved test was accessed before this correction. Negative intermediate
+results remain summarized in `results/v2/intermediate_v2a_summary.json`.

@@ -30,7 +30,9 @@ state fields retain their original robot-observation coordinate convention,
 identically in recorded and live processing.
 
 Motion loss weights are `[1, 1, 1, 0.1, 0.1, 0.1]` on normalized translation and
-rotation channels. Gripper labels use the sign of the denormalized demonstration
+rotation channels. A 0.1-weight auxiliary normalized-gripper MSE supervises the
+seventh diffusion output, which remains part of the internal DDIM trajectory even
+when a separate classifier supplies the physical command. Gripper labels use the sign of the denormalized demonstration
 command. Inference decodes its logit to physical ±1 and converts back to action
 normalization before the common evaluator denormalizes/clips the command. Panda's
 backend uses the sign for incremental opening/closing. Future chunks near an

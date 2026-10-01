@@ -1,0 +1,42 @@
+{
+  "reason": "Binary gripper variant left the seventh diffusion output unsupervised while retaining it in the DDIM state; auxiliary supervision added before any reserved test. Behavioral effect remains to be measured.",
+  "archive": "artifacts\\v2\\intermediate_v2a",
+  "completed_8000_update_main_runs": 10,
+  "partial_checkpoints_retained": true,
+  "pilot_results": {
+    "act_history_binary": {
+      "episodes": 20,
+      "stable_successes": 1
+    },
+    "act_point": {
+      "episodes": 20,
+      "stable_successes": 0
+    },
+    "act_prior_only": {
+      "episodes": 20,
+      "stable_successes": 1
+    },
+    "diffusion_binary": {
+      "episodes": 20,
+      "stable_successes": 3
+    },
+    "diffusion_history": {
+      "episodes": 20,
+      "stable_successes": 4
+    },
+    "diffusion_original_data": {
+      "episodes": 20,
+      "stable_successes": 4
+    },
+    "diffusion_suffix_only": {
+      "episodes": 20,
+      "stable_successes": 1
+    }
+  },
+  "reserved_test_rollouts": 0,
+  "measured_seventh_output_gradient_l1": {
+    "0.0": 0.0,
+    "0.1": 7.003542423248291
+  },
+  "behavioral_cause_demonstrated": false
+}

@@ -9,24 +9,22 @@ Improve manipulation reliability and ACT diagnostics; compare fixed/wrist/fusion
 V1 Git tag `geopolicy-v1-2026-09-30`, commit `542f132`. New branch `codex/geopolicy-v2`. Historical source, raw results, configs and all selected weights are hash-inventoried in `configs/v2/v1_inventory.json`. Original README/report copied to `docs/v1`. New outputs only `artifacts/v2` and `results/v2`.
 
 ## Current stage
-V2 dataset continuation is complete: 221 episodes, 30 real PPO post-release frames each, exact replay of original robot-state prefixes and 221 stable teacher continuations. All V1 files remain read-only. Augmented metadata retains original-prefix metrics explicitly; actual HDF5 lengths include the continuation.
+Dataset continuation is complete: 221 episodes, 30 actual preserved-PPO-teacher post-release frames each. Original robot-state replay error is zero; all extended teacher trajectories satisfy the stable criterion. Original files and all 42 V1 checkpoints remain hash-verified and unchanged. Recorded/live RGB, moving-wrist/fixed/fused points and four-state robot histories are array-exact on ten real validation steps.
 
-Six targeted 3,000-update pilots and all optimizer/render/resume gates completed. Stable validation counts (/20): diffusion suffix only 1, binary gripper 3, four-state history plus binary 4; RGB ACT prior-only 1, history/binary 1; 3D action-chunk adaptation 0. The matched original-data diffusion control scored 4/20 versus continuation-only 1/20. Independent confirmation: selected diffusion 4/20, selected RGB ACT 0/20. None of these figures is a final-test result or proof of a general improvement.
+An intermediate V2 binary-gripper implementation left its seventh diffusion output unsupervised while retaining it in DDIM. Same-batch output-gradient L1: 0 before, 7.00354 with the correction. This proves a structural issue, not its behavioral contribution. Auxiliary normalized-gripper MSE weight 0.1 now supervises that channel. Ten completed intermediate main runs, one partial checkpoint and all pilot/confirmation results are preserved in `artifacts/v2/intermediate_v2a`; their source/config snapshot and summary are retained. No reserved test has been accessed.
 
-Selected recipes: diffusion_history and act_history_binary, according to the predeclared validation rule. Serial main training is underway: fixed/wrist/fusion × manual prior on/off × three seeds, plus selected ACT × three seeds; 21 runs at 8,000 updates, batch 32. Central config remains unchanged. No reserved test has been accessed. The supervisor was reloaded once before freeze to apply newline-normalized source identities; interrupted fixed-prior seed 1 resumed from its 2,500-update checkpoint. Completed raw logs are retained.
+The six corrected 3,000-update pilots are now running serially, with actual optimizer/render/resume gates. Fresh selection uses the predeclared validation rule. New independent confirmation is 100280–100299; initial 100240–100259 confirmation remains archived. Dataset, action contract and demonstration count are unchanged. The final matrix remains 21 models, 8,000 updates/batch32, three seeds, with fixed/wrist/fusion and manual-prior on/off.
 
-Active supervisor: unified exec session 36064. Log `artifacts/v2/study_pipeline.log`; stage state `artifacts/v2/study_stages.json`. One heavy GPU child at a time. Check running processes before restarting `python -m geopolicy.v2 study`.
-
-V2 tests: five meaningful tests passed (continuous stability/contact/containment, causal history, wrist-camera-loss semantics, physical gripper decoding). Before reserved evaluation, the pipeline will verify all original hashes, every augmented prefix, recorded/live RGB/points/history and a real 500-update checkpoint continuation, then freeze checkpoints and core evaluator sources.
+Active pilot supervisor: unified exec session 80848, log `artifacts/v2/pilot_pipeline.log`. Waiting study supervisor: session 31445, log `artifacts/v2/study_pipeline.log`. One heavy GPU child at a time. Check running processes before launching either supervisor. Six V2 tests pass, including direct seventh-channel and physical gripper decoding checks.
 
 ## Remaining
-1. Finish the 21 matched main trainings; verify real resume and data/input contracts.
-2. Freeze the protocol and execute 3,150 main reserved rollouts, 300 fair V1 before/after rollouts and 360 counterfactual rollouts.
-3. Aggregate actual seed results and uncertainty, preserve failures, generate the short compact local-checkpoint demo and verify it in the separate pinned environment.
-4. Review the before/after report, short README, proposed factual CV bullet and final preservation/source audit; local Git snapshot only.
+1. Finish corrected pilots and independent confirmation; train all 21 main runs under the selected common recipe.
+2. Verify all original/extended data and real 500-update recovery; freeze the protocol and execute 3,150 main, 300 fair V1 before/after and 360 counterfactual reserved rollouts.
+3. Aggregate actual seeds/uncertainty and failures, create the compact local checkpoint/video demo, verify it in the separate pinned environment and review the report/README/CV bullet.
+4. Final preservation/source audit and local Git snapshot only. No CV modifications or online publication.
 
 ## Restart
-`python -m geopolicy.v2 study` resumes completed stages and identical checkpoints. `python -m geopolicy.v2 pilots` resumes targeted pilots, now complete. Never start a second supervisor while one is active. See `docs/v2_reproduction.md` for exact artifact requirements. No online publication or CV edit.
+`python -m geopolicy.v2 status` reads progress without Torch/GPU loading. `python -m geopolicy.v2 pilots` resumes corrected pilots. `python -m geopolicy.v2 study` waits for them and resumes the main study with identical checkpoints. Do not start a second supervisor while one is active. See `docs/v2_reproduction.md` for exact requirements.
 
 ## Version 1 completed log
 
@@ -194,3 +192,35 @@ V2 study confirmation/act: complete; `artifacts\v2\study_logs\confirmation_act.l
 V2 study train/fixed_prior_s0: complete; `artifacts\v2\study_logs\train_fixed_prior_s0.log`.
 
 V2 study train/fixed_prior_s1: complete; `artifacts\v2\study_logs\train_fixed_prior_s1.log`.
+
+V2 study train/fixed_prior_s2: complete; `artifacts\v2\study_logs\train_fixed_prior_s2.log`.
+
+V2 study train/fixed_no_prior_s0: complete; `artifacts\v2\study_logs\train_fixed_no_prior_s0.log`.
+
+V2 study train/fixed_no_prior_s1: complete; `artifacts\v2\study_logs\train_fixed_no_prior_s1.log`.
+
+V2 study train/fixed_no_prior_s2: complete; `artifacts\v2\study_logs\train_fixed_no_prior_s2.log`.
+
+V2 study train/wrist_prior_s0: complete; `artifacts\v2\study_logs\train_wrist_prior_s0.log`.
+
+V2 study train/wrist_prior_s1: complete; `artifacts\v2\study_logs\train_wrist_prior_s1.log`.
+
+V2 study train/wrist_prior_s2: complete; `artifacts\v2\study_logs\train_wrist_prior_s2.log`.
+
+V2 study train/wrist_no_prior_s0: complete; `artifacts\v2\study_logs\train_wrist_no_prior_s0.log`.
+
+V2 pilot diffusion_suffix_only/gate: complete; log `artifacts\v2\pilot_diffusion_suffix_only_gate.log`.
+
+V2 pilot diffusion_suffix_only/train: complete; log `artifacts\v2\pilot_diffusion_suffix_only_train.log`.
+
+V2 pilot diffusion_suffix_only/evaluate: complete; log `artifacts\v2\pilot_diffusion_suffix_only_evaluate.log`.
+
+V2 pilot diffusion_binary/gate: complete; log `artifacts\v2\pilot_diffusion_binary_gate.log`.
+
+V2 pilot diffusion_binary/train: complete; log `artifacts\v2\pilot_diffusion_binary_train.log`.
+
+V2 pilot diffusion_binary/evaluate: complete; log `artifacts\v2\pilot_diffusion_binary_evaluate.log`.
+
+V2 pilot diffusion_history/gate: complete; log `artifacts\v2\pilot_diffusion_history_gate.log`.
+
+V2 pilot diffusion_history/train: complete; log `artifacts\v2\pilot_diffusion_history_train.log`.

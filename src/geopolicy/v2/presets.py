@@ -63,6 +63,11 @@ def run_config(recipe, name, seed=0, pilot=True, overrides=None):
         execute_steps=t["execute_steps"],
         inference_steps=t["inference_steps"],
         point_budget=t["point_budget"],
+        diffusion_gripper_aux_weight=(
+            t.get("diffusion_gripper_aux_weight", 0.0)
+            if config["mode"] == "diffusion" and config["binary_gripper"]
+            else 0.0
+        ),
         rgb_resolution=64,
         normalization_path=recipe["data_extension"]["normalization_path"],
         training_recipe=dict(t),

@@ -13,6 +13,45 @@ def read(path):
     return json.loads(Path(path).read_text(encoding="utf8"))
 
 
+def status():
+    """Read progress without importing Torch or starting a worker."""
+    state_path = Path("artifacts/v2/study_stages.json")
+    stages = read(state_path) if state_path.exists() else {}
+    log = Path("artifacts/v2/study_pipeline.log")
+    lines = log.read_text(encoding="utf8").splitlines() if log.exists() else []
+    last = next(
+        (s.removeprefix("V2 study ") for s in reversed(lines) if s.startswith("V2 study ")), None
+    )
+    out = dict(
+        completed_main_trainings=sum(
+            k.startswith("train/") and v["complete"] for k, v in stages.items()
+        ),
+        planned_main_trainings=21,
+        latest_stage=last,
+        failed_stages=[k for k, v in stages.items() if not v["complete"]],
+        final_protocol_frozen=Path("configs/v2/final_protocol.json").exists(),
+    )
+    if last:
+        worker = Path("artifacts/v2/study_logs") / (last.replace("/", "_") + ".log")
+        if worker.exists():
+            records = [
+                s
+                for s in worker.read_text(encoding="utf8").splitlines()
+                if s.startswith('{"update"')
+            ]
+            if records:
+                out["latest_update"] = json.loads(records[-1])["update"]
+    for label, parent in [
+        ("main_test", "test"),
+        ("before_after", "before_after"),
+        ("counterfactual", "counterfactual"),
+    ]:
+        out[label + "_completed_rollouts"] = sum(
+            len(read(p)) for p in Path(f"artifacts/v2/{parent}").glob("*/rollouts.json")
+        )
+    return out
+
+
 def stage(key, arguments, state, state_path, timeout=3600):
     if state.get(key, {}).get("complete"):
         return
@@ -51,13 +90,17 @@ def stage(key, arguments, state, state_path, timeout=3600):
         raise RuntimeError(f"Study stage failed: {key}; completed work preserved in {state_path}")
 
 
-def selection():
+def selection(recipe):
     from .presets import PILOTS
 
     scores = {}
     for name in PILOTS:
         rows = read(f"artifacts/v2/pilot_evaluations/{name}/rollouts.json")
-        assert len(rows) == 20 and {r["scene_seed"] for r in rows} == set(range(100200, 100220))
+        count = recipe["evaluation"]["validation_episodes"]
+        first = recipe["evaluation"]["validation_first_seed"]
+        assert len(rows) == count and {r["scene_seed"] for r in rows} == set(
+            range(first, first + count)
+        )
         scores[name] = {
             "stable_successes": sum(r["stable_success"] for r in rows),
             "wrong_object_lifts": sum(r["wrong_object_lifted"] for r in rows),
@@ -175,7 +218,7 @@ def freeze_protocol(recipe, jobs, selected):
             "fusion_prior vs fusion_no_prior, nominal",
         ],
         statistics="Paired scene and training-seed crossed bootstrap; 10000 draws, RNG 81, percentile 95% intervals; primary and exploratory comparisons are descriptive, without multiplicity correction.",
-        confirmation="100240-100259 reported without retuning",
+        confirmation=f"{recipe['evaluation']['confirmation_first_seed']}-{recipe['evaluation']['confirmation_first_seed']+recipe['evaluation']['confirmation_episodes']-1} reported without retuning",
         before_after="Preserved V1 fusion and ACT re-evaluated on the same new nominal scenes, horizon and stable metric; recipe changes are bundled, not attributed individually.",
         counterfactual="10 physically identical scenes x four instructions x three seeds for fusion prior on/off and selected ACT; all-four completion is the strict score.",
         frozen_before_first_reserved_rollout=True,
@@ -229,7 +272,7 @@ def run_study(recipe):
         state,
         state_path,
     )
-    selected = selection()
+    selected = selection(recipe)
     for family, name in selected["selected"].items():
         stage(
             f"confirmation/{family}",
@@ -240,9 +283,9 @@ def run_study(recipe):
                 "--out",
                 f"artifacts/v2/confirmation/{family}",
                 "--first-seed",
-                "100240",
+                str(recipe["evaluation"]["confirmation_first_seed"]),
                 "--episodes",
-                "20",
+                str(recipe["evaluation"]["confirmation_episodes"]),
             ],
             state,
             state_path,

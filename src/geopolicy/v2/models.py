@@ -38,6 +38,8 @@ class DiffusionControl(Diffusion, ActionLoss):
             state_dim=23 * cfg["history"], horizon=cfg["horizon"], color_prior=cfg["color_prior"]
         )
         self.binary_gripper = cfg["binary_gripper"]
+        self.gripper_aux_weight = cfg.get("diffusion_gripper_aux_weight", 0.0)
+        self.inference_steps = cfg.get("inference_steps", 10)
         self.install_normalization(norm)
         if self.binary_gripper:
             self.gripper = nn.Sequential(
@@ -53,10 +55,17 @@ class DiffusionControl(Diffusion, ActionLoss):
         condition = self.condition(batch)
         noisy = a.sqrt() * target + (1 - a).sqrt() * torch.randn_like(target)
         prediction = self.denoise(noisy, t, condition)
-        return self.control_loss(prediction, self.gripper(condition), batch)
+        loss, metrics = self.control_loss(prediction, self.gripper(condition), batch)
+        # The 7D diffusion trajectory still feeds its seventh channel into the
+        # next denoising step. Supervise it even though deployment uses the
+        # separate binary classifier for the physical gripper command.
+        mask = batch["action_mask"]
+        auxiliary = ((prediction[..., 6] - target[..., 6]).square() * mask).sum() / mask.sum()
+        metrics["diffused_gripper_mse"] = float(auxiliary.detach())
+        return loss + self.gripper_aux_weight * auxiliary, metrics
 
-    def predict(self, batch, inference_steps=10, noise=None):
-        prediction = super().predict(batch, inference_steps, noise)
+    def predict(self, batch, inference_steps=None, noise=None):
+        prediction = super().predict(batch, inference_steps or self.inference_steps, noise)
         if self.binary_gripper:
             prediction[..., 6] = self.normalized_gripper(self.gripper(self.condition(batch)))
         return prediction
