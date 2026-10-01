@@ -1,9 +1,9 @@
 {
   "verified": true,
-  "isolated_source_directory": "C:\\Users\\Alec\\Documents\\ChatGPT\\GeoPolicy-Bench\\artifacts\\v2\\portable_demo",
-  "imported_package": "C:\\Users\\Alec\\Documents\\ChatGPT\\GeoPolicy-Bench\\artifacts\\v2\\portable_demo\\src\\geopolicy\\__init__.py",
+  "isolated_source_directory": "./artifacts/v2/portable_demo",
+  "imported_package": "./artifacts/v2/portable_demo/src/geopolicy/__init__.py",
   "no_training_dataset_or_original_weights_present": true,
-  "executable": "C:\\Users\\Alec\\Documents\\ChatGPT\\GeoPolicy-Bench\\.venv-repro\\Scripts\\python.exe",
+  "executable": "./.venv-repro/Scripts/python.exe",
   "replay": {
     "verified": true,
     "episodes": [

@@ -1,0 +1,45 @@
+{
+  "cpu_tests": {
+    "passed": 19,
+    "deselected": 2,
+    "selection": "not simulation and not gpu"
+  },
+  "publication_link_check": {
+    "passed": true,
+    "local_links": 78
+  },
+  "offline_release_bundle_extraction": true,
+  "corrupt_bundle_rejected": true,
+  "different_existing_file_preserved": true,
+  "prepared_bundle_demo": {
+    "verified": true,
+    "episodes": [
+      {
+        "scene_seed": 300012,
+        "stable_success": true,
+        "first_action_exact": true,
+        "sensor_hash_exact": true,
+        "steps_exact": true,
+        "all_actions_and_selected_object_positions_exact": true
+      },
+      {
+        "scene_seed": 300000,
+        "stable_success": false,
+        "first_action_exact": true,
+        "sensor_hash_exact": true,
+        "steps_exact": true,
+        "all_actions_and_selected_object_positions_exact": true
+      }
+    ]
+  },
+  "v1_preserved": {
+    "version1_preserved": true,
+    "tag": "geopolicy-v1-2026-09-30",
+    "original_files": 122,
+    "selected_checkpoints": 11,
+    "all_original_checkpoints": 42
+  },
+  "frozen_v2_evaluator_sources_unchanged": true,
+  "scientific_outcomes_changed": false,
+  "presentation_scope": "Curated README, actual-video animations, project navigation, CPU CI and release download helper. Three verification/runtime metadata files use repository-relative paths; numbers and scientific snapshot tags are unchanged."
+}

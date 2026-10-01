@@ -1,0 +1,22 @@
+{
+  "animations": [
+    {
+      "path": "docs/media/v2_success.gif",
+      "source_video": "results/v2/demo/success/nominal_300012_stable.mp4",
+      "source_sha256": "b2ccce00ca3142f57cd3ea627b6ad41974dfec75574cf0a78a5c4b52d09893e3",
+      "sha256": "f93d0b2e84a6eac9df0a47975a89caa8786278b7cfccecc0ad0b3530c9144508",
+      "frames": 62,
+      "fps": 10,
+      "processing": "Every second source frame at native 256x128, GIF palette quantization; original scene and actions unchanged."
+    },
+    {
+      "path": "docs/media/v2_failure.gif",
+      "source_video": "results/v2/demo/failure/nominal_300000_failure.mp4",
+      "source_sha256": "3b6afb5a2b09067a6b0c62e1088453a09aeba889bf06b6f1aa3f75a1601d5092",
+      "sha256": "14250c4ba95e4559c09feec2dfacf84e8dc6a3644b467c36737145684754db53",
+      "frames": 121,
+      "fps": 10,
+      "processing": "Every second source frame at native 256x128, GIF palette quantization; original scene and actions unchanged."
+    }
+  ]
+}

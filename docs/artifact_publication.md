@@ -1,6 +1,6 @@
 # Local artifacts and optional publication
 
-The repository is local. No GitHub repository, Hub dataset or model has been published. Publication requires the owner's explicit request. Data, checkpoints, caches and virtual environments are excluded from Git; the repository includes lightweight metrics, figures and success/failure demos.
+The owner requested a GitHub presentation after the verified V2 study. Source, tests, configurations, raw outcome tables and short demos are included in the repository; the compact V2 replay checkpoint is a release asset described in [the project guide](PROJECT_GUIDE.md). Full datasets, training checkpoints, caches and virtual environments remain local and excluded from Git. The artifact map below records the original V1 collection; no full Hub dataset or foundation-model release is claimed.
 
 ## Artifact map
 

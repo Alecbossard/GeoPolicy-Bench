@@ -14,6 +14,14 @@ Its tensor identity against the selected training file is verified in
 `configs/v2/demo_equivalence.json`. Nothing is uploaded or downloaded from a model
 Hub. Restore/extract it into `artifacts/v2/demo`.
 
+The GitHub release exposes the same verified compact ZIP, with its identity in
+`docs/releases/v2_demo.json`. After installing the environment below, run
+`.venv\Scripts\python scripts/download_demo.py` before the demo command. This
+downloads and verifies the public asset, or verifies an existing local archive.
+For a separately downloaded archive, use `--archive <path>`; extraction refuses
+to overwrite a different existing file. The full training dataset and all
+optimizer checkpoints remain local and are not part of that release.
+
 ```powershell
 uv venv --python 3.11 .venv
 uv pip install --python .venv\Scripts\python.exe torch==2.7.1 torchvision==0.22.1 --index-url https://download.pytorch.org/whl/cu128

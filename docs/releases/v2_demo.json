@@ -1,0 +1,21 @@
+{
+  "repository": "Alecbossard/GeoPolicy-Bench",
+  "release_tag": "v2-demo",
+  "asset_name": "demo_bundle.zip",
+  "download_url": "https://github.com/Alecbossard/GeoPolicy-Bench/releases/download/v2-demo/demo_bundle.zip",
+  "sha256": "9d91f1ae971386ce2b710cbb32cedf0e18113f8d88ac6a51e5137c4ce1eeefa1",
+  "size_bytes": 4289274,
+  "policy_sha256": "c5119e3221e546fa57ed3e8c3df069ef9fbf99e1ba3b8c5ee852f32419944208",
+  "members_sha256": {
+    "bundle.json": "a90ca75df2bd3ab24dd1affa1443959df387b5d029ea7e512a203e4869842d30",
+    "expected_failure_trace.json": "a35f8950c069c2c99ef77338b54a7b7ce960e40d817f31473eec6549de0052d8",
+    "expected_rollouts.json": "7262af401e0475e16dcfcdacd3adff9745c1bb778b2cfefa4364eb8e140b9870",
+    "expected_success_trace.json": "a5c45ed0c5e177a5a3058e8f578ba0e1c735e1da3c138b89c9c48dbec63a653f",
+    "policy.pt": "c5119e3221e546fa57ed3e8c3df069ef9fbf99e1ba3b8c5ee852f32419944208",
+    "README.md": "b4344be22bf38efc9c8b357e6aa0c751d3271059d1055c34b20798131873f020",
+    "recipe.json": "ac2b3620acf7331be36c363f13650ede4a0d1c55432df9de937b9fc3b6cb446d"
+  },
+  "contains_training_dataset": false,
+  "contains_optimizer": false,
+  "provenance": "Byte-identical archive from the verified V2 delivery; predeclared fusion-prior training seed 0, with earliest nominal success and failure."
+}

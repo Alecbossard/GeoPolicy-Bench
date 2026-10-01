@@ -660,4 +660,7 @@ Known calibrated simulation, two colored cubes, two receptacles and an instructi
 
 [Architecture and sources](docs/architecture.md) · [V2 design](docs/v2_design.md) · [Third-party notices](docs/THIRD_PARTY_NOTICES.md) · [Factual CV bullet proposal](docs/v2_cv_bullet.txt)
 """
-    Path("README.md").write_text(readme, encoding="utf8")
+    # Keep the curated public front page independent of regenerated run reports.
+    draft = Path("artifacts/v2/generated_README.md")
+    draft.parent.mkdir(parents=True, exist_ok=True)
+    draft.write_text(readme, encoding="utf8")

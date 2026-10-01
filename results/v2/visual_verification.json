@@ -8,9 +8,9 @@
       "frames": 124,
       "fps": 20.0,
       "extracted": [
-        "C:\\Users\\Alec\\Documents\\ChatGPT\\GeoPolicy-Bench\\artifacts\\v2\\visual_qa\\success_0000.png",
-        "C:\\Users\\Alec\\Documents\\ChatGPT\\GeoPolicy-Bench\\artifacts\\v2\\visual_qa\\success_0062.png",
-        "C:\\Users\\Alec\\Documents\\ChatGPT\\GeoPolicy-Bench\\artifacts\\v2\\visual_qa\\success_0123.png"
+        "./artifacts/v2/visual_qa/success_0000.png",
+        "./artifacts/v2/visual_qa/success_0062.png",
+        "./artifacts/v2/visual_qa/success_0123.png"
       ]
     },
     {
@@ -18,9 +18,9 @@
       "frames": 241,
       "fps": 20.0,
       "extracted": [
-        "C:\\Users\\Alec\\Documents\\ChatGPT\\GeoPolicy-Bench\\artifacts\\v2\\visual_qa\\failure_0000.png",
-        "C:\\Users\\Alec\\Documents\\ChatGPT\\GeoPolicy-Bench\\artifacts\\v2\\visual_qa\\failure_0120.png",
-        "C:\\Users\\Alec\\Documents\\ChatGPT\\GeoPolicy-Bench\\artifacts\\v2\\visual_qa\\failure_0240.png"
+        "./artifacts/v2/visual_qa/failure_0000.png",
+        "./artifacts/v2/visual_qa/failure_0120.png",
+        "./artifacts/v2/visual_qa/failure_0240.png"
       ]
     }
   ],

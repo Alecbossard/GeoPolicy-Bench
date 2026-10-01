@@ -1,3 +1,11 @@
+# GitHub presentation — 2026-10-01
+
+Status: presentation prepared and locally checked; remote publication verification in progress. Repository: `Alecbossard/GeoPolicy-Bench`. The user requested GitHub publication after the scientific V2 snapshot below. No new training or changes to frozen scientific outcomes are part of this presentation work.
+
+The curated front page includes actual success/failure animations, balanced results, reproduction and limits. A compact release bundle with SHA-256 verification supports the short demo. CPU contracts and publication/link checks run in GitHub Actions; full data and training artifacts remain local. Historical notes about no online publication below refer to the earlier scientific delivery.
+
+---
+
 # GeoPolicy Bench — version 2 progress
 
 Status: COMPLETE V2 — experiments and delivery verification finished locally on 2026-10-01. One principal agent; no project worker remains active.
