@@ -1,0 +1,27 @@
+{
+  "checked_rows": 48,
+  "checked_steps": 10415,
+  "independent_containment": "box support function, reconstructed from saved pose and goal",
+  "summaries": {
+    "bc_four_demos_tuning_s0": {
+      "episodes": 20,
+      "physical": 11,
+      "strict": 0
+    },
+    "bc_overfit_train_s0": {
+      "episodes": 4,
+      "physical": 4,
+      "strict": 0
+    },
+    "diffusion_four_demos_tuning_s0": {
+      "episodes": 20,
+      "physical": 6,
+      "strict": 6
+    },
+    "diffusion_overfit_train_s0": {
+      "episodes": 4,
+      "physical": 4,
+      "strict": 4
+    }
+  }
+}

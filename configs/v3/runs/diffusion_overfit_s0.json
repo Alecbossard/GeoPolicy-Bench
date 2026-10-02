@@ -1,0 +1,18 @@
+{
+  "version": 3,
+  "model": "v1_diffusion",
+  "seed": 0,
+  "updates": 2000,
+  "batch_size": 32,
+  "limit": 4,
+  "continued": false,
+  "history": 1,
+  "binary_gripper": false,
+  "overfit_diagnostic": true,
+  "horizon": 8,
+  "execute_steps": 2,
+  "color_prior": "chroma40",
+  "device": "cuda",
+  "learning_rate": 0.0003,
+  "dataset_manifest_sha256": "a5e261c5c17ddb493ae27d02cdddb300465067a95e8a2176fc57c4e8038678c3"
+}

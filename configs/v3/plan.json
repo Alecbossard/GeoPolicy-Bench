@@ -1,0 +1,40 @@
+{
+  "version": 3,
+  "task": "single_cube_single_tray_fixed_instruction",
+  "train_scenes": [10000, 10079],
+  "recorded_validation_scenes": [110000, 110009],
+  "tuning_scenes": [110100, 110119],
+  "confirmation_scenes": [110200, 110219],
+  "reserved_test_scenes": [400000, 400049],
+  "training_seeds": [0, 1, 2],
+  "initial_diagnostic_episodes": 4,
+  "initial_updates": 2000,
+  "batch_size": 32,
+  "horizon": 8,
+  "execute_steps": 2,
+  "learning_rate": 0.0003,
+  "maximum_steps": 240,
+  "competence_gate": "At least 12/20 physical stable successes on tuning and disjoint confirmation for each of three training seeds before a broad view/prior study. Threshold is an operational gate, not guaranteed performance.",
+  "selection": "closed-loop stable placements, then selected lifts, then fewer collision episodes; offline loss is diagnostic only",
+  "stability": {
+    "minimum_seconds": 1.0,
+    "minimum_previous_lift_m": 0.89,
+    "cube_half_extent_m": 0.021,
+    "tray_inner_half_xy_m": [0.063, 0.060],
+    "containment_margin_m": 0.001,
+    "center_height_m": [0.816, 0.855],
+    "minimum_finger_width_m": 0.045,
+    "maximum_linear_speed_m_s": 0.02,
+    "maximum_angular_speed_rad_s": 0.25,
+    "primary": "physical stability after witnessed full-contained open-hand contact-free release; subsequent empty-hand closure does not reset object stability",
+    "secondary": "unchanged V2 strict composite requiring open fingers throughout dwell"
+  },
+  "resource_limits": {
+    "sample_interval_seconds": 10,
+    "maximum_temperature_c": 80,
+    "minimum_free_commit_mib": 1024,
+    "minimum_free_disk_gib": 10,
+    "consecutive_unsafe_samples": 3,
+    "cell_timeout_seconds": 1800
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "resource_before": {
+    "time": 1790933643.388263,
+    "gpu_used_free_mib_temperature_c": [
+      914.0,
+      7043.0,
+      42.0
+    ],
+    "free_commit_bytes": 7996821504,
+    "free_disk_bytes": 41268940800,
+    "available_ram_bytes": 8077381632,
+    "rss_bytes": 504889344,
+    "private_bytes": 1407713280
+  },
+  "teacher_demonstrations": 6,
+  "oracle_provenance": "scripted_reference; no learned performance claim",
+  "one_physical_cube_and_tray": true,
+  "sensor_red_surface": {
+    "point_count": 3,
+    "world_surface_mean_m": [
+      0.029959658160805702,
+      -0.06226101890206337,
+      0.8500809669494629
+    ],
+    "evaluator_cube_center_m": [
+      0.03313292372647877,
+      -0.07628621613843017,
+      0.83
+    ],
+    "note": "Surface centroid differs from cube center; diagnostic truth never enters student inputs"
+  },
+  "world_from_base": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      -0.5600000023841858
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.9120000004768372
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "recorded_live_max_errors": {
+    "state": 0.0,
+    "points": 0.0,
+    "rgb": 0.0,
+    "action_normalization_roundtrip": 5.960464477539063e-08
+  },
+  "physical_controller": {
+    "positive_x_displacement_m": [
+      0.055662702044284314,
+      -1.949588857781419e-09,
+      -0.004471663629477041
+    ],
+    "negative_command_width_m": 0.07900654607997401,
+    "positive_command_width_m": 0.0019282978091936798
+  },
+  "cuda_gates": [
+    {
+      "model": "direct_bc",
+      "actual_batch": 32,
+      "renderer_cameras": [
+        "agentview",
+        "robot0_eye_in_hand"
+      ],
+      "next_update_exact": true,
+      "resources": {
+        "time": 1790933651.2365952,
+        "gpu_used_free_mib_temperature_c": [
+          1503.0,
+          6454.0,
+          44.0
+        ],
+        "free_commit_bytes": 4105916416,
+        "free_disk_bytes": 41264435200,
+        "available_ram_bytes": 6431109120,
+        "rss_bytes": 1998565376,
+        "private_bytes": 5157543936
+      }
+    },
+    {
+      "model": "v1_diffusion",
+      "actual_batch": 32,
+      "renderer_cameras": [
+        "agentview",
+        "robot0_eye_in_hand"
+      ],
+      "next_update_exact": true,
+      "resources": {
+        "time": 1790933652.003061,
+        "gpu_used_free_mib_temperature_c": [
+          1522.0,
+          6435.0,
+          45.0
+        ],
+        "free_commit_bytes": 3891396608,
+        "free_disk_bytes": 41251278848,
+        "available_ram_bytes": 6241136640,
+        "rss_bytes": 2160398336,
+        "private_bytes": 5366796288
+      }
+    }
+  ]
+}
