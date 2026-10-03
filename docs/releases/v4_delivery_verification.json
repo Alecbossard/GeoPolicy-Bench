@@ -1,0 +1,204 @@
+{
+  "verified": true,
+  "checked_utc": "2026-10-03T21:10:42.349676+00:00",
+  "protected_files_checked": 23211,
+  "protected_changes": [],
+  "results_and_frozen_protocols_unchanged": true,
+  "original_artifacts_unchanged": true,
+  "runtime": {
+    "python_version": [
+      3,
+      11,
+      9
+    ],
+    "packages": {
+      "torch": "2.7.1+cu128",
+      "numpy": "1.26.4",
+      "mujoco": "3.3.7",
+      "robosuite": "1.5.2",
+      "h5py": "3.14.0"
+    }
+  },
+  "release_assets": {
+    "checkpoint.pt": {
+      "sha256": "702cc4604a593b48be1b69d9c8026e799524a24e2c7d41b4b4ee3becb14a4193",
+      "size_bytes": 1485301
+    },
+    "checkpoint_manifest.json": {
+      "sha256": "da76b5969b4852c60806910edd833aebbf18e23582b1eeee54c9cf3e0d9812c3",
+      "size_bytes": 8360
+    },
+    "demo.gif": {
+      "sha256": "ed433afbf5d7e0ebfbc06d1eacb6fe691bc999860c8715143db40b882adb0b56",
+      "size_bytes": 1137809
+    },
+    "demo.mp4": {
+      "sha256": "842ae5fb9b7320b5a1b1ff9b3bd8b8d0e3d8e32690dff85a793127595aa75024",
+      "size_bytes": 263029
+    },
+    "geopolicy-v4-demo.zip": {
+      "sha256": "c609fce309c21b9293cd868e90243d4c0815cf53e9a27b9f79479ce7422d9b05",
+      "size_bytes": 1602161
+    },
+    "requirements-lock.txt": {
+      "sha256": "29b65b07a00531c2cb6124b407e87af8ef78c7b9626099a2f530e0bbbb8f095b",
+      "size_bytes": 1105
+    },
+    "runtime.json": {
+      "sha256": "ec3e626ebb76b3c734be79d478ea5e22f2cad98dbe44cb7ca46e0a188858285e",
+      "size_bytes": 207
+    }
+  },
+  "isolated_replay": {
+    "initial_modalities_exact": true,
+    "actions_exact": true,
+    "physics_exact": true,
+    "summary_exact": true,
+    "frames": 110,
+    "compact_sha256": "702cc4604a593b48be1b69d9c8026e799524a24e2c7d41b4b4ee3becb14a4193",
+    "video_sha256": "842ae5fb9b7320b5a1b1ff9b3bd8b8d0e3d8e32690dff85a793127595aa75024",
+    "rule": "First reserved scene500000, fusion_aug seed0, fixed camera absent; chosen before viewing test outcomes. This is an illustration, not a new evaluation.",
+    "source": "artifacts/v4/main_runs/fusion_aug_s0/best.pt",
+    "physics_fields": "All physical/evaluator trace fields except action, checked separately as float32",
+    "frozen_runtime_verified": true,
+    "frozen_sources_verified": true,
+    "source_probe": {
+      "isolated_source": true,
+      "module_file": "C:\\Users\\Alec\\Documents\\ChatGPT\\GeoPolicy-Bench\\artifacts\\releases\\v4-presentation\\isolated_demo\\src\\geopolicy\\__init__.py",
+      "root": "C:\\Users\\Alec\\Documents\\ChatGPT\\GeoPolicy-Bench\\artifacts\\releases\\v4-presentation\\isolated_demo"
+    },
+    "runtime": {
+      "python_version": [
+        3,
+        11,
+        9
+      ],
+      "packages": {
+        "torch": "2.7.1+cu128",
+        "numpy": "1.26.4",
+        "mujoco": "3.3.7",
+        "robosuite": "1.5.2",
+        "h5py": "3.14.0"
+      }
+    },
+    "archive_sha256": "c609fce309c21b9293cd868e90243d4c0815cf53e9a27b9f79479ce7422d9b05",
+    "no_training_executed": true
+  },
+  "release_manifest_sha256": "7d61890c302ab2dc4054bef27ac158ccd181cb427d34cd5e7d3304c0f9ebc0f1",
+  "cpu_tests": {
+    "checked_utc": "2026-10-03T21:00:35.098228+00:00",
+    "exit_code": 0,
+    "passed": 16,
+    "heavy_modules_loaded": [],
+    "test_file": "tests/v4/test_perturbations_cpu.py",
+    "test_file_sha256": "4e40e2ea738622407f2cacf646ec493003a01aba59139e2bd095cf5f8b59ef0f",
+    "scope": "Synthetic perturbation contracts only; no renderer or policy execution"
+  },
+  "pinned_environment_check": {
+    "python_version": [
+      3,
+      11,
+      9
+    ],
+    "matched_pins": 61,
+    "mismatches": [],
+    "lock_sha256": "29b65b07a00531c2cb6124b407e87af8ef78c7b9626099a2f530e0bbbb8f095b",
+    "metadata_only": true,
+    "fresh_network_install_tested": false
+  },
+  "publication_status": "prepared_locally_not_published",
+  "no_training_executed": true,
+  "no_cv_edits": true,
+  "publication_checks": {
+    "passed": true,
+    "no_artifacts_in_repository_copy": true,
+    "local": {
+      "links": {
+        "checked_repository_links": 328,
+        "historical_local_only_links": 25,
+        "local_only_by_document": {
+          "docs/v3/cv_bullet.md": 1,
+          "docs/v3/model_card.md": 2,
+          "docs/v3/README.md": 4,
+          "docs/v3/reproduction.md": 2,
+          "docs/v4/README.md": 3,
+          "docs/v4/report.md": 2,
+          "docs/v4/reproduction.md": 2,
+          "docs/v4/videos.md": 9
+        },
+        "verbatim_snapshots_skipped": [
+          "docs/v1/final_report_original.md",
+          "docs/v1/README_original.md"
+        ]
+      },
+      "v2": {
+        "raw_outcomes": 3810,
+        "frozen_sources": 10
+      },
+      "v3": {
+        "raw_outcomes": 1500,
+        "frozen_sources": 57
+      },
+      "v4": {
+        "raw_outcomes": 2400,
+        "frozen_sources": 67
+      },
+      "release_v4": {
+        "status": "prepared_locally_not_published",
+        "asset_metadata": 7,
+        "tracked_media": 3
+      }
+    },
+    "repository_copy": {
+      "links": {
+        "checked_repository_links": 328,
+        "historical_local_only_links": 25,
+        "local_only_by_document": {
+          "docs/v3/cv_bullet.md": 1,
+          "docs/v3/model_card.md": 2,
+          "docs/v3/README.md": 4,
+          "docs/v3/reproduction.md": 2,
+          "docs/v4/README.md": 3,
+          "docs/v4/report.md": 2,
+          "docs/v4/reproduction.md": 2,
+          "docs/v4/videos.md": 9
+        },
+        "verbatim_snapshots_skipped": [
+          "docs/v1/final_report_original.md",
+          "docs/v1/README_original.md"
+        ]
+      },
+      "v2": {
+        "raw_outcomes": 3810,
+        "frozen_sources": 10
+      },
+      "v3": {
+        "raw_outcomes": 1500,
+        "frozen_sources": 57
+      },
+      "v4": {
+        "raw_outcomes": 2400,
+        "frozen_sources": 67
+      },
+      "release_v4": {
+        "status": "prepared_locally_not_published",
+        "asset_metadata": 7,
+        "tracked_media": 3
+      }
+    }
+  },
+  "cpu_regression_suite": {
+    "checked_utc": "2026-10-03T21:07:39.962380+00:00",
+    "exit_code": 0,
+    "passed": 45,
+    "skipped": 0,
+    "selection": "not simulation and not gpu",
+    "scope": "Repository CPU regression suite, synthetic fixtures only"
+  },
+  "dependency_compatibility": {
+    "passed": true,
+    "command": "uv pip check --python .venv-repro/Scripts/python.exe",
+    "packages_checked": 62,
+    "log_sha256": "3822e54f35d935bae5542b8a1ef560fffb2cd31f9be65ec2de7256a2589f4f10"
+  }
+}

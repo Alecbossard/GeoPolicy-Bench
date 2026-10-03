@@ -66,19 +66,22 @@ Le prior couleur manuel V3 est conservé : cette étude ne l'ablative pas à nou
 Le [protocole gelé](../../configs/v4/final_protocol.json) fixe recettes, checkpoints, perturbations et scènes. La vérification indépendante doit confirmer son horodatage antérieur au premier accès au test.
 Le nouveau test est 500000–500019 : 4 groupes × 3 seeds × 10 conditions ×
 20 scènes = 2 400 rollouts. Le générateur de rapport refuse toute cellule manquante
-ou dupliquée et refuse des entrées effectives initiales incompatibles. Les observations
-initiales propres et perturbées, par modalité et avant sélection de vue, sont
+ou dupliquée et refuse des représentations initiales incompatibles. Les observations
+initiales propres et perturbées des deux caméras, par modalité et avant sélection de vue, sont
 conservées par l'évaluateur ; les hashes vérifiés figurent dans
 [report_sensor_identity.json](../../results/v4/report_sensor_identity.json).
 
 **Exception brute conservée :** sur 2 400 initialisations, une composante de
 l'image RGB fixe varie de 133 à 134 (8 bits), scène 500017, fusion augmentée
 seed 1, points manquants 70 %. La cause n'est pas démontrée. Le contrôle brut
-des images reste donc négatif. Le QC après test compare toutes les arrays :
-points XYZRGB propres/altérés, masques, état robot, profondeur, calibration et
-transformations sont exactement identiques avant sélection de vue. Le modèle
-reçoit ces points et l'état, pas l'image RGB complète. L'appariement des entrées
-effectives est vérifié sans tolérance ; tous les scores originaux restent dans
+des images reste donc négatif. Le QC après test compare les arrays **initiales** :
+points XYZRGB propres/altérés et masques des **deux caméras**, état robot,
+profondeur, calibration et transformations sont exactement identiques **avant
+sélection des vues**. Fixe et fusion sélectionnent ensuite des entrées différentes.
+Le modèle reçoit les points sélectionnés et l'état, pas l'image RGB complète.
+Ce contrôle ne porte pas sur les observations ou trajectoires ultérieures,
+qui peuvent diverger avec les actions. L'appariement des représentations initiales
+est vérifié sans tolérance ; tous les scores originaux restent dans
 les comparaisons, sans exclusion, réévaluation ni modification du protocole.
 [QC des modalités et détails de l'exception](../../results/v4/initial_sensor_qc.json).
 

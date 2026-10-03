@@ -3,3 +3,5 @@
 *.png binary
 *.gif binary
 *.mp4 binary
+# Preserve the archived README's original bytes, including Windows line endings.
+docs/history/README_V2_original.txt -text whitespace=cr-at-eol

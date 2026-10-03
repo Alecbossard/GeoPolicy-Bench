@@ -13,12 +13,14 @@ gelé et le [plan](../../configs/v4/plan.json). Les checkpoints d'optimisation s
 ```
 
 Cette commande ne lance aucune simulation ni entraînement. Elle exige les 2 400
-rollouts test et le QC `initial_sensor_qc.json`, vérifie l'appariement de chaque
-entrée effective initiale, puis reconstruit
+rollouts test et le QC `initial_sensor_qc.json`, vérifie l'appariement des représentations
+initiales propres/perturbées des deux caméras **avant sélection des vues**, puis reconstruit
 CSV, synthèse, courbes et documentation. Une erreur de complétude ou d'identité
 interrompt la génération ; elle n'invente, ne filtre et ne remplace aucun résultat.
 Le QC peut être recalculé avec `python scripts/v4/sensor_qc.py`. Il conserve
-l'exception RGB brute et exige l'égalité exacte de toutes les entrées du modèle.
+l'exception RGB brute et exige l'égalité exacte des représentations initiales des
+deux caméras, de l'état et de la calibration. Fixe et fusion sélectionnent ensuite
+des entrées différentes ; ce contrôle ne compare pas leurs trajectoires ultérieures.
 
 ## Démo avec checkpoint local, sans données d'entraînement
 

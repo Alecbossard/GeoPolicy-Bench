@@ -31,7 +31,10 @@ simulateur ; la démo principale montre aussi les points fournis à la policy.
 [Résultats bruts](../../results/v4/test/) · [Code V4](../../src/geopolicy/v4/) ·
 [Paramètres centraux](../../configs/v4/plan.json).
 
-**QC :** les entrées effectives des policies sont identiques entre variantes.
+**QC :** les représentations initiales propres et perturbées des **deux caméras**
+sont identiques entre variantes **avant sélection des vues**. Fixe et fusion
+consomment ensuite des sous-ensembles différents ; leurs observations et
+trajectoires ultérieures peuvent diverger avec leurs actions.
 Une variation d'un niveau sur une composante RGB brute est conservée et
 [documentée dans le rapport](report.md), avec tous les résultats originaux.
 

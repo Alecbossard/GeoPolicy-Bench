@@ -1,102 +1,106 @@
 # GeoPolicy-Bench
 
-**A controlled study of RGB-D camera fusion for Panda manipulation.**
+**Reproducible robot-learning experiments: stable placement and RGB-D policy robustness in MuJoCo.**
 
-[![CPU checks](https://github.com/Alecbossard/GeoPolicy-Bench/actions/workflows/checks.yml/badge.svg?branch=main)](https://github.com/Alecbossard/GeoPolicy-Bench/actions/workflows/checks.yml) · [MIT](LICENSE) · Windows / Python 3.11
+[![CPU checks](https://github.com/Alecbossard/GeoPolicy-Bench/actions/workflows/checks.yml/badge.svg?branch=main)](https://github.com/Alecbossard/GeoPolicy-Bench/actions/workflows/checks.yml) · [MIT](LICENSE) · Windows / Python 3.11.9
 
-Does a calibrated fixed + wrist camera policy place the requested cube more reliably than either view alone? How much of the result comes from an engineered color prior?
+Can a compact learned Panda policy place a cube reliably, and does a wrist camera help when RGB-D observations deteriorate? V3 establishes a behavior-cloning baseline; V4 studies fixed-camera versus fixed+wrist fusion under controlled synthetic perturbations. Both use **one cube, one tray and a fixed instruction**.
 
-This project implements compact point-cloud diffusion and RGB ACT-style policies, diagnoses manipulation failures, and evaluates **21 models across three training seeds**. The emphasis is reproducible robot-learning experiments and honest comparisons.
+- **V3:** 147/150 stable placements (**98%**) on 50 reserved scenes × three training seeds. Fixed and fusion policies with the manual color prior achieve the same total.
+- **V4:** without augmentation, fusion achieves **483/540 (89.4%)**, versus **272/540 (50.4%)** for fixed-only, averaged over nine synthetic perturbation settings.
+- **Negative result:** the tested camera/depth augmentations show **no demonstrated overall gain**.
 
-[Results](#measured-results) · [Run the demo](#run-the-demo) · [Technical report](docs/v2_report.md) · [Architecture](docs/architecture.md) · [Raw data](results/v2/raw/main_rollouts.csv)
+**V3 and V4 use different reserved tests. Their percentages are separate findings, not a direct before/after comparison.** Training uses **79 successful demonstrations from 80 collections**, plus 10 separate recorded validation demonstrations.
 
-## Demo: a success and a failure
+[V3 report](docs/v3/report.md) · [V4 report and paired intervals](docs/v4/report.md) · [Architecture](docs/architecture_v3_v4.md) · [Release and replay](docs/releases/v4.md) · [V1/V2 history](#history)
 
-<table>
-<tr><th>Correct placement</th><th>Wrong cube selected</th></tr>
-<tr>
-<td><img src="docs/media/v2_success.gif" alt="Panda places the requested red cube in the blue tray" width="360"></td>
-<td><img src="docs/media/v2_failure.gif" alt="Panda places the green cube instead of the requested red cube" width="360"></td>
-</tr>
-<tr><td>Red cube → blue tray; stable for one second.</td><td>Green cube → blue tray; the requested red cube stays on the table.</td></tr>
-</table>
+## A 5.5-second checkpoint demo
 
-Actual V2 checkpoint, fusion with prior, seed 0. These are the earliest success and failure in its nominal test, chosen by a disclosed rule. They illustrate behavior; the aggregate results below measure reliability. [Success MP4](results/v2/demo/success/nominal_300012_stable.mp4) · [Failure MP4](results/v2/demo/failure/nominal_300000_failure.mp4)
+![Panda placement with the fixed-camera point representation absent](docs/media/v4_demo.gif)
 
-## Measured results
+[V4 MP4](docs/media/v4_demo.mp4) · [V3 MP4](docs/media/v3_demo.mp4) · [Local V4 capture inventory and outcomes](docs/v4/videos.md)
 
-**The V2 work improved verification and reproduction, but did not demonstrate a nominal manipulation gain over V1.** On the same new scenes and stable-placement criterion, preserved V1 fusion achieved **16/150**, compared with **10/150** for V2. The targeted ACT search did not produce a reliable learned baseline.
+This is the **augmented fusion policy, seed 0**, on scene 500000 with the fixed camera absent. Policy, condition and the first reserved scene were chosen before observing its outcome. The top panels show the simulator's raw RGB; the bottom panels show the actual point representations, with the fixed view empty. This single success illustrates the replay; **the 89.4% aggregate above belongs to fusion without augmentation**.
 
-| V2 policy | Nominal | Fixed camera occluded | Fixed camera absent |
-| --- | ---: | ---: | ---: |
-| Fixed RGB-D + prior | 10/150 | 9/150 | 1/150 |
-| Wrist RGB-D + prior | 7/150 | 7/150 | 7/150 |
-| Fusion RGB-D + prior | 10/150 | 12/150 | 14/150 |
-| Fusion RGB-D without prior | 5/150 | 9/150 | 3/150 |
-| Compact RGB ACT-style | 0/150 | 0/150 | 1/150 |
+## What was measured
 
-Each cell uses three training seeds and 50 shared reserved scenes. Fixed-only and wrist-only prior ablations are also included in the [full report](docs/v2_report.md).
+V3's retained recipe combines 30 post-release demonstration actions and four causal robot-state snapshots. The score requires containment, release, no finger contact and one continuous second of stability. It measures this controlled task, not general manipulation competence. [V3 raw outcomes](results/v3/all_test_rollouts.csv) · [V3 summary](results/v3/final_summary.json)
 
-With the fixed camera absent, fusion versus fixed-only was **+8.7 percentage points**, descriptive 95% interval **[+2.7, +16.0]**. Fusion versus wrist-only was **+4.7 pp [−2.0, +12.0]**; that advantage remains uncertain. The nominal manual-prior effect was **+3.3 pp [−2.7, +9.3]**, also uncertain. These are paired descriptive intervals with three seeds, without multiplicity correction.
+V4 compares **12 policies**: two views × augmentation on/off × three training seeds. Each gets the same demonstrations, normalization, 7D actions and **2,000 training updates**. Recipes and perturbations were selected on validation and frozen before accessing 20 new test scenes. The final evaluation contains **2,400 rollouts**: four groups × three seeds × 20 scenes × 10 conditions.
 
-![Stable placement across three training seeds](results/v2/figures/main_comparison.png)
+| V4 recipe | Nominal placement | Nine perturbed settings |
+| --- | ---: | ---: |
+| Fixed, no augmentation | 56/60 (93.3%) | 272/540 (50.4%) |
+| Fixed, augmented | 54/60 (90.0%) | 271/540 (50.2%) |
+| Fusion, no augmentation | 60/60 (100.0%) | 483/540 (89.4%) |
+| Fusion, augmented | 58/60 (96.7%) | 470/540 (87.0%) |
 
-The final evaluation comprises **3,150 main rollouts**, **300 V1 re-evaluations**, and **360 instruction controls**. No selected policy completed all four instructions on any of the 30 scene–training-seed pairs. [Machine-readable summary](results/v2/summary.json) · [Before/after raw results](results/v2/raw/before_after_rollouts.csv)
+Fusion minus fixed, without augmentation: **+39.07 percentage points**, paired descriptive 95% interval **[+35.00, +42.78]** over the perturbed settings. Augmentation changes those means by **−0.19 pp [−6.67, +5.56]** for fixed and **−2.41 pp [−5.74, +1.48]** for fusion. These intervals do not establish equivalence or nominal non-inferiority.
 
-## How it works
+The nine settings have equal weight: fixed-camera occlusion (25/60%), fixed-camera absence, axial depth noise (3/10/25 mm) and missing points (30/70/90%). Noise and missing points affect both cameras. They act **after point sampling, before view selection**. The repeated scenes are paired; 540 rollouts are not 540 independent scenes. Intervals use a crossed scene/seed bootstrap, with three seeds and no multiplicity correction. [Frozen V4 protocol](configs/v4/final_protocol.json) · [Raw CSV](results/v4/rollouts.csv) · [Summary](results/v4/summary.json)
+
+![Success versus synthetic perturbation intensity](docs/v4/figures/robustness_physical.png)
+
+## How the policy works
 
 ```mermaid
 flowchart LR
-    Cameras[Fixed and wrist RGB-D] --> Geometry[Calibrated XYZRGB points]
-    Geometry --> Views[Fixed / wrist / fusion: 512 points]
-    Instruction[Object and destination labels] --> Policy[Compact action-chunk policy]
+    Cameras[Fixed + wrist RGB-D] --> Geometry[Calibrated XYZRGB: 512 points per camera]
+    Geometry --> Perturb[V4 synthetic perturbations]
+    Perturb --> Views[Fixed or fused view: 512 points total]
+    Views --> Encoder[Point encoder + manual color prior]
+    Encoder --> Policy[Behavior-cloning action-chunk policy]
     History[Four causal robot-state snapshots] --> Policy
-    Views --> Policy
+    Labels[Fixed object / tray labels] --> Policy
     Policy --> Actions[Predict 8 actions; execute 2]
-    Actions --> Robot[Panda OSC controller]
+    Actions --> Robot[Panda OSC at 20 Hz]
     Robot --> Cameras
 ```
 
-Point policies share 200 successful demonstration prefixes, recorded post-release continuations, 21 validation episodes, frozen normalization, 7D actions, 8,000 updates and batch 32. View count and the manual chromatic attention prior vary; RGB and learned attention remain present in the prior ablation. ACT uses RGB and a different model capacity, so it is a compact comparison rather than architectural parity with the original paper.
+The student predicts every command from sensor points, masks, robot state and fixed labels. Object poses and teacher phase are reserved for demonstration generation or evaluation. The manual chromatic prior is disclosed; there is no learned language grounding. [Architecture and implementation links](docs/architecture_v3_v4.md)
 
-Student inputs contain sensor observations, robot state and two one-hot instruction pairs. Object/goal truth is reserved for teacher generation and evaluation. Recipes were chosen on validation and frozen before the new test. [Information contracts](docs/contracts.md) · [V2 model cards](docs/v2_model_cards.md)
+**QC scope:** matching concerns the **initial clean and perturbed representations of both cameras before selecting views**, together with the initial robot state and calibration. Fixed-only and fusion then select different inputs; later observations and trajectories can differ. One raw RGB component differs by one 8-bit level; its cause is unproven, the sampled initial representations match exactly, and every original outcome is retained. [QC details](docs/v4/report.md#données-protocole-et-contrats)
 
-## Run the demo
+## Replay the compact release
 
-Validated on **Windows, Python 3.11, RTX 4060 Laptop 8 GB**. The short replay needs the compact checkpoint bundle, but no training data or model-hub download. Start from the repository root, with [uv](https://docs.astral.sh/uv/) installed:
+The **V4 release is prepared locally and has not been published**. Its [manifest](docs/releases/v4_demo.json) records exact SHA-256 values, runtime versions and all 79 ZIP members. The source and checkpoint ZIP is **1.60 MB**; it includes normalization and expected observations/actions/physics, and needs no training HDF5 files. Video and GIF are separate assets.
+
+After obtaining the prepared `geopolicy-v4-demo.zip`, verify it and extract it into a fresh directory. From that directory, using **Python 3.11.9**:
 
 ```powershell
-uv venv --python 3.11 .venv
-uv pip install --python .venv\Scripts\python.exe torch==2.7.1 torchvision==0.22.1 --index-url https://download.pytorch.org/whl/cu128
-uv pip install --python .venv\Scripts\python.exe -r requirements-lock.txt
-uv pip install --python .venv\Scripts\python.exe --no-deps -e .
-.venv\Scripts\python scripts/download_demo.py
-.venv\Scripts\python -m geopolicy.v2 demo
+python -m venv .venv
+.venv\Scripts\python.exe -m pip install -r requirements-lock.txt --extra-index-url https://download.pytorch.org/whl/cu128
+.venv\Scripts\python.exe scripts/v4/demo.py replay
 ```
 
-The downloader verifies the release bundle's SHA-256 before extracting it. If the preserved local bundle already exists, it uses that file. Replay writes videos, raw metrics, traces and exact-match checks to `artifacts/v2/demo_reproduced`.
+Validated on Windows and an RTX 4060 Laptop 8 GB. Policy inference uses CPU; MuJoCo rendering and resource checks require the tested NVIDIA setup. The full pinned environment is larger than the bundle. Exact replay was checked from a separately extracted source copy using a second pinned environment on the same PC; cross-platform bitwise reproducibility is untested.
 
-For the existing local setup, only the last command is needed. [Full reproduction guide](docs/v2_reproduction.md) · [Bundle manifest](docs/releases/v2_demo.json) · [What is included](docs/PROJECT_GUIDE.md)
+[Release assets, checksums and installation](docs/releases/v4.md) · [Delivery verification](docs/releases/v4_delivery_verification.json) · [Full V4 reproduction](docs/v4/reproduction.md)
 
-## Verification and limitations
+## Verification and limits
 
-The stable-placement score requires full cube containment, low linear/angular speed, open fingers and no finger contact for one continuous second while the policy keeps acting. Closing an empty hand can fail this conservative posture requirement even if the cube stays still. [Metric and design](docs/v2_design.md)
+- Sixteen NumPy-only V4 CPU tests cover absent cameras, masks and invalid points, axial depth noise, deterministic perturbations and restoration of the augmentation RNG. [Tests](tests/v4/test_perturbations_cpu.py)
+- An independent study audit checked **3,540 rollouts and 541,220 trace steps**, including geometry, stability and perturbations. The release replay checks initial modalities, every action, the physics trace and the outcome. [Study audit](results/v4/trace_sensor_audit.json)
+- This is simulation with ideal calibration, known colors/objects and a manual prior. Perturbations affect sampled points. No physical robot, real sim-to-real transfer or general fusion advantage was demonstrated.
+- V3 multi-object pilots and the historical ACT-style search remained weak. Negative outcomes, raw sensor exceptions and augmentation losses stay visible in the reports.
 
-Executed checks include 20 CPU contract tests, real CUDA/dual-render resource gates, recorded/live input alignment, action normalization and gripper sign probes, exact continuation over 500 training updates, and an audit of **892,474 final trace steps**. A separate pinned environment and an isolated source-and-bundle copy reproduced every demo action and selected-object position exactly. These checks establish reproducibility on the tested setup, not general manipulation competence. [Verification evidence](results/v2/delivery_verification.json)
+## History
 
-The task has two colored cubes, two trays and four known label combinations. No learned text encoder, pretrained vision, physical robot, open-vocabulary grounding or sim-to-real transfer was evaluated. Absolute success remains low. Original ACT/DP3 reproduction is not claimed. PPO and SmolVLA are secondary V1 experiments; their negative results remain available.
+| Version | Scope and evidence |
+| --- | --- |
+| V4 | [RGB-D robustness and failure report](docs/v4/report.md), [validation](docs/v4/validation.md), [design](docs/v4/design.md) |
+| V3 | [Imitation and stable-placement report](docs/v3/report.md), [model card](docs/v3/model_card.md), [reproduction](docs/v3/reproduction.md) |
+| V2 | [Fusion/prior/ACT diagnosis](docs/v2_report.md), [reproduction](docs/v2_reproduction.md), [original README archive](docs/history/README_V2_original.txt) |
+| V1 | [Original final report](docs/final_report.md), including PPO and SmolVLA extensions |
 
-V1 and V2 results are separate. Historical V1 instantaneous rates use a different metric and test set; they must not be compared directly with the stable scores above. [V1 report](docs/final_report.md) · [V2 before/after report](docs/v2_report.md)
-
-## Explore the repository
+V1/V2 use different task/data/metric conditions. Their raw results and artifacts are preserved separately; they do not support subtracting historical percentages from V3/V4.
 
 | Path | Contents |
 | --- | --- |
-| `src/geopolicy/` | Simulator, sensors, policies and V1/V2 experiment code |
-| `configs/v2/` | Effective run configurations, normalization and frozen protocol |
-| `tests/` | Geometry, input, action, stability and checkpoint contracts |
-| `results/v2/` | Raw outcomes, comparisons, verification and videos |
-| `docs/` | Reports, model/data cards, reproduction and technical decisions |
-| `artifacts/` | Local weights, datasets and full traces; excluded from Git |
+| `src/geopolicy/v3/`, `src/geopolicy/v4/` | Current baseline, perturbations, training and evaluation |
+| `configs/v3/`, `configs/v4/` | Central parameters and frozen protocols |
+| `results/v3/`, `results/v4/` | Recorded outcomes, summaries and verification evidence |
+| `tests/v4/`, `docs/releases/` | CPU regression checks and release provenance |
+| `artifacts/` | Local checkpoints, HDF5 demonstrations and full traces; excluded from Git |
 
-[Contributing and new experiments](CONTRIBUTING.md) · [Project guide](docs/PROJECT_GUIDE.md) · [MIT license](LICENSE) · [Third-party credits](docs/THIRD_PARTY_NOTICES.md)
+[CV bullet proposal](docs/v4/cv_bullet.md) · [Contributing](CONTRIBUTING.md) · [Third-party notices](docs/THIRD_PARTY_NOTICES.md)

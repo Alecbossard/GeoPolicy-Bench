@@ -32,7 +32,7 @@ Les 120 cellules et 2 400 rollouts sont complets. Comptages physiques nominaux /
 
 24 000 updates d'entraînement ont été exécutés, plus cinq updates distincts pour le contrat de reprise. Les contrôles sans augmentation seed 0 reproduisent exactement les 120 traces pilotes des checkpoints V3.
 
-L'audit indépendant a vérifié 3 540 rollouts et 541 220 pas, recomputé les perturbations et contrôlé les critères de géométrie et stabilité. Une composante RGB brute varie de 133 à 134 dans un NPZ ; les entrées effectives des policies restent exactes. L'exception est conservée, sa cause n'est pas démontrée et aucun résultat n'est retiré ou remplacé. Le QC par champ est enregistré séparément.
+L'audit indépendant a vérifié 3 540 rollouts et 541 220 pas, recomputé les perturbations et contrôlé les critères de géométrie et stabilité. Une composante RGB brute varie de 133 à 134 dans un NPZ ; les représentations initiales propres/perturbées des deux caméras restent exactement identiques avant sélection des vues. Fixe et fusion sélectionnent ensuite des entrées différentes, et leurs trajectoires ultérieures peuvent diverger. L'exception est conservée, sa cause n'est pas démontrée et aucun résultat n'est retiré ou remplacé. Le QC par champ est enregistré séparément.
 
 La démo préspécifiée (fusion augmentée, seed 0, caméra fixe absente, première scène 500000) réussit et reproduit exactement ses 110 pas, observations initiales, actions, physique et critères d'évaluation. Un second environnement épinglé, avec copie isolée de la source, reproduit aussi la vidéo au même SHA. Un essai avait été arrêté avant Torch par le seuil de mémoire pendant l'audit ; il a réussi une fois ce processus terminé, sans abaisser le garde.
 

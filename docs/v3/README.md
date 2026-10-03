@@ -46,7 +46,8 @@ la compétence multicible V3 reste à obtenir. Les références V1/V2 transfér�
 ont des données/budgets d'apprentissage différents. V1/V2 sont conservées,
 un écart isolé d'identité des capteurs et son analyse de sensibilité sont documentés
 dans le rapport ; les scores bruts sont conservés.
-Le [README historique](../../README.md) reste intact. V3 n'a pas été publiée.
+Le [README V2 original](../history/README_V2_original.txt) est archivé intégralement.
+Le [README principal](../../README.md) présente désormais V3/V4. V3 n'a pas été publiée.
 
 Correction du décompte : **79 démonstrations train utilisées sur 80 collectes**,
 plus 10 démonstrations de validation. Scène 10032 exclue pour échec de prise.
