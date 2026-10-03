@@ -1,0 +1,26 @@
+{
+  "key": "single_fusion_prior_s0",
+  "scene_seed": 400000,
+  "source_checkpoint_sha256": "93ddead2631290b9afd73faa777864f7824d9d671fb9b8fd0a25b2952cc03808",
+  "compact_sha256": "145d23e7c164907fe9a5c7be04b1c5cb28a0b8709ac1234b394fec8965c942b8",
+  "compact_bytes": 1484661,
+  "ema_tensor_exact": true,
+  "initial_sensor_sha256": "8edf44367ea0f265b813630c47890b7bbf6902cdda1d3452767c368e4ae205a0",
+  "frozen_trace_sha256": "4f9e1fd964100b6aa6ba5da2fd18817d7e1ca92fbc2b2b8d9782d7b1eec3ffdf",
+  "frozen_summary": {
+    "approached": true,
+    "grasped": true,
+    "lifted": true,
+    "transported": true,
+    "release_seen": true,
+    "physical_success": true,
+    "strict_v2_success": true,
+    "posture_only_failure": false,
+    "failure_stage": "success",
+    "physical_dwell_s": 0.9999999999998899,
+    "strict_dwell_s": 0.9999999999998899
+  },
+  "selection": "First prespecified test scene and training seed0, chosen before test; no cherry-picked scene",
+  "bundle": "artifacts/v3/portable_demo",
+  "replay_script_sha256": "e58252b1fcfb7622bd57a75f51df833fcf8e8f6614f84a1c234fb59a904c36ba"
+}

@@ -197,3 +197,79 @@ préservés sont transférés sur ces mêmes scènes à titre de références, a
 des données et budgets historiques différents ; ce n'est pas un contraste
 algorithmique contrôlé. Aucun étudiant multicible V3 validé n'est revendiqué.
 Évaluation finale sérielle en cours : 50 scènes ×30 checkpoints =1 500 rollouts.
+
+
+## Test final : résultats principaux et reprise mémoire
+
+Les 18 checkpoints caméra/prior et les trois BC originales ont terminé leurs
+50 scènes réservées par seed. Fixe/prior [49,50,48]=147/150 ; fixe/sans prior
+[49,39,42]=130/150 ; poignet/prior [42,39,40]=121/150 ; poignet/sans prior
+[23,18,15]=56/150 ; fusion/prior [49,48,50]=147/150 ; fusion/sans prior
+[47,44,47]=138/150. Scores physique et strict identiques pour ces six cellules.
+BC originale : physique [49,43,47]=139/150, strict [40,43,15]=98/150.
+Le gain strict dépasse donc largement le gain physique ; aucun gain agrégé de
+fusion face à fixe/prior n'est montré sur cette tâche simple. Aucun retuning.
+
+À 12:53:51 UTC, le démarrage de la recette diffusion seed1 est refusé avant
+import Torch : commit libre 5,36 milliards d'octets, GPU40°C, après 1 100
+rollouts sauvegardés. À 12:55:03 UTC, 5,93 milliards d'octets permettent la
+reprise ; seuils et sources gelées inchangés. Le log append conserve le refus.
+Évaluation sérielle reprise sur les références restantes.
+
+Les scripts de livraison sont séparés sous `scripts/v3/` : agrégation brute,
+figures, export EMA compact, replay avec égalité complète des capteurs et
+actions/physique, bundle local, rapport et vérification. Ils n'altèrent pas
+les sources du protocole gelé. Leur exécution et les livrables restent à vérifier
+après la fin des évaluations ; aucune vérification anticipée n'est revendiquée.
+
+
+## Livraison V3 vérifiée
+
+30 évaluations gelées terminées : 1 500 rollouts, 50 nouvelles scènes répétées
+sur trois seeds. Recette retenue fusion/prior : physique et strict [49,48,50]
+=147/150 (98 %). Originale : physique139/150, strict98/150 ; 41 cas physique
+réussi/strict échoué. Le gain physique (+5,33pp) a un intervalle descriptif
+[-1,33,+14] ; le gain strict (+32,67pp) [+7,33,+68]. La réussite physique
+régulière était déjà présente dans la baseline ; l'amélioration stricte ne
+signifie pas un gain physique de même ampleur. Fixe/prior a également147/150.
+
+**Correction du bilan intermédiaire :** poignet/prior [42,39,40]=121/150
+physique, mais strict [42,39,39]=120/150 (un cas de posture seule). L'affirmation
+intermédiaire que tous les scores physiques/stricts de ces cellules étaient
+identiques était incorrecte. Les tables finales utilisent exclusivement les bruts.
+Diffusion V1 réentraînée : physique [1,13,31]=45/150, strict[1,10,21]=32/150.
+Transfert des checkpoints V1 préservés : physique8/150/strict7/150 ; V2 :22/150
+aux deux critères. Ces transferts ont des données/budgets historiques différents.
+
+Le contrôle des empreintes a refusé une première agrégation prétendant une
+identité parfaite : une seule observation initiale diffère, poignet/prior/seed0
+scène400014. L'exception reste dans les bruts. Cube/bac concordent dans les
+traces ; deux replays de la séquence de15scènes reproduisent exactement actions
+et physique des30rollouts, et leurs capteurs400014 sont identiques. L'anomalie
+originale n'est pas reproduite ; les arrays originaux par modalité n'étaient pas
+sauvegardés, donc sa cause unique reste inconnue. Seul le contraste apparié
+fusion/poignet utilise49scènes/seed en sensibilité, filtre d'identité sans
+critère de succès. Avant/après et fusion/fixe restent sur50scènes appariées.
+Cette adaptation d'analyse post-QC est déclarée ; aucun retuning ni changement
+du protocole/politiques/critères. Les sources gelées restent celles de4f2eb74.
+
+Audit indépendant du calcul de contenance/dwell : 2 452 rollouts /406665pas
+concordants. Inventaire historique : 6 210 fichiers SHA256 intacts. Livraison :
+30 checkpoints identifiés, 1 500 CSV/JSON concordants, 180 HDF5 vérifiés.
+Les dix tests V3 ont réussi avant le gel ; les neuf scripts de livraison ont
+été analysés syntaxiquement. Le défaut d'encodage d'un script de génération
+documentaire a été corrigé avant livraison ; les documents sont en UTF-8.
+
+Checkpoint compact : 1 484 661 octets, tenseurs EMA identiques. Replay de la
+première scène test préspécifiée400000/seed0 : exactement mêmes capteurs,
+actions, physique et deux succès dans .venv, puis bundle source indépendant
+avec .venv-repro. Vidéo :110frames à20Hz,5,5s,256×128. Bundle ZIP local :
+73 fichiers,1 653 573octets, aucune publication. Figures inspectées visuellement.
+
+README/rapport/fiches modèle et CV/commandes livrés sous docs/v3. CV et profil
+maître inchangés. V3 reste une baseline confirmée un cube/un bac/consigne fixe
+et un diagnostic négatif à deux objets. Le passage à deux destinations/full
+n'est pas exécuté ; la compétence multicible reste à obtenir. Aucun job GPU
+lourd n'est laissé en cours.
+
+Livraison vérifiée UTC : 2026-10-03T13:56:15.543438+00:00

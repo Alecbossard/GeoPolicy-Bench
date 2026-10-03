@@ -1,9 +1,131 @@
-# GeoPolicy-Bench V3 — rapport avant/après, 3 octobre 2026
+"""Build the local V3 presentation from completed, verified experiments."""
 
-La baseline apprise retenue obtient **147/150 placements physiques et
-147/150 placements stricts V2** sur un nouveau test : un cube, un bac,
+import json
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+DOCS = ROOT / "docs/v3"
+
+
+def read(name):
+    return json.loads((ROOT / name).read_text())
+
+
+def seeds(values):
+    return ", ".join(str(v) for v in values)
+
+
+def interval(value):
+    low, high = value["descriptive_95_pp"]
+    return f"{value['difference_pp']:+.2f} [{low:+.2f}, {high:+.2f}]"
+
+
+def main():
+    result = read("results/v3/final_summary.json")
+    audit = read("results/v3/trace_audit.json")
+    proof = read("configs/v3/demo_equivalence.json")
+    resources = read("results/v3/resource_summary.json")
+    protocol = read("configs/v3/final_protocol.json")
+    assert result["rollouts"] == 1500
+    assert result["sensor_identity"]["matching_rollouts"] == 1499
+    quality = read("results/v3/sensor_identity_quality_check.json")
+    assert quality["raw_mismatches"] == result["sensor_identity"]["mismatches"]
+    assert all(
+        row["actions_physics_exact"]
+        for rows in quality["fresh_sequence_replays"].values()
+        for row in rows
+    )
+    assert read("artifacts/v3/demo/replay/verification.json")["exact_frozen_trace"]
+    assert read("artifacts/v3/portable_demo/replay/verification.json")[
+        "exact_frozen_trace"
+    ]
+    groups = result["groups"]
+    selected = groups["v3_fusion_prior"]
+    original = groups["v3_original_bc"]
+    validation = read("results/v3/ablation_summary.json")["results"]
+    test_rows = []
+    labels = {
+        "v3_fixed_prior": "Fixe, prior couleur",
+        "v3_fixed_no_prior": "Fixe, sans prior",
+        "v3_wrist_prior": "Poignet, prior couleur",
+        "v3_wrist_no_prior": "Poignet, sans prior",
+        "v3_fusion_prior": "Fusion, prior couleur — recette retenue",
+        "v3_fusion_no_prior": "Fusion, sans prior",
+        "v3_original_bc": "BC originale, préfixes / état courant",
+        "v3_v1_recipe": "Recette diffusion V1 réentraînée, préfixes",
+        "preserved_v1_fusion": "Checkpoint fusion V1 préservé, transféré",
+        "preserved_v2_fusion": "Checkpoint fusion V2 préservé, transféré",
+    }
+    for key, label in labels.items():
+        group = groups[key]
+        test_rows.append(
+            f"| {label} | {seeds(group['per_seed_physical'])} | {group['physical']}/150 | {seeds(group['per_seed_strict'])} | {group['strict']}/150 |"
+        )
+    failure_rows = []
+    for key in (
+        "v3_original_bc",
+        "v3_fusion_prior",
+        "v3_wrist_no_prior",
+        "v3_v1_recipe",
+    ):
+        group = groups[key]
+        stages = (
+            ", ".join(
+                f"{name}: {count}"
+                for name, count in sorted(group["failure_stages"].items())
+                if name != "success"
+            )
+            or "aucun"
+        )
+        failure_rows.append(
+            f"| {labels[key]} | {stages} | {group['posture_only']} | {group['collisions']} |"
+        )
+    val_rows = []
+    for key, label in (
+        ("original", "Préfixes / état courant"),
+        ("continued", "Continuation seule"),
+        ("state_history4", "Historique de quatre états seul"),
+        ("binary", "Pince binaire seule"),
+        ("continued_history4", "Continuation + historique de quatre états"),
+    ):
+        physical = validation["physical_success"]["summary"][key]
+        strict = validation["strict_v2_success"]["summary"][key]
+        val_rows.append(
+            f"| {label} | {seeds(physical['per_seed'])} | {physical['successes']}/60 | {strict['successes']}/60 |"
+        )
+    contrasts = result["contrasts"]
+    contrast_rows = []
+    for key, label in (
+        ("v3_fusion_prior_minus_v3_original_bc", "Retenue − BC originale"),
+        ("v3_fusion_prior_minus_v3_fixed_prior", "Fusion − fixe, avec prior"),
+        ("v3_fusion_prior_minus_v3_wrist_prior", "Fusion − poignet, avec prior"),
+        ("v3_fusion_no_prior_minus_v3_fusion_prior", "Fusion sans − avec prior"),
+        ("v3_original_bc_minus_v3_v1_recipe", "BC originale − recette diffusion"),
+    ):
+        contrast_rows.append(
+            f"| {label} | {contrasts[key]['matched_scenes_per_seed']} | {interval(contrasts[key]['physical_success'])} | {interval(contrasts[key]['strict_v2_success'])} |"
+        )
+    timing_rows = []
+    for key in (
+        "v3_fixed_prior",
+        "v3_wrist_prior",
+        "v3_fusion_prior",
+        "v3_original_bc",
+        "v3_v1_recipe",
+    ):
+        group = groups[key]
+        timing_rows.append(
+            f"| {labels[key]} | {group['median_preprocess_p95_ms']:.2f} | {group['median_policy_p95_ms']:.2f} |"
+        )
+    ev = resources["frozen_final_evaluation"]
+    tr = resources["training"]
+    checkpoint_mib = proof["compact_bytes"] / 1024**2
+    report = f"""# GeoPolicy-Bench V3 — rapport avant/après, 3 octobre 2026
+
+La baseline apprise retenue obtient **{selected['physical']}/150 placements physiques et
+{selected['strict']}/150 placements stricts V2** sur un nouveau test : un cube, un bac,
 consigne fixe. Les trois seeds rencontrent chacune les mêmes 50 scènes nouvelles.
-BC originale obtient 139/150 physique et 98/150 strict.
+BC originale obtient {original['physical']}/150 physique et {original['strict']}/150 strict.
 La tâche à deux objets n'a pas franchi le seuil de compétence. V3 est livrée comme
 baseline fonctionnelle sur tâche simple et étude diagnostique bornée ; aucune
 réussite générale de manipulation multicible n'est revendiquée.
@@ -35,7 +157,7 @@ d'entrée et la distribution des exemples ; même nombre d'updates ne signifie p
 même capacité, nombre de transitions distinctes ou coût de calcul.
 
 Le [protocole final](../../configs/v3/final_protocol.json) a été gelé à
-2026-10-03T12:03:39.850847+00:00 avant l'accès aux scènes 400000–400049. Il identifie
+{protocol['frozen_utc']} avant l'accès aux scènes 400000–400049. Il identifie
 30 checkpoints, sources, versions Python/librairies, normalisations et tenseurs EMA.
 La fusion/prior/continuation/historique de quatre états avait été retenue sur confirmation ; aucun
 choix de modèle, seuil ou budget n'a été changé à partir du test. Les 1 500
@@ -82,16 +204,7 @@ pas que la représentation contient toute l'information utile à l'apprentissage
 
 | Recette | Physique par seed /50 | Physique total | Strict par seed /50 | Strict total |
 |---|---|---:|---|---:|
-| Fixe, prior couleur | 49, 50, 48 | 147/150 | 49, 50, 48 | 147/150 |
-| Fixe, sans prior | 49, 39, 42 | 130/150 | 49, 39, 42 | 130/150 |
-| Poignet, prior couleur | 42, 39, 40 | 121/150 | 42, 39, 39 | 120/150 |
-| Poignet, sans prior | 23, 18, 15 | 56/150 | 23, 18, 15 | 56/150 |
-| Fusion, prior couleur — recette retenue | 49, 48, 50 | 147/150 | 49, 48, 50 | 147/150 |
-| Fusion, sans prior | 47, 44, 47 | 138/150 | 47, 44, 47 | 138/150 |
-| BC originale, préfixes / état courant | 49, 43, 47 | 139/150 | 40, 43, 15 | 98/150 |
-| Recette diffusion V1 réentraînée, préfixes | 1, 13, 31 | 45/150 | 1, 10, 21 | 32/150 |
-| Checkpoint fusion V1 préservé, transféré | 3, 2, 3 | 8/150 | 3, 2, 2 | 7/150 |
-| Checkpoint fusion V2 préservé, transféré | 7, 8, 7 | 22/150 | 7, 8, 7 | 22/150 |
+{chr(10).join(test_rows)}
 
 Les six cellules caméra/prior utilisent **les mêmes 80+10 démonstrations continuées,
 actions, normalisations, historique de quatre états, budget et allocation totale de 512 points**.
@@ -110,11 +223,7 @@ Intervalles descriptifs à 95 %, bootstrap apparié et croisé seed/scène,
 
 | Contraste | Scènes appariées /seed | Physique | Strict V2 |
 |---|---:|---|---|
-| Retenue − BC originale | 50 | +5.33 [-1.33, +14.00] | +32.67 [+7.33, +68.00] |
-| Fusion − fixe, avec prior | 50 | +0.00 [-6.00, +6.00] | +0.00 [-6.00, +6.00] |
-| Fusion − poignet, avec prior | 49 | +17.01 [+7.48, +27.89] | +17.69 [+8.16, +28.57] |
-| Fusion sans − avec prior | 50 | -6.00 [-12.67, +0.00] | -6.00 [-12.67, +0.00] |
-| BC originale − recette diffusion | 50 | +62.67 [+32.00, +94.00] | +44.00 [-8.00, +80.00] |
+{chr(10).join(contrast_rows)}
 
 Avec seulement trois seeds, sans correction de multiplicité, ces intervalles
 ne constituent pas une garantie de robustesse ou une attribution causale unique.
@@ -152,11 +261,7 @@ PPO et SmolVLA restent les expériences historiques sans gain démontré.
 
 | BC sur les mêmes 80 trajectoires | Physique par seed /20 | Physique total | Strict total |
 |---|---|---:|---:|
-| Préfixes / état courant | 20, 17, 17 | 54/60 | 43/60 |
-| Continuation seule | 19, 20, 11 | 50/60 | 50/60 |
-| Historique de quatre états seul | 0, 0, 0 | 0/60 | 0/60 |
-| Pince binaire seule | 14, 19, 9 | 42/60 | 38/60 |
-| Continuation + historique de quatre états | 20, 20, 20 | 60/60 | 60/60 |
+{chr(10).join(val_rows)}
 
 Confirmation disjointe : originale 55/60 physique et 39/60 strict ; combinaison
 60/60 aux deux critères, 20/20 pour chaque seed. Les entrées initiales sont
@@ -226,10 +331,7 @@ pas réécrits avec le critère V3.
 
 | Recette du test | Échecs physiques par étape | Physique réussi / strict échoué | Épisodes avec collision |
 |---|---|---:|---:|
-| BC originale, préfixes / état courant | grasp: 8, object_stability: 2, release: 1 | 41 | 0 |
-| Fusion, prior couleur — recette retenue | release: 3 | 0 | 0 |
-| Poignet, sans prior | approach: 2, grasp: 42, object_stability: 3, release: 22, transport: 25 | 0 | 34 |
-| Recette diffusion V1 réentraînée, préfixes | grasp: 1, object_stability: 100, release: 3, transport: 1 | 13 | 34 |
+{chr(10).join(failure_rows)}
 
 Les étapes sont des indicateurs heuristiques de progression : approche <7 cm,
 prise géométrique, levée, transport à <5 cm du bac, libération puis dwell. Elles
@@ -267,32 +369,28 @@ antérieur a conservé dix épisodes et a repris après récupération de mémoi
 Le seuil de démarrage a été documenté à partir des pics mesurés ; aucun pilote
 ou paramètre système n'a été changé.
 
-Les 506 relevés des 30 jobs de test donnent un maximum GPU
-de 41 °C, usage GPU maximal 1327 Mio,
-commit libre minimal 1.52 Gio et worker privé maximal
-3.57 Gio. L'ensemble des jobs d'entraînement échantillonnés
-atteint 47 °C maximum. Ce sont des relevés périodiques,
+Les {ev['samples']} relevés des 30 jobs de test donnent un maximum GPU
+de {ev['max_gpu_temperature_c']:.0f} °C, usage GPU maximal {ev['max_gpu_used_mib']:.0f} Mio,
+commit libre minimal {ev['min_free_commit_gib']:.2f} Gio et worker privé maximal
+{ev['max_worker_private_gib']:.2f} Gio. L'ensemble des jobs d'entraînement échantillonnés
+atteint {tr['max_gpu_temperature_c']:.0f} °C maximum. Ce sont des relevés périodiques,
 pas des pics continus ni une mesure énergétique.
 
 Médiane des p95 mesurés par épisode, en millisecondes :
 
 | Recette | Prétraitement | Prédiction CPU |
 |---|---:|---:|
-| Fixe, prior couleur | 6.91 | 1.54 |
-| Poignet, prior couleur | 6.85 | 1.51 |
-| Fusion, prior couleur — recette retenue | 6.94 | 1.57 |
-| BC originale, préfixes / état courant | 7.05 | 1.64 |
-| Recette diffusion V1 réentraînée, préfixes | 7.01 | 14.94 |
+{chr(10).join(timing_rows)}
 
 Ces temps excluent le rendu et le pas simulation ; les deux caméras restent
 actives en monovue. Aucune performance temps réel matérielle n'est revendiquée.
 
 L'[audit des traces](../../results/v3/trace_audit.json) reconstruit indépendamment
 contenance par fonction de support, levée antérieure, bornes d'action, libération
-et dwells : **2452 rollouts / 406665 pas** concordants.
+et dwells : **{audit['checked_rows']} rollouts / {audit['checked_steps']} pas** concordants.
 Les dix tests V3 couvrent stabilité/posture, gates complets et sans oracle,
 preflight, encodeur routé et identités du protocole. La démo compacte
-(1.42 Mio) conserve exactement les tenseurs EMA. Sa scène préspécifiée
+({checkpoint_mib:.2f} Mio) conserve exactement les tenseurs EMA. Sa scène préspécifiée
 400000 / seed 0 reproduit exactement les capteurs, toutes les actions, la physique
 et les deux scores du test gelé, dans l'environnement principal puis depuis
 le bundle source/checkpoint avec l'environnement indépendant `.venv-repro`.
@@ -305,3 +403,115 @@ Le [contrôle de livraison](../../results/v3/delivery_verification.json) vérifi
 les 30 identités, CSV/JSON, empreintes des 180 fichiers de données et liens locaux.
 La [bullet CV proposée](cv_bullet.md) utilise uniquement les essais exécutés ;
 aucun fichier CV ou profil maître n'a été modifié. Cette V3 est locale, sans publication.
+"""
+    (DOCS / "report.md").write_text(report, encoding="utf8")
+    readme = f"""# GeoPolicy-Bench V3 — imitation et diagnostic de manipulation
+
+**Question :** peut-on rendre une politique apprise fiable en boucle fermée,
+puis mesurer ce que changent les données, l'historique et les caméras ?
+
+**Résultat : {selected['strict']}/150 placements stables ({100*selected['strict']/150:.0f}%)**
+sur 50 scènes test nouvelles × 3 seeds, un cube/un bac/consigne fixe.
+BC originale : {original['physical']}/150 physique, {original['strict']}/150 strict V2.
+La recette retenue combine 30 actions post-libération et quatre états robot.
+Fusion et fixe avec prior ont le même total : aucun gain de fusion face à fixe
+n'est établi sur cette tâche. [Rapport avant/après et limites](report.md).
+
+![Comparaisons vérifiées](figures/final_comparisons.png)
+
+[Vidéo locale de 5,5 s environ](../../artifacts/v3/demo/replay/demo.mp4) ·
+[Checkpoint compact ({checkpoint_mib:.2f} Mio)](../../artifacts/v3/demo/checkpoint.pt) ·
+[Équivalence vérifiée](../../artifacts/v3/demo/replay/verification.json).
+[Bundle ZIP local](../../artifacts/v3/demo_bundle.zip) pour conserver source,
+checkpoint, trace attendue et démo vérifiée dans un même fichier.
+Démo : première scène réservée 400000 / seed 0, préspécifiée ; actions intégralement
+apprises, aucune pose GT ou phase teacher fournie au modèle.
+
+## Rejouer en local
+
+Depuis le dossier projet, environnement existant :
+
+```powershell
+.venv\\Scripts\\python.exe scripts/v3/replay_demo.py
+```
+
+La commande vérifie le checkpoint, les sources et la trajectoire contre le test
+gelé, puis produit une vidéo. Le [guide reproductible](reproduction.md) donne
+l'installation, le bundle autonome, l'entraînement et la reprise des évaluations.
+
+## Inspecter le travail
+
+- [Code V3](../../src/geopolicy/v3/) et [scripts de livraison](../../scripts/v3/).
+- [Paramètres centraux](../../configs/v3/plan.json), [sélection sur validation](../../configs/v3/selection.json), [test gelé](../../configs/v3/final_protocol.json).
+- [Résultats bruts](../../results/v3/test/), [CSV 1 500 rollouts](../../results/v3/all_test_rollouts.csv), [synthèse](../../results/v3/final_summary.json).
+- [Audit des traces](../../results/v3/trace_audit.json), [livraison vérifiée](../../results/v3/delivery_verification.json), [journal](PROGRESS.md).
+- [Fiche du modèle](model_card.md), [bullet CV vérifiée proposée](cv_bullet.md).
+
+**Limites :** RGB-D idéal en simulation, objets/couleurs connus, consigne fixe,
+aucune validation sur robot réel. Les pilotes à deux objets font 0/20, 0/20, 1/20 ;
+la compétence multicible V3 reste à obtenir. Les références V1/V2 transférées
+ont des données/budgets d'apprentissage différents. V1/V2 sont conservées,
+un écart isolé d'identité des capteurs et son analyse de sensibilité sont documentés
+dans le rapport ; les scores bruts sont conservés.
+Le [README historique](../../README.md) reste intact. V3 n'a pas été publiée.
+"""
+    (DOCS / "README.md").write_text(readme, encoding="utf8")
+    card = f"""# Fiche du checkpoint local V3
+
+Recette : DirectBC, fusion fixe+poignet, prior chroma40, historique de quatre
+états robot, continuation enregistrée, pince continue. Entraînement :80démos,
+2 000 updates sur RTX 4060 Laptop 8 Go. Sélection de recette sur tuning et
+confirmation disjointe, avant le test. Poids déployés : EMA.
+
+Checkpoint source : [best.pt](../../artifacts/v3/runs/bc_continued_history480_s0/best.pt).
+Checkpoint d'inférence compact : [checkpoint.pt](../../artifacts/v3/demo/checkpoint.pt),
+{proof['compact_bytes']} octets. Il ne contient pas les états d'optimiseur/reprise.
+SHA256 compact : `{proof['compact_sha256']}`.
+SHA256 source : `{proof['source_checkpoint_sha256']}`.
+[Preuve de conversion](../../configs/v3/demo_equivalence.json).
+
+Entrées autorisées :512 points XYZRGB/masques, 92 valeurs d'état robot normalisé,
+quatre labels connus, normalisation des actions. Les labels ne sont pas du texte
+libre. Aucune pose objet GT, segmentation GT ou phase teacher à l'inférence.
+Sorties :8 actions de 7 dimensions ; deux actions exécutées, puis nouvelles
+observations. Dé-normalisation et clipping ; −1ouvre/+1ferme la pince.
+
+Usage validé : **un cube rouge/un bac bleu, placements aléatoires simulés**.
+Résultat agrégé de cette recette, trois checkpoints seeds 0/1/2 : physique
+{selected['physical']}/150 et strict V2 {selected['strict']}/150 sur 50 nouvelles scènes.
+Résultat du checkpoint seed 0 : {selected['per_seed_physical'][0]}/50 physique et
+{selected['per_seed_strict'][0]}/50 strict. La vidéo montre uniquement scène400000,
+première scène préspécifiée ; elle n'est pas une estimation de performance.
+
+Reproduction vérifiée sur ce PC et deux environnements aux versions identiques,
+avec égalité complète de la trace actions/physique de cette démo. L'égalité
+bit à bit sur d'autres plateformes, GPU ou bibliothèques n'est pas garantie.
+La démo fonctionne avec le bundle local sans données d'entraînement ni checkpoints
+historiques. Le checkpoint complet demeure nécessaire pour reprendre l'optimisation.
+
+Limites : tâche multicible non maîtrisée ; profondeur idéale ; objets/couleurs
+connus ; pas de variation physique majeure, langage libre ou transfert robot.
+Le succès exige1 seconde de stabilité après release, pas une stabilité indéfinie.
+Les scripts/teachers GT sont des références de collecte/diagnostic, séparés des
+politiques étudiantes. Voir les [causes et limites](report.md).
+"""
+    (DOCS / "model_card.md").write_text(card, encoding="utf8")
+    bullet = f"""# Bullet CV proposée — aucune modification du CV
+
+- Built and diagnosed a closed-loop imitation benchmark in MuJoCo/robosuite;
+  achieved {100*selected['strict']/150:.0f}% stable single-object placements ({selected['strict']}/150 test rollouts,
+  three training seeds), with controlled camera/prior ablations, negative
+  multi-object results and a checkpoint demo reproducing the complete action/physics trace.
+
+Périmètre à conserver si cette bullet est utilisée : simulation, un objet/un bac,
+50 scènes test distinctes répétées sur trois seeds. Aucune revendication de
+grounding multicible, robot réel, gain général de fusion, PPO ou SmolVLA.
+Faits : [résultats](../../results/v3/final_summary.json), [protocole](../../configs/v3/final_protocol.json),
+[replay](../../artifacts/v3/demo/replay/verification.json).
+"""
+    (DOCS / "cv_bullet.md").write_text(bullet, encoding="utf8")
+    print("Built docs/v3/{README,report,model_card,cv_bullet}.md from executed results")
+
+
+if __name__ == "__main__":
+    main()

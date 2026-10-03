@@ -1,0 +1,25 @@
+{
+  "verified_utc": "2026-10-03T13:56:17.806104+00:00",
+  "frozen_sources_exact": true,
+  "registered_checkpoints": 30,
+  "raw_test_rows": 1500,
+  "csv_json_exact": true,
+  "initial_sensors_exact": false,
+  "matched_initial_sensor_rollouts": 1499,
+  "sensor_identity_exception": [
+    {
+      "key": "single_wrist_prior_s0",
+      "scene_seed": 400014,
+      "observed_sha256": "cdd3030f5b954ec4b9b9f184d838994b6c6bbfbaacebc884e6b887f13836625e",
+      "reference_sha256": "f326c2890d01c094f93747796f8e8072c71a0b4477c4958069cec7e8fb2ebab9"
+    }
+  ],
+  "sensor_quality_control_replay_episodes": 30,
+  "sensor_quality_control_action_physics_traces_exact": true,
+  "dataset_files_sha_verified": 180,
+  "compact_and_portable_replays_exact": true,
+  "historical_files_unchanged": 6210,
+  "trace_audit_rows": 2452,
+  "trace_audit_steps": 406665,
+  "local_markdown_links": 61
+}

@@ -1,0 +1,8 @@
+{
+  "path": "artifacts/v3/demo_bundle.zip",
+  "sha256": "79769da3265770a2f4b731b7a7d4e5fa6094b9093e5352d514e547ac8e88b03d",
+  "bytes": 1653573,
+  "files": 73,
+  "portable_replay_verified": true,
+  "published": false
+}

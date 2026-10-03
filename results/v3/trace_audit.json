@@ -1,6 +1,6 @@
 {
-  "checked_rows": 952,
-  "checked_steps": 152765,
+  "checked_rows": 2452,
+  "checked_steps": 406665,
   "independent_containment": "box support function, reconstructed from saved pose and goal",
   "summaries": {
     "bc_binary80_s0_tuning": {
@@ -252,6 +252,156 @@
       "episodes": 20,
       "physical": 17,
       "strict": 17
+    },
+    "final_preserved_v1_fusion_s0": {
+      "episodes": 50,
+      "physical": 3,
+      "strict": 3
+    },
+    "final_preserved_v1_fusion_s1": {
+      "episodes": 50,
+      "physical": 2,
+      "strict": 2
+    },
+    "final_preserved_v1_fusion_s2": {
+      "episodes": 50,
+      "physical": 3,
+      "strict": 2
+    },
+    "final_preserved_v2_fusion_s0": {
+      "episodes": 50,
+      "physical": 7,
+      "strict": 7
+    },
+    "final_preserved_v2_fusion_s1": {
+      "episodes": 50,
+      "physical": 8,
+      "strict": 8
+    },
+    "final_preserved_v2_fusion_s2": {
+      "episodes": 50,
+      "physical": 7,
+      "strict": 7
+    },
+    "final_single_fixed_no_prior_s0": {
+      "episodes": 50,
+      "physical": 49,
+      "strict": 49
+    },
+    "final_single_fixed_no_prior_s1": {
+      "episodes": 50,
+      "physical": 39,
+      "strict": 39
+    },
+    "final_single_fixed_no_prior_s2": {
+      "episodes": 50,
+      "physical": 42,
+      "strict": 42
+    },
+    "final_single_fixed_prior_s0": {
+      "episodes": 50,
+      "physical": 49,
+      "strict": 49
+    },
+    "final_single_fixed_prior_s1": {
+      "episodes": 50,
+      "physical": 50,
+      "strict": 50
+    },
+    "final_single_fixed_prior_s2": {
+      "episodes": 50,
+      "physical": 48,
+      "strict": 48
+    },
+    "final_single_fusion_no_prior_s0": {
+      "episodes": 50,
+      "physical": 47,
+      "strict": 47
+    },
+    "final_single_fusion_no_prior_s1": {
+      "episodes": 50,
+      "physical": 44,
+      "strict": 44
+    },
+    "final_single_fusion_no_prior_s2": {
+      "episodes": 50,
+      "physical": 47,
+      "strict": 47
+    },
+    "final_single_fusion_prior_s0": {
+      "episodes": 50,
+      "physical": 49,
+      "strict": 49
+    },
+    "final_single_fusion_prior_s1": {
+      "episodes": 50,
+      "physical": 48,
+      "strict": 48
+    },
+    "final_single_fusion_prior_s2": {
+      "episodes": 50,
+      "physical": 50,
+      "strict": 50
+    },
+    "final_single_wrist_no_prior_s0": {
+      "episodes": 50,
+      "physical": 23,
+      "strict": 23
+    },
+    "final_single_wrist_no_prior_s1": {
+      "episodes": 50,
+      "physical": 18,
+      "strict": 18
+    },
+    "final_single_wrist_no_prior_s2": {
+      "episodes": 50,
+      "physical": 15,
+      "strict": 15
+    },
+    "final_single_wrist_prior_s0": {
+      "episodes": 50,
+      "physical": 42,
+      "strict": 42
+    },
+    "final_single_wrist_prior_s1": {
+      "episodes": 50,
+      "physical": 39,
+      "strict": 39
+    },
+    "final_single_wrist_prior_s2": {
+      "episodes": 50,
+      "physical": 40,
+      "strict": 39
+    },
+    "final_v3_original_bc_s0": {
+      "episodes": 50,
+      "physical": 49,
+      "strict": 40
+    },
+    "final_v3_original_bc_s1": {
+      "episodes": 50,
+      "physical": 43,
+      "strict": 43
+    },
+    "final_v3_original_bc_s2": {
+      "episodes": 50,
+      "physical": 47,
+      "strict": 15
+    },
+    "final_v3_v1_recipe_s0": {
+      "episodes": 50,
+      "physical": 1,
+      "strict": 1
+    },
+    "final_v3_v1_recipe_s1": {
+      "episodes": 50,
+      "physical": 13,
+      "strict": 10
+    },
+    "final_v3_v1_recipe_s2": {
+      "episodes": 50,
+      "physical": 31,
+      "strict": 21
     }
   }
 }

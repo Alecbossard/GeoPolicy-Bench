@@ -1,0 +1,21 @@
+{
+  "training": {
+    "sampled_jobs": 39,
+    "samples": 195,
+    "max_gpu_temperature_c": 47.0,
+    "max_gpu_used_mib": 1200.0,
+    "min_free_commit_gib": 1.9034843444824219,
+    "max_worker_private_gib": 3.055187225341797,
+    "min_free_disk_gib": 22.39948272705078
+  },
+  "frozen_final_evaluation": {
+    "sampled_jobs": 30,
+    "samples": 506,
+    "max_gpu_temperature_c": 41.0,
+    "max_gpu_used_mib": 1327.0,
+    "min_free_commit_gib": 1.5215950012207031,
+    "max_worker_private_gib": 3.5678138732910156,
+    "min_free_disk_gib": 21.818946838378906
+  },
+  "limits": "Sampled process/system readings, not continuous peaks or power measurements. Training uses CUDA; policy evaluation uses CPU with two Torch threads and GPU rendering. Jobs are serialized."
+}

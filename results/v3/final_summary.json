@@ -1,0 +1,379 @@
+{
+  "task": "single_cube_single_tray_fixed_instruction",
+  "new_test_scenes": [
+    400000,
+    400049
+  ],
+  "rollouts": 1500,
+  "groups": {
+    "v3_fixed_prior": {
+      "episodes": 150,
+      "per_seed_physical": [
+        49,
+        50,
+        48
+      ],
+      "per_seed_strict": [
+        49,
+        50,
+        48
+      ],
+      "physical": 147,
+      "strict": 147,
+      "failure_stages": {
+        "success": 147,
+        "release": 3
+      },
+      "posture_only": 0,
+      "collisions": 0,
+      "median_policy_p95_ms": 1.5367349995358377,
+      "median_preprocess_p95_ms": 6.911440000112634
+    },
+    "v3_fixed_no_prior": {
+      "episodes": 150,
+      "per_seed_physical": [
+        49,
+        39,
+        42
+      ],
+      "per_seed_strict": [
+        49,
+        39,
+        42
+      ],
+      "physical": 130,
+      "strict": 130,
+      "failure_stages": {
+        "success": 130,
+        "release": 2,
+        "grasp": 15,
+        "transport": 3
+      },
+      "posture_only": 0,
+      "collisions": 5,
+      "median_policy_p95_ms": 1.4242149998608509,
+      "median_preprocess_p95_ms": 6.874850003077881
+    },
+    "v3_wrist_prior": {
+      "episodes": 150,
+      "per_seed_physical": [
+        42,
+        39,
+        40
+      ],
+      "per_seed_strict": [
+        42,
+        39,
+        39
+      ],
+      "physical": 121,
+      "strict": 120,
+      "failure_stages": {
+        "success": 121,
+        "release": 12,
+        "transport": 14,
+        "object_stability": 2,
+        "grasp": 1
+      },
+      "posture_only": 1,
+      "collisions": 2,
+      "median_policy_p95_ms": 1.512245000049006,
+      "median_preprocess_p95_ms": 6.85393500898499
+    },
+    "v3_wrist_no_prior": {
+      "episodes": 150,
+      "per_seed_physical": [
+        23,
+        18,
+        15
+      ],
+      "per_seed_strict": [
+        23,
+        18,
+        15
+      ],
+      "physical": 56,
+      "strict": 56,
+      "failure_stages": {
+        "success": 56,
+        "release": 22,
+        "grasp": 42,
+        "transport": 25,
+        "object_stability": 3,
+        "approach": 2
+      },
+      "posture_only": 0,
+      "collisions": 34,
+      "median_policy_p95_ms": 1.5482824928767513,
+      "median_preprocess_p95_ms": 6.791687512304634
+    },
+    "v3_fusion_prior": {
+      "episodes": 150,
+      "per_seed_physical": [
+        49,
+        48,
+        50
+      ],
+      "per_seed_strict": [
+        49,
+        48,
+        50
+      ],
+      "physical": 147,
+      "strict": 147,
+      "failure_stages": {
+        "success": 147,
+        "release": 3
+      },
+      "posture_only": 0,
+      "collisions": 0,
+      "median_policy_p95_ms": 1.5665874954720493,
+      "median_preprocess_p95_ms": 6.942074996914015
+    },
+    "v3_fusion_no_prior": {
+      "episodes": 150,
+      "per_seed_physical": [
+        47,
+        44,
+        47
+      ],
+      "per_seed_strict": [
+        47,
+        44,
+        47
+      ],
+      "physical": 138,
+      "strict": 138,
+      "failure_stages": {
+        "success": 138,
+        "release": 4,
+        "grasp": 7,
+        "transport": 1
+      },
+      "posture_only": 0,
+      "collisions": 6,
+      "median_policy_p95_ms": 1.391524993232451,
+      "median_preprocess_p95_ms": 6.870882483781315
+    },
+    "v3_original_bc": {
+      "episodes": 150,
+      "per_seed_physical": [
+        49,
+        43,
+        47
+      ],
+      "per_seed_strict": [
+        40,
+        43,
+        15
+      ],
+      "physical": 139,
+      "strict": 98,
+      "failure_stages": {
+        "success": 139,
+        "release": 1,
+        "object_stability": 2,
+        "grasp": 8
+      },
+      "posture_only": 41,
+      "collisions": 0,
+      "median_policy_p95_ms": 1.6432425065431744,
+      "median_preprocess_p95_ms": 7.05043499765452
+    },
+    "v3_v1_recipe": {
+      "episodes": 150,
+      "per_seed_physical": [
+        1,
+        13,
+        31
+      ],
+      "per_seed_strict": [
+        1,
+        10,
+        21
+      ],
+      "physical": 45,
+      "strict": 32,
+      "failure_stages": {
+        "object_stability": 100,
+        "success": 45,
+        "grasp": 1,
+        "transport": 1,
+        "release": 3
+      },
+      "posture_only": 13,
+      "collisions": 34,
+      "median_policy_p95_ms": 14.94380500225816,
+      "median_preprocess_p95_ms": 7.012749992281897
+    },
+    "preserved_v1_fusion": {
+      "episodes": 150,
+      "per_seed_physical": [
+        3,
+        2,
+        3
+      ],
+      "per_seed_strict": [
+        3,
+        2,
+        2
+      ],
+      "physical": 8,
+      "strict": 7,
+      "failure_stages": {
+        "approach": 73,
+        "grasp": 55,
+        "release": 3,
+        "success": 8,
+        "transport": 5,
+        "object_stability": 6
+      },
+      "posture_only": 1,
+      "collisions": 11,
+      "median_policy_p95_ms": 14.459744985651923,
+      "median_preprocess_p95_ms": 6.785042502451688
+    },
+    "preserved_v2_fusion": {
+      "episodes": 150,
+      "per_seed_physical": [
+        7,
+        8,
+        7
+      ],
+      "per_seed_strict": [
+        7,
+        8,
+        7
+      ],
+      "physical": 22,
+      "strict": 22,
+      "failure_stages": {
+        "approach": 80,
+        "grasp": 38,
+        "success": 22,
+        "release": 2,
+        "transport": 8
+      },
+      "posture_only": 0,
+      "collisions": 0,
+      "median_policy_p95_ms": 15.687584993429482,
+      "median_preprocess_p95_ms": 6.649834995914716
+    }
+  },
+  "contrasts": {
+    "v3_fusion_prior_minus_v3_original_bc": {
+      "physical_success": {
+        "difference_pp": 5.333333333333334,
+        "descriptive_95_pp": [
+          -1.3333333333333335,
+          14.000000000000002
+        ]
+      },
+      "strict_v2_success": {
+        "difference_pp": 32.666666666666664,
+        "descriptive_95_pp": [
+          7.333333333333333,
+          68.0
+        ]
+      },
+      "matched_scenes_per_seed": 50,
+      "matched_rollouts": 150,
+      "excluded_scene_seeds": []
+    },
+    "v3_fusion_prior_minus_v3_wrist_prior": {
+      "physical_success": {
+        "difference_pp": 17.006802721088434,
+        "descriptive_95_pp": [
+          7.482993197278912,
+          27.89115646258503
+        ]
+      },
+      "strict_v2_success": {
+        "difference_pp": 17.687074829931973,
+        "descriptive_95_pp": [
+          8.16326530612245,
+          28.57142857142857
+        ]
+      },
+      "matched_scenes_per_seed": 49,
+      "matched_rollouts": 147,
+      "excluded_scene_seeds": [
+        400014
+      ]
+    },
+    "v3_fusion_prior_minus_v3_fixed_prior": {
+      "physical_success": {
+        "difference_pp": 0.0,
+        "descriptive_95_pp": [
+          -6.0,
+          6.0
+        ]
+      },
+      "strict_v2_success": {
+        "difference_pp": 0.0,
+        "descriptive_95_pp": [
+          -6.0,
+          6.0
+        ]
+      },
+      "matched_scenes_per_seed": 50,
+      "matched_rollouts": 150,
+      "excluded_scene_seeds": []
+    },
+    "v3_fusion_no_prior_minus_v3_fusion_prior": {
+      "physical_success": {
+        "difference_pp": -6.0,
+        "descriptive_95_pp": [
+          -12.666666666666668,
+          0.0
+        ]
+      },
+      "strict_v2_success": {
+        "difference_pp": -6.0,
+        "descriptive_95_pp": [
+          -12.666666666666668,
+          0.0
+        ]
+      },
+      "matched_scenes_per_seed": 50,
+      "matched_rollouts": 150,
+      "excluded_scene_seeds": []
+    },
+    "v3_original_bc_minus_v3_v1_recipe": {
+      "physical_success": {
+        "difference_pp": 62.66666666666667,
+        "descriptive_95_pp": [
+          32.0,
+          94.0
+        ]
+      },
+      "strict_v2_success": {
+        "difference_pp": 44.0,
+        "descriptive_95_pp": [
+          -8.0,
+          80.0
+        ]
+      },
+      "matched_scenes_per_seed": 50,
+      "matched_rollouts": 150,
+      "excluded_scene_seeds": []
+    }
+  },
+  "all_initial_sensors_exact": false,
+  "sensor_identity": {
+    "reference": "single_fixed_prior_s0",
+    "matching_rollouts": 1499,
+    "total_rollouts": 1500,
+    "mismatches": [
+      {
+        "key": "single_wrist_prior_s0",
+        "scene_seed": 400014,
+        "observed_sha256": "cdd3030f5b954ec4b9b9f184d838994b6c6bbfbaacebc884e6b887f13836625e",
+        "reference_sha256": "f326c2890d01c094f93747796f8e8072c71a0b4477c4958069cec7e8fb2ebab9"
+      }
+    ],
+    "treatment": "All raw scores retained. Paired sensitivity intervals omit each unmatched scene across all three seeds for affected comparisons only, using identity rather than outcome."
+  },
+  "uncertainty": "Descriptive paired seed/scene bootstrap, three training seeds; no multiplicity correction. Bootstrap at a ceiling cannot capture unobserved failures. No general multi-object, language or hardware claim.",
+  "historical_transfer": "Preserved V1/V2 have different full-task training data and budgets; their test transfer is not a controlled algorithm comparison."
+}
