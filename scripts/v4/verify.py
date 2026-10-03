@@ -108,6 +108,32 @@ def delivery():
     verify_runtime(protocol)
     plan = read("configs/v4/plan.json")
     assert sha(ROOT / "configs/v4/plan.json") == protocol["plan_sha256"]
+    assert (
+        sha(ROOT / "results/v4/validation_decision.json")
+        == protocol["validation_decision_sha256"]
+    ), "Validation decision changed after freeze"
+    assert (
+        sha(ROOT / "results/v4/io_runtime_checks.json")
+        == protocol["io_runtime_checks_sha256"]
+    ), "I/O/runtime checks changed after freeze"
+    assert read("results/v4/validation_decision.json")["proceed_to_reserved_test"]
+    assert read("results/v4/io_runtime_checks.json")["verified"]
+    frozen_time = datetime.fromisoformat(protocol["frozen_utc"]).timestamp()
+    final_jobs = read("artifacts/v4/jobs/final_jobs.json")
+    confirmation_jobs = read("artifacts/v4/jobs/confirmation_jobs.json")
+    assert (
+        confirmation_jobs["last_completed_time"]
+        < frozen_time
+        < final_jobs["started_time"]
+    )
+    assert sorted(final_jobs["completed"]) == list(range(120))
+    assert sha(ROOT / "configs/v4/final_jobs.json") == final_jobs["jobs_sha256"]
+    first_test_resource_time = min(
+        row["time"]
+        for path in (ROOT / "artifacts/v4/evaluations").glob("final_*/resources.json")
+        for row in json.loads(path.read_text(encoding="utf8"))
+    )
+    assert frozen_time < first_test_resource_time
     for rel, h in protocol["sources"].items():
         assert (
             hashlib.sha256(
@@ -130,8 +156,26 @@ def delivery():
     summary = read("results/v4/summary.json")
     assert summary["test"]["rollouts"] == 2400
     audit = read("results/v4/trace_sensor_audit.json")
-    assert audit["checked_rollouts"] >= 2400 and not audit["initial_clean_mismatches"]
-    assert read("results/v4/report_sensor_identity.json")["all_initial_pairs_exact"]
+    assert audit["checked_rollouts"] == 3540
+    sensor = read("results/v4/report_sensor_identity.json")
+    qc = read("results/v4/initial_sensor_qc.json")
+    assert sensor["all_effective_policy_initial_pairs_exact"]
+    assert (
+        qc["all_effective_policy_initial_pairs_exact"]
+        and not qc["effective_mismatches"]
+    )
+    assert qc["checked_rollouts"] == 2400
+    assert (
+        sha(ROOT / "results/v4/initial_sensor_qc.json")
+        == sensor["quality_control_sha256"]
+    )
+    for rel, expected in qc["raw_result_sha256"].items():
+        assert sha(ROOT / rel) == expected
+    assert (
+        len(audit["initial_clean_mismatches"])
+        == len(qc["raw_modality_mismatches"])
+        == 1
+    )
     for p in (ROOT / "results/v4/test").glob("*.json"):
         value = json.loads(p.read_text(encoding="utf8"))
         assert len(value["rollouts"]) == 20
@@ -201,7 +245,21 @@ def delivery():
         trace_audit_rollouts=audit["checked_rollouts"],
         trace_audit_steps=audit["checked_steps"],
         initial_modalities_saved_and_recomputed=True,
+        effective_policy_initial_pairs_exact=True,
+        raw_initial_modalities_all_exact=qc["all_raw_initial_modalities_exact"],
+        raw_modality_exceptions=qc["raw_modality_mismatches"],
+        no_test_rollout_exclusions_or_replacements=True,
         source_and_checkpoint_hashes_verified=True,
+        validation_completed_before_freeze_before_test=True,
+        protocol_frozen_utc=protocol["frozen_utc"],
+        first_test_job_utc=datetime.fromtimestamp(
+            final_jobs["started_time"], timezone.utc
+        ).isoformat(),
+        bounded_elapsed_hours=(
+            datetime.now(timezone.utc).timestamp()
+            - read("artifacts/v4/budget.json")["started_time"]
+        )
+        / 3600,
         history=history,
         resources=resource_summary,
         local_demo=verified,

@@ -1,0 +1,3077 @@
+{
+  "task": "single_cube_single_tray_fixed_instruction",
+  "data": {
+    "collected_train": 80,
+    "used_train": 79,
+    "excluded_scene_seed": 10032,
+    "exclusion_reason": "failed scripted grasp",
+    "recorded_validation": 10,
+    "continued_training_frames": 9986
+  },
+  "test": {
+    "first_scene": 500000,
+    "last_scene": 500019,
+    "unique_scenes": 20,
+    "training_seeds": [
+      0,
+      1,
+      2
+    ],
+    "conditions": [
+      "nominal",
+      "occlusion25",
+      "occlusion60",
+      "absent",
+      "depth003",
+      "depth010",
+      "depth025",
+      "missing30",
+      "missing70",
+      "missing90"
+    ],
+    "rollouts": 2400
+  },
+  "groups": {
+    "fixed_clean": {
+      "nominal": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 56,
+          "per_seed_successes": [
+            20,
+            19,
+            17
+          ],
+          "estimate_percent_or_pp": 93.33333333333333,
+          "descriptive_95_percent_or_pp": [
+            80.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 56,
+          "per_seed_successes": [
+            20,
+            19,
+            17
+          ],
+          "estimate_percent_or_pp": 93.33333333333333,
+          "descriptive_95_percent_or_pp": [
+            80.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "release": 3,
+          "grasp": 1
+        },
+        "posture_only_failures": 0
+      },
+      "occlusion25": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 0,
+          "per_seed_successes": [
+            0,
+            0,
+            0
+          ],
+          "estimate_percent_or_pp": 0.0,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 0,
+          "per_seed_successes": [
+            0,
+            0,
+            0
+          ],
+          "estimate_percent_or_pp": 0.0,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "approach": 41,
+          "grasp": 19
+        },
+        "posture_only_failures": 0
+      },
+      "occlusion60": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 0,
+          "per_seed_successes": [
+            0,
+            0,
+            0
+          ],
+          "estimate_percent_or_pp": 0.0,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 0,
+          "per_seed_successes": [
+            0,
+            0,
+            0
+          ],
+          "estimate_percent_or_pp": 0.0,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "approach": 37,
+          "grasp": 18,
+          "transport": 5
+        },
+        "posture_only_failures": 0
+      },
+      "absent": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 0,
+          "per_seed_successes": [
+            0,
+            0,
+            0
+          ],
+          "estimate_percent_or_pp": 0.0,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 0,
+          "per_seed_successes": [
+            0,
+            0,
+            0
+          ],
+          "estimate_percent_or_pp": 0.0,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "approach": 58,
+          "grasp": 2
+        },
+        "posture_only_failures": 0
+      },
+      "depth003": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 59,
+          "per_seed_successes": [
+            20,
+            20,
+            19
+          ],
+          "estimate_percent_or_pp": 98.33333333333333,
+          "descriptive_95_percent_or_pp": [
+            90.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 59,
+          "per_seed_successes": [
+            20,
+            20,
+            19
+          ],
+          "estimate_percent_or_pp": 98.33333333333333,
+          "descriptive_95_percent_or_pp": [
+            90.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "release": 1
+        },
+        "posture_only_failures": 0
+      },
+      "depth010": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 60,
+          "per_seed_successes": [
+            20,
+            20,
+            20
+          ],
+          "estimate_percent_or_pp": 100.0,
+          "descriptive_95_percent_or_pp": [
+            100.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 60,
+          "per_seed_successes": [
+            20,
+            20,
+            20
+          ],
+          "estimate_percent_or_pp": 100.0,
+          "descriptive_95_percent_or_pp": [
+            100.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {},
+        "posture_only_failures": 0
+      },
+      "depth025": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 59,
+          "per_seed_successes": [
+            20,
+            20,
+            19
+          ],
+          "estimate_percent_or_pp": 98.33333333333333,
+          "descriptive_95_percent_or_pp": [
+            90.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 59,
+          "per_seed_successes": [
+            20,
+            20,
+            19
+          ],
+          "estimate_percent_or_pp": 98.33333333333333,
+          "descriptive_95_percent_or_pp": [
+            90.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "release": 1
+        },
+        "posture_only_failures": 0
+      },
+      "missing30": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 58,
+          "per_seed_successes": [
+            20,
+            20,
+            18
+          ],
+          "estimate_percent_or_pp": 96.66666666666667,
+          "descriptive_95_percent_or_pp": [
+            86.66666666666667,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 58,
+          "per_seed_successes": [
+            20,
+            20,
+            18
+          ],
+          "estimate_percent_or_pp": 96.66666666666667,
+          "descriptive_95_percent_or_pp": [
+            86.66666666666667,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "release": 2
+        },
+        "posture_only_failures": 0
+      },
+      "missing70": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 35,
+          "per_seed_successes": [
+            12,
+            13,
+            10
+          ],
+          "estimate_percent_or_pp": 58.333333333333336,
+          "descriptive_95_percent_or_pp": [
+            38.333333333333336,
+            76.66666666666667
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 35,
+          "per_seed_successes": [
+            12,
+            13,
+            10
+          ],
+          "estimate_percent_or_pp": 58.333333333333336,
+          "descriptive_95_percent_or_pp": [
+            38.333333333333336,
+            76.66666666666667
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "grasp": 16,
+          "release": 2,
+          "transport": 5,
+          "object_stability": 2
+        },
+        "posture_only_failures": 0
+      },
+      "missing90": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 1,
+          "per_seed_successes": [
+            0,
+            0,
+            1
+          ],
+          "estimate_percent_or_pp": 1.6666666666666667,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            8.333333333333332
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 1,
+          "per_seed_successes": [
+            0,
+            0,
+            1
+          ],
+          "estimate_percent_or_pp": 1.6666666666666667,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            8.333333333333332
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "grasp": 32,
+          "approach": 18,
+          "transport": 9
+        },
+        "posture_only_failures": 0
+      },
+      "mean_perturbed": {
+        "conditions": [
+          "occlusion25",
+          "occlusion60",
+          "absent",
+          "depth003",
+          "depth010",
+          "depth025",
+          "missing30",
+          "missing70",
+          "missing90"
+        ],
+        "rollouts": 540,
+        "interpretation": "Equal weight for nine fixed perturbation settings; not independent scenes",
+        "physical_success": {
+          "successes": 272,
+          "per_seed_rate_percent": [
+            51.11111111111111,
+            51.66666666666666,
+            48.33333333333333
+          ],
+          "estimate_percent_or_pp": 50.37037037037037,
+          "descriptive_95_percent_or_pp": [
+            47.592592592592595,
+            52.77777777777779
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 272,
+          "per_seed_rate_percent": [
+            51.11111111111111,
+            51.66666666666666,
+            48.33333333333333
+          ],
+          "estimate_percent_or_pp": 50.37037037037037,
+          "descriptive_95_percent_or_pp": [
+            47.592592592592595,
+            52.77777777777779
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      }
+    },
+    "fixed_aug": {
+      "nominal": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 54,
+          "per_seed_successes": [
+            20,
+            17,
+            17
+          ],
+          "estimate_percent_or_pp": 90.0,
+          "descriptive_95_percent_or_pp": [
+            75.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 54,
+          "per_seed_successes": [
+            20,
+            17,
+            17
+          ],
+          "estimate_percent_or_pp": 90.0,
+          "descriptive_95_percent_or_pp": [
+            75.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "transport": 2,
+          "grasp": 1,
+          "release": 3
+        },
+        "posture_only_failures": 0
+      },
+      "occlusion25": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 0,
+          "per_seed_successes": [
+            0,
+            0,
+            0
+          ],
+          "estimate_percent_or_pp": 0.0,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 0,
+          "per_seed_successes": [
+            0,
+            0,
+            0
+          ],
+          "estimate_percent_or_pp": 0.0,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "approach": 47,
+          "grasp": 13
+        },
+        "posture_only_failures": 0
+      },
+      "occlusion60": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 0,
+          "per_seed_successes": [
+            0,
+            0,
+            0
+          ],
+          "estimate_percent_or_pp": 0.0,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 0,
+          "per_seed_successes": [
+            0,
+            0,
+            0
+          ],
+          "estimate_percent_or_pp": 0.0,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "approach": 43,
+          "grasp": 17
+        },
+        "posture_only_failures": 0
+      },
+      "absent": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 0,
+          "per_seed_successes": [
+            0,
+            0,
+            0
+          ],
+          "estimate_percent_or_pp": 0.0,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 0,
+          "per_seed_successes": [
+            0,
+            0,
+            0
+          ],
+          "estimate_percent_or_pp": 0.0,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "approach": 46,
+          "grasp": 14
+        },
+        "posture_only_failures": 0
+      },
+      "depth003": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 54,
+          "per_seed_successes": [
+            20,
+            18,
+            16
+          ],
+          "estimate_percent_or_pp": 90.0,
+          "descriptive_95_percent_or_pp": [
+            73.33333333333333,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 54,
+          "per_seed_successes": [
+            20,
+            18,
+            16
+          ],
+          "estimate_percent_or_pp": 90.0,
+          "descriptive_95_percent_or_pp": [
+            73.33333333333333,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "transport": 1,
+          "release": 3,
+          "grasp": 2
+        },
+        "posture_only_failures": 0
+      },
+      "depth010": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 54,
+          "per_seed_successes": [
+            19,
+            19,
+            16
+          ],
+          "estimate_percent_or_pp": 90.0,
+          "descriptive_95_percent_or_pp": [
+            75.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 54,
+          "per_seed_successes": [
+            19,
+            19,
+            16
+          ],
+          "estimate_percent_or_pp": 90.0,
+          "descriptive_95_percent_or_pp": [
+            75.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "release": 3,
+          "transport": 3
+        },
+        "posture_only_failures": 0
+      },
+      "depth025": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 53,
+          "per_seed_successes": [
+            20,
+            17,
+            16
+          ],
+          "estimate_percent_or_pp": 88.33333333333333,
+          "descriptive_95_percent_or_pp": [
+            71.66666666666667,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 53,
+          "per_seed_successes": [
+            20,
+            17,
+            16
+          ],
+          "estimate_percent_or_pp": 88.33333333333333,
+          "descriptive_95_percent_or_pp": [
+            71.66666666666667,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "release": 4,
+          "transport": 3
+        },
+        "posture_only_failures": 0
+      },
+      "missing30": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 50,
+          "per_seed_successes": [
+            19,
+            16,
+            15
+          ],
+          "estimate_percent_or_pp": 83.33333333333334,
+          "descriptive_95_percent_or_pp": [
+            65.0,
+            96.66666666666667
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 50,
+          "per_seed_successes": [
+            19,
+            16,
+            15
+          ],
+          "estimate_percent_or_pp": 83.33333333333334,
+          "descriptive_95_percent_or_pp": [
+            65.0,
+            96.66666666666667
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "transport": 4,
+          "grasp": 2,
+          "release": 4
+        },
+        "posture_only_failures": 0
+      },
+      "missing70": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 44,
+          "per_seed_successes": [
+            14,
+            14,
+            16
+          ],
+          "estimate_percent_or_pp": 73.33333333333333,
+          "descriptive_95_percent_or_pp": [
+            55.00000000000001,
+            90.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 44,
+          "per_seed_successes": [
+            14,
+            14,
+            16
+          ],
+          "estimate_percent_or_pp": 73.33333333333333,
+          "descriptive_95_percent_or_pp": [
+            55.00000000000001,
+            90.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "transport": 7,
+          "grasp": 7,
+          "release": 2
+        },
+        "posture_only_failures": 0
+      },
+      "missing90": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 16,
+          "per_seed_successes": [
+            7,
+            5,
+            4
+          ],
+          "estimate_percent_or_pp": 26.666666666666668,
+          "descriptive_95_percent_or_pp": [
+            10.0,
+            45.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 16,
+          "per_seed_successes": [
+            7,
+            5,
+            4
+          ],
+          "estimate_percent_or_pp": 26.666666666666668,
+          "descriptive_95_percent_or_pp": [
+            10.0,
+            45.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "grasp": 29,
+          "approach": 9,
+          "transport": 4,
+          "release": 2
+        },
+        "posture_only_failures": 0
+      },
+      "mean_perturbed": {
+        "conditions": [
+          "occlusion25",
+          "occlusion60",
+          "absent",
+          "depth003",
+          "depth010",
+          "depth025",
+          "missing30",
+          "missing70",
+          "missing90"
+        ],
+        "rollouts": 540,
+        "interpretation": "Equal weight for nine fixed perturbation settings; not independent scenes",
+        "physical_success": {
+          "successes": 271,
+          "per_seed_rate_percent": [
+            55.00000000000001,
+            49.444444444444436,
+            46.11111111111111
+          ],
+          "estimate_percent_or_pp": 50.18518518518519,
+          "descriptive_95_percent_or_pp": [
+            42.777777777777786,
+            56.11111111111112
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 271,
+          "per_seed_rate_percent": [
+            55.00000000000001,
+            49.444444444444436,
+            46.11111111111111
+          ],
+          "estimate_percent_or_pp": 50.18518518518519,
+          "descriptive_95_percent_or_pp": [
+            42.777777777777786,
+            56.11111111111112
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      }
+    },
+    "fusion_clean": {
+      "nominal": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 60,
+          "per_seed_successes": [
+            20,
+            20,
+            20
+          ],
+          "estimate_percent_or_pp": 100.0,
+          "descriptive_95_percent_or_pp": [
+            100.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 60,
+          "per_seed_successes": [
+            20,
+            20,
+            20
+          ],
+          "estimate_percent_or_pp": 100.0,
+          "descriptive_95_percent_or_pp": [
+            100.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {},
+        "posture_only_failures": 0
+      },
+      "occlusion25": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 60,
+          "per_seed_successes": [
+            20,
+            20,
+            20
+          ],
+          "estimate_percent_or_pp": 100.0,
+          "descriptive_95_percent_or_pp": [
+            100.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 60,
+          "per_seed_successes": [
+            20,
+            20,
+            20
+          ],
+          "estimate_percent_or_pp": 100.0,
+          "descriptive_95_percent_or_pp": [
+            100.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {},
+        "posture_only_failures": 0
+      },
+      "occlusion60": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 54,
+          "per_seed_successes": [
+            18,
+            18,
+            18
+          ],
+          "estimate_percent_or_pp": 90.0,
+          "descriptive_95_percent_or_pp": [
+            76.66666666666667,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 54,
+          "per_seed_successes": [
+            18,
+            18,
+            18
+          ],
+          "estimate_percent_or_pp": 90.0,
+          "descriptive_95_percent_or_pp": [
+            76.66666666666667,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "transport": 3,
+          "release": 3
+        },
+        "posture_only_failures": 0
+      },
+      "absent": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 44,
+          "per_seed_successes": [
+            16,
+            15,
+            13
+          ],
+          "estimate_percent_or_pp": 73.33333333333333,
+          "descriptive_95_percent_or_pp": [
+            53.333333333333336,
+            90.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 44,
+          "per_seed_successes": [
+            16,
+            15,
+            13
+          ],
+          "estimate_percent_or_pp": 73.33333333333333,
+          "descriptive_95_percent_or_pp": [
+            53.333333333333336,
+            90.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "transport": 14,
+          "release": 2
+        },
+        "posture_only_failures": 0
+      },
+      "depth003": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 60,
+          "per_seed_successes": [
+            20,
+            20,
+            20
+          ],
+          "estimate_percent_or_pp": 100.0,
+          "descriptive_95_percent_or_pp": [
+            100.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 60,
+          "per_seed_successes": [
+            20,
+            20,
+            20
+          ],
+          "estimate_percent_or_pp": 100.0,
+          "descriptive_95_percent_or_pp": [
+            100.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {},
+        "posture_only_failures": 0
+      },
+      "depth010": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 59,
+          "per_seed_successes": [
+            20,
+            20,
+            19
+          ],
+          "estimate_percent_or_pp": 98.33333333333333,
+          "descriptive_95_percent_or_pp": [
+            90.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 59,
+          "per_seed_successes": [
+            20,
+            20,
+            19
+          ],
+          "estimate_percent_or_pp": 98.33333333333333,
+          "descriptive_95_percent_or_pp": [
+            90.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "release": 1
+        },
+        "posture_only_failures": 0
+      },
+      "depth025": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 60,
+          "per_seed_successes": [
+            20,
+            20,
+            20
+          ],
+          "estimate_percent_or_pp": 100.0,
+          "descriptive_95_percent_or_pp": [
+            100.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 60,
+          "per_seed_successes": [
+            20,
+            20,
+            20
+          ],
+          "estimate_percent_or_pp": 100.0,
+          "descriptive_95_percent_or_pp": [
+            100.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {},
+        "posture_only_failures": 0
+      },
+      "missing30": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 60,
+          "per_seed_successes": [
+            20,
+            20,
+            20
+          ],
+          "estimate_percent_or_pp": 100.0,
+          "descriptive_95_percent_or_pp": [
+            100.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 60,
+          "per_seed_successes": [
+            20,
+            20,
+            20
+          ],
+          "estimate_percent_or_pp": 100.0,
+          "descriptive_95_percent_or_pp": [
+            100.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {},
+        "posture_only_failures": 0
+      },
+      "missing70": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 59,
+          "per_seed_successes": [
+            20,
+            20,
+            19
+          ],
+          "estimate_percent_or_pp": 98.33333333333333,
+          "descriptive_95_percent_or_pp": [
+            90.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 59,
+          "per_seed_successes": [
+            20,
+            20,
+            19
+          ],
+          "estimate_percent_or_pp": 98.33333333333333,
+          "descriptive_95_percent_or_pp": [
+            90.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "grasp": 1
+        },
+        "posture_only_failures": 0
+      },
+      "missing90": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 27,
+          "per_seed_successes": [
+            10,
+            8,
+            9
+          ],
+          "estimate_percent_or_pp": 45.0,
+          "descriptive_95_percent_or_pp": [
+            26.666666666666668,
+            63.33333333333333
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 27,
+          "per_seed_successes": [
+            10,
+            8,
+            9
+          ],
+          "estimate_percent_or_pp": 45.0,
+          "descriptive_95_percent_or_pp": [
+            26.666666666666668,
+            63.33333333333333
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "grasp": 25,
+          "transport": 5,
+          "release": 3
+        },
+        "posture_only_failures": 0
+      },
+      "mean_perturbed": {
+        "conditions": [
+          "occlusion25",
+          "occlusion60",
+          "absent",
+          "depth003",
+          "depth010",
+          "depth025",
+          "missing30",
+          "missing70",
+          "missing90"
+        ],
+        "rollouts": 540,
+        "interpretation": "Equal weight for nine fixed perturbation settings; not independent scenes",
+        "physical_success": {
+          "successes": 483,
+          "per_seed_rate_percent": [
+            91.11111111111111,
+            89.44444444444446,
+            87.77777777777779
+          ],
+          "estimate_percent_or_pp": 89.44444444444444,
+          "descriptive_95_percent_or_pp": [
+            85.18518518518516,
+            93.5185185185185
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 483,
+          "per_seed_rate_percent": [
+            91.11111111111111,
+            89.44444444444446,
+            87.77777777777779
+          ],
+          "estimate_percent_or_pp": 89.44444444444444,
+          "descriptive_95_percent_or_pp": [
+            85.18518518518516,
+            93.5185185185185
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      }
+    },
+    "fusion_aug": {
+      "nominal": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 58,
+          "per_seed_successes": [
+            20,
+            19,
+            19
+          ],
+          "estimate_percent_or_pp": 96.66666666666667,
+          "descriptive_95_percent_or_pp": [
+            86.66666666666667,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 58,
+          "per_seed_successes": [
+            20,
+            19,
+            19
+          ],
+          "estimate_percent_or_pp": 96.66666666666667,
+          "descriptive_95_percent_or_pp": [
+            86.66666666666667,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "release": 2
+        },
+        "posture_only_failures": 0
+      },
+      "occlusion25": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 58,
+          "per_seed_successes": [
+            19,
+            19,
+            20
+          ],
+          "estimate_percent_or_pp": 96.66666666666667,
+          "descriptive_95_percent_or_pp": [
+            90.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 58,
+          "per_seed_successes": [
+            19,
+            19,
+            20
+          ],
+          "estimate_percent_or_pp": 96.66666666666667,
+          "descriptive_95_percent_or_pp": [
+            90.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "transport": 1,
+          "release": 1
+        },
+        "posture_only_failures": 0
+      },
+      "occlusion60": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 53,
+          "per_seed_successes": [
+            17,
+            18,
+            18
+          ],
+          "estimate_percent_or_pp": 88.33333333333333,
+          "descriptive_95_percent_or_pp": [
+            75.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 53,
+          "per_seed_successes": [
+            17,
+            18,
+            18
+          ],
+          "estimate_percent_or_pp": 88.33333333333333,
+          "descriptive_95_percent_or_pp": [
+            75.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "release": 4,
+          "transport": 2,
+          "object_stability": 1
+        },
+        "posture_only_failures": 0
+      },
+      "absent": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 40,
+          "per_seed_successes": [
+            11,
+            16,
+            13
+          ],
+          "estimate_percent_or_pp": 66.66666666666666,
+          "descriptive_95_percent_or_pp": [
+            45.0,
+            86.66666666666667
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 40,
+          "per_seed_successes": [
+            11,
+            16,
+            13
+          ],
+          "estimate_percent_or_pp": 66.66666666666666,
+          "descriptive_95_percent_or_pp": [
+            45.0,
+            86.66666666666667
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "transport": 8,
+          "object_stability": 4,
+          "release": 8
+        },
+        "posture_only_failures": 0
+      },
+      "depth003": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 60,
+          "per_seed_successes": [
+            20,
+            20,
+            20
+          ],
+          "estimate_percent_or_pp": 100.0,
+          "descriptive_95_percent_or_pp": [
+            100.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 60,
+          "per_seed_successes": [
+            20,
+            20,
+            20
+          ],
+          "estimate_percent_or_pp": 100.0,
+          "descriptive_95_percent_or_pp": [
+            100.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {},
+        "posture_only_failures": 0
+      },
+      "depth010": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 60,
+          "per_seed_successes": [
+            20,
+            20,
+            20
+          ],
+          "estimate_percent_or_pp": 100.0,
+          "descriptive_95_percent_or_pp": [
+            100.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 60,
+          "per_seed_successes": [
+            20,
+            20,
+            20
+          ],
+          "estimate_percent_or_pp": 100.0,
+          "descriptive_95_percent_or_pp": [
+            100.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {},
+        "posture_only_failures": 0
+      },
+      "depth025": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 59,
+          "per_seed_successes": [
+            20,
+            19,
+            20
+          ],
+          "estimate_percent_or_pp": 98.33333333333333,
+          "descriptive_95_percent_or_pp": [
+            90.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 59,
+          "per_seed_successes": [
+            20,
+            19,
+            20
+          ],
+          "estimate_percent_or_pp": 98.33333333333333,
+          "descriptive_95_percent_or_pp": [
+            90.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "release": 1
+        },
+        "posture_only_failures": 0
+      },
+      "missing30": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 59,
+          "per_seed_successes": [
+            20,
+            20,
+            19
+          ],
+          "estimate_percent_or_pp": 98.33333333333333,
+          "descriptive_95_percent_or_pp": [
+            90.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 59,
+          "per_seed_successes": [
+            20,
+            20,
+            19
+          ],
+          "estimate_percent_or_pp": 98.33333333333333,
+          "descriptive_95_percent_or_pp": [
+            90.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "release": 1
+        },
+        "posture_only_failures": 0
+      },
+      "missing70": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 60,
+          "per_seed_successes": [
+            20,
+            20,
+            20
+          ],
+          "estimate_percent_or_pp": 100.0,
+          "descriptive_95_percent_or_pp": [
+            100.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 60,
+          "per_seed_successes": [
+            20,
+            20,
+            20
+          ],
+          "estimate_percent_or_pp": 100.0,
+          "descriptive_95_percent_or_pp": [
+            100.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {},
+        "posture_only_failures": 0
+      },
+      "missing90": {
+        "rollouts": 60,
+        "physical_success": {
+          "successes": 21,
+          "per_seed_successes": [
+            9,
+            7,
+            5
+          ],
+          "estimate_percent_or_pp": 35.0,
+          "descriptive_95_percent_or_pp": [
+            16.666666666666664,
+            56.666666666666664
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 21,
+          "per_seed_successes": [
+            9,
+            7,
+            5
+          ],
+          "estimate_percent_or_pp": 35.0,
+          "descriptive_95_percent_or_pp": [
+            16.666666666666664,
+            56.666666666666664
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "physical_failure_stages": {
+          "transport": 12,
+          "grasp": 24,
+          "release": 2,
+          "approach": 1
+        },
+        "posture_only_failures": 0
+      },
+      "mean_perturbed": {
+        "conditions": [
+          "occlusion25",
+          "occlusion60",
+          "absent",
+          "depth003",
+          "depth010",
+          "depth025",
+          "missing30",
+          "missing70",
+          "missing90"
+        ],
+        "rollouts": 540,
+        "interpretation": "Equal weight for nine fixed perturbation settings; not independent scenes",
+        "physical_success": {
+          "successes": 470,
+          "per_seed_rate_percent": [
+            86.66666666666669,
+            88.33333333333334,
+            86.1111111111111
+          ],
+          "estimate_percent_or_pp": 87.03703703703701,
+          "descriptive_95_percent_or_pp": [
+            82.4074074074074,
+            91.29629629629628
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "successes": 470,
+          "per_seed_rate_percent": [
+            86.66666666666669,
+            88.33333333333334,
+            86.1111111111111
+          ],
+          "estimate_percent_or_pp": 87.03703703703701,
+          "descriptive_95_percent_or_pp": [
+            82.4074074074074,
+            91.29629629629628
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      }
+    }
+  },
+  "paired_contrasts": {
+    "fixed_aug_minus_fixed_clean": {
+      "nominal": {
+        "physical_success": {
+          "estimate_percent_or_pp": -3.3333333333333335,
+          "descriptive_95_percent_or_pp": [
+            -15.0,
+            10.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": -3.3333333333333335,
+          "descriptive_95_percent_or_pp": [
+            -15.0,
+            10.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "occlusion25": {
+        "physical_success": {
+          "estimate_percent_or_pp": 0.0,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": 0.0,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "occlusion60": {
+        "physical_success": {
+          "estimate_percent_or_pp": 0.0,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": 0.0,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "absent": {
+        "physical_success": {
+          "estimate_percent_or_pp": 0.0,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": 0.0,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "depth003": {
+        "physical_success": {
+          "estimate_percent_or_pp": -8.333333333333332,
+          "descriptive_95_percent_or_pp": [
+            -21.666666666666668,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": -8.333333333333332,
+          "descriptive_95_percent_or_pp": [
+            -21.666666666666668,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "depth010": {
+        "physical_success": {
+          "estimate_percent_or_pp": -10.0,
+          "descriptive_95_percent_or_pp": [
+            -25.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": -10.0,
+          "descriptive_95_percent_or_pp": [
+            -25.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "depth025": {
+        "physical_success": {
+          "estimate_percent_or_pp": -10.0,
+          "descriptive_95_percent_or_pp": [
+            -26.666666666666668,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": -10.0,
+          "descriptive_95_percent_or_pp": [
+            -26.666666666666668,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "missing30": {
+        "physical_success": {
+          "estimate_percent_or_pp": -13.333333333333334,
+          "descriptive_95_percent_or_pp": [
+            -30.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": -13.333333333333334,
+          "descriptive_95_percent_or_pp": [
+            -30.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "missing70": {
+        "physical_success": {
+          "estimate_percent_or_pp": 15.0,
+          "descriptive_95_percent_or_pp": [
+            -6.666666666666667,
+            40.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": 15.0,
+          "descriptive_95_percent_or_pp": [
+            -6.666666666666667,
+            40.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "missing90": {
+        "physical_success": {
+          "estimate_percent_or_pp": 25.0,
+          "descriptive_95_percent_or_pp": [
+            8.333333333333332,
+            45.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": 25.0,
+          "descriptive_95_percent_or_pp": [
+            8.333333333333332,
+            45.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "mean_perturbed": {
+        "physical_success": {
+          "estimate_percent_or_pp": -0.18518518518518554,
+          "descriptive_95_percent_or_pp": [
+            -6.666666666666667,
+            5.555555555555556
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": -0.18518518518518554,
+          "descriptive_95_percent_or_pp": [
+            -6.666666666666667,
+            5.555555555555556
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      }
+    },
+    "fusion_aug_minus_fusion_clean": {
+      "nominal": {
+        "physical_success": {
+          "estimate_percent_or_pp": -3.3333333333333335,
+          "descriptive_95_percent_or_pp": [
+            -13.333333333333334,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": -3.3333333333333335,
+          "descriptive_95_percent_or_pp": [
+            -13.333333333333334,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "occlusion25": {
+        "physical_success": {
+          "estimate_percent_or_pp": -3.3333333333333335,
+          "descriptive_95_percent_or_pp": [
+            -10.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": -3.3333333333333335,
+          "descriptive_95_percent_or_pp": [
+            -10.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "occlusion60": {
+        "physical_success": {
+          "estimate_percent_or_pp": -1.6666666666666667,
+          "descriptive_95_percent_or_pp": [
+            -10.0,
+            8.333333333333332
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": -1.6666666666666667,
+          "descriptive_95_percent_or_pp": [
+            -10.0,
+            8.333333333333332
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "absent": {
+        "physical_success": {
+          "estimate_percent_or_pp": -6.666666666666667,
+          "descriptive_95_percent_or_pp": [
+            -26.666666666666668,
+            10.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": -6.666666666666667,
+          "descriptive_95_percent_or_pp": [
+            -26.666666666666668,
+            10.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "depth003": {
+        "physical_success": {
+          "estimate_percent_or_pp": 0.0,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": 0.0,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "depth010": {
+        "physical_success": {
+          "estimate_percent_or_pp": 1.6666666666666667,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            10.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": 1.6666666666666667,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            10.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "depth025": {
+        "physical_success": {
+          "estimate_percent_or_pp": -1.6666666666666667,
+          "descriptive_95_percent_or_pp": [
+            -10.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": -1.6666666666666667,
+          "descriptive_95_percent_or_pp": [
+            -10.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "missing30": {
+        "physical_success": {
+          "estimate_percent_or_pp": -1.6666666666666667,
+          "descriptive_95_percent_or_pp": [
+            -10.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": -1.6666666666666667,
+          "descriptive_95_percent_or_pp": [
+            -10.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "missing70": {
+        "physical_success": {
+          "estimate_percent_or_pp": 1.6666666666666667,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            10.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": 1.6666666666666667,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            10.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "missing90": {
+        "physical_success": {
+          "estimate_percent_or_pp": -10.0,
+          "descriptive_95_percent_or_pp": [
+            -31.666666666666664,
+            10.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": -10.0,
+          "descriptive_95_percent_or_pp": [
+            -31.666666666666664,
+            10.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "mean_perturbed": {
+        "physical_success": {
+          "estimate_percent_or_pp": -2.407407407407408,
+          "descriptive_95_percent_or_pp": [
+            -5.740740740740742,
+            1.4814814814814818
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": -2.407407407407408,
+          "descriptive_95_percent_or_pp": [
+            -5.740740740740742,
+            1.4814814814814818
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      }
+    },
+    "fusion_clean_minus_fixed_clean": {
+      "nominal": {
+        "physical_success": {
+          "estimate_percent_or_pp": 6.666666666666667,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            20.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": 6.666666666666667,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            20.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "occlusion25": {
+        "physical_success": {
+          "estimate_percent_or_pp": 100.0,
+          "descriptive_95_percent_or_pp": [
+            100.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": 100.0,
+          "descriptive_95_percent_or_pp": [
+            100.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "occlusion60": {
+        "physical_success": {
+          "estimate_percent_or_pp": 90.0,
+          "descriptive_95_percent_or_pp": [
+            76.66666666666667,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": 90.0,
+          "descriptive_95_percent_or_pp": [
+            76.66666666666667,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "absent": {
+        "physical_success": {
+          "estimate_percent_or_pp": 73.33333333333333,
+          "descriptive_95_percent_or_pp": [
+            53.333333333333336,
+            90.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": 73.33333333333333,
+          "descriptive_95_percent_or_pp": [
+            53.333333333333336,
+            90.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "depth003": {
+        "physical_success": {
+          "estimate_percent_or_pp": 1.6666666666666667,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            10.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": 1.6666666666666667,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            10.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "depth010": {
+        "physical_success": {
+          "estimate_percent_or_pp": -1.6666666666666667,
+          "descriptive_95_percent_or_pp": [
+            -10.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": -1.6666666666666667,
+          "descriptive_95_percent_or_pp": [
+            -10.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "depth025": {
+        "physical_success": {
+          "estimate_percent_or_pp": 1.6666666666666667,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            10.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": 1.6666666666666667,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            10.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "missing30": {
+        "physical_success": {
+          "estimate_percent_or_pp": 3.3333333333333335,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            13.333333333333334
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": 3.3333333333333335,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            13.333333333333334
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "missing70": {
+        "physical_success": {
+          "estimate_percent_or_pp": 40.0,
+          "descriptive_95_percent_or_pp": [
+            23.333333333333332,
+            58.333333333333336
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": 40.0,
+          "descriptive_95_percent_or_pp": [
+            23.333333333333332,
+            58.333333333333336
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "missing90": {
+        "physical_success": {
+          "estimate_percent_or_pp": 43.333333333333336,
+          "descriptive_95_percent_or_pp": [
+            25.0,
+            61.66666666666667
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": 43.333333333333336,
+          "descriptive_95_percent_or_pp": [
+            25.0,
+            61.66666666666667
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "mean_perturbed": {
+        "physical_success": {
+          "estimate_percent_or_pp": 39.07407407407407,
+          "descriptive_95_percent_or_pp": [
+            34.99999999999999,
+            42.777777777777764
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": 39.07407407407407,
+          "descriptive_95_percent_or_pp": [
+            34.99999999999999,
+            42.777777777777764
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      }
+    },
+    "fusion_aug_minus_fixed_aug": {
+      "nominal": {
+        "physical_success": {
+          "estimate_percent_or_pp": 6.666666666666667,
+          "descriptive_95_percent_or_pp": [
+            -1.6666666666666667,
+            20.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": 6.666666666666667,
+          "descriptive_95_percent_or_pp": [
+            -1.6666666666666667,
+            20.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "occlusion25": {
+        "physical_success": {
+          "estimate_percent_or_pp": 96.66666666666667,
+          "descriptive_95_percent_or_pp": [
+            90.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": 96.66666666666667,
+          "descriptive_95_percent_or_pp": [
+            90.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "occlusion60": {
+        "physical_success": {
+          "estimate_percent_or_pp": 88.33333333333333,
+          "descriptive_95_percent_or_pp": [
+            75.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": 88.33333333333333,
+          "descriptive_95_percent_or_pp": [
+            75.0,
+            100.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "absent": {
+        "physical_success": {
+          "estimate_percent_or_pp": 66.66666666666666,
+          "descriptive_95_percent_or_pp": [
+            45.0,
+            86.66666666666667
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": 66.66666666666666,
+          "descriptive_95_percent_or_pp": [
+            45.0,
+            86.66666666666667
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "depth003": {
+        "physical_success": {
+          "estimate_percent_or_pp": 10.0,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            26.666666666666668
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": 10.0,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            26.666666666666668
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "depth010": {
+        "physical_success": {
+          "estimate_percent_or_pp": 10.0,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            25.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": 10.0,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            25.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "depth025": {
+        "physical_success": {
+          "estimate_percent_or_pp": 10.0,
+          "descriptive_95_percent_or_pp": [
+            -1.6666666666666667,
+            26.666666666666668
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": 10.0,
+          "descriptive_95_percent_or_pp": [
+            -1.6666666666666667,
+            26.666666666666668
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "missing30": {
+        "physical_success": {
+          "estimate_percent_or_pp": 15.0,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            33.33333333333333
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": 15.0,
+          "descriptive_95_percent_or_pp": [
+            0.0,
+            33.33333333333333
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "missing70": {
+        "physical_success": {
+          "estimate_percent_or_pp": 26.666666666666668,
+          "descriptive_95_percent_or_pp": [
+            10.0,
+            45.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": 26.666666666666668,
+          "descriptive_95_percent_or_pp": [
+            10.0,
+            45.0
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "missing90": {
+        "physical_success": {
+          "estimate_percent_or_pp": 8.333333333333332,
+          "descriptive_95_percent_or_pp": [
+            -15.0,
+            31.666666666666664
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": 8.333333333333332,
+          "descriptive_95_percent_or_pp": [
+            -15.0,
+            31.666666666666664
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      },
+      "mean_perturbed": {
+        "physical_success": {
+          "estimate_percent_or_pp": 36.851851851851855,
+          "descriptive_95_percent_or_pp": [
+            29.629629629629623,
+            43.893518518518455
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        },
+        "strict_v2_success": {
+          "estimate_percent_or_pp": 36.851851851851855,
+          "descriptive_95_percent_or_pp": [
+            29.629629629629623,
+            43.893518518518455
+          ],
+          "training_seeds": 3,
+          "unique_scenes": 20,
+          "bootstrap_draws": 10000
+        }
+      }
+    }
+  },
+  "sensor_identity": {
+    "all_initial_pairs_exact": false,
+    "all_raw_initial_modalities_exact": false,
+    "all_effective_policy_initial_pairs_exact": true,
+    "quality_control_sha256": "13cd05ee33d5730c56168bcdbd607f64932f3939a3f1bab24700a7b72f692e55",
+    "raw_modality_mismatches": [
+      {
+        "scene_seed": 500017,
+        "group": "fusion_aug",
+        "training_seed": 1,
+        "condition": "missing70",
+        "key": "agentview__clean__rgb",
+        "raw_result": "results/v4/test/final_fusion_aug_s1_missing70.json",
+        "raw_result_sha256": "125314fa483a1fcf318ed7611b5f017f5103cca629ccb5cf04ebb0fab00097f1",
+        "observed_npz": "artifacts/v4/evaluations/final_fusion_aug_s1_missing70/initial/500017.npz",
+        "observed_npz_sha256": "c910acbbfb8fe3abf4b0d6113fca47b6a8d2329ea91da7d348e073eec085de7a",
+        "reference_npz": "artifacts/v4/evaluations/final_fixed_clean_s0_nominal/initial/500017.npz",
+        "reference_npz_sha256": "a0dccd1788def324b1c2759744ee3d0469709ffab76ded2b061187b17f8bb300",
+        "dtype": "uint8",
+        "shape": [
+          128,
+          128,
+          3
+        ],
+        "count": 1,
+        "indices": [
+          [
+            25,
+            33,
+            2
+          ]
+        ],
+        "indices_complete": true,
+        "reference": [
+          133
+        ],
+        "observed": [
+          134
+        ],
+        "max_absolute_difference": 1.0,
+        "reference_array_sha256": "b418264b836a125bad85acea984a14ac37e500faeb5ea88633e193e6de5ef8c8",
+        "observed_array_sha256": "00b943cc54bc74262191fc7efeca6323917d902cd23ccfd45985efa06e85a8c5"
+      }
+    ],
+    "rollouts_checked": 2400,
+    "unique_clean_scenes": 20,
+    "unique_corrupted_scene_conditions": 200,
+    "reference": "fixed_clean / seed0; nominal for clean packets",
+    "mismatches": [
+      {
+        "group": "fusion_aug",
+        "condition": "missing70",
+        "training_seed": 1,
+        "scene_seed": 500017,
+        "field": "initial_clean_hash",
+        "observed": "501ee007ceff0baeec16f9eb209612d25efef7f0c7e434b1084f3dae79a90c14",
+        "reference": "df87d83a3898c0b90962d96c2477c92cfd49c913480ae7e41667395aa0463ae1"
+      }
+    ],
+    "treatment": "All 2400 raw outcomes retained, with no exclusion or rerun. Post-test QC requires bit-exact clean/corrupted sampled points, masks, state, depth and calibration. One raw RGB component differs by one 8-bit level outside the effective sampled-point representation. The raw-image exception remains false under the strict raw hash check; its cause is unproven. The policy never receives the full RGB image."
+  },
+  "input_sha256": {
+    "results/v4/test/final_fixed_aug_s0_absent.json": "0305258944f446bd3969b385b8f79f6854e05a5f60aa45c25e557f3df80e205a",
+    "results/v4/test/final_fixed_aug_s0_depth003.json": "3271f5499af519bf0c9d847dae87a8c3609ad0d652675a146ae33a06930d1ced",
+    "results/v4/test/final_fixed_aug_s0_depth010.json": "ba1cce0848eeb618b2998cf9af9aea40fa122cad1bc67410167654e2db3e0315",
+    "results/v4/test/final_fixed_aug_s0_depth025.json": "f2dc9d9c1395a1c7a4f71497ae50436dd1d99dfc2f0e08fb6ddf4d41db5a15fa",
+    "results/v4/test/final_fixed_aug_s0_missing30.json": "f63649bd26afe5b8c2752290f143eea472954ae3222e0585a76c8aae797f964f",
+    "results/v4/test/final_fixed_aug_s0_missing70.json": "ee73b9735b1d1cbb53da78d6924c88d672818ad02058eea4df68f3127881696c",
+    "results/v4/test/final_fixed_aug_s0_missing90.json": "0e6dce077f79862df058e3dae5ca59b9c288ac8f9774b3209645a0854c239b2c",
+    "results/v4/test/final_fixed_aug_s0_nominal.json": "c4e4ef5c21434918d4eccb69b8d7e7b51e2879bed90e5e19cac8b7acce10902c",
+    "results/v4/test/final_fixed_aug_s0_occlusion25.json": "914254c54ed2ef2b7ae555a51cab88c5b9b60189b5c578ed99d6f23236228f3b",
+    "results/v4/test/final_fixed_aug_s0_occlusion60.json": "5efa8abdd2e427a10cbf9e1bce50f608cf883b626bfe7631603241e5a0cb1fb1",
+    "results/v4/test/final_fixed_aug_s1_absent.json": "76285e3d58105eee9b562eca1eb00b110df2196c9e9e850a9b0d9f70afb6c6cd",
+    "results/v4/test/final_fixed_aug_s1_depth003.json": "04b863e7eced1fb620f249b3fc7b523df000d8aa5e10bc66bff9c884b27901b2",
+    "results/v4/test/final_fixed_aug_s1_depth010.json": "906c1b262435367bb68b4853c17d7c93ae7ec94ae02b558491daceb42c86ba3f",
+    "results/v4/test/final_fixed_aug_s1_depth025.json": "17cf3e055a9226d583b71721e02b5911b065000e6377f4b7260929e64a83fabf",
+    "results/v4/test/final_fixed_aug_s1_missing30.json": "3a60acd8f0ed66a21dee7b4029462136af2ce5041a32d4d9a787202f8a5aea6a",
+    "results/v4/test/final_fixed_aug_s1_missing70.json": "76f7b64e185b7d139cc60e71a1699756ad75cb52eba0c72cd256adaab04b3eca",
+    "results/v4/test/final_fixed_aug_s1_missing90.json": "15bfa0f940b4b7e99f5ff936924aedf38249f4a96445e1dda65e04b74cf12a53",
+    "results/v4/test/final_fixed_aug_s1_nominal.json": "56c0d9e9a880fa4a52d40b7e3eeed628b5944a7be3fe819d6834f97d67f775f3",
+    "results/v4/test/final_fixed_aug_s1_occlusion25.json": "2e52b96d08a6c7a694ca1d8f6a306f6da7e60e40aec2b1b8f28d0c28c53731b3",
+    "results/v4/test/final_fixed_aug_s1_occlusion60.json": "89185a8d760da745416dba665dfc565e3f3adb3a3bca802b6b7810885989fb28",
+    "results/v4/test/final_fixed_aug_s2_absent.json": "d74a308c896a4efbf1dd8c589233e806a379d9efb5dff58b08584508c2a5899c",
+    "results/v4/test/final_fixed_aug_s2_depth003.json": "d6f8dfa47cff4325fcc1082045ebec64470ad8a89e31d7bdcee0038f973c48f8",
+    "results/v4/test/final_fixed_aug_s2_depth010.json": "78ca86d52e9ff34019f6f7db94263dc3b874bff71c410ef0c3c26b580044c52e",
+    "results/v4/test/final_fixed_aug_s2_depth025.json": "8d6dd19c4fe83e2b09dc5786709d856412d5b755103e373918e8b3a21e8c9163",
+    "results/v4/test/final_fixed_aug_s2_missing30.json": "c46479d69d8a901c8733a8788632ec48fd5305eef93ee5440c85414e2ff79756",
+    "results/v4/test/final_fixed_aug_s2_missing70.json": "ac49b26da8ed6a3bff90b36cdbc6bca5a7038472c863b096d74995515dfed3b8",
+    "results/v4/test/final_fixed_aug_s2_missing90.json": "72d2d41be0443921f52afb57e43ce6d1f96b9f71b47c8f4ed86b2dc2d2387b9c",
+    "results/v4/test/final_fixed_aug_s2_nominal.json": "442a36fa3c574d2aaae9f85d9fc015c6fd7dc8b538e6d0d7481e1af774258e19",
+    "results/v4/test/final_fixed_aug_s2_occlusion25.json": "61819622cc1a56087d11cb37da43336ca03bf3d0b1b614cd36faeedb10ea363e",
+    "results/v4/test/final_fixed_aug_s2_occlusion60.json": "0881777ffa30d01dbe449b17b45379fdfe0aec477715f933a207fe01004fb079",
+    "results/v4/test/final_fixed_clean_s0_absent.json": "401f2e338646d9d0f10f96479d563f06881754653df34369a03c0c99b0f48201",
+    "results/v4/test/final_fixed_clean_s0_depth003.json": "b187aa43917e204423d1b6086e69fec83f82952ce92019f063957db3775cd9aa",
+    "results/v4/test/final_fixed_clean_s0_depth010.json": "7f10682048509f59e5617fa30f7d5ab9cb37af92033c61bead25e12d22a1abf6",
+    "results/v4/test/final_fixed_clean_s0_depth025.json": "8971842a1c1b3b93319c13b5e6bb6dcaaff8baecd445308fcbf3c51e6fb56fe4",
+    "results/v4/test/final_fixed_clean_s0_missing30.json": "d3112a9d719b0e1398c1a514640ef3c50d16cc9a3937b020dc849cbb881a879a",
+    "results/v4/test/final_fixed_clean_s0_missing70.json": "ed2621b4e9e90e09ff39fbd751188715da7df00a579b57ec3960dc94a20922b5",
+    "results/v4/test/final_fixed_clean_s0_missing90.json": "17cc84616350aabc280f70b6d7b78534c7d12ff3ff67cbe54d7607bf7eb14518",
+    "results/v4/test/final_fixed_clean_s0_nominal.json": "a78ab4617441c41857f28acc7c5fff9050734c9be692bcf44363ac2eb8eee044",
+    "results/v4/test/final_fixed_clean_s0_occlusion25.json": "02533af42362f6e21b7a19d9c9baf0111d524e8dddf76215dd0c5f53ff5de916",
+    "results/v4/test/final_fixed_clean_s0_occlusion60.json": "62fefd9bb2448048ba57cb4c89d54ca95d8db20fcf8cf9325b5d63ee98cb4ea3",
+    "results/v4/test/final_fixed_clean_s1_absent.json": "8320391a4809575921c3f115a872d3df77fa5031dd7a62c2b284db62938ef8cb",
+    "results/v4/test/final_fixed_clean_s1_depth003.json": "cbb93be39aac3b16609b7cb0e3f47df053981e25714eebcd3a81fe55edf40131",
+    "results/v4/test/final_fixed_clean_s1_depth010.json": "058453046c91d3c1944146fef49a2cbba890328ff936332f71f893599fa530c3",
+    "results/v4/test/final_fixed_clean_s1_depth025.json": "55863442def4c7d2e6d305a350155f1b2ffff8463280f790ac8e2067b91512fd",
+    "results/v4/test/final_fixed_clean_s1_missing30.json": "e2030f044812bbadf4ba22b66fbd174e02ca835d6a5eef706b9e3a0ab51e997e",
+    "results/v4/test/final_fixed_clean_s1_missing70.json": "9f2c8ba32cacab35fb65037de0e9846329f13c6d60360ae2c6f9ba04ffa6733b",
+    "results/v4/test/final_fixed_clean_s1_missing90.json": "d5a57bb02feec308b6fe39abacb6adadfd5a986dfc02f722c49ab339dc4589fd",
+    "results/v4/test/final_fixed_clean_s1_nominal.json": "1492601e6d9f7f82cef1baf87be39455e6fa788ed7f78198deefb000a5a062a8",
+    "results/v4/test/final_fixed_clean_s1_occlusion25.json": "a394b37f0f0ceecb2a8bc52ae65a279ad6d715c5539fb95223c657a0d43a5488",
+    "results/v4/test/final_fixed_clean_s1_occlusion60.json": "b82bdef936e212bd430962fd63fdd9ac19974d31f4bd54e311c9bb26c59bdece",
+    "results/v4/test/final_fixed_clean_s2_absent.json": "bc358dbafda99c22ca7b5965e2fcb38894ac0c3d2b378516aa78da5694968aa4",
+    "results/v4/test/final_fixed_clean_s2_depth003.json": "06f1895ccba19a939edfd88dc607e763415bdcb6edee3070e14241cc8bd8798d",
+    "results/v4/test/final_fixed_clean_s2_depth010.json": "a603c36c8129c6a023b57a2b7d8a0fe4a2e203acfe8906a510aa9d5841e11da0",
+    "results/v4/test/final_fixed_clean_s2_depth025.json": "dbc055fb87314fa16036a558dcd5559e74330a991f4fd4d6c4b6a27a19afa64c",
+    "results/v4/test/final_fixed_clean_s2_missing30.json": "33e7fdcff3453e8a65b6fd65caaf5927a959d7490dc9757fdec8b6a5bcfc3d47",
+    "results/v4/test/final_fixed_clean_s2_missing70.json": "9139ec19064ce5bac7e99512a33549b648df404597ff7f9f952af36c17000af9",
+    "results/v4/test/final_fixed_clean_s2_missing90.json": "e4eb7d15dbd1f0fb13e270508cf35ed51e219d579fc1e214af59f6d9d109101d",
+    "results/v4/test/final_fixed_clean_s2_nominal.json": "fabb9371ce4efc28156977472b792c953e556d62e8547bce92622a0408737f75",
+    "results/v4/test/final_fixed_clean_s2_occlusion25.json": "e4f18ff734e8676c0ece12df650c847a1727be0aae18d3c3962f36c0e5c5d595",
+    "results/v4/test/final_fixed_clean_s2_occlusion60.json": "434422e53556b9804a501d6993f6c96a74cca57b5d88f35519a910dc7fcd87f1",
+    "results/v4/test/final_fusion_aug_s0_absent.json": "f86bf76dc8c3c99fcac86a2e2bd23f30c950a37b85c745fc4d28d828d830f4bf",
+    "results/v4/test/final_fusion_aug_s0_depth003.json": "90a385be66d5ca6ad1ef11fa80a5e10a5c40dab9646f9159c5fc5b2699928f1b",
+    "results/v4/test/final_fusion_aug_s0_depth010.json": "5e441bf229928547b2448f149d208b865531c5a6d85ec58d02eda86b9379cdd0",
+    "results/v4/test/final_fusion_aug_s0_depth025.json": "abe09819ed7a37eb5494c168070f2d2d258561fcd1455f4776067f2fec504128",
+    "results/v4/test/final_fusion_aug_s0_missing30.json": "230e3794eb8b5f9c05026d52265473abcc234453b22463b3269638d940dc5c7a",
+    "results/v4/test/final_fusion_aug_s0_missing70.json": "052b5af343cbbfcd5b4e7286412a87d2830e08a69991225415ee71cc13b4dee7",
+    "results/v4/test/final_fusion_aug_s0_missing90.json": "53c1b9b5330117de1956c1d0714b3bb3d31d19d469e4e9396ee59a54e5465587",
+    "results/v4/test/final_fusion_aug_s0_nominal.json": "308b0fe3c910c18e295611e57cbcccaa701051aa87e6b2efe0dfe5eff32373af",
+    "results/v4/test/final_fusion_aug_s0_occlusion25.json": "90078426b55f64c7867460c8b0e4fa1b50a3808ef19831e7a457fe0f6adecdc3",
+    "results/v4/test/final_fusion_aug_s0_occlusion60.json": "c138f34d765f5878480600377fa02f6065048713f316bfc3ee115bbd07433400",
+    "results/v4/test/final_fusion_aug_s1_absent.json": "ea6f859035595cf982a05cb2039ae1694f159b058d72769e5ee802b65c47a334",
+    "results/v4/test/final_fusion_aug_s1_depth003.json": "a092672b41f87b016ced3ee1c7f920c07f4e610482e91a599dfd0ab110d3af8f",
+    "results/v4/test/final_fusion_aug_s1_depth010.json": "1596a3c9ea191ff2ed61b76144b1d50415c3b2341697331bbb9e9ad297b12891",
+    "results/v4/test/final_fusion_aug_s1_depth025.json": "d177c19189cc4c348b27e74ba2b27f35b090ae9978f0ff0b7b4a294d89f8e5c0",
+    "results/v4/test/final_fusion_aug_s1_missing30.json": "7b15c82be1a966dbd9e10c4c0cce0538b63ee50fc8f78c656e7998d815d32e67",
+    "results/v4/test/final_fusion_aug_s1_missing70.json": "125314fa483a1fcf318ed7611b5f017f5103cca629ccb5cf04ebb0fab00097f1",
+    "results/v4/test/final_fusion_aug_s1_missing90.json": "d3646d6da1e1a187ad7c45d1511d36b3dc1a6bd7c55f019f07137470998d8f3b",
+    "results/v4/test/final_fusion_aug_s1_nominal.json": "1e42ae71efade1950ccf664652357fb5fd22fcde012fc23b312e7d5e97dc6b8b",
+    "results/v4/test/final_fusion_aug_s1_occlusion25.json": "d08fdd1a7fb111c64a84588bbed9dcdedb137a00558009f9b8ffb8ae9e572057",
+    "results/v4/test/final_fusion_aug_s1_occlusion60.json": "db9f7f07e73304b6198294c3f0700baf86eae097b8aca4141c1f6486730e90c4",
+    "results/v4/test/final_fusion_aug_s2_absent.json": "5b03707b328ca9b563cb215cee014614482a28825b55aa3769f50cc6a604887f",
+    "results/v4/test/final_fusion_aug_s2_depth003.json": "48c9420ef04c5400235a413cea88d3c72819137cdad2ff531b8a2e2b8a7d0084",
+    "results/v4/test/final_fusion_aug_s2_depth010.json": "4d13434ac93c597db3a18cdcb13c0c8ce908a92bbd8eb15d1377bc0265d0ee07",
+    "results/v4/test/final_fusion_aug_s2_depth025.json": "106ee8c53de81bb803a45ad6bfab8d094231d8d9eb93a88fe835bdeb997bc578",
+    "results/v4/test/final_fusion_aug_s2_missing30.json": "8d362cc1d6f8f6dedcba441e9fbff7214e741619ad85b75aa76101fe56af8a0c",
+    "results/v4/test/final_fusion_aug_s2_missing70.json": "ba47e2e4c9ebf7142684ed617134d954b91aa65c4e5f468b3a7453a35bdbb982",
+    "results/v4/test/final_fusion_aug_s2_missing90.json": "3299773c80e69e3cd5b844ba24862baacbe412d000f64e1443a7a3765f0bfa73",
+    "results/v4/test/final_fusion_aug_s2_nominal.json": "e16889f6723bf422fc6e5dc0cbada29513754fd8eddc285c756473cec1426cc4",
+    "results/v4/test/final_fusion_aug_s2_occlusion25.json": "79a06ae9fe25fc412a7d3539db6332e9ee4ee00217e1c679f98cb07b9308f905",
+    "results/v4/test/final_fusion_aug_s2_occlusion60.json": "379044ec37894ab6272321c43913664bcd24f6ac292fe2d04b19c0e12124a3e5",
+    "results/v4/test/final_fusion_clean_s0_absent.json": "6cd25eb1441ac561c4b4215623a6f8845589e791e89a311744fb6e2d4454af3d",
+    "results/v4/test/final_fusion_clean_s0_depth003.json": "9d599c224c4c82854108bf85d4a9fafe6f02c1fe0fb37a8d30c900dcdde7d42e",
+    "results/v4/test/final_fusion_clean_s0_depth010.json": "1f77c36f8b633c4597581393fd30d9fbf9a34bafb872e31d9e910520a26be5cf",
+    "results/v4/test/final_fusion_clean_s0_depth025.json": "9150cac5b97d20f429febb40bc5c64d6565fdfdced28c83632673455349df2b4",
+    "results/v4/test/final_fusion_clean_s0_missing30.json": "5cd60fd662b374bb721cf0f431549082c18d955f821cb40f6b768a5106264889",
+    "results/v4/test/final_fusion_clean_s0_missing70.json": "8de48c04e756b811f65c0bcca7803dac2bd43c3943e675e256a072d05eca0401",
+    "results/v4/test/final_fusion_clean_s0_missing90.json": "87268973ab84f40dad1d43b9acf97438ac64ef4a71f58fede090f594dd036d08",
+    "results/v4/test/final_fusion_clean_s0_nominal.json": "820116e42af73960bdd060c24a1ff1057b6ea65a792dc680e5cd93fcb4affce0",
+    "results/v4/test/final_fusion_clean_s0_occlusion25.json": "6b1efa762c058050ce782b4c8a7280a51512f4291044a48b852cbed3501177b3",
+    "results/v4/test/final_fusion_clean_s0_occlusion60.json": "e506d2df2db214bde3056460d2081e53aadd21976dbaf24f9ab295eac8397f71",
+    "results/v4/test/final_fusion_clean_s1_absent.json": "1dc39521f23a665de5a26d9945fd73523dff846997bbb4a14faa4e6410ccda2c",
+    "results/v4/test/final_fusion_clean_s1_depth003.json": "6c58d9e78a4a21c77bb81a6cb79e5419a67e20de173be1fb07b98dfae6fea5bf",
+    "results/v4/test/final_fusion_clean_s1_depth010.json": "cffeb27f03f25821b7939bcc64051b4deac8151f80d5ce66b6f60728aa5e42b3",
+    "results/v4/test/final_fusion_clean_s1_depth025.json": "40ee7c4284439a5897f46a5201a1aa0aa034ca9693405eafefdfb627b62d4fb4",
+    "results/v4/test/final_fusion_clean_s1_missing30.json": "7ee3a1804a6451a30abb2968b2d064a9bdb46af8b7ee70cde208b4ed30cf150e",
+    "results/v4/test/final_fusion_clean_s1_missing70.json": "284fad56253e8cd42f37e6601db4fe1b191d86fd5dde5e11fbff76ebad89f0a4",
+    "results/v4/test/final_fusion_clean_s1_missing90.json": "2d583825ecfe992abbf13ae729d573916c92f65127fbe5fb477932a0d703ec83",
+    "results/v4/test/final_fusion_clean_s1_nominal.json": "5e0682abdf7b9a5f9afe56350ab87d530a60390ff7c3d85588e5147e8081e9cd",
+    "results/v4/test/final_fusion_clean_s1_occlusion25.json": "a10bf56fcf8407b51e5250acce431ba57f258794b6aafe9a4f7a23b3a28dad33",
+    "results/v4/test/final_fusion_clean_s1_occlusion60.json": "ef4376cf2ed2c5926cd745cd1c5deca167a68282b472454d4216fac961283ded",
+    "results/v4/test/final_fusion_clean_s2_absent.json": "1bf7cf0000dded82c5b3aff34b12395c60e1ba1c570e30ce8e5d28f9718c22af",
+    "results/v4/test/final_fusion_clean_s2_depth003.json": "9079cf0eed4c6de37494fbb61efe5118b9a1eaeb4cedf14aa09876a4ccb39e46",
+    "results/v4/test/final_fusion_clean_s2_depth010.json": "2706f4dc8d03225aa4638b0c1bfc9c5479242736e858f0d4733cdcdc4341d1ab",
+    "results/v4/test/final_fusion_clean_s2_depth025.json": "ccdd46865290d49cf3ea70329366ca96a09ed864b893c3ea21c42bbecf04daa1",
+    "results/v4/test/final_fusion_clean_s2_missing30.json": "d3bd81c6b3e0f75e6e9df7d35840f62404b6e9a610eeef6cbd240526bffbedc6",
+    "results/v4/test/final_fusion_clean_s2_missing70.json": "2e83c94cb167b28916af34bc09dc63d834de0bb047f3a77cb9dc9ce68c3abded",
+    "results/v4/test/final_fusion_clean_s2_missing90.json": "3e0d000a1e93136042b3e10eb4a912490f575db3ada84c49f890063ace8d9eda",
+    "results/v4/test/final_fusion_clean_s2_nominal.json": "05ca987bcd6f1f66f9d57f3671045408e887b05cbbf43ea8c5e376038b45639e",
+    "results/v4/test/final_fusion_clean_s2_occlusion25.json": "4890041327e71123c5f522f6daf78d2143e76889adde9007eb79093731a92f8e",
+    "results/v4/test/final_fusion_clean_s2_occlusion60.json": "bc652bd625d6b19643922cd80f525948d1801b6a5c529f82b6f83fdf79897eb0"
+  },
+  "statistics": {
+    "method": "Descriptive crossed training-seed/scene paired bootstrap",
+    "draws": 10000,
+    "rng_seed": 81,
+    "level": 0.95,
+    "multiplicity_correction": false,
+    "condition_resampling": false,
+    "uncertainty": "Three training seeds and twenty repeated scenes; conditions are fixed. Ceiling/floor bootstrap intervals cannot reveal unobserved outcomes. No equivalence or noninferiority claim from a nonsignificant contrast."
+  },
+  "scope": "Synthetic degradation after sensor acquisition, with an ideal simulated camera calibration and known object colors. No real sensor or robot transfer evaluated.",
+  "plan_sha256": "4852dcdea9443e21b8ae88659c21005a30601984e84ef840f1eba163a41a2cf8",
+  "protocol_sha256": "81af3e6f97cbeb25cb48169dc644ce2001db4386e0c26ab305a07beecd1175d7",
+  "report_source_sha256": "fe49471169b01098e124574943a68176f6014464062b57ef7f7cc22a9fb20a44",
+  "training_evidence": {
+    "cells": {
+      "fixed_clean_s0": {
+        "actual_train_episodes": 79,
+        "training_frames": 9986,
+        "completed_update": 2000,
+        "best_checkpoint_sha256": "01d127bcf4894bed582e9bf9dc569472288f95c6669afab51fd676dd255629b7"
+      },
+      "fixed_clean_s1": {
+        "actual_train_episodes": 79,
+        "training_frames": 9986,
+        "completed_update": 2000,
+        "best_checkpoint_sha256": "3e8cbb20c6b8c708cd89224b5162c54b30465a878247cc9e3a86159fd5ddf8fc"
+      },
+      "fixed_clean_s2": {
+        "actual_train_episodes": 79,
+        "training_frames": 9986,
+        "completed_update": 2000,
+        "best_checkpoint_sha256": "7e7ee8d7848ccc31d070bab8565fb4a2da803b069738b6c5b6f8572819c23da2"
+      },
+      "fixed_aug_s0": {
+        "actual_train_episodes": 79,
+        "training_frames": 9986,
+        "completed_update": 2000,
+        "best_checkpoint_sha256": "1d50cc5e82b0ba3cf908af2f946b57c5fdee5a2cb2a849f027bdf4d3ee5ec654"
+      },
+      "fixed_aug_s1": {
+        "actual_train_episodes": 79,
+        "training_frames": 9986,
+        "completed_update": 2000,
+        "best_checkpoint_sha256": "76634a37de803c45d17bafd3ab1d47cc9802aecc54a51430b3ded093c94ec902"
+      },
+      "fixed_aug_s2": {
+        "actual_train_episodes": 79,
+        "training_frames": 9986,
+        "completed_update": 2000,
+        "best_checkpoint_sha256": "6fb4c102ad11abe5b05127b359af533f62bb2b023d942d56368450a78aed021c"
+      },
+      "fusion_clean_s0": {
+        "actual_train_episodes": 79,
+        "training_frames": 9986,
+        "completed_update": 2000,
+        "best_checkpoint_sha256": "931ee36c3dcc56b652b8d4d58471eea4094b3729ca63d6414eef9b1137dad93d"
+      },
+      "fusion_clean_s1": {
+        "actual_train_episodes": 79,
+        "training_frames": 9986,
+        "completed_update": 2000,
+        "best_checkpoint_sha256": "66b6a462399ac342dc3db1a941703045312a38b61424153237c294aa84312547"
+      },
+      "fusion_clean_s2": {
+        "actual_train_episodes": 79,
+        "training_frames": 9986,
+        "completed_update": 2000,
+        "best_checkpoint_sha256": "480f88ce68d89b2c80ea6c5d50372ad9db9d8797e04fc1f1ea6406cbff445b09"
+      },
+      "fusion_aug_s0": {
+        "actual_train_episodes": 79,
+        "training_frames": 9986,
+        "completed_update": 2000,
+        "best_checkpoint_sha256": "94411bb66d42dd0496f7da7b6e035c9a3d3fcfbfd02a529335ac74be16bd6def"
+      },
+      "fusion_aug_s1": {
+        "actual_train_episodes": 79,
+        "training_frames": 9986,
+        "completed_update": 2000,
+        "best_checkpoint_sha256": "ae3d1b27fd016a31aa1f3c54a771bf93ffbee56569960ce4933fa6c13fa2677a"
+      },
+      "fusion_aug_s2": {
+        "actual_train_episodes": 79,
+        "training_frames": 9986,
+        "completed_update": 2000,
+        "best_checkpoint_sha256": "1f6d219fa52675242372dc6bf8ab3b9918e9e4e3cdcbf530fc499a34cacff176"
+      }
+    },
+    "input_sha256": {
+      "results/v4/training/fixed_clean_s0.json": "9ca22467415c7267088d6659e489fd22f86ea70bc5d98215fe8bc3bf7c942b90",
+      "results/v4/training/fixed_clean_s1.json": "58e17bf849cb65ca096f8d7f78f89babfb80241725953e172102c3b029b0baab",
+      "results/v4/training/fixed_clean_s2.json": "b003d903c68d1acba00ac12a3c49a9a3db3723312e2a47b8447ab6857366ff17",
+      "results/v4/training/fixed_aug_s0.json": "78bf80ef0a61295eebce2d955d586fdf1e32bfe3f01122ee42934842a8e78bed",
+      "results/v4/training/fixed_aug_s1.json": "9a9cef38c8f9c97a39ad7eba0f2faa482ef5ca157f1897c3badf3df104bea94d",
+      "results/v4/training/fixed_aug_s2.json": "7a338b4abda5e35ac2ea9c441e45b1bc83b5eeca27d91dfc24cfe0d875c00513",
+      "results/v4/training/fusion_clean_s0.json": "4c4112321197027dae16bff12062317f4248447f182c7feece255bea78f355d3",
+      "results/v4/training/fusion_clean_s1.json": "896e7bdbee33d2f48e2735c71fce5359e9fdfb0318842d18609941a00f5ac7c6",
+      "results/v4/training/fusion_clean_s2.json": "27d7ce5cb36740ed0b78e6fc6a111c7f68e5782e77a8c0e382dd9d86ee8796e1",
+      "results/v4/training/fusion_aug_s0.json": "b8022491dd66a279dd772f34db300530849893f6686040e776ac709325b83732",
+      "results/v4/training/fusion_aug_s1.json": "e7270da642aa3bde7f2f00d47cb81057da1beb3590a4f7e397ea97211189e4b8",
+      "results/v4/training/fusion_aug_s2.json": "e134388ba4fc4362f60d5662719af3058421004b952b47fc3915e89cd94b40f2"
+    },
+    "matched_data_and_budget": true
+  }
+}

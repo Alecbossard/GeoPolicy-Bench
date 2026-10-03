@@ -17,19 +17,36 @@ def dump(path, value):
     path.write_text(json.dumps(value, indent=2), encoding="utf8")
 
 
+def verify_source_files(sources):
+    for relative, expected in sources.items():
+        observed = hashlib.sha256(
+            (ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
+        ).hexdigest()
+        assert observed == expected, f"Frozen source changed: {relative}"
+
+
 def export():
-    import torch
-    from geopolicy.v4.common import sha
+    from geopolicy.v4.common import sha, verify_runtime
 
     protocol = json.loads(
         (ROOT / "configs/v4/final_protocol.json").read_text(encoding="utf8")
     )
+    verify_runtime(protocol)
+    verify_source_files(protocol["sources"])
+    assert sha(ROOT / "configs/v4/plan.json") == protocol["plan_sha256"]
+    configurations = {
+        "configs/v4/plan.json": protocol["plan_sha256"],
+        "configs/v3/plan.json": sha(ROOT / "configs/v3/plan.json"),
+    }
     record = next(r for r in protocol["registry"] if r["name"] == "fusion_aug_s0")
+    assert sha(ROOT / record["checkpoint"]) == record["sha256"]
     name = "final_fusion_aug_s0_absent"
     result = json.loads(
         (ROOT / f"results/v4/test/{name}.json").read_text(encoding="utf8")
     )
     row = next(r for r in result["rollouts"] if r["scene_seed"] == 500000)
+    import torch
+
     original = torch.load(
         ROOT / record["checkpoint"], map_location="cpu", weights_only=False
     )
@@ -42,7 +59,6 @@ def export():
     )
     torch.save(compact, out / "checkpoint.pt")
     source = ROOT / f"artifacts/v4/evaluations/{name}"
-    assert sha(ROOT / record["checkpoint"]) == record["sha256"]
     shutil.copy2(source / "initial/500000.npz", out / "expected_initial.npz")
     shutil.copy2(source / "traces/500000.json", out / "expected_trace.json")
     dump(out / "expected_row.json", row)
@@ -57,6 +73,11 @@ def export():
         source_ema_hash=record["ema_hash"],
         expected_trace_sha256=sha(out / "expected_trace.json"),
         expected_initial_sha256=sha(out / "expected_initial.npz"),
+        expected_row_sha256=sha(out / "expected_row.json"),
+        source_code_sha256=protocol["sources"],
+        configuration_sha256=configurations,
+        python_version=protocol["python_version"],
+        packages=protocol["packages"],
     )
     dump(out / "manifest.json", manifest)
     bundle = ROOT / "artifacts/v4/portable_demo"
@@ -73,6 +94,11 @@ def export():
         dst = bundle / rel
         dst.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(ROOT / rel, dst)
+    for relative in ("LICENSE", "docs/THIRD_PARTY_NOTICES.md"):
+        if (ROOT / relative).is_file():
+            destination = bundle / relative
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(ROOT / relative, destination)
     for p in out.iterdir():
         if p.is_file() and p.name in (
             "checkpoint.pt",
@@ -85,7 +111,7 @@ def export():
             dst.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(p, dst)
     (bundle / "README.md").write_text(
-        "# Local V4 demo\n\nFrom this directory, use pinned Python3.11 dependencies and run:\n\n```powershell\npython scripts/v4/demo.py replay\n```\n\nNo training data required. One cube, one tray, fixed instruction; fixed RGB-D camera representation absent. Source scene500000 was predeclared, not chosen by success. Raw simulator RGB and the effective sampled-point input are both shown. No real-robot transfer claim.\n",
+        "# Local V4 demo\n\nPrerequisites: Python3.11.9, Windows with NVIDIA driver/nvidia-smi and the local RTX4060 environment. From this extracted directory, create an isolated environment, install the pinned dependencies, and replay:\n\n```powershell\npython -m venv .venv-demo\n.venv-demo\\Scripts\\python.exe -m pip install -r requirements-lock.txt --extra-index-url https://download.pytorch.org/whl/cu128\n.venv-demo\\Scripts\\python.exe scripts/v4/demo.py replay\n```\n\nWith an existing Python3.11.9 environment containing exactly the pinned versions, run `python scripts/v4/demo.py replay`. The manifest verifies the exact Python/package versions, frozen source hashes and compact checkpoint before loading it.\n\nNo training data or original optimization checkpoint required. One cube, one tray, fixed instruction; fixed RGB-D camera representation absent. Source scene500000 was predeclared, not chosen by success. Raw simulator RGB and the effective sampled-point input are both shown. No real-robot transfer claim. See LICENSE and docs/THIRD_PARTY_NOTICES.md for project and dependency notices when included.\n",
         encoding="utf8",
     )
     with zipfile.ZipFile(
@@ -106,6 +132,31 @@ def export():
 
 
 def replay(output):
+    from geopolicy.v4.common import read, sha, verify_runtime
+
+    output = (ROOT / output).resolve()
+    assert output.is_relative_to(ROOT / "artifacts/v4")
+    base = ROOT / "artifacts/v4/demo"
+    meta = read(base / "manifest.json")
+    verify_runtime(meta)
+    verify_source_files(meta["source_code_sha256"])
+    assert set(meta["configuration_sha256"]) == {
+        "configs/v4/plan.json",
+        "configs/v3/plan.json",
+    }
+    # Configuration fingerprints preserve their original bytes, including newlines.
+    for relative, expected in meta["configuration_sha256"].items():
+        assert (
+            sha(ROOT / relative) == expected
+        ), f"Frozen configuration changed: {relative}"
+    source_checkpoint = ROOT / meta["source_checkpoint"]
+    if source_checkpoint.exists():
+        assert sha(source_checkpoint) == meta["source_sha256"]
+    assert sha(base / "checkpoint.pt") == meta["compact_sha256"]
+    assert sha(base / "expected_trace.json") == meta["expected_trace_sha256"]
+    assert sha(base / "expected_initial.npz") == meta["expected_initial_sha256"]
+    assert sha(base / "expected_row.json") == meta["expected_row_sha256"]
+
     import numpy as np
     import torch
     import imageio.v2 as iio
@@ -116,18 +167,10 @@ def replay(output):
     from geopolicy.sensors import camera_packet, student_state
     from geopolicy.v4.perturbations import CAMERAS, perturb, evaluation_rng
     from geopolicy.v4.data import live_batch
-    from geopolicy.v4.common import read, sha
     from geopolicy.v2.resources import ResourceWatch
     from geopolicy.v4.training import tensor_hash
 
-    output = (ROOT / output).resolve()
-    assert output.is_relative_to(ROOT / "artifacts/v4")
     output.mkdir(parents=True, exist_ok=True)
-    base = ROOT / "artifacts/v4/demo"
-    meta = read(base / "manifest.json")
-    assert sha(base / "checkpoint.pt") == meta["compact_sha256"]
-    assert sha(base / "expected_trace.json") == meta["expected_trace_sha256"]
-    assert sha(base / "expected_initial.npz") == meta["expected_initial_sha256"]
     saved = torch.load(base / "checkpoint.pt", map_location="cpu", weights_only=False)
     cfg = saved["config"]
     norm = saved["normalization"]
@@ -155,6 +198,9 @@ def replay(output):
         degraded = perturb(initial, condition, evaluation_rng(meta["scene_seed"], 0))
         with np.load(base / "expected_initial.npz") as f:
             sensor_exact &= np.array_equal(f["state"], student_state(obs))
+            sensor_exact &= np.array_equal(
+                f["world_from_base"], initial["world_from_base"]
+            )
             for c in CAMERAS:
                 for k in (
                     "rgb",
@@ -236,17 +282,11 @@ def replay(output):
             obs, _, done, info = env.step(action)
             tracker.update(env, obs, action, info)
             actual = tracker.trace[-1]
-            for k in (
-                "selected_xyz_m",
-                "rotation",
-                "goal_xyz_m",
-                "finger_width_m",
-                "linear_speed_m_s",
-                "angular_speed_rad_s",
-            ):
-                physics_exact &= np.array_equal(
-                    np.asarray(actual[k]), np.asarray(target[k])
-                )
+            # Include every physical/evaluator field, including contact, timing,
+            # release and dwell-validity flags. Actions were checked as float32.
+            physics_exact &= {k: v for k, v in actual.items() if k != "action"} == {
+                k: v for k, v in target.items() if k != "action"
+            }
     finally:
         env.close()
     assert len(frames) == len(expected)
@@ -271,6 +311,9 @@ def replay(output):
         video_sha256=sha(output / "demo.mp4"),
         rule=meta["selection_rule"],
         source=meta["source_checkpoint"],
+        physics_fields="All physical/evaluator trace fields except action, checked separately as float32",
+        frozen_runtime_verified=True,
+        frozen_sources_verified=True,
     )
     dump(output / "verification.json", verified)
     print(json.dumps(verified), flush=True)

@@ -243,7 +243,7 @@ def training_evidence(plan: dict) -> dict:
 
 
 def verify_identity(rows: list[dict]) -> dict:
-    """Require identical clean scenes and corrupted packets, before view selection."""
+    """Require exact policy inputs; retain and explain every raw-modality difference."""
     indexed = {
         (r["group"], r["condition"], r["training_seed"], r["scene_seed"]): r
         for r in rows
@@ -269,23 +269,43 @@ def verify_identity(rows: list[dict]) -> dict:
                         "reference": reference[field],
                     }
                 )
+    qc_path = ROOT / "results/v4/initial_sensor_qc.json"
+    qc = read(qc_path)
+    assert qc["checked_rollouts"] == len(rows) == 2400
+    for rel, expected in qc["raw_result_sha256"].items():
+        assert sha(ROOT / rel) == expected, f"QC raw input changed: {rel}"
+    assert len(qc["raw_result_sha256"]) == 120
+    assert qc["all_effective_policy_initial_pairs_exact"]
+    assert not qc["effective_mismatches"]
+    # RGB images are retained diagnostics. live_batch consumes sampled XYZRGB/masks
+    # and robot state; those arrays must match exactly, with no numeric tolerance.
     result = {
         "all_initial_pairs_exact": not mismatches,
+        "all_raw_initial_modalities_exact": qc["all_raw_initial_modalities_exact"],
+        "all_effective_policy_initial_pairs_exact": qc[
+            "all_effective_policy_initial_pairs_exact"
+        ],
+        "quality_control_sha256": sha(qc_path),
+        "raw_modality_mismatches": qc["raw_modality_mismatches"],
         "rollouts_checked": len(rows),
         "unique_clean_scenes": len(SCENES),
         "unique_corrupted_scene_conditions": len(SCENES) * len(CONDITIONS),
         "reference": "fixed_clean / seed0; nominal for clean packets",
         "mismatches": mismatches,
         "treatment": (
-            "All raw outcomes preserved; report refuses mismatched initial packets. "
-            "No exclusion based on success and no silent rerun replacement."
+            "All 2400 raw outcomes retained, with no exclusion or rerun. "
+            "Post-test QC requires bit-exact clean/corrupted sampled points, masks, "
+            "state, depth and calibration. One raw RGB component differs by one "
+            "8-bit level outside the effective sampled-point representation. "
+            "The raw-image exception remains false under the strict raw hash check; "
+            "its cause is unproven. The policy never receives the full RGB image."
         ),
     }
     write(ROOT / "results/v4/report_sensor_identity.json", result)
-    if mismatches:
+    if any(m["field"] == "initial_corrupted_hash" for m in mismatches):
         raise ValueError(
             f"{len(mismatches)} initial packet mismatches; "
-            "results/v4/report_sensor_identity.json saved. Diagnose before paired reporting."
+            "effective corruptions do not match; paired report refused."
         )
     return result
 
@@ -495,6 +515,76 @@ def available_link(label: str, target: Path) -> str | None:
     return f"[{label}](../../{relative(target)})"
 
 
+def video_index(rows: list[dict]) -> None:
+    """List the eight predeclared captures, preserving successes and failures."""
+    selected = {
+        (row["group"], row["condition"]): row
+        for row in rows
+        if row["training_seed"] == 0
+        and row["scene_seed"] == 500000
+        and row["condition"] in ("nominal", "absent")
+    }
+    expected = {
+        (group, condition) for group in GROUPS for condition in ("nominal", "absent")
+    }
+    if set(selected) != expected:
+        raise ValueError("Missing outcomes for the eight predeclared video captures")
+    entries = []
+    for group in GROUPS:
+        for condition in ("nominal", "absent"):
+            name = f"final_{group}_s0_{condition}"
+            capture = ROOT / f"artifacts/v4/evaluations/{name}/scene_500000.mp4"
+            if not capture.is_file() or capture.stat().st_size == 0:
+                raise ValueError(
+                    f"Missing or empty predeclared capture: {relative(capture)}"
+                )
+            raw = ROOT / f"results/v4/test/{name}.json"
+            row = selected[(group, condition)]
+            physical = "réussi" if row["physical_success"] else "échoué"
+            strict = "réussi" if row["strict_v2_success"] else "échoué"
+            entries.append(
+                f"- **{LABELS[group]} — {LABELS[condition]} :** "
+                f"[vidéo](../../{relative(capture)}), physique **{physical}**, "
+                f"strict V2 **{strict}**. [Résultat brut](../../{relative(raw)}). "
+                f"Chemin : `{relative(capture)}`. SHA256 : `{sha(capture)}`."
+            )
+    demo_paths = sorted((ROOT / "artifacts/v4/demo").rglob("*.mp4"))
+    demo = (
+        available_link("démo principale", demo_paths[0])
+        if demo_paths
+        else "démo principale décrite dans le [guide de reproduction](reproduction.md)"
+    )
+    content = "\n".join(
+        [
+            "# V4 — index des huit captures préspécifiées",
+            "",
+            "Les huit clips sont fixés par le plan des jobs avant l'accès au test :",
+            "seed 0, première scène réservée 500000, conditions nominale et caméra fixe",
+            "absente pour chacun des quatre groupes. Aucun clip n'est choisi en fonction",
+            "de sa réussite ; les échecs restent présentés. Une seule scène illustrée",
+            "par clip ne constitue pas une estimation de performance.",
+            "",
+            "Ces captures montrent le **RGB physique brut du simulateur**, avec les deux",
+            "caméras affichées. La corruption est appliquée à la représentation de points",
+            "après acquisition, crop, voxelisation et échantillonnage. L'image RGB affichée",
+            "reste donc disponible à l'écran lorsque les points de la caméra fixe sont",
+            "retirés de l'entrée de la policy. Ces clips ne montrent pas une caméra",
+            "physiquement débranchée ni l'entrée perturbée fournie au modèle.",
+            "",
+            f"La {demo} affiche aussi la représentation effective XYZRGB :",
+            "RGB brut en haut, points retenus en bas. Elle rend visible la suppression",
+            "de l'entrée fixe. Les verdicts ci-dessous proviennent des rollouts et traces",
+            "JSON complets, plutôt que de l'apparence du clip.",
+            "",
+            *entries,
+            "",
+            "[Rapport et résultats agrégés](report.md) · [Reproduction](reproduction.md).",
+            "",
+        ]
+    )
+    write(ROOT / "docs/v4/videos.md", content)
+
+
 def pilot_text() -> str:
     lines = []
     directory = ROOT / "results/v4/validation"
@@ -540,6 +630,7 @@ def documentation(summary: dict, plan: dict) -> None:
         "| Recette | Nominal physique | Nominal strict V2 | Altérations : physique | Altérations : strict V2 |",
         "|---|---:|---:|---:|---:|",
     ]
+    readme_table = ["| Recette | Nominal | Neuf altérations |", "|---|---:|---:|"]
     for group in GROUPS:
         cells = results[group]
         main_table.append(
@@ -547,6 +638,9 @@ def documentation(summary: dict, plan: dict) -> None:
             f"{metric_text(cells['nominal'], METRICS[1])} | "
             f"{metric_text(cells['mean_perturbed'])} | "
             f"{metric_text(cells['mean_perturbed'], METRICS[1])} |"
+        )
+        readme_table.append(
+            f"| {LABELS[group]} | {metric_text(cells['nominal'])} | {metric_text(cells['mean_perturbed'])} |"
         )
     paired_table = [
         "| Comparaison, première − seconde | Nominal physique, pp [IC95] | Altérations physique, pp [IC95] | Altérations strict V2, pp [IC95] |",
@@ -618,6 +712,12 @@ def documentation(summary: dict, plan: dict) -> None:
         else "Le protocole gelé n'est pas disponible au moment de la génération ; la livraison reste à vérifier."
     )
     plan_text = json.dumps(plan, ensure_ascii=False, indent=2)
+    parity_path = ROOT / "results/v4/v3_clean_trace_parity.json"
+    parity = read(parity_path)
+    if parity["compared_rollouts"] != 120 or parity["exact_full_traces"] != 120:
+        raise ValueError(
+            "V3/V4 clean-control trace parity differs from the verified120 rollouts"
+        )
     report = "\n".join(
         [
             "# GeoPolicy-Bench V4 — robustesse RGB-D",
@@ -661,6 +761,14 @@ def documentation(summary: dict, plan: dict) -> None:
             "Les quatre variantes réutilisent ce sous-ensemble, les actions et normalisations",
             "V3 ; les budgets effectifs et distributions d'augmentations sont dans le plan.",
             "",
+            "La reprise du contrôle V3 a été vérifiée sur **120/120 traces entièrement",
+            "identiques** : checkpoints V3 diagnostiqués et contrôles V4 sans augmentation",
+            "seed 0, deux vues × six conditions × dix scènes pilotes 210000–210009.",
+            "Actions, physique et évaluateur concordent exactement dans les JSON conservés.",
+            "Ce contrôle réutilise les rollouts déjà exécutés ; il n'ajoute aucun calcul test",
+            "et n'établit l'équivalence que pour ces 120 rollouts, pas pour toutes les seeds",
+            "ou scènes. [Preuve et portée](../../results/v4/v3_clean_trace_parity.json).",
+            "",
             "Les policies prédisent les sept commandes ; le modèle reçoit uniquement XYZRGB,",
             "masques, état robot causal et labels fixes. Poses d'objets et phase teacher servent",
             "à la collecte ou à l'évaluateur. Aucun oracle ne remplace une action étudiante.",
@@ -669,10 +777,21 @@ def documentation(summary: dict, plan: dict) -> None:
             protocol_text,
             "Le nouveau test est 500000–500019 : 4 groupes × 3 seeds × 10 conditions ×",
             "20 scènes = 2 400 rollouts. Le générateur de rapport refuse toute cellule manquante",
-            "ou dupliquée et refuse les empreintes initiales incompatibles. Les observations",
+            "ou dupliquée et refuse des entrées effectives initiales incompatibles. Les observations",
             "initiales propres et perturbées, par modalité et avant sélection de vue, sont",
             "conservées par l'évaluateur ; les hashes vérifiés figurent dans",
             "[report_sensor_identity.json](../../results/v4/report_sensor_identity.json).",
+            "",
+            "**Exception brute conservée :** sur 2 400 initialisations, une composante de",
+            "l'image RGB fixe varie de 133 à 134 (8 bits), scène 500017, fusion augmentée",
+            "seed 1, points manquants 70 %. La cause n'est pas démontrée. Le contrôle brut",
+            "des images reste donc négatif. Le QC après test compare toutes les arrays :",
+            "points XYZRGB propres/altérés, masques, état robot, profondeur, calibration et",
+            "transformations sont exactement identiques avant sélection de vue. Le modèle",
+            "reçoit ces points et l'état, pas l'image RGB complète. L'appariement des entrées",
+            "effectives est vérifié sans tolérance ; tous les scores originaux restent dans",
+            "les comparaisons, sans exclusion, réévaluation ni modification du protocole.",
+            "[QC des modalités et détails de l'exception](../../results/v4/initial_sensor_qc.json).",
             "",
             "Le placement physique exige le cube entièrement dans le bac, une libération",
             "constatée, aucun contact de doigts et une seconde de stabilité après libération,",
@@ -724,8 +843,13 @@ def documentation(summary: dict, plan: dict) -> None:
             "",
             demo_links,
             "",
+            "[Index des huit captures préspécifiées, succès et échecs](videos.md).",
+            "Les captures de test montrent le RGB brut ; la démo principale montre aussi",
+            "l'entrée XYZRGB effective, distinction expliquée dans cet index.",
+            "",
             "[Reproduction](reproduction.md) · [CSV des rollouts](../../results/v4/rollouts.csv) ·",
             "[Synthèse et intervalles](../../results/v4/summary.json) · [Bruts test](../../results/v4/test/).",
+            "[Vérification finale et mesures de ressources](../../results/v4/delivery_verification.json).",
             "",
             "## Limites",
             "",
@@ -759,9 +883,17 @@ def documentation(summary: dict, plan: dict) -> None:
             "3 seeds, mêmes 79 démonstrations retenues sur 80 collectes, données/actions/budgets",
             "appariés. Les valeurs altérées moyennent neuf perturbations synthétiques fixes.",
             "",
-            *main_table,
+            *readme_table,
+            "",
+            "Placement physique stable après libération ; les deux critères coïncident dans ce test.",
+            "La fusion sans augmentation conserve le meilleur taux observé sur ce banc.",
+            "La recette d'augmentation n'apporte pas de gain global démontré : les intervalles",
+            "appariés de ses deux contrastes moyens recouvrent zéro. Détails dans le rapport.",
             "",
             demo_links,
+            "",
+            "[Huit captures préspécifiées avec verdicts réels](videos.md) : RGB brut du",
+            "simulateur ; la démo principale montre aussi les points fournis à la policy.",
             "",
             "![Courbes de robustesse physique](figures/robustness_physical.png)",
             "",
@@ -769,11 +901,19 @@ def documentation(summary: dict, plan: dict) -> None:
             "[Résultats bruts](../../results/v4/test/) · [Code V4](../../src/geopolicy/v4/) ·",
             "[Paramètres centraux](../../configs/v4/plan.json).",
             "",
-            "Pour reconstruire la synthèse depuis les résultats complets, depuis le projet :",
+            "**QC :** les entrées effectives des policies sont identiques entre variantes.",
+            "Une variation d'un niveau sur une composante RGB brute est conservée et",
+            "[documentée dans le rapport](report.md), avec tous les résultats originaux.",
+            "",
+            "Pour rejouer la démo depuis le projet :",
             "",
             "```powershell",
-            ".venv\\Scripts\\python.exe scripts/v4/report.py",
+            ".venv\\Scripts\\python.exe scripts/v4/demo.py replay",
             "```",
+            "",
+            "Le checkpoint compact et le [bundle autonome](../../artifacts/v4/demo_bundle.zip)",
+            "se passent des données d'entraînement. Reconstruction des résultats :",
+            "`python scripts/v4/report.py`.",
             "",
             "**Limites :** perturbations après échantillonnage, RGB-D simulé/calibration idéale,",
             "prior couleur manuel, objets connus et tâche simple. Trois seeds et 20 scènes limitent",
@@ -800,9 +940,12 @@ def documentation(summary: dict, plan: dict) -> None:
             "```",
             "",
             "Cette commande ne lance aucune simulation ni entraînement. Elle exige les 2 400",
-            "rollouts test, vérifie l'appariement de chaque observation initiale, puis reconstruit",
+            "rollouts test et le QC `initial_sensor_qc.json`, vérifie l'appariement de chaque",
+            "entrée effective initiale, puis reconstruit",
             "CSV, synthèse, courbes et documentation. Une erreur de complétude ou d'identité",
             "interrompt la génération ; elle n'invente, ne filtre et ne remplace aucun résultat.",
+            "Le QC peut être recalculé avec `python scripts/v4/sensor_qc.py`. Il conserve",
+            "l'exception RGB brute et exige l'égalité exacte de toutes les entrées du modèle.",
             "",
             "## Démo avec checkpoint local, sans données d'entraînement",
             "",
@@ -812,7 +955,7 @@ def documentation(summary: dict, plan: dict) -> None:
             "",
             "Sorties : `artifacts/v4/demo/reproduced/` (MP4, GIF, trace, métriques et",
             "vérification exacte des observations initiales, actions et physique). Le modèle",
-            "est fusion augmentée, seed0, scène500000, caméra fixe absente. Cette scène est",
+            "est fusion augmentée, seed 0, scène 500000, caméra fixe absente. Cette scène est",
             "la première du test et a été choisie avant son observation, succès ou échec.",
             "La vidéo distingue RGB physique du simulateur et représentation XYZRGB réellement",
             "fournie à la policy. Le bundle local `artifacts/v4/demo_bundle.zip` comprend le",
@@ -823,7 +966,7 @@ def documentation(summary: dict, plan: dict) -> None:
             "python scripts/v4/demo.py replay",
             "```",
             "",
-            "Utiliser Python3.11 et les versions verrouillées dans `requirements-lock.txt`.",
+            "Utiliser Python 3.11.9 et les versions verrouillées dans `requirements-lock.txt`.",
             "La livraison a aussi exécuté ce replay avec une copie isolée de la source et",
             "un second environnement local épinglé ; voir `delivery_verification.json`.",
             "",
@@ -840,12 +983,16 @@ def documentation(summary: dict, plan: dict) -> None:
             "",
             "Le contrôleur ajoute `--resume` lorsqu'un checkpoint existe, sauvegarde chaque",
             "rollout et vérifie les limites du PC avant chaque processus lourd. Le plafond",
-            "temporel global est enregistré dans `artifacts/v4/budget.json` ; sa expiration",
+            "temporel global est enregistré dans `artifacts/v4/budget.json` ; son expiration",
             "arrête les nouvelles cellules et conserve les résultats. Un nouveau budget ne",
             "doit pas être ajouté silencieusement pour prolonger l'étude livrée.",
             "",
-            "Dans une copie indépendante du projet avec les79démos V3 et sans anciens runs V4,",
-            "une cellule d'entraînement au même budget se lance ainsi :",
+            "Dans une copie indépendante du projet, l'entraînement exige les 79 HDF5 train",
+            "retenus **et les 10 HDF5 de validation enregistrée**, leurs manifests sous",
+            "`configs/v3/`, ainsi que `artifacts/v3/runs/bc_continued_history480_s0/best.pt`",
+            "pour reprendre exactement la normalisation V3. La démo compacte se passe de",
+            "ces données et de ce checkpoint de normalisation. Sans anciens runs V4 dans",
+            "cette copie, une cellule d'entraînement au même budget se lance ainsi :",
             "",
             "```powershell",
             ".venv\\Scripts\\python.exe -m geopolicy.v4 preflight",
@@ -853,8 +1000,8 @@ def documentation(summary: dict, plan: dict) -> None:
             "```",
             "",
             "Omettre `--augmented` pour le contrôle et choisir `--view fixed` pour la caméra",
-            "fixe. Les seeds sont0,1,2. Les paramètres centraux restent ceux du plan gelé.",
-            "Pour une reproduction complète du test connu, conserver les12poids et le protocole",
+            "fixe. Les seeds sont 0, 1 et 2. Les paramètres centraux restent ceux du plan gelé.",
+            "Pour une reproduction complète du test connu, conserver les 12 checkpoints et le protocole",
             "gelé dans cette copie, sans fichiers de résultats/index V4 antérieurs, puis utiliser",
             "`configs/v4/final_jobs.json`. Toute modification de recette requiert un autre test.",
             "",
@@ -921,6 +1068,7 @@ def main() -> None:
         {"complete": True, "expected_rollouts": 2400, "observed_rollouts": len(rows)},
     )
     figures(summary)
+    video_index(rows)
     documentation(summary, plan)
     print(
         json.dumps(

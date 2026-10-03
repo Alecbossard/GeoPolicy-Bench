@@ -1,0 +1,61 @@
+{
+  "all_initial_pairs_exact": false,
+  "all_raw_initial_modalities_exact": false,
+  "all_effective_policy_initial_pairs_exact": true,
+  "quality_control_sha256": "13cd05ee33d5730c56168bcdbd607f64932f3939a3f1bab24700a7b72f692e55",
+  "raw_modality_mismatches": [
+    {
+      "scene_seed": 500017,
+      "group": "fusion_aug",
+      "training_seed": 1,
+      "condition": "missing70",
+      "key": "agentview__clean__rgb",
+      "raw_result": "results/v4/test/final_fusion_aug_s1_missing70.json",
+      "raw_result_sha256": "125314fa483a1fcf318ed7611b5f017f5103cca629ccb5cf04ebb0fab00097f1",
+      "observed_npz": "artifacts/v4/evaluations/final_fusion_aug_s1_missing70/initial/500017.npz",
+      "observed_npz_sha256": "c910acbbfb8fe3abf4b0d6113fca47b6a8d2329ea91da7d348e073eec085de7a",
+      "reference_npz": "artifacts/v4/evaluations/final_fixed_clean_s0_nominal/initial/500017.npz",
+      "reference_npz_sha256": "a0dccd1788def324b1c2759744ee3d0469709ffab76ded2b061187b17f8bb300",
+      "dtype": "uint8",
+      "shape": [
+        128,
+        128,
+        3
+      ],
+      "count": 1,
+      "indices": [
+        [
+          25,
+          33,
+          2
+        ]
+      ],
+      "indices_complete": true,
+      "reference": [
+        133
+      ],
+      "observed": [
+        134
+      ],
+      "max_absolute_difference": 1.0,
+      "reference_array_sha256": "b418264b836a125bad85acea984a14ac37e500faeb5ea88633e193e6de5ef8c8",
+      "observed_array_sha256": "00b943cc54bc74262191fc7efeca6323917d902cd23ccfd45985efa06e85a8c5"
+    }
+  ],
+  "rollouts_checked": 2400,
+  "unique_clean_scenes": 20,
+  "unique_corrupted_scene_conditions": 200,
+  "reference": "fixed_clean / seed0; nominal for clean packets",
+  "mismatches": [
+    {
+      "group": "fusion_aug",
+      "condition": "missing70",
+      "training_seed": 1,
+      "scene_seed": 500017,
+      "field": "initial_clean_hash",
+      "observed": "501ee007ceff0baeec16f9eb209612d25efef7f0c7e434b1084f3dae79a90c14",
+      "reference": "df87d83a3898c0b90962d96c2477c92cfd49c913480ae7e41667395aa0463ae1"
+    }
+  ],
+  "treatment": "All 2400 raw outcomes retained, with no exclusion or rerun. Post-test QC requires bit-exact clean/corrupted sampled points, masks, state, depth and calibration. One raw RGB component differs by one 8-bit level outside the effective sampled-point representation. The raw-image exception remains false under the strict raw hash check; its cause is unproven. The policy never receives the full RGB image."
+}

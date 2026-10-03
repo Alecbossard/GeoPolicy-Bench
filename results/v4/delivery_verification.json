@@ -1,0 +1,113 @@
+{
+  "verified": true,
+  "checked_utc": "2026-10-03T19:40:19.274963+00:00",
+  "training_optimizer_updates_executed": 24000,
+  "contract_check_updates_separate": 5,
+  "main_models": 12,
+  "test_rollouts": 2400,
+  "unique_test_scenes": 20,
+  "conditions": 10,
+  "training_seeds": 3,
+  "trace_audit_rollouts": 3540,
+  "trace_audit_steps": 541220,
+  "initial_modalities_saved_and_recomputed": true,
+  "effective_policy_initial_pairs_exact": true,
+  "raw_initial_modalities_all_exact": false,
+  "raw_modality_exceptions": [
+    {
+      "scene_seed": 500017,
+      "group": "fusion_aug",
+      "training_seed": 1,
+      "condition": "missing70",
+      "key": "agentview__clean__rgb",
+      "raw_result": "results/v4/test/final_fusion_aug_s1_missing70.json",
+      "raw_result_sha256": "125314fa483a1fcf318ed7611b5f017f5103cca629ccb5cf04ebb0fab00097f1",
+      "observed_npz": "artifacts/v4/evaluations/final_fusion_aug_s1_missing70/initial/500017.npz",
+      "observed_npz_sha256": "c910acbbfb8fe3abf4b0d6113fca47b6a8d2329ea91da7d348e073eec085de7a",
+      "reference_npz": "artifacts/v4/evaluations/final_fixed_clean_s0_nominal/initial/500017.npz",
+      "reference_npz_sha256": "a0dccd1788def324b1c2759744ee3d0469709ffab76ded2b061187b17f8bb300",
+      "dtype": "uint8",
+      "shape": [
+        128,
+        128,
+        3
+      ],
+      "count": 1,
+      "indices": [
+        [
+          25,
+          33,
+          2
+        ]
+      ],
+      "indices_complete": true,
+      "reference": [
+        133
+      ],
+      "observed": [
+        134
+      ],
+      "max_absolute_difference": 1.0,
+      "reference_array_sha256": "b418264b836a125bad85acea984a14ac37e500faeb5ea88633e193e6de5ef8c8",
+      "observed_array_sha256": "00b943cc54bc74262191fc7efeca6323917d902cd23ccfd45985efa06e85a8c5"
+    }
+  ],
+  "no_test_rollout_exclusions_or_replacements": true,
+  "source_and_checkpoint_hashes_verified": true,
+  "validation_completed_before_freeze_before_test": true,
+  "protocol_frozen_utc": "2026-10-03T17:20:35.472872+00:00",
+  "first_test_job_utc": "2026-10-03T17:21:08.483637+00:00",
+  "bounded_elapsed_hours": 4.864648143980238,
+  "history": {
+    "files_checked": 10217,
+    "authorized_documentation_changes": [
+      "docs/v3/model_card.md",
+      "docs/v3/PROGRESS.md",
+      "docs/v3/README.md",
+      "docs/v3/report.md",
+      "docs/v3/reproduction.md",
+      "scripts/v3/build_report.py"
+    ],
+    "scientific_or_other_failures": [],
+    "original_documentation_snapshots_verified": true,
+    "checked_utc": "2026-10-03T19:40:18.279994+00:00"
+  },
+  "resources": {
+    "samples": 1184,
+    "maximum_gpu_temperature_c": 45.0,
+    "minimum_free_commit_gib": 2.1363868713378906,
+    "maximum_process_private_gib": 3.5364303588867188,
+    "minimum_free_disk_gib": 21.317691802978516
+  },
+  "local_demo": {
+    "initial_modalities_exact": true,
+    "actions_exact": true,
+    "physics_exact": true,
+    "summary_exact": true,
+    "frames": 110,
+    "compact_sha256": "702cc4604a593b48be1b69d9c8026e799524a24e2c7d41b4b4ee3becb14a4193",
+    "video_sha256": "842ae5fb9b7320b5a1b1ff9b3bd8b8d0e3d8e32690dff85a793127595aa75024",
+    "rule": "First reserved scene500000, fusion_aug seed0, fixed camera absent; chosen before viewing test outcomes. This is an illustration, not a new evaluation.",
+    "source": "artifacts/v4/main_runs/fusion_aug_s0/best.pt",
+    "physics_fields": "All physical/evaluator trace fields except action, checked separately as float32",
+    "frozen_runtime_verified": true,
+    "frozen_sources_verified": true
+  },
+  "portable_demo": {
+    "initial_modalities_exact": true,
+    "actions_exact": true,
+    "physics_exact": true,
+    "summary_exact": true,
+    "frames": 110,
+    "compact_sha256": "702cc4604a593b48be1b69d9c8026e799524a24e2c7d41b4b4ee3becb14a4193",
+    "video_sha256": "842ae5fb9b7320b5a1b1ff9b3bd8b8d0e3d8e32690dff85a793127595aa75024",
+    "rule": "First reserved scene500000, fusion_aug seed0, fixed camera absent; chosen before viewing test outcomes. This is an illustration, not a new evaluation.",
+    "source": "artifacts/v4/main_runs/fusion_aug_s0/best.pt",
+    "physics_fields": "All physical/evaluator trace fields except action, checked separately as float32",
+    "frozen_runtime_verified": true,
+    "frozen_sources_verified": true
+  },
+  "markdown_links_checked": 174,
+  "no_cv_edits": true,
+  "no_publication": true
+}

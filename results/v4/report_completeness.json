@@ -1,0 +1,5 @@
+{
+  "complete": true,
+  "expected_rollouts": 2400,
+  "observed_rollouts": 2400
+}
