@@ -1,0 +1,146 @@
+{
+  "version": 4,
+  "task": "one_cube_one_tray_fixed_instruction",
+  "train_collected": 80,
+  "train_used": 79,
+  "recorded_validation": 10,
+  "excluded_train_scene": 10032,
+  "training_seeds": [
+    0,
+    1,
+    2
+  ],
+  "pilot_scenes": [
+    210000,
+    210009
+  ],
+  "confirmation_scenes": [
+    210100,
+    210109
+  ],
+  "reserved_test_scenes": [
+    500000,
+    500019
+  ],
+  "maximum_training_updates_total": 32000,
+  "maximum_final_rollouts": 2400,
+  "maximum_wall_hours": 12,
+  "training": {
+    "updates": 2000,
+    "batch_size": 32,
+    "history": 4,
+    "horizon": 8,
+    "execute_steps": 2,
+    "learning_rate": 0.0003,
+    "minimum_learning_rate": 3e-05,
+    "weight_decay": 1e-05,
+    "ema_decay": 0.995,
+    "checkpoint_interval": 250,
+    "validation_interval": 500,
+    "validation_batches": 20,
+    "point_budget": 512,
+    "color_prior": "chroma40",
+    "binary_gripper": false,
+    "model": "direct_bc"
+  },
+  "augmentation": {
+    "probabilities": [
+      0.55,
+      0.15,
+      0.1,
+      0.1,
+      0.1
+    ],
+    "families": [
+      "nominal",
+      "absent",
+      "occlusion",
+      "depth",
+      "missing"
+    ],
+    "occlusion_range": [
+      0.2,
+      0.6
+    ],
+    "depth_sigma_range_m": [
+      0.003,
+      0.02
+    ],
+    "missing_range": [
+      0.2,
+      0.7
+    ]
+  },
+  "conditions": {
+    "nominal": {
+      "family": "nominal",
+      "intensity": 0
+    },
+    "occlusion25": {
+      "family": "occlusion",
+      "intensity": 0.25
+    },
+    "occlusion60": {
+      "family": "occlusion",
+      "intensity": 0.6
+    },
+    "absent": {
+      "family": "absent",
+      "intensity": 1
+    },
+    "depth003": {
+      "family": "depth",
+      "intensity": 0.003
+    },
+    "depth010": {
+      "family": "depth",
+      "intensity": 0.01
+    },
+    "depth025": {
+      "family": "depth",
+      "intensity": 0.025
+    },
+    "missing30": {
+      "family": "missing",
+      "intensity": 0.3
+    },
+    "missing70": {
+      "family": "missing",
+      "intensity": 0.7
+    },
+    "missing90": {
+      "family": "missing",
+      "intensity": 0.9
+    }
+  },
+  "pilot_conditions": [
+    "nominal",
+    "occlusion60",
+    "absent",
+    "depth010",
+    "depth025",
+    "missing70"
+  ],
+  "selection": "Pilot seed0, then disjoint validation confirmation across3seeds; choose augmentation recipe using closed-loop physical success and nominal retention. Freeze all12checkpoints and perturbations before reserved test. Best EMA per run uses clean recorded validation normalizedL1, which is not a manipulation score.",
+  "representation_scope": "Perturb each calibrated 512-point camera representation before deterministic fusion: axial depth noise along camera rays; IID missing sampled points; centered image-plane occlusion of retained fixed-camera points; fixed-camera absence. This does not model raw pixel noise before voxelization nor physical sensor occluders.",
+  "runtime": {
+    "minimum_free_commit_before_heavy_job_gib": 5.5,
+    "minimum_free_gpu_mib": 1024
+  },
+  "resource_limits": {
+    "sample_interval_seconds": 10,
+    "maximum_temperature_c": 80,
+    "minimum_free_commit_mib": 1024,
+    "minimum_free_disk_gib": 10,
+    "consecutive_unsafe_samples": 3,
+    "cell_timeout_seconds": 1800
+  },
+  "statistics": "Paired crossed training-seed/scene bootstrap10000draws, descriptive95%intervals, no multiplicity correction; scene repetitions are not independent fresh scenes. Aggregate robustness weights9non-nominal conditions equally. Physical primary, strict posture secondary.",
+  "demo_selection_rule": {
+    "group": "fusion_aug",
+    "training_seed": 0,
+    "condition": "absent",
+    "scene_seed": 500000,
+    "rule": "First reserved scene; selected before test outcomes, success or failure retained"
+  }
+}

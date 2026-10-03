@@ -47,3 +47,7 @@ ont des données/budgets d'apprentissage différents. V1/V2 sont conservées,
 un écart isolé d'identité des capteurs et son analyse de sensibilité sont documentés
 dans le rapport ; les scores bruts sont conservés.
 Le [README historique](../../README.md) reste intact. V3 n'a pas été publiée.
+
+Correction du décompte : **79 démonstrations train utilisées sur 80 collectes**,
+plus 10 démonstrations de validation. Scène 10032 exclue pour échec de prise.
+Les résultats, checkpoints et identités historiques restent inchangés.

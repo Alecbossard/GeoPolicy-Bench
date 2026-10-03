@@ -63,7 +63,7 @@ Baseline et ablations terminées ; aucun ancien worker restant lors de la repris
 Les manifests de données sont archivés par hash pour préserver la reprise des
 premiers runs après une collecte supplémentaire.
 
-Sur 80 démos / 2 000 updates / batch 32, BC original obtient, par seed,
+Sur 79 démos retenues sur 80 collectes / 2 000 updates / batch 32, BC original obtient, par seed,
 20/20, 17/20, 17/20 placements physiques sur tuning, puis 20/20, 18/20,
 17/20 sur confirmation distincte. Le seuil de compétence à une tâche simple
 est franchi. Diffusion seed 0 : 2/20 physique, 1/20 strict ; pas de grande
@@ -171,7 +171,7 @@ peut apprendre ces trajectoires ; aucune généralisation n'est démontrée.
 
 La progression à deux destinations est arrêtée ; pas de matrice sur la tâche
 complète. Déviation explicite : vues fixe/poignet/fusion et prior on/off seront
-comparés sur la tâche simple confirmée, avec mêmes 80+10 démos, actions,
+comparés sur la tâche simple confirmée, avec mêmes 79 démos train + 10 validation, actions,
 normalisations, trois seeds et 2 000 updates. Aucune conclusion sur le grounding
 multicible ne découlera de cette matrice. La recette diffusion V1 sera également
 répétée sur les deux seeds manquantes pour compléter la comparaison principale.
@@ -182,7 +182,7 @@ Le plan est enregistré dans `configs/v3/single_study_plan.json`.
 Scores stricts V2 sur validation, trois seeds / 20 scènes par seed : fixe avec
 prior 59/60, fixe sans prior 57/60, poignet avec prior 47/60, poignet sans prior
 22/60, fusion avec et sans prior 60/60 chacun. Recette diffusion V1 réentraînée
-sur les 80 préfixes / 2 000 updates : physique [2,11,13] =26/60, strict
+sur les 79 préfixes retenus / 2 000 updates : physique [2,11,13] =26/60, strict
 [1,10,5] =16/60. Pas de changement de recette à partir du test.
 
 Code V3 formaté avec Black24.8.0, dix tests V3 réussis. Audit avant test :

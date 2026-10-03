@@ -71,7 +71,9 @@ pas à identifier le modèle retenu.
 ## Entraînement et validation d'une reproduction
 
 Les 90 HDF5 locaux du [dataset simple](../../configs/v3/single_dataset.json)
-contiennent 80 épisodes train et 10 validation enregistrée. Les versions de
+contiennent 80 épisodes train collectés, dont 79 succès réellement utilisés
+pour entraînement (10032 exclu), et 10 de validation enregistrée.
+`--limit 80` est un plafond historique et le nom des runs reste inchangé. Les versions de
 manifest sont conservées par SHA256 sous `configs/v3/datasets/`. La continuation
 conserve les préfixes et ajoute 30 observations/actions réellement exécutées.
 Cet exemple utilise un nom neuf et ne remplace aucun run livré :

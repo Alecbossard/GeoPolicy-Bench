@@ -139,7 +139,9 @@ Les poses d'objets et phases teacher sont réservées à la collecte scriptée e
 l'évaluateur. Les sept commandes de l'étudiant sont prédites, dénormalisées et
 bornées à [−1,1] ; aucun script ne remplace ses actions pendant les évaluations.
 
-80 scènes train 10000–10079 et 10 démonstrations de validation 110000–110009.
+80 collectes train (10000–10079), dont **79 démonstrations retenues** :
+la scène 10032, échec de prise, est exclue. 10 démonstrations de validation
+110000–110009 sont conservées séparément.
 Tuning en boucle fermée : 110100–110119. Confirmation distincte : 110200–110219.
 Chaque recette principale est répétée sur les seeds d'entraînement 0, 1 et 2.
 Budget : 2 000 updates, batch 32, FP32, AdamW 3e-4→3e-5 cosine, EMA 0,995,
@@ -206,7 +208,7 @@ pas que la représentation contient toute l'information utile à l'apprentissage
 |---|---|---:|---|---:|
 {chr(10).join(test_rows)}
 
-Les six cellules caméra/prior utilisent **les mêmes 80+10 démonstrations continuées,
+Les six cellules caméra/prior utilisent **les mêmes 79 démonstrations train + 10 de validation continuées,
 actions, normalisations, historique de quatre états, budget et allocation totale de 512 points**.
 Le prior manuel ajoute un biais chromatique aux scores d'attention ; l'ablation
 le désactive et réentraîne avec le même protocole. Il n'utilise pas de pose GT.
@@ -259,7 +261,7 @@ PPO et SmolVLA restent les expériences historiques sans gain démontré.
 
 ## Facteurs isolés : validation, sans retuning sur test
 
-| BC sur les mêmes 80 trajectoires | Physique par seed /20 | Physique total | Strict total |
+| BC sur les mêmes 79 trajectoires retenues | Physique par seed /20 | Physique total | Strict total |
 |---|---|---:|---:|
 {chr(10).join(val_rows)}
 
@@ -459,7 +461,7 @@ Le [README historique](../../README.md) reste intact. V3 n'a pas été publiée.
     card = f"""# Fiche du checkpoint local V3
 
 Recette : DirectBC, fusion fixe+poignet, prior chroma40, historique de quatre
-états robot, continuation enregistrée, pince continue. Entraînement :80démos,
+états robot, continuation enregistrée, pince continue. Entraînement : 79 démonstrations retenues sur 80 collectes,
 2 000 updates sur RTX 4060 Laptop 8 Go. Sélection de recette sur tuning et
 confirmation disjointe, avant le test. Poids déployés : EMA.
 

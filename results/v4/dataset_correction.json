@@ -1,0 +1,40 @@
+{
+  "collected_train": 80,
+  "used_train": 79,
+  "excluded": [
+    {
+      "scene_seed": 10032,
+      "episode_id": 10032,
+      "split": "train",
+      "success": false,
+      "original_frames": null,
+      "frames": 240,
+      "instruction": "Place the red cube in the blue receptacle.",
+      "provenance": "scripted_ground_truth_phase_reference_DIAGNOSTIC_teacher",
+      "scene_config": "single_cube_single_tray_fixed_instruction",
+      "approached": true,
+      "grasped": false,
+      "lifted": false,
+      "transported": false,
+      "release_seen": false,
+      "physical_success": false,
+      "strict_v2_success": false,
+      "posture_only_failure": false,
+      "failure_stage": "grasp",
+      "physical_dwell_s": 0.0,
+      "strict_dwell_s": 0.0,
+      "path": "artifacts/v3/single_dataset/episode_010032.h5",
+      "sha256": "b9a901fe423aeb333b734e8a2c42b8e1f2f2754b252676a0f89043ffa40b9044"
+    }
+  ],
+  "validation": 10,
+  "historical_files": 10217,
+  "corrections": [
+    "docs/v3/README.md",
+    "docs/v3/report.md",
+    "docs/v3/model_card.md",
+    "docs/v3/reproduction.md",
+    "docs/v3/PROGRESS.md",
+    "scripts/v3/build_report.py"
+  ]
+}

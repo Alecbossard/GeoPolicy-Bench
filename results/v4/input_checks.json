@@ -1,0 +1,25 @@
+{
+  "dataset_episodes": 79,
+  "dataset_frames": 9986,
+  "all_nominal_cached_inputs_exact_v3": true,
+  "recorded_live_exact": true,
+  "axial_depth_ray_equivalence": true,
+  "nested_missing_masks": true,
+  "finite_empty_policy": true,
+  "cuda_augmented_resume_next_update_exact": true,
+  "resume_expected": {
+    "batch": "d5dcbaa7fc9ae70f32a969ac7b059fd3b36acc1dd621a7590b4c6fe0802d31fd",
+    "loss": 0.8325948715209961,
+    "model": "b1e827950231a88c30ac0f55db5a3de72f6248cc99e5844206ca6a21a2c07be5",
+    "ema": "a210713b6e481965dd4cad3bb6f8fd7b09ed570533189a4498ffebed6c2f1d86"
+  },
+  "resume_actual": {
+    "batch": "d5dcbaa7fc9ae70f32a969ac7b059fd3b36acc1dd621a7590b4c6fe0802d31fd",
+    "loss": 0.8325948715209961,
+    "model": "b1e827950231a88c30ac0f55db5a3de72f6248cc99e5844206ca6a21a2c07be5",
+    "ema": "a210713b6e481965dd4cad3bb6f8fd7b09ed570533189a4498ffebed6c2f1d86"
+  },
+  "depth_units": "meters",
+  "coordinates": "robot_base",
+  "point_corruption_stage": "after_crop_voxel_sample_before_fusion"
+}

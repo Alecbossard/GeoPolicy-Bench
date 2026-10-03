@@ -1,0 +1,218 @@
+{
+  "checked_rollouts": 120,
+  "checked_steps": 17519,
+  "initial_npz_recomputed": 120,
+  "corruptions_recomputed_exact": true,
+  "zero_intensity_nominal_exact": true,
+  "occlusion_masks_nested": true,
+  "independent_geometry_and_dwell": true,
+  "initial_clean_mismatches": [],
+  "observed_point_retention": [
+    {
+      "group": "fixed_clean",
+      "condition": "absent",
+      "camera": "agentview",
+      "retained": 0,
+      "clean": 614400,
+      "ratio": 0.0
+    },
+    {
+      "group": "fixed_clean",
+      "condition": "absent",
+      "camera": "robot0_eye_in_hand",
+      "retained": 614400,
+      "clean": 614400,
+      "ratio": 1.0
+    },
+    {
+      "group": "fixed_clean",
+      "condition": "depth010",
+      "camera": "agentview",
+      "retained": 326144,
+      "clean": 326144,
+      "ratio": 1.0
+    },
+    {
+      "group": "fixed_clean",
+      "condition": "depth010",
+      "camera": "robot0_eye_in_hand",
+      "retained": 326144,
+      "clean": 326144,
+      "ratio": 1.0
+    },
+    {
+      "group": "fixed_clean",
+      "condition": "depth025",
+      "camera": "agentview",
+      "retained": 325120,
+      "clean": 325120,
+      "ratio": 1.0
+    },
+    {
+      "group": "fixed_clean",
+      "condition": "depth025",
+      "camera": "robot0_eye_in_hand",
+      "retained": 324891,
+      "clean": 325120,
+      "ratio": 0.9992956446850394
+    },
+    {
+      "group": "fixed_clean",
+      "condition": "missing70",
+      "camera": "agentview",
+      "retained": 127657,
+      "clean": 424960,
+      "ratio": 0.3003976844879518
+    },
+    {
+      "group": "fixed_clean",
+      "condition": "missing70",
+      "camera": "robot0_eye_in_hand",
+      "retained": 127802,
+      "clean": 424960,
+      "ratio": 0.3007388930722892
+    },
+    {
+      "group": "fixed_clean",
+      "condition": "nominal",
+      "camera": "agentview",
+      "retained": 324608,
+      "clean": 324608,
+      "ratio": 1.0
+    },
+    {
+      "group": "fixed_clean",
+      "condition": "nominal",
+      "camera": "robot0_eye_in_hand",
+      "retained": 324608,
+      "clean": 324608,
+      "ratio": 1.0
+    },
+    {
+      "group": "fixed_clean",
+      "condition": "occlusion60",
+      "camera": "agentview",
+      "retained": 172778,
+      "clean": 614400,
+      "ratio": 0.2812141927083333
+    },
+    {
+      "group": "fixed_clean",
+      "condition": "occlusion60",
+      "camera": "robot0_eye_in_hand",
+      "retained": 614400,
+      "clean": 614400,
+      "ratio": 1.0
+    },
+    {
+      "group": "fusion_clean",
+      "condition": "absent",
+      "camera": "agentview",
+      "retained": 0,
+      "clean": 388608,
+      "ratio": 0.0
+    },
+    {
+      "group": "fusion_clean",
+      "condition": "absent",
+      "camera": "robot0_eye_in_hand",
+      "retained": 388608,
+      "clean": 388608,
+      "ratio": 1.0
+    },
+    {
+      "group": "fusion_clean",
+      "condition": "depth010",
+      "camera": "agentview",
+      "retained": 291840,
+      "clean": 291840,
+      "ratio": 1.0
+    },
+    {
+      "group": "fusion_clean",
+      "condition": "depth010",
+      "camera": "robot0_eye_in_hand",
+      "retained": 291840,
+      "clean": 291840,
+      "ratio": 1.0
+    },
+    {
+      "group": "fusion_clean",
+      "condition": "depth025",
+      "camera": "agentview",
+      "retained": 294400,
+      "clean": 294400,
+      "ratio": 1.0
+    },
+    {
+      "group": "fusion_clean",
+      "condition": "depth025",
+      "camera": "robot0_eye_in_hand",
+      "retained": 294203,
+      "clean": 294400,
+      "ratio": 0.9993308423913043
+    },
+    {
+      "group": "fusion_clean",
+      "condition": "missing70",
+      "camera": "agentview",
+      "retained": 88222,
+      "clean": 293888,
+      "ratio": 0.30018918771777003
+    },
+    {
+      "group": "fusion_clean",
+      "condition": "missing70",
+      "camera": "robot0_eye_in_hand",
+      "retained": 88255,
+      "clean": 293888,
+      "ratio": 0.30030147539198604
+    },
+    {
+      "group": "fusion_clean",
+      "condition": "nominal",
+      "camera": "agentview",
+      "retained": 292864,
+      "clean": 292864,
+      "ratio": 1.0
+    },
+    {
+      "group": "fusion_clean",
+      "condition": "nominal",
+      "camera": "robot0_eye_in_hand",
+      "retained": 292864,
+      "clean": 292864,
+      "ratio": 1.0
+    },
+    {
+      "group": "fusion_clean",
+      "condition": "occlusion60",
+      "camera": "agentview",
+      "retained": 86711,
+      "clean": 305152,
+      "ratio": 0.2841567481124161
+    },
+    {
+      "group": "fusion_clean",
+      "condition": "occlusion60",
+      "camera": "robot0_eye_in_hand",
+      "retained": 305152,
+      "clean": 305152,
+      "ratio": 1.0
+    }
+  ],
+  "input_sources_sha256": {
+    "results/v4/validation/pilot_v3_fixed_absent.json": "766b5242895ecf4df585e3a8694a88478c941d742e9bdbd9b458f6f2e6e68cc4",
+    "results/v4/validation/pilot_v3_fixed_depth010.json": "d9277cda2de0951c58c45e4768f5852b22a15f6d0419c1353641854ed8a0b87d",
+    "results/v4/validation/pilot_v3_fixed_depth025.json": "8689c4a00601fc78ef7c255b38fc055d5922c0bb8aaa3cae48c8e65420a829bf",
+    "results/v4/validation/pilot_v3_fixed_missing70.json": "6cb109db6433bdf146fbaed2cf547a51ced992467f53ebb7b7f41c06fe57c1be",
+    "results/v4/validation/pilot_v3_fixed_nominal.json": "71c6404cc6fefdc6682323f8a98b5f93084eaf71d81eb2f9961f440a9d6315a4",
+    "results/v4/validation/pilot_v3_fixed_occlusion60.json": "cde4bb4de35bf1aba235ab2dc16bab97caca630c11a16a663e9ccf9564e57da6",
+    "results/v4/validation/pilot_v3_fusion_absent.json": "8331313021e624524dcb128861beac43e3910eb6a7dc3fcc93699087b1f0fb42",
+    "results/v4/validation/pilot_v3_fusion_depth010.json": "988311c5debb4477559a701c9aee475aa27e735f57fd4d9b9f353d1fd0cb9fd6",
+    "results/v4/validation/pilot_v3_fusion_depth025.json": "eff0292596ae77cfe12da618d167584a5bf4a99d15b9bf328f5b3de0eb04d06b",
+    "results/v4/validation/pilot_v3_fusion_missing70.json": "c9877e4c75d458d9f72f38846261a37690c48d4ca8c5be214ec2a7d5b68782e1",
+    "results/v4/validation/pilot_v3_fusion_nominal.json": "d671a42d99003d3e316e2ba504a14b7fc0c3ae9d3189300617a662346753da60",
+    "results/v4/validation/pilot_v3_fusion_occlusion60.json": "1e72522fea877adfef69b7e2c592bc78b264aae8c9c91262a4aa16bfdfe024ca"
+  }
+}

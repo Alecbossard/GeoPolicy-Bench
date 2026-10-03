@@ -1,7 +1,7 @@
 # Fiche du checkpoint local V3
 
 Recette : DirectBC, fusion fixe+poignet, prior chroma40, historique de quatre
-états robot, continuation enregistrée, pince continue. Entraînement :80démos,
+états robot, continuation enregistrée, pince continue. Entraînement : 79 démonstrations retenues sur 80 collectes,
 2 000 updates sur RTX 4060 Laptop 8 Go. Sélection de recette sur tuning et
 confirmation disjointe, avant le test. Poids déployés : EMA.
 
