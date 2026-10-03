@@ -1,6 +1,9 @@
 import hashlib
 import json
 import os
+import sys
+import time
+from importlib import metadata
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -27,7 +30,34 @@ def write(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_suffix(path.suffix + ".tmp")
     tmp.write_text(json.dumps(value, indent=2, allow_nan=False), encoding="utf8")
-    os.replace(tmp, path)
+    # Windows readers can briefly deny replacement without corrupting the old file.
+    for delay in (0.05, 0.1, 0.2, 0.4, 0.8, None):
+        try:
+            os.replace(tmp, path)
+            break
+        except PermissionError:
+            if delay is None:
+                raise
+            time.sleep(delay)
+
+
+def runtime_identity():
+    return dict(
+        python_version=list(sys.version_info[:3]),
+        packages={
+            k: metadata.version(k)
+            for k in ("torch", "numpy", "mujoco", "robosuite", "h5py")
+        },
+    )
+
+
+def verify_runtime(frozen):
+    current = runtime_identity()
+    assert (
+        current["python_version"] == frozen["python_version"]
+    ), "Python version changed"
+    assert current["packages"] == frozen["packages"], "Package versions changed"
+    return current
 
 
 def plan():

@@ -42,6 +42,7 @@ def export():
     )
     torch.save(compact, out / "checkpoint.pt")
     source = ROOT / f"artifacts/v4/evaluations/{name}"
+    assert sha(ROOT / record["checkpoint"]) == record["sha256"]
     shutil.copy2(source / "initial/500000.npz", out / "expected_initial.npz")
     shutil.copy2(source / "traces/500000.json", out / "expected_trace.json")
     dump(out / "expected_row.json", row)
@@ -126,6 +127,7 @@ def replay(output):
     meta = read(base / "manifest.json")
     assert sha(base / "checkpoint.pt") == meta["compact_sha256"]
     assert sha(base / "expected_trace.json") == meta["expected_trace_sha256"]
+    assert sha(base / "expected_initial.npz") == meta["expected_initial_sha256"]
     saved = torch.load(base / "checkpoint.pt", map_location="cpu", weights_only=False)
     cfg = saved["config"]
     norm = saved["normalization"]

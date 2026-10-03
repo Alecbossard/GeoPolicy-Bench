@@ -1,9 +1,8 @@
 """One-way reservation: checkpoint/recipe/corruption/source identities frozen."""
 
 from datetime import datetime, timezone
-import importlib.metadata
 import torch
-from .common import ROOT, read, plan, sha, write
+from .common import ROOT, read, plan, sha, write, runtime_identity
 from .evaluation import source_identity
 from .training import tensor_hash
 
@@ -16,6 +15,23 @@ def freeze():
     assert checks["cuda_augmented_resume_next_update_exact"]
     decision = read("results/v4/validation_decision.json")
     assert decision["proceed_to_reserved_test"]
+    sources = source_identity()
+    changed = [
+        rel
+        for rel, h in decision["confirmation_sources"].items()
+        if sources.get(rel) != h
+    ]
+    allowed_guard_changes = {
+        "src/geopolicy/v4/common.py",
+        "src/geopolicy/v4/evaluation.py",
+        "src/geopolicy/v4/protocol.py",
+    }
+    assert (
+        set(changed) <= allowed_guard_changes
+    ), "Scientific source changed after validation"
+    assert sources.keys() == decision["confirmation_sources"].keys()
+    runtime_checks = read("results/v4/io_runtime_checks.json")
+    assert runtime_checks["verified"]
     registry = []
     for view in ("fixed", "fusion"):
         for aug in (False, True):
@@ -48,16 +64,16 @@ def freeze():
         dict(
             frozen_utc=datetime.now(timezone.utc).isoformat(),
             plan_sha256=sha(ROOT / "configs/v4/plan.json"),
-            sources=source_identity(),
+            sources=sources,
+            post_validation_guard_changes=changed,
+            guard_change_reason="Bounded Windows atomic-write retry and frozen Python/package verification; numerical model/data/perturbation code unchanged",
+            io_runtime_checks_sha256=sha(ROOT / "results/v4/io_runtime_checks.json"),
             registry=registry,
             dataset_manifest_sha256=sha(ROOT / "configs/v3/single_dataset.json"),
             validation_decision_sha256=sha(
                 ROOT / "results/v4/validation_decision.json"
             ),
-            packages={
-                k: importlib.metadata.version(k)
-                for k in ("torch", "numpy", "mujoco", "robosuite", "h5py")
-            },
+            **runtime_identity(),
             reserved_test_scenes=plan()["reserved_test_scenes"],
             selection=plan()["selection"],
         ),

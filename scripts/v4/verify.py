@@ -5,6 +5,7 @@ import hashlib
 import importlib.util
 import json
 import re
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 import numpy as np
@@ -101,6 +102,10 @@ def preservation():
 def delivery():
     history = preservation()
     protocol = read("configs/v4/final_protocol.json")
+    sys.path.insert(0, str(ROOT / "src"))
+    from geopolicy.v4.common import verify_runtime
+
+    verify_runtime(protocol)
     plan = read("configs/v4/plan.json")
     assert sha(ROOT / "configs/v4/plan.json") == protocol["plan_sha256"]
     for rel, h in protocol["sources"].items():
@@ -133,6 +138,8 @@ def delivery():
         assert (
             value["identity"]["sources"] == protocol["sources"]
             and value["identity"]["plan_sha256"] == protocol["plan_sha256"]
+            and value["identity"]["packages"] == protocol["packages"]
+            and value["identity"]["python_version"] == protocol["python_version"]
         )
     resources = [
         r

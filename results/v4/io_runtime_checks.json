@@ -1,0 +1,25 @@
+{
+  "verified": true,
+  "transient_real_windows_lock_recovered": true,
+  "recovery_seconds": 0.15402699998230673,
+  "persistent_lock_rejected_old_json_preserved": true,
+  "pending_temp_preserved": true,
+  "runtime": {
+    "python_version": [
+      3,
+      11,
+      9
+    ],
+    "packages": {
+      "torch": "2.7.1+cu128",
+      "numpy": "1.26.4",
+      "mujoco": "3.3.7",
+      "robosuite": "1.5.2",
+      "h5py": "3.14.0"
+    }
+  },
+  "runtime_changes_rejected": [
+    "python_version",
+    "packages"
+  ]
+}

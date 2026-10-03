@@ -10,7 +10,7 @@ from geopolicy.v3.environment import SinglePlace
 from geopolicy.v3.metrics import Tracker
 from geopolicy.v3.models import build
 from geopolicy.v2.resources import ResourceWatch
-from .common import ROOT, plan, read, sha, write
+from .common import ROOT, plan, read, sha, write, runtime_identity, verify_runtime
 from .perturbations import CAMERAS, perturb, packet_digest, evaluation_rng
 from .data import live_batch
 
@@ -32,6 +32,7 @@ def evaluate(
     assert condition in p["conditions"]
     if split == "test":
         protocol = read("configs/v4/final_protocol.json")
+        verify_runtime(protocol)
         assert protocol["sources"] == source_identity() and protocol[
             "plan_sha256"
         ] == sha(ROOT / "configs/v4/plan.json")
@@ -61,6 +62,7 @@ def evaluate(
         split=split,
         sources=source_identity(),
         plan_sha256=sha(ROOT / "configs/v4/plan.json"),
+        **runtime_identity(),
     )
     out = ROOT / "artifacts/v4/evaluations" / name
     if (out / "identity.json").exists():

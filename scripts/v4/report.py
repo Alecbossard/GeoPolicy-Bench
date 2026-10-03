@@ -116,7 +116,7 @@ def interval(matrix: np.ndarray, indices: tuple[np.ndarray, np.ndarray]) -> dict
 def load_rows(protocol: dict) -> tuple[list[dict], dict[str, str]]:
     indexed = {}
     inputs = {}
-    registry = {r["checkpoint"]: r["sha256"] for r in protocol["registry"]}
+    registry = {r["checkpoint"]: r for r in protocol["registry"]}
     for path in sorted((ROOT / "results/v4/test").glob("*.json")):
         result = read(path)
         if (
@@ -132,7 +132,7 @@ def load_rows(protocol: dict) -> tuple[list[dict], dict[str, str]]:
             or identity.get("first") != SCENES[0]
             or identity.get("episodes") != len(SCENES)
             or checkpoint not in registry
-            or identity.get("checkpoint_sha256") != registry[checkpoint]
+            or identity.get("checkpoint_sha256") != registry[checkpoint]["sha256"]
         ):
             raise ValueError(
                 f"Test identity differs from frozen registry: {relative(path)}"
@@ -149,6 +149,14 @@ def load_rows(protocol: dict) -> tuple[list[dict], dict[str, str]]:
                 raise ValueError(f"Duplicate final rollout: {key}")
             if row.get("diagnostic_oracle", False):
                 raise ValueError(f"Student test contains an oracle row: {key}")
+            record = registry[checkpoint]
+            if (
+                row["group"] != record["group"]
+                or row["training_seed"] != record["training_seed"]
+            ):
+                raise ValueError(
+                    f"Rollout labels differ from checkpoint registry: {key}"
+                )
             if (
                 row.get("condition") != identity["condition"]
                 or row.get("checkpoint_sha256") != identity["checkpoint_sha256"]

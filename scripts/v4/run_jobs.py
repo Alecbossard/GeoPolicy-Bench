@@ -2,6 +2,7 @@
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 import time
@@ -37,7 +38,7 @@ def main():
             started_time=min(starts) if starts else time.time(),
             maximum_wall_seconds=12 * 3600,
             maximum_training_updates=32000,
-            diagnostic_updates=4,
+            diagnostic_updates=5,
         )
         write(budget_path, budget)
     target = ROOT / "artifacts/v4/jobs" / f"{phase}.json"
@@ -109,11 +110,12 @@ def main():
                 cwd=ROOT,
                 stdout=f,
                 stderr=subprocess.STDOUT,
+                env=dict(os.environ, PYTHONUTF8="1"),
             )
         if result.returncode:
             status.update(failed=index, returncode=result.returncode)
             write(target, status)
-            print(log.read_text(encoding="utf8")[-4000:], flush=True)
+            print(log.read_text(encoding="utf8", errors="replace")[-4000:], flush=True)
             sys.exit(result.returncode)
         status["completed"].append(index)
         status["last_completed_time"] = time.time()
