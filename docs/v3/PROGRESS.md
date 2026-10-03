@@ -176,3 +176,24 @@ normalisations, trois seeds et 2 000 updates. Aucune conclusion sur le grounding
 multicible ne découlera de cette matrice. La recette diffusion V1 sera également
 répétée sur les deux seeds manquantes pour compléter la comparaison principale.
 Le plan est enregistré dans `configs/v3/single_study_plan.json`.
+
+## Validation terminée et test gelé
+
+Scores stricts V2 sur validation, trois seeds / 20 scènes par seed : fixe avec
+prior 59/60, fixe sans prior 57/60, poignet avec prior 47/60, poignet sans prior
+22/60, fusion avec et sans prior 60/60 chacun. Recette diffusion V1 réentraînée
+sur les 80 préfixes / 2 000 updates : physique [2,11,13] =26/60, strict
+[1,10,5] =16/60. Pas de changement de recette à partir du test.
+
+Code V3 formaté avec Black24.8.0, dix tests V3 réussis. Audit avant test :
+952 rollouts / 152 765 pas, incluant reconstruction de la levée antérieure,
+actions bornées, contenance et dwells. Source locale versionnée : `4f2eb74`.
+Le protocole `configs/v3/final_protocol.json` est gelé avant accès aux scènes
+400000–400049 : 30 checkpoints, normalisations identiques pour les modèles V3
+contrôlés, empreintes EMA et sources avec normalisation LF, versions runtime.
+
+La tâche test est un cube / un bac / consigne fixe. Les checkpoints fusion V1/V2
+préservés sont transférés sur ces mêmes scènes à titre de références, avec
+des données et budgets historiques différents ; ce n'est pas un contraste
+algorithmique contrôlé. Aucun étudiant multicible V3 validé n'est revendiqué.
+Évaluation finale sérielle en cours : 50 scènes ×30 checkpoints =1 500 rollouts.

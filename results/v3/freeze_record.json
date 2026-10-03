@@ -1,0 +1,11 @@
+{
+  "frozen_utc": "2026-10-03T12:03:39.850847+00:00",
+  "protocol_sha256": "b0e1e74e173b17921a9b5dd7c4d6e0ec4caf2d97846660806db332e04d25601c",
+  "models": 30,
+  "test_scenes": [
+    400000,
+    400049
+  ],
+  "normalizations_matched_across_v3": true,
+  "source_hashes_line_endings_normalized": true
+}
