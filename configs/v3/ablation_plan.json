@@ -1,0 +1,19 @@
+{
+  "task": "single_cube_single_tray_fixed_instruction",
+  "gate": "BC original80 must achieve >=12/20 physical placements on both tuning and confirmation for every training seed before these comparisons",
+  "base": "direct_bc_original80_history1_continuous_gripper",
+  "data": "same 80 successful scripted V3 demonstrations and 10 recorded validation episodes",
+  "updates": 2000,
+  "batch_size": 32,
+  "horizon": 8,
+  "execute_steps": 2,
+  "training_seeds": [0, 1, 2],
+  "normalization": "original demonstration prefixes, held fixed for suffix ablation",
+  "single_factors": [
+    "add the actual 30-step scripted-teacher suffix of these new V3 episodes",
+    "four causal robot-state snapshots instead of one; current point cloud retained, no image history claim",
+    "binary physical gripper classification plus still-supervised internal continuous output; motion architecture retained"
+  ],
+  "selection": "Compare physical stable success first, strict V2 posture second descriptively. Preserve all negative results; no combination or budget increase without justification.",
+  "warning": "V3 scripted continuation is a separate task/teacher experiment and cannot validate the V2 PPO continuation retroactively. Same update budget does not mean equal number of unique frames when suffix samples are added."
+}

@@ -13,7 +13,7 @@ from .models import build
 
 
 def train(name, model="direct_bc", seed=0, updates=2000, limit=4, continued=False,
-          history=1, binary=False, overfit=False, resume=False):
+          history=1, binary=False, overfit=False, resume=False, task="single", view="fusion", prior=True):
     assert name.replace("_", "").isalnum()
     plan = json.loads((ROOT / "configs/v3/plan.json").read_text())
     out = ROOT / "artifacts/v3/runs" / name
@@ -23,7 +23,13 @@ def train(name, model="direct_bc", seed=0, updates=2000, limit=4, continued=Fals
                overfit_diagnostic=overfit, horizon=plan["horizon"],
                execute_steps=plan["execute_steps"], color_prior="chroma40",
                device="cuda", learning_rate=plan["learning_rate"],
-               dataset_manifest_sha256=sha(ROOT / "configs/v3/single_dataset.json"))
+               dataset_manifest_sha256=sha(ROOT / "configs/v3" / ("single_dataset.json" if task == "single" else f"{task}_dataset.json")))
+    dataset_class = Data
+    if task != "single":
+        from .stages import StageData
+        dataset_class = StageData
+        cfg.update(task=task, view=view)
+        cfg["color_prior"] = "chroma40" if prior else False
     ip = out / "config.json"
     if ip.exists():
         if resume:
@@ -43,11 +49,11 @@ def train(name, model="direct_bc", seed=0, updates=2000, limit=4, continued=Fals
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
     rng = np.random.default_rng(seed)
-    data = Data(cfg, "train")
-    val = data if overfit else Data(cfg, "validation")
+    data = dataset_class(cfg, "train")
+    val = data if overfit else dataset_class(cfg, "validation")
     if continued:
         # Hold normalization fixed when isolating the addition of suffix samples.
-        original = Data(dict(cfg, continued=False), "train")
+        original = dataset_class(dict(cfg, continued=False), "train")
         norm = original.normalization()
         del original
     else:

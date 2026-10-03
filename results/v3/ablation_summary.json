@@ -1,0 +1,191 @@
+{
+  "results": {
+    "physical_success": {
+      "summary": {
+        "original": {
+          "successes": 54,
+          "episodes": 60,
+          "per_seed": [
+            20,
+            17,
+            17
+          ]
+        },
+        "continued": {
+          "successes": 50,
+          "episodes": 60,
+          "per_seed": [
+            19,
+            20,
+            11
+          ]
+        },
+        "state_history4": {
+          "successes": 0,
+          "episodes": 60,
+          "per_seed": [
+            0,
+            0,
+            0
+          ]
+        },
+        "binary": {
+          "successes": 42,
+          "episodes": 60,
+          "per_seed": [
+            14,
+            19,
+            9
+          ]
+        },
+        "continued_history4": {
+          "successes": 60,
+          "episodes": 60,
+          "per_seed": [
+            20,
+            20,
+            20
+          ]
+        }
+      },
+      "contrasts": {
+        "continued_minus_original": {
+          "difference_pp": -6.666666666666667,
+          "descriptive_95_pp": [
+            -33.33333333333333,
+            15.0
+          ]
+        },
+        "state_history4_minus_original": {
+          "difference_pp": -90.0,
+          "descriptive_95_pp": [
+            -100.0,
+            -75.0
+          ]
+        },
+        "binary_minus_original": {
+          "difference_pp": -20.0,
+          "descriptive_95_pp": [
+            -50.0,
+            10.0
+          ]
+        },
+        "continued_history4_minus_original": {
+          "difference_pp": 10.0,
+          "descriptive_95_pp": [
+            0.0,
+            25.0
+          ]
+        },
+        "data_history_interaction": {
+          "difference_pp": 106.66666666666667,
+          "descriptive_95_pp": [
+            85.0,
+            133.33333333333331
+          ]
+        }
+      }
+    },
+    "strict_v2_success": {
+      "summary": {
+        "original": {
+          "successes": 43,
+          "episodes": 60,
+          "per_seed": [
+            17,
+            16,
+            10
+          ]
+        },
+        "continued": {
+          "successes": 50,
+          "episodes": 60,
+          "per_seed": [
+            19,
+            20,
+            11
+          ]
+        },
+        "state_history4": {
+          "successes": 0,
+          "episodes": 60,
+          "per_seed": [
+            0,
+            0,
+            0
+          ]
+        },
+        "binary": {
+          "successes": 38,
+          "episodes": 60,
+          "per_seed": [
+            13,
+            18,
+            7
+          ]
+        },
+        "continued_history4": {
+          "successes": 60,
+          "episodes": 60,
+          "per_seed": [
+            20,
+            20,
+            20
+          ]
+        }
+      },
+      "contrasts": {
+        "continued_minus_original": {
+          "difference_pp": 11.666666666666666,
+          "descriptive_95_pp": [
+            -10.0,
+            28.333333333333332
+          ]
+        },
+        "state_history4_minus_original": {
+          "difference_pp": -71.66666666666667,
+          "descriptive_95_pp": [
+            -91.66666666666666,
+            -48.333333333333336
+          ]
+        },
+        "binary_minus_original": {
+          "difference_pp": -8.333333333333332,
+          "descriptive_95_pp": [
+            -31.666666666666664,
+            11.666666666666666
+          ]
+        },
+        "continued_history4_minus_original": {
+          "difference_pp": 28.333333333333332,
+          "descriptive_95_pp": [
+            8.333333333333332,
+            51.66666666666667
+          ]
+        },
+        "data_history_interaction": {
+          "difference_pp": 88.33333333333333,
+          "descriptive_95_pp": [
+            71.66666666666667,
+            110.00000000000001
+          ]
+        }
+      }
+    }
+  },
+  "scene_identity_checks": [
+    {
+      "seed": 0,
+      "shared_scene_sensors_exact": true
+    },
+    {
+      "seed": 1,
+      "shared_scene_sensors_exact": true
+    },
+    {
+      "seed": 2,
+      "shared_scene_sensors_exact": true
+    }
+  ],
+  "inference": "Validation comparisons, paired seed/scene bootstrap (10,000 draws). Descriptive intervals, three seeds, no multiplicity correction; no final-test claim."
+}

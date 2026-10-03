@@ -1,0 +1,44 @@
+[
+  {
+    "model": "bc",
+    "seed": 0,
+    "split": "tuning",
+    "successes": 20,
+    "episodes": 20
+  },
+  {
+    "model": "bc",
+    "seed": 0,
+    "split": "confirmation",
+    "successes": 20,
+    "episodes": 20
+  },
+  {
+    "model": "bc",
+    "seed": 1,
+    "split": "tuning",
+    "successes": 17,
+    "episodes": 20
+  },
+  {
+    "model": "bc",
+    "seed": 1,
+    "split": "confirmation",
+    "successes": 18,
+    "episodes": 20
+  },
+  {
+    "model": "bc",
+    "seed": 2,
+    "split": "tuning",
+    "successes": 17,
+    "episodes": 20
+  },
+  {
+    "model": "bc",
+    "seed": 2,
+    "split": "confirmation",
+    "successes": 17,
+    "episodes": 20
+  }
+]

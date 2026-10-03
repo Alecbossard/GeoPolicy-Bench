@@ -1,0 +1,24 @@
+{
+  "two_objects_one_goal": {
+    "train_first": 12000,
+    "validation_first": 111000,
+    "tuning_first": 111100,
+    "confirmation_first": 111200,
+    "reserved_test_first": 401000,
+    "train_episodes": 80,
+    "validation_episodes": 10,
+    "instruction": "red or green cube; fixed blue destination",
+    "gate": "seed-0 physical >=12/20 before three-seed confirmation; no final test tuning"
+  },
+  "full": {
+    "train_first": 13000,
+    "validation_first": 112000,
+    "tuning_first": 112100,
+    "confirmation_first": 112200,
+    "reserved_test_first": 402000,
+    "train_episodes": 80,
+    "validation_episodes": 10,
+    "instruction": "same two cubes and two trays/four label combinations as preserved V1/V2",
+    "gate": "progress only after a repeatable learned simpler task; view/prior matrix requires repeatable full-task validation"
+  }
+}

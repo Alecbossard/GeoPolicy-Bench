@@ -1,0 +1,5 @@
+{
+  "minimum_free_commit_before_heavy_job_gib": 6,
+  "minimum_free_gpu_mib": 1024,
+  "basis": "Observed evaluation private commit ~3.52 GiB, existing in-job 1 GiB guard, plus startup/system margin. This preflight does not change the scientific plan or relax any in-job guard."
+}

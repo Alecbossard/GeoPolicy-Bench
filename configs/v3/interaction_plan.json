@@ -1,0 +1,11 @@
+{
+  "hypothesis": "The rejected history recipe fails mainly after release, with repeated contact and motion. Recorded/live history is exact on a 102-step replay. Its original prefixes end before retreat. Additional recorded post-release retreat may help this recipe despite no overall benefit from continuation alone.",
+  "diagnostic_evidence": "results/v3/history_diagnosis.json",
+  "control_cells": ["original history1", "continued history1", "original history4"],
+  "new_cell": "continued history4",
+  "changed_factor_relative_to_history4_control": "actual recorded 30-step suffix only; original-prefix normalization held fixed",
+  "updates": 2000,
+  "training_seeds": [0, 1, 2],
+  "scenes": [110100, 110119],
+  "interpretation": "A targeted 2x2 data/history interaction, not attribution of any joint gain to one component. No budget increase or gripper-output change. No reserved test access. Negative results remain visible."
+}

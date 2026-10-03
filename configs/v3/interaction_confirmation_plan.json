@@ -1,0 +1,10 @@
+{
+  "candidate": "continued_history4",
+  "scenes": [110200, 110219],
+  "training_seeds": [0, 1, 2],
+  "reference": "original80",
+  "selection_rule": "Each candidate seed >=12/20 physical and strict V2; aggregate physical >=original and aggregate strict >original on this distinct validation split.",
+  "fallback": "Keep the original baseline if the candidate does not meet this rule.",
+  "no_new_training": true,
+  "reserved_test_used": false
+}

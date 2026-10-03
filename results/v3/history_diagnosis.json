@@ -1,0 +1,1791 @@
+{
+  "recorded_replay_steps": 102,
+  "maximum_history_input_error": 0.0,
+  "order": "newest to oldest, initial state repeated for missing past frames",
+  "closed_loop_failure_stages": {
+    "0": {
+      "object_stability": 20
+    },
+    "1": {
+      "object_stability": 19,
+      "release": 1
+    },
+    "2": {
+      "object_stability": 19,
+      "release": 1
+    }
+  },
+  "recorded_teacher_path_predictions": {
+    "original": [
+      {
+        "step": 0,
+        "phase": 0,
+        "motion_command_mae": 0.10898178815841675,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 1,
+        "phase": 0,
+        "motion_command_mae": 0.04519124701619148,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 2,
+        "phase": 0,
+        "motion_command_mae": 0.029727181419730186,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 3,
+        "phase": 0,
+        "motion_command_mae": 0.0571630597114563,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 4,
+        "phase": 0,
+        "motion_command_mae": 0.05476728081703186,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 5,
+        "phase": 0,
+        "motion_command_mae": 0.05452198162674904,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 6,
+        "phase": 0,
+        "motion_command_mae": 0.019969433546066284,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 7,
+        "phase": 0,
+        "motion_command_mae": 0.05323553457856178,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 8,
+        "phase": 0,
+        "motion_command_mae": 0.04059312865138054,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 9,
+        "phase": 0,
+        "motion_command_mae": 0.04774231091141701,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 10,
+        "phase": 0,
+        "motion_command_mae": 0.057637009769678116,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 11,
+        "phase": 0,
+        "motion_command_mae": 0.15213452279567719,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 12,
+        "phase": 0,
+        "motion_command_mae": 0.15352632105350494,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 13,
+        "phase": 0,
+        "motion_command_mae": 0.13667327165603638,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 14,
+        "phase": 1,
+        "motion_command_mae": 0.13785238564014435,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 15,
+        "phase": 1,
+        "motion_command_mae": 0.09902995079755783,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 16,
+        "phase": 1,
+        "motion_command_mae": 0.04524447023868561,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 17,
+        "phase": 1,
+        "motion_command_mae": 0.034254271537065506,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 18,
+        "phase": 1,
+        "motion_command_mae": 0.037297554314136505,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 19,
+        "phase": 1,
+        "motion_command_mae": 0.03957630693912506,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 20,
+        "phase": 1,
+        "motion_command_mae": 0.03557967767119408,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 21,
+        "phase": 1,
+        "motion_command_mae": 0.03156417980790138,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 22,
+        "phase": 1,
+        "motion_command_mae": 0.010270067490637302,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 23,
+        "phase": 1,
+        "motion_command_mae": 0.023778477683663368,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 24,
+        "phase": 1,
+        "motion_command_mae": 0.0446818470954895,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 25,
+        "phase": 1,
+        "motion_command_mae": 0.026245832443237305,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 26,
+        "phase": 1,
+        "motion_command_mae": 0.020921742543578148,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 27,
+        "phase": 1,
+        "motion_command_mae": 0.026003137230873108,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 28,
+        "phase": 2,
+        "motion_command_mae": 0.03710288181900978,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 29,
+        "phase": 2,
+        "motion_command_mae": 0.044990044087171555,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 30,
+        "phase": 2,
+        "motion_command_mae": 0.04592218995094299,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 31,
+        "phase": 2,
+        "motion_command_mae": 0.030720418319106102,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 32,
+        "phase": 2,
+        "motion_command_mae": 0.01741773448884487,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 33,
+        "phase": 2,
+        "motion_command_mae": 0.011603136546909809,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 34,
+        "phase": 2,
+        "motion_command_mae": 0.05199309065937996,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 35,
+        "phase": 2,
+        "motion_command_mae": 0.07311080396175385,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 36,
+        "phase": 2,
+        "motion_command_mae": 0.07713337987661362,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 37,
+        "phase": 2,
+        "motion_command_mae": 0.0726659744977951,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 38,
+        "phase": 2,
+        "motion_command_mae": 0.082550048828125,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 39,
+        "phase": 2,
+        "motion_command_mae": 0.07600098103284836,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 40,
+        "phase": 3,
+        "motion_command_mae": 0.19205862283706665,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 41,
+        "phase": 3,
+        "motion_command_mae": 0.08874333649873734,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 42,
+        "phase": 3,
+        "motion_command_mae": 0.035243745893239975,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 43,
+        "phase": 3,
+        "motion_command_mae": 0.027106337249279022,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 44,
+        "phase": 3,
+        "motion_command_mae": 0.013721863739192486,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 45,
+        "phase": 3,
+        "motion_command_mae": 0.008453184738755226,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 46,
+        "phase": 3,
+        "motion_command_mae": 0.02348429709672928,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 47,
+        "phase": 3,
+        "motion_command_mae": 0.05371496081352234,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 48,
+        "phase": 3,
+        "motion_command_mae": 0.08312615007162094,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 49,
+        "phase": 3,
+        "motion_command_mae": 0.06887570768594742,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 50,
+        "phase": 3,
+        "motion_command_mae": 0.09243034571409225,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 51,
+        "phase": 3,
+        "motion_command_mae": 0.10433182865381241,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 52,
+        "phase": 3,
+        "motion_command_mae": 0.06045256555080414,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 53,
+        "phase": 3,
+        "motion_command_mae": 0.06112419068813324,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 54,
+        "phase": 3,
+        "motion_command_mae": 0.1283881515264511,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 55,
+        "phase": 3,
+        "motion_command_mae": 0.2921369969844818,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 56,
+        "phase": 4,
+        "motion_command_mae": 0.19607090950012207,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 57,
+        "phase": 4,
+        "motion_command_mae": 0.11235026270151138,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 58,
+        "phase": 4,
+        "motion_command_mae": 0.0515306182205677,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 59,
+        "phase": 4,
+        "motion_command_mae": 0.04765787720680237,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 60,
+        "phase": 4,
+        "motion_command_mae": 0.040735453367233276,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 61,
+        "phase": 4,
+        "motion_command_mae": 0.03637109324336052,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 62,
+        "phase": 4,
+        "motion_command_mae": 0.029836473986506462,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 63,
+        "phase": 4,
+        "motion_command_mae": 0.024865567684173584,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 64,
+        "phase": 4,
+        "motion_command_mae": 0.03794058412313461,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 65,
+        "phase": 4,
+        "motion_command_mae": 0.06299327313899994,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 66,
+        "phase": 4,
+        "motion_command_mae": 0.0968882218003273,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 67,
+        "phase": 4,
+        "motion_command_mae": 0.09915854781866074,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 68,
+        "phase": 4,
+        "motion_command_mae": 0.05507412925362587,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 69,
+        "phase": 4,
+        "motion_command_mae": 0.032182518392801285,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 70,
+        "phase": 4,
+        "motion_command_mae": 0.019904546439647675,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 71,
+        "phase": 4,
+        "motion_command_mae": 0.022579776123166084,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 72,
+        "phase": 4,
+        "motion_command_mae": 0.03136112168431282,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 73,
+        "phase": 4,
+        "motion_command_mae": 0.020784784108400345,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 74,
+        "phase": 4,
+        "motion_command_mae": 0.029492923989892006,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 75,
+        "phase": 4,
+        "motion_command_mae": 0.02375088818371296,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 76,
+        "phase": 4,
+        "motion_command_mae": 0.02439846098423004,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 77,
+        "phase": 4,
+        "motion_command_mae": 0.07214664667844772,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 78,
+        "phase": 4,
+        "motion_command_mae": 0.08558651059865952,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 79,
+        "phase": 4,
+        "motion_command_mae": 0.09290003776550293,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 80,
+        "phase": 4,
+        "motion_command_mae": 0.0909683033823967,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 81,
+        "phase": 5,
+        "motion_command_mae": 0.19985593855381012,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 82,
+        "phase": 5,
+        "motion_command_mae": 0.09107092767953873,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 83,
+        "phase": 5,
+        "motion_command_mae": 0.06389225274324417,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 84,
+        "phase": 5,
+        "motion_command_mae": 0.05040504038333893,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 85,
+        "phase": 5,
+        "motion_command_mae": 0.06171071529388428,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 86,
+        "phase": 5,
+        "motion_command_mae": 0.057353537529706955,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 87,
+        "phase": 5,
+        "motion_command_mae": 0.05656902864575386,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 88,
+        "phase": 5,
+        "motion_command_mae": 0.03944191709160805,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 89,
+        "phase": 5,
+        "motion_command_mae": 0.04119476303458214,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 90,
+        "phase": 5,
+        "motion_command_mae": 0.028859585523605347,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 91,
+        "phase": 5,
+        "motion_command_mae": 0.04720357060432434,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 92,
+        "phase": 5,
+        "motion_command_mae": 0.08255031704902649,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 93,
+        "phase": 5,
+        "motion_command_mae": 0.07281660288572311,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 94,
+        "phase": 5,
+        "motion_command_mae": 0.061602819710969925,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 95,
+        "phase": 5,
+        "motion_command_mae": 0.046970803290605545,
+        "gripper_sign_correct": false
+      },
+      {
+        "step": 96,
+        "phase": 6,
+        "motion_command_mae": 0.03699151426553726,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 97,
+        "phase": 6,
+        "motion_command_mae": 0.02701379545032978,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 98,
+        "phase": 6,
+        "motion_command_mae": 0.014064674265682697,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 99,
+        "phase": 6,
+        "motion_command_mae": 0.012105681002140045,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 100,
+        "phase": 6,
+        "motion_command_mae": 0.01678774692118168,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 101,
+        "phase": 6,
+        "motion_command_mae": 0.02512328140437603,
+        "gripper_sign_correct": true
+      }
+    ],
+    "state_history4": [
+      {
+        "step": 0,
+        "phase": 0,
+        "motion_command_mae": 0.05166369676589966,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 1,
+        "phase": 0,
+        "motion_command_mae": 0.02266836166381836,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 2,
+        "phase": 0,
+        "motion_command_mae": 0.03528974577784538,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 3,
+        "phase": 0,
+        "motion_command_mae": 0.02454436756670475,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 4,
+        "phase": 0,
+        "motion_command_mae": 0.01205367874354124,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 5,
+        "phase": 0,
+        "motion_command_mae": 0.0400552898645401,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 6,
+        "phase": 0,
+        "motion_command_mae": 0.017600424587726593,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 7,
+        "phase": 0,
+        "motion_command_mae": 0.03848494216799736,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 8,
+        "phase": 0,
+        "motion_command_mae": 0.03974221274256706,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 9,
+        "phase": 0,
+        "motion_command_mae": 0.005639202892780304,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 10,
+        "phase": 0,
+        "motion_command_mae": 0.02588694728910923,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 11,
+        "phase": 0,
+        "motion_command_mae": 0.15747995674610138,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 12,
+        "phase": 0,
+        "motion_command_mae": 0.13140042126178741,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 13,
+        "phase": 0,
+        "motion_command_mae": 0.14695848524570465,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 14,
+        "phase": 1,
+        "motion_command_mae": 0.11624487489461899,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 15,
+        "phase": 1,
+        "motion_command_mae": 0.04269877448678017,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 16,
+        "phase": 1,
+        "motion_command_mae": 0.004463896155357361,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 17,
+        "phase": 1,
+        "motion_command_mae": 0.027291683480143547,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 18,
+        "phase": 1,
+        "motion_command_mae": 0.040649060159921646,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 19,
+        "phase": 1,
+        "motion_command_mae": 0.05090397968888283,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 20,
+        "phase": 1,
+        "motion_command_mae": 0.059349339455366135,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 21,
+        "phase": 1,
+        "motion_command_mae": 0.0482352040708065,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 22,
+        "phase": 1,
+        "motion_command_mae": 0.029147237539291382,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 23,
+        "phase": 1,
+        "motion_command_mae": 0.016062339767813683,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 24,
+        "phase": 1,
+        "motion_command_mae": 0.038514699786901474,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 25,
+        "phase": 1,
+        "motion_command_mae": 0.02925845980644226,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 26,
+        "phase": 1,
+        "motion_command_mae": 0.015568339265882969,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 27,
+        "phase": 1,
+        "motion_command_mae": 0.012618515640497208,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 28,
+        "phase": 2,
+        "motion_command_mae": 0.004887579474598169,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 29,
+        "phase": 2,
+        "motion_command_mae": 0.004035241901874542,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 30,
+        "phase": 2,
+        "motion_command_mae": 0.00626478111371398,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 31,
+        "phase": 2,
+        "motion_command_mae": 0.008978619240224361,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 32,
+        "phase": 2,
+        "motion_command_mae": 0.025885125622153282,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 33,
+        "phase": 2,
+        "motion_command_mae": 0.03244964778423309,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 34,
+        "phase": 2,
+        "motion_command_mae": 0.04625518247485161,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 35,
+        "phase": 2,
+        "motion_command_mae": 0.03822870925068855,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 36,
+        "phase": 2,
+        "motion_command_mae": 0.05926033854484558,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 37,
+        "phase": 2,
+        "motion_command_mae": 0.10233604907989502,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 38,
+        "phase": 2,
+        "motion_command_mae": 0.12171844393014908,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 39,
+        "phase": 2,
+        "motion_command_mae": 0.12414532154798508,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 40,
+        "phase": 3,
+        "motion_command_mae": 0.15465126931667328,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 41,
+        "phase": 3,
+        "motion_command_mae": 0.09314840286970139,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 42,
+        "phase": 3,
+        "motion_command_mae": 0.036249641329050064,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 43,
+        "phase": 3,
+        "motion_command_mae": 0.016366401687264442,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 44,
+        "phase": 3,
+        "motion_command_mae": 0.01477636769413948,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 45,
+        "phase": 3,
+        "motion_command_mae": 0.008368370123207569,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 46,
+        "phase": 3,
+        "motion_command_mae": 0.007869139313697815,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 47,
+        "phase": 3,
+        "motion_command_mae": 0.016902802512049675,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 48,
+        "phase": 3,
+        "motion_command_mae": 0.04436559975147247,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 49,
+        "phase": 3,
+        "motion_command_mae": 0.03546485677361488,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 50,
+        "phase": 3,
+        "motion_command_mae": 0.07198651880025864,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 51,
+        "phase": 3,
+        "motion_command_mae": 0.08890283107757568,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 52,
+        "phase": 3,
+        "motion_command_mae": 0.0519057996571064,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 53,
+        "phase": 3,
+        "motion_command_mae": 0.06054447963833809,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 54,
+        "phase": 3,
+        "motion_command_mae": 0.1453687846660614,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 55,
+        "phase": 3,
+        "motion_command_mae": 0.26675140857696533,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 56,
+        "phase": 4,
+        "motion_command_mae": 0.19459395110607147,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 57,
+        "phase": 4,
+        "motion_command_mae": 0.103240467607975,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 58,
+        "phase": 4,
+        "motion_command_mae": 0.023522963747382164,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 59,
+        "phase": 4,
+        "motion_command_mae": 0.04643368721008301,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 60,
+        "phase": 4,
+        "motion_command_mae": 0.03626076504588127,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 61,
+        "phase": 4,
+        "motion_command_mae": 0.04132571071386337,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 62,
+        "phase": 4,
+        "motion_command_mae": 0.0151436822488904,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 63,
+        "phase": 4,
+        "motion_command_mae": 0.016019171103835106,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 64,
+        "phase": 4,
+        "motion_command_mae": 0.02779553271830082,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 65,
+        "phase": 4,
+        "motion_command_mae": 0.06315039843320847,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 66,
+        "phase": 4,
+        "motion_command_mae": 0.08916136622428894,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 67,
+        "phase": 4,
+        "motion_command_mae": 0.09927002340555191,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 68,
+        "phase": 4,
+        "motion_command_mae": 0.0493118017911911,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 69,
+        "phase": 4,
+        "motion_command_mae": 0.04442374408245087,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 70,
+        "phase": 4,
+        "motion_command_mae": 0.019839370623230934,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 71,
+        "phase": 4,
+        "motion_command_mae": 0.015165340155363083,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 72,
+        "phase": 4,
+        "motion_command_mae": 0.021809378638863564,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 73,
+        "phase": 4,
+        "motion_command_mae": 0.019511157646775246,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 74,
+        "phase": 4,
+        "motion_command_mae": 0.02709878422319889,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 75,
+        "phase": 4,
+        "motion_command_mae": 0.025094972923398018,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 76,
+        "phase": 4,
+        "motion_command_mae": 0.03180781379342079,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 77,
+        "phase": 4,
+        "motion_command_mae": 0.054557085037231445,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 78,
+        "phase": 4,
+        "motion_command_mae": 0.06850701570510864,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 79,
+        "phase": 4,
+        "motion_command_mae": 0.11158811300992966,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 80,
+        "phase": 4,
+        "motion_command_mae": 0.10067835450172424,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 81,
+        "phase": 5,
+        "motion_command_mae": 0.16616351902484894,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 82,
+        "phase": 5,
+        "motion_command_mae": 0.08795216679573059,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 83,
+        "phase": 5,
+        "motion_command_mae": 0.05293959006667137,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 84,
+        "phase": 5,
+        "motion_command_mae": 0.04615313932299614,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 85,
+        "phase": 5,
+        "motion_command_mae": 0.03866919130086899,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 86,
+        "phase": 5,
+        "motion_command_mae": 0.04245148226618767,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 87,
+        "phase": 5,
+        "motion_command_mae": 0.035201799124479294,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 88,
+        "phase": 5,
+        "motion_command_mae": 0.027236035093665123,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 89,
+        "phase": 5,
+        "motion_command_mae": 0.03346243500709534,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 90,
+        "phase": 5,
+        "motion_command_mae": 0.021979128941893578,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 91,
+        "phase": 5,
+        "motion_command_mae": 0.022451063618063927,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 92,
+        "phase": 5,
+        "motion_command_mae": 0.036421891301870346,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 93,
+        "phase": 5,
+        "motion_command_mae": 0.04066365584731102,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 94,
+        "phase": 5,
+        "motion_command_mae": 0.04474173113703728,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 95,
+        "phase": 5,
+        "motion_command_mae": 0.03146575018763542,
+        "gripper_sign_correct": false
+      },
+      {
+        "step": 96,
+        "phase": 6,
+        "motion_command_mae": 0.01982845552265644,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 97,
+        "phase": 6,
+        "motion_command_mae": 0.021465400233864784,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 98,
+        "phase": 6,
+        "motion_command_mae": 0.015486161224544048,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 99,
+        "phase": 6,
+        "motion_command_mae": 0.008093503303825855,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 100,
+        "phase": 6,
+        "motion_command_mae": 0.00706090172752738,
+        "gripper_sign_correct": true
+      },
+      {
+        "step": 101,
+        "phase": 6,
+        "motion_command_mae": 0.02551407553255558,
+        "gripper_sign_correct": true
+      }
+    ]
+  },
+  "conclusion": "No input-order or normalization mismatch found in this replay. History recipe is rejected on behavior; this does not establish a unique temporal/optimization/control cause.",
+  "post_release_motion_and_contacts": [
+    {
+      "seed": 0,
+      "scene_seed": 110100,
+      "object_quiet_dwell_s": 0.44999999999995044,
+      "samples": 134,
+      "finger_contact_samples": 124,
+      "excessive_linear_speed_samples": 118,
+      "excessive_angular_speed_samples": 4
+    },
+    {
+      "seed": 0,
+      "scene_seed": 110101,
+      "object_quiet_dwell_s": 0.49999999999994493,
+      "samples": 138,
+      "finger_contact_samples": 127,
+      "excessive_linear_speed_samples": 83,
+      "excessive_angular_speed_samples": 1
+    },
+    {
+      "seed": 0,
+      "scene_seed": 110102,
+      "object_quiet_dwell_s": 0.39999999999995595,
+      "samples": 136,
+      "finger_contact_samples": 127,
+      "excessive_linear_speed_samples": 119,
+      "excessive_angular_speed_samples": 5
+    },
+    {
+      "seed": 0,
+      "scene_seed": 110103,
+      "object_quiet_dwell_s": 0.49999999999994493,
+      "samples": 134,
+      "finger_contact_samples": 123,
+      "excessive_linear_speed_samples": 84,
+      "excessive_angular_speed_samples": 2
+    },
+    {
+      "seed": 0,
+      "scene_seed": 110104,
+      "object_quiet_dwell_s": 0.5999999999999339,
+      "samples": 149,
+      "finger_contact_samples": 136,
+      "excessive_linear_speed_samples": 74,
+      "excessive_angular_speed_samples": 3
+    },
+    {
+      "seed": 0,
+      "scene_seed": 110105,
+      "object_quiet_dwell_s": 0.5499999999999394,
+      "samples": 152,
+      "finger_contact_samples": 140,
+      "excessive_linear_speed_samples": 135,
+      "excessive_angular_speed_samples": 4
+    },
+    {
+      "seed": 0,
+      "scene_seed": 110106,
+      "object_quiet_dwell_s": 0.49999999999994493,
+      "samples": 144,
+      "finger_contact_samples": 133,
+      "excessive_linear_speed_samples": 126,
+      "excessive_angular_speed_samples": 4
+    },
+    {
+      "seed": 0,
+      "scene_seed": 110107,
+      "object_quiet_dwell_s": 0.49999999999994493,
+      "samples": 142,
+      "finger_contact_samples": 132,
+      "excessive_linear_speed_samples": 84,
+      "excessive_angular_speed_samples": 1
+    },
+    {
+      "seed": 0,
+      "scene_seed": 110108,
+      "object_quiet_dwell_s": 0.39999999999995595,
+      "samples": 134,
+      "finger_contact_samples": 125,
+      "excessive_linear_speed_samples": 71,
+      "excessive_angular_speed_samples": 3
+    },
+    {
+      "seed": 0,
+      "scene_seed": 110109,
+      "object_quiet_dwell_s": 0.6999999999999229,
+      "samples": 148,
+      "finger_contact_samples": 133,
+      "excessive_linear_speed_samples": 93,
+      "excessive_angular_speed_samples": 1
+    },
+    {
+      "seed": 0,
+      "scene_seed": 110110,
+      "object_quiet_dwell_s": 0.6999999999999229,
+      "samples": 154,
+      "finger_contact_samples": 139,
+      "excessive_linear_speed_samples": 102,
+      "excessive_angular_speed_samples": 3
+    },
+    {
+      "seed": 0,
+      "scene_seed": 110111,
+      "object_quiet_dwell_s": 0.39999999999995595,
+      "samples": 131,
+      "finger_contact_samples": 122,
+      "excessive_linear_speed_samples": 83,
+      "excessive_angular_speed_samples": 4
+    },
+    {
+      "seed": 0,
+      "scene_seed": 110112,
+      "object_quiet_dwell_s": 0.7499999999999174,
+      "samples": 148,
+      "finger_contact_samples": 132,
+      "excessive_linear_speed_samples": 72,
+      "excessive_angular_speed_samples": 2
+    },
+    {
+      "seed": 0,
+      "scene_seed": 110113,
+      "object_quiet_dwell_s": 0.44999999999995044,
+      "samples": 144,
+      "finger_contact_samples": 134,
+      "excessive_linear_speed_samples": 70,
+      "excessive_angular_speed_samples": 4
+    },
+    {
+      "seed": 0,
+      "scene_seed": 110114,
+      "object_quiet_dwell_s": 0.39999999999995595,
+      "samples": 137,
+      "finger_contact_samples": 128,
+      "excessive_linear_speed_samples": 56,
+      "excessive_angular_speed_samples": 5
+    },
+    {
+      "seed": 0,
+      "scene_seed": 110115,
+      "object_quiet_dwell_s": 0.5499999999999394,
+      "samples": 151,
+      "finger_contact_samples": 139,
+      "excessive_linear_speed_samples": 132,
+      "excessive_angular_speed_samples": 2
+    },
+    {
+      "seed": 0,
+      "scene_seed": 110116,
+      "object_quiet_dwell_s": 0.5999999999999339,
+      "samples": 155,
+      "finger_contact_samples": 142,
+      "excessive_linear_speed_samples": 81,
+      "excessive_angular_speed_samples": 4
+    },
+    {
+      "seed": 0,
+      "scene_seed": 110117,
+      "object_quiet_dwell_s": 0.39999999999995595,
+      "samples": 131,
+      "finger_contact_samples": 122,
+      "excessive_linear_speed_samples": 72,
+      "excessive_angular_speed_samples": 2
+    },
+    {
+      "seed": 0,
+      "scene_seed": 110118,
+      "object_quiet_dwell_s": 0.49999999999994493,
+      "samples": 137,
+      "finger_contact_samples": 126,
+      "excessive_linear_speed_samples": 119,
+      "excessive_angular_speed_samples": 4
+    },
+    {
+      "seed": 0,
+      "scene_seed": 110119,
+      "object_quiet_dwell_s": 0.49999999999994493,
+      "samples": 135,
+      "finger_contact_samples": 124,
+      "excessive_linear_speed_samples": 121,
+      "excessive_angular_speed_samples": 2
+    },
+    {
+      "seed": 1,
+      "scene_seed": 110100,
+      "object_quiet_dwell_s": 0.39999999999995595,
+      "samples": 134,
+      "finger_contact_samples": 125,
+      "excessive_linear_speed_samples": 84,
+      "excessive_angular_speed_samples": 4
+    },
+    {
+      "seed": 1,
+      "scene_seed": 110101,
+      "object_quiet_dwell_s": 0.5999999999999339,
+      "samples": 137,
+      "finger_contact_samples": 124,
+      "excessive_linear_speed_samples": 87,
+      "excessive_angular_speed_samples": 0
+    },
+    {
+      "seed": 1,
+      "scene_seed": 110102,
+      "object_quiet_dwell_s": 0.49999999999994493,
+      "samples": 135,
+      "finger_contact_samples": 124,
+      "excessive_linear_speed_samples": 113,
+      "excessive_angular_speed_samples": 4
+    },
+    {
+      "seed": 1,
+      "scene_seed": 110103,
+      "object_quiet_dwell_s": 0.5499999999999394,
+      "samples": 131,
+      "finger_contact_samples": 119,
+      "excessive_linear_speed_samples": 73,
+      "excessive_angular_speed_samples": 1
+    },
+    {
+      "seed": 1,
+      "scene_seed": 110104,
+      "object_quiet_dwell_s": 0.6499999999999284,
+      "samples": 148,
+      "finger_contact_samples": 134,
+      "excessive_linear_speed_samples": 114,
+      "excessive_angular_speed_samples": 0
+    },
+    {
+      "seed": 1,
+      "scene_seed": 110105,
+      "object_quiet_dwell_s": 0.49999999999994493,
+      "samples": 153,
+      "finger_contact_samples": 142,
+      "excessive_linear_speed_samples": 132,
+      "excessive_angular_speed_samples": 3
+    },
+    {
+      "seed": 1,
+      "scene_seed": 110106,
+      "object_quiet_dwell_s": 0.49999999999994493,
+      "samples": 146,
+      "finger_contact_samples": 135,
+      "excessive_linear_speed_samples": 86,
+      "excessive_angular_speed_samples": 4
+    },
+    {
+      "seed": 1,
+      "scene_seed": 110107,
+      "object_quiet_dwell_s": 0.44999999999995044,
+      "samples": 140,
+      "finger_contact_samples": 129,
+      "excessive_linear_speed_samples": 114,
+      "excessive_angular_speed_samples": 1
+    },
+    {
+      "seed": 1,
+      "scene_seed": 110108,
+      "object_quiet_dwell_s": 0.49999999999994493,
+      "samples": 133,
+      "finger_contact_samples": 122,
+      "excessive_linear_speed_samples": 89,
+      "excessive_angular_speed_samples": 1
+    },
+    {
+      "seed": 1,
+      "scene_seed": 110109,
+      "object_quiet_dwell_s": 0.7499999999999174,
+      "samples": 145,
+      "finger_contact_samples": 129,
+      "excessive_linear_speed_samples": 101,
+      "excessive_angular_speed_samples": 1
+    },
+    {
+      "seed": 1,
+      "scene_seed": 110110,
+      "object_quiet_dwell_s": 0.6499999999999284,
+      "samples": 155,
+      "finger_contact_samples": 139,
+      "excessive_linear_speed_samples": 133,
+      "excessive_angular_speed_samples": 1
+    },
+    {
+      "seed": 1,
+      "scene_seed": 110111,
+      "object_quiet_dwell_s": 0.49999999999994493,
+      "samples": 133,
+      "finger_contact_samples": 122,
+      "excessive_linear_speed_samples": 102,
+      "excessive_angular_speed_samples": 1
+    },
+    {
+      "seed": 1,
+      "scene_seed": 110112,
+      "object_quiet_dwell_s": 0.7999999999999119,
+      "samples": 145,
+      "finger_contact_samples": 129,
+      "excessive_linear_speed_samples": 109,
+      "excessive_angular_speed_samples": 0
+    },
+    {
+      "seed": 1,
+      "scene_seed": 110113,
+      "object_quiet_dwell_s": 0.44999999999995044,
+      "samples": 140,
+      "finger_contact_samples": 130,
+      "excessive_linear_speed_samples": 119,
+      "excessive_angular_speed_samples": 3
+    },
+    {
+      "seed": 1,
+      "scene_seed": 110114,
+      "object_quiet_dwell_s": 0.49999999999994493,
+      "samples": 138,
+      "finger_contact_samples": 126,
+      "excessive_linear_speed_samples": 101,
+      "excessive_angular_speed_samples": 1
+    },
+    {
+      "seed": 1,
+      "scene_seed": 110115,
+      "object_quiet_dwell_s": 0.5499999999999394,
+      "samples": 152,
+      "finger_contact_samples": 140,
+      "excessive_linear_speed_samples": 130,
+      "excessive_angular_speed_samples": 3
+    },
+    {
+      "seed": 1,
+      "scene_seed": 110116,
+      "object_quiet_dwell_s": 0.49999999999994493,
+      "samples": 156,
+      "finger_contact_samples": 144,
+      "excessive_linear_speed_samples": 136,
+      "excessive_angular_speed_samples": 1
+    },
+    {
+      "seed": 1,
+      "scene_seed": 110117,
+      "object_quiet_dwell_s": 0.44999999999995044,
+      "samples": 134,
+      "finger_contact_samples": 124,
+      "excessive_linear_speed_samples": 103,
+      "excessive_angular_speed_samples": 2
+    },
+    {
+      "seed": 1,
+      "scene_seed": 110118,
+      "object_quiet_dwell_s": 0.49999999999994493,
+      "samples": 137,
+      "finger_contact_samples": 126,
+      "excessive_linear_speed_samples": 94,
+      "excessive_angular_speed_samples": 3
+    },
+    {
+      "seed": 1,
+      "scene_seed": 110119,
+      "object_quiet_dwell_s": 0.0,
+      "samples": 0,
+      "finger_contact_samples": 0,
+      "excessive_linear_speed_samples": 0,
+      "excessive_angular_speed_samples": 0
+    },
+    {
+      "seed": 2,
+      "scene_seed": 110100,
+      "object_quiet_dwell_s": 0.34999999999996145,
+      "samples": 137,
+      "finger_contact_samples": 129,
+      "excessive_linear_speed_samples": 114,
+      "excessive_angular_speed_samples": 2
+    },
+    {
+      "seed": 2,
+      "scene_seed": 110101,
+      "object_quiet_dwell_s": 0.6499999999999284,
+      "samples": 138,
+      "finger_contact_samples": 124,
+      "excessive_linear_speed_samples": 98,
+      "excessive_angular_speed_samples": 0
+    },
+    {
+      "seed": 2,
+      "scene_seed": 110102,
+      "object_quiet_dwell_s": 0.49999999999994493,
+      "samples": 134,
+      "finger_contact_samples": 123,
+      "excessive_linear_speed_samples": 47,
+      "excessive_angular_speed_samples": 4
+    },
+    {
+      "seed": 2,
+      "scene_seed": 110103,
+      "object_quiet_dwell_s": 0.8499999999999064,
+      "samples": 134,
+      "finger_contact_samples": 119,
+      "excessive_linear_speed_samples": 98,
+      "excessive_angular_speed_samples": 0
+    },
+    {
+      "seed": 2,
+      "scene_seed": 110104,
+      "object_quiet_dwell_s": 0.7499999999999174,
+      "samples": 149,
+      "finger_contact_samples": 115,
+      "excessive_linear_speed_samples": 114,
+      "excessive_angular_speed_samples": 4
+    },
+    {
+      "seed": 2,
+      "scene_seed": 110105,
+      "object_quiet_dwell_s": 0.5999999999999339,
+      "samples": 153,
+      "finger_contact_samples": 140,
+      "excessive_linear_speed_samples": 76,
+      "excessive_angular_speed_samples": 1
+    },
+    {
+      "seed": 2,
+      "scene_seed": 110106,
+      "object_quiet_dwell_s": 0.5999999999999339,
+      "samples": 142,
+      "finger_contact_samples": 129,
+      "excessive_linear_speed_samples": 48,
+      "excessive_angular_speed_samples": 4
+    },
+    {
+      "seed": 2,
+      "scene_seed": 110107,
+      "object_quiet_dwell_s": 0.49999999999994493,
+      "samples": 142,
+      "finger_contact_samples": 130,
+      "excessive_linear_speed_samples": 117,
+      "excessive_angular_speed_samples": 8
+    },
+    {
+      "seed": 2,
+      "scene_seed": 110108,
+      "object_quiet_dwell_s": 0.5499999999999394,
+      "samples": 131,
+      "finger_contact_samples": 119,
+      "excessive_linear_speed_samples": 100,
+      "excessive_angular_speed_samples": 3
+    },
+    {
+      "seed": 2,
+      "scene_seed": 110109,
+      "object_quiet_dwell_s": 0.04999999999999449,
+      "samples": 135,
+      "finger_contact_samples": 133,
+      "excessive_linear_speed_samples": 109,
+      "excessive_angular_speed_samples": 9
+    },
+    {
+      "seed": 2,
+      "scene_seed": 110110,
+      "object_quiet_dwell_s": 0.6499999999999284,
+      "samples": 154,
+      "finger_contact_samples": 78,
+      "excessive_linear_speed_samples": 68,
+      "excessive_angular_speed_samples": 19
+    },
+    {
+      "seed": 2,
+      "scene_seed": 110111,
+      "object_quiet_dwell_s": 0.5499999999999394,
+      "samples": 133,
+      "finger_contact_samples": 119,
+      "excessive_linear_speed_samples": 111,
+      "excessive_angular_speed_samples": 20
+    },
+    {
+      "seed": 2,
+      "scene_seed": 110112,
+      "object_quiet_dwell_s": 0.7499999999999174,
+      "samples": 145,
+      "finger_contact_samples": 123,
+      "excessive_linear_speed_samples": 121,
+      "excessive_angular_speed_samples": 3
+    },
+    {
+      "seed": 2,
+      "scene_seed": 110113,
+      "object_quiet_dwell_s": 0.5499999999999394,
+      "samples": 143,
+      "finger_contact_samples": 64,
+      "excessive_linear_speed_samples": 70,
+      "excessive_angular_speed_samples": 33
+    },
+    {
+      "seed": 2,
+      "scene_seed": 110114,
+      "object_quiet_dwell_s": 0.49999999999994493,
+      "samples": 139,
+      "finger_contact_samples": 122,
+      "excessive_linear_speed_samples": 90,
+      "excessive_angular_speed_samples": 21
+    },
+    {
+      "seed": 2,
+      "scene_seed": 110115,
+      "object_quiet_dwell_s": 0.5999999999999339,
+      "samples": 152,
+      "finger_contact_samples": 139,
+      "excessive_linear_speed_samples": 94,
+      "excessive_angular_speed_samples": 3
+    },
+    {
+      "seed": 2,
+      "scene_seed": 110116,
+      "object_quiet_dwell_s": 0.7499999999999174,
+      "samples": 157,
+      "finger_contact_samples": 57,
+      "excessive_linear_speed_samples": 55,
+      "excessive_angular_speed_samples": 2
+    },
+    {
+      "seed": 2,
+      "scene_seed": 110117,
+      "object_quiet_dwell_s": 0.49999999999994493,
+      "samples": 128,
+      "finger_contact_samples": 117,
+      "excessive_linear_speed_samples": 76,
+      "excessive_angular_speed_samples": 4
+    },
+    {
+      "seed": 2,
+      "scene_seed": 110118,
+      "object_quiet_dwell_s": 0.44999999999995044,
+      "samples": 137,
+      "finger_contact_samples": 127,
+      "excessive_linear_speed_samples": 57,
+      "excessive_angular_speed_samples": 4
+    },
+    {
+      "seed": 2,
+      "scene_seed": 110119,
+      "object_quiet_dwell_s": 0.0,
+      "samples": 0,
+      "finger_contact_samples": 0,
+      "excessive_linear_speed_samples": 0,
+      "excessive_angular_speed_samples": 0
+    }
+  ]
+}

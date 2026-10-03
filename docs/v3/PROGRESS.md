@@ -56,8 +56,80 @@ La collecte initiale a rencontré deux conversions de booléens NumPy non
 sérialisables ; le nouveau code a été corrigé et la première sortie incomplète
 conservée sous `artifacts/v3/repaired_attempts`. Aucun fichier historique affecté.
 
-En cours : superviseur séquentiel `python -m geopolicy.v3 baseline`, puis 80
-démonstrations et dix démos de validation pour une comparaison BC/diffusion avec
-2 000 updates identiques. Journaux/checkpoints sous `artifacts/v3/pipeline/baseline`
-et `artifacts/v3/runs`. Les manifests de données sont archivés par hash pour
-préserver la reprise des premiers runs après une collecte supplémentaire.
+## Reprise du 3 octobre 2026
+
+L'inventaire de 6 210 fichiers V1/V2 a été vérifié à nouveau : aucune divergence.
+Baseline et ablations terminées ; aucun ancien worker restant lors de la reprise.
+Les manifests de données sont archivés par hash pour préserver la reprise des
+premiers runs après une collecte supplémentaire.
+
+Sur 80 démos / 2 000 updates / batch 32, BC original obtient, par seed,
+20/20, 17/20, 17/20 placements physiques sur tuning, puis 20/20, 18/20,
+17/20 sur confirmation distincte. Le seuil de compétence à une tâche simple
+est franchi. Diffusion seed 0 : 2/20 physique, 1/20 strict ; pas de grande
+matrice lancée sur cette recette non fonctionnelle.
+
+Les trois ablations exécutées avec trois seeds donnent sur tuning : original
+54/60 physique (43/60 strict), continuation seule 50/60 (50/60 strict),
+pince binaire 42/60 (38/60 strict), historique d'état seul 0/60 (0/60 strict).
+La continuation conserve la normalisation des préfixes originaux.
+
+Replay avec historique : 102 pas, maximum d'erreur d'entrée nul. Les échecs de
+l'historique sont principalement après libération. L'analyse de 8 209 échantillons
+après libération trouve 7 278 contacts et 5 578 vitesses linéaires excessives ;
+aucun des 60 épisodes ne montre une seconde continue d'objet suffisamment calme.
+Le mécanisme unique n'est pas établi ; ce sont des mouvements/contact mesurés,
+pas seulement une fermeture de pince vide.
+
+Un contrôle ciblé ajoute la continuation à l'historique : quatrième cellule
+du plan factoriel données ×historique. Il teste la couverture du retrait après
+libération à budget constant, sans supposer un gain des suffixes V2 PPO.
+Terminé : `python -m geopolicy.v3 interaction`, sorties sous
+`artifacts/v3/pipeline/interaction`. La nouvelle cellule obtient 20/20 physique
+et strict V2 sur chacune des trois seeds de tuning (60/60). Les intervalles
+descriptifs et les capteurs initiaux appariés sont dans
+`results/v3/ablation_summary.json`. Tous les résultats négatifs restent conservés.
+
+La réintroduction de deux cubes / un bac est préparée dans un espace distinct,
+avec scènes/configs propres. Aucun nouveau test réservé n'a été ouvert.
+
+## Confirmation et arrêt mémoire du 3 octobre
+
+Le protocole de confirmation est enregistré avant exécution dans
+`configs/v3/interaction_confirmation_plan.json` : 110200–110219, trois seeds,
+sans entraînement supplémentaire. La recette n'est promue que si chaque seed
+obtient au moins 12/20 aux deux critères, que son total physique est au moins
+celui du contrôle original et que son total strict est supérieur. Les capteurs
+initiaux doivent être identiques entre recettes.
+
+La seed 0 a exécuté 10 scènes : 10/10 physique et strict. **Évaluation partielle,
+aucune sélection finale.** Le garde-fou a arrêté proprement le worker après trois
+mesures sous 1 Go de mémoire engagée libre (605, 392, 438 Mio). Le processus
+occupait environ 3,52 Gio privés ; GPU 43 °C, plus de 6,6 Go de VRAM libres et
+23 Go de disque libres. Il s'agit de la mémoire Windows, pas d'un problème GPU.
+Traces et identités conservées sous
+`artifacts/v3/evaluations/bc_continued_history480_s0_confirmation`.
+
+Après l'arrêt, environ 4,1 Gio de mémoire engagée libre : marge insuffisante
+pour relancer le même worker avec le garde-fou de 1 Gio. Une intervention de
+l'utilisateur (fermeture d'onglets/applications inutiles, cible environ 6 Gio
+libres avant lancement) est demandée. Aucun processus utilisateur fermé,
+aucun paramètre Windows ou pilote modifié, aucun seuil abaissé.
+
+Pendant cette attente : audit indépendant de **438 rollouts / 74 442 pas**,
+géométrie et dwells concordants ; analyse des contacts après libération sauvegardée
+sans nouveau rendu ; trois tests des gates de validation et un test du garde-fou
+de démarrage réussis. L'inventaire de 6 210 fichiers historiques est à nouveau
+intact (vérification 10:51:58 UTC). Le pipeline
+progressif consomme la sélection validée, et le passage à la tâche complète
+requiert la confirmation à trois seeds de la tâche deux objets / un bac.
+
+Le nouveau preflight léger lit la mémoire avant d'importer PyTorch CUDA. À
+10:52:48 UTC, il confirme 4,12 Gio de commit libre, GPU 41 °C / 7 126 Mio libres,
+et refuse le démarrage sans charger le worker. Le seuil initial de 6 Gio est
+documenté dans `configs/v3/runtime_limits.json` ; les seuils scientifiques et
+le garde-fou pendant calcul restent inchangés. Aucun nouveau job lourd actif.
+
+Reprise exacte après récupération de mémoire :
+`python -m geopolicy.v3 interaction-confirmation`. Les dix scènes terminées
+seront conservées et seules les scènes restantes seront exécutées.

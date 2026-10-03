@@ -1,22 +1,122 @@
 {
-  "checked_rows": 48,
-  "checked_steps": 10415,
+  "checked_rows": 438,
+  "checked_steps": 74442,
   "independent_containment": "box support function, reconstructed from saved pose and goal",
   "summaries": {
+    "bc_binary80_s0_tuning": {
+      "episodes": 20,
+      "physical": 14,
+      "strict": 13
+    },
+    "bc_binary80_s1_tuning": {
+      "episodes": 20,
+      "physical": 19,
+      "strict": 18
+    },
+    "bc_binary80_s2_tuning": {
+      "episodes": 20,
+      "physical": 9,
+      "strict": 7
+    },
+    "bc_continued80_s0_tuning": {
+      "episodes": 20,
+      "physical": 19,
+      "strict": 19
+    },
+    "bc_continued80_s1_tuning": {
+      "episodes": 20,
+      "physical": 20,
+      "strict": 20
+    },
+    "bc_continued80_s2_tuning": {
+      "episodes": 20,
+      "physical": 11,
+      "strict": 11
+    },
+    "bc_continued_history480_s0_confirmation": {
+      "episodes": 10,
+      "physical": 10,
+      "strict": 10
+    },
+    "bc_continued_history480_s0_tuning": {
+      "episodes": 20,
+      "physical": 20,
+      "strict": 20
+    },
+    "bc_continued_history480_s1_tuning": {
+      "episodes": 20,
+      "physical": 20,
+      "strict": 20
+    },
+    "bc_continued_history480_s2_tuning": {
+      "episodes": 20,
+      "physical": 20,
+      "strict": 20
+    },
     "bc_four_demos_tuning_s0": {
       "episodes": 20,
       "physical": 11,
       "strict": 0
+    },
+    "bc_original80_s0_confirmation": {
+      "episodes": 20,
+      "physical": 20,
+      "strict": 17
+    },
+    "bc_original80_s0_tuning": {
+      "episodes": 20,
+      "physical": 20,
+      "strict": 17
+    },
+    "bc_original80_s1_confirmation": {
+      "episodes": 20,
+      "physical": 18,
+      "strict": 17
+    },
+    "bc_original80_s1_tuning": {
+      "episodes": 20,
+      "physical": 17,
+      "strict": 16
+    },
+    "bc_original80_s2_confirmation": {
+      "episodes": 20,
+      "physical": 17,
+      "strict": 5
+    },
+    "bc_original80_s2_tuning": {
+      "episodes": 20,
+      "physical": 17,
+      "strict": 10
     },
     "bc_overfit_train_s0": {
       "episodes": 4,
       "physical": 4,
       "strict": 0
     },
+    "bc_state_history480_s0_tuning": {
+      "episodes": 20,
+      "physical": 0,
+      "strict": 0
+    },
+    "bc_state_history480_s1_tuning": {
+      "episodes": 20,
+      "physical": 0,
+      "strict": 0
+    },
+    "bc_state_history480_s2_tuning": {
+      "episodes": 20,
+      "physical": 0,
+      "strict": 0
+    },
     "diffusion_four_demos_tuning_s0": {
       "episodes": 20,
       "physical": 6,
       "strict": 6
+    },
+    "diffusion_original80_s0_tuning": {
+      "episodes": 20,
+      "physical": 2,
+      "strict": 1
     },
     "diffusion_overfit_train_s0": {
       "episodes": 4,
