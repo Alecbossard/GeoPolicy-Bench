@@ -1,0 +1,19 @@
+{
+  "task": "single",
+  "dataset_manifest_sha256": "63d44548bae22ea15bfcbbbbd0df92a5e61dbb0b4105f82321270b09711b1d46",
+  "comparisons": [
+    {
+      "scene_seed": 10000,
+      "labels": "Place the red cube in the blue receptacle.",
+      "replay_steps": 132,
+      "three_view_comparisons": 15,
+      "maximum_errors": {
+        "robot_state": 0.0,
+        "normalized_history": 0.0,
+        "points": 0.0,
+        "instruction": 0.0
+      }
+    }
+  ],
+  "interpretation": "Recorded/live inputs only, teacher replay diagnostic; not learned-policy success or test evaluation"
+}

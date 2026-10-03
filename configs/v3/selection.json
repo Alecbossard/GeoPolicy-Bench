@@ -1,0 +1,58 @@
+{
+  "recipe": "continued_history4",
+  "continued": true,
+  "history": 4,
+  "binary_gripper": false,
+  "evidence": [
+    {
+      "recipe": "original",
+      "seed": 0,
+      "physical": 20,
+      "strict": 17,
+      "checkpoint_sha256": "0e4328aa2522fcde72434019434044ae7732fec9cda3433e98ea3a66bbd0ee92",
+      "result": "results/v3/validation/bc_original80_s0_confirmation.json"
+    },
+    {
+      "recipe": "continued_history4",
+      "seed": 0,
+      "physical": 20,
+      "strict": 20,
+      "checkpoint_sha256": "93ddead2631290b9afd73faa777864f7824d9d671fb9b8fd0a25b2952cc03808",
+      "result": "results/v3/validation/bc_continued_history480_s0_confirmation.json"
+    },
+    {
+      "recipe": "original",
+      "seed": 1,
+      "physical": 18,
+      "strict": 17,
+      "checkpoint_sha256": "f34de1ea74255486f98e1d2ab45ea87150a3a2484374445f240afeaa45294a6e",
+      "result": "results/v3/validation/bc_original80_s1_confirmation.json"
+    },
+    {
+      "recipe": "continued_history4",
+      "seed": 1,
+      "physical": 20,
+      "strict": 20,
+      "checkpoint_sha256": "af80528ce800cd38185b4a17259cff3485bcf52bab46c445af30255f84a82398",
+      "result": "results/v3/validation/bc_continued_history480_s1_confirmation.json"
+    },
+    {
+      "recipe": "original",
+      "seed": 2,
+      "physical": 17,
+      "strict": 5,
+      "checkpoint_sha256": "b092872b157557308393cd869d781cb68489722a4c84a10fdc69cccae4d861ce",
+      "result": "results/v3/validation/bc_original80_s2_confirmation.json"
+    },
+    {
+      "recipe": "continued_history4",
+      "seed": 2,
+      "physical": 20,
+      "strict": 20,
+      "checkpoint_sha256": "5a56a79d0caa212551a41d385a1ceb5328aae05e730edca9568cdc95965d2e49",
+      "result": "results/v3/validation/bc_continued_history480_s2_confirmation.json"
+    }
+  ],
+  "decision": "Distinct validation only; each seed >=12/20 on both criteria, physical total no lower and strict total higher than original",
+  "reserved_test_used": false
+}

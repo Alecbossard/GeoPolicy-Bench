@@ -53,6 +53,9 @@ class Data(Episodes):
 
 
 def live(env, obs, history, cfg, norm):
+    if cfg.get("named_views"):
+        from .stages import stage_live
+        return stage_live(env, obs, history, cfg, norm)
     packet = camera_packet(env, obs)
     points, mask = fuse_points([(packet[c]["points"], packet[c]["mask"]) for c in CAMERAS])
     states = np.stack(history[-cfg["history"]:])

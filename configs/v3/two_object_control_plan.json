@@ -1,0 +1,13 @@
+{
+  "reason": "Continued/history4 recipe succeeds on single-object validation but fails 0/20 on two objects/one goal (13 approach, 7 grasp). Both labels replay exactly across recorded/live state, normalization, points and tokens.",
+  "hypothesis": "The usefulness of robot-state history may depend on task complexity; reducing history might recover motion/selection. This is a hypothesis, not an established cause.",
+  "task": "two_objects_one_goal",
+  "control": "bc_two_objects_one_goal_continued_history480_s0",
+  "new_recipe": "continued_state1",
+  "changed_factor": "history4 to history1 only",
+  "held_fixed": "same 80 successful train and 10 recorded-validation demos; continued frames; normalization from original prefixes; encoder/color prior; gripper/loss; batch32/horizon8/execute2; 2000 updates",
+  "pilot_seed": 0,
+  "tuning_scenes": [111100, 111119],
+  "expansion_gate": "physical >=12/20 on seed0 before seed1/2 and distinct confirmation. Full complexity requires all three seeds >=12/20 on both validation splits.",
+  "reserved_test_used": false
+}

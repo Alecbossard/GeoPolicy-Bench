@@ -1,0 +1,15 @@
+{
+  "purpose": "Final bounded coherence diagnostic on two labels; train-scene overfit is not generalization",
+  "task": "two_objects_one_goal",
+  "limit": 4,
+  "history": 1,
+  "continued": true,
+  "updates": 2000,
+  "model": "direct_bc",
+  "seed": 0,
+  "evaluation_scenes": [
+    12000,
+    12003
+  ],
+  "no_reserved_test": true
+}

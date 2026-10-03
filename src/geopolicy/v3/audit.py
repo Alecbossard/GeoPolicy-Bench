@@ -8,7 +8,15 @@ def audit():
     cfg = json.loads((ROOT / "configs/v3/plan.json").read_text())["stability"]
     checked_steps, checked_rows = 0, 0
     summaries = {}
-    for path in sorted((ROOT / "results/v3/validation").glob("*.json")):
+    checkpoint_hashes = {sha(p): p for p in (ROOT / "artifacts/v3/runs").glob("*/best.pt")}
+    protocol = ROOT/"configs/v3/final_protocol.json"
+    if protocol.exists():
+        for record in json.loads(protocol.read_text())["registry"]:
+            p = ROOT/record["checkpoint"]
+            assert sha(p) == record["checkpoint_sha256"]
+            checkpoint_hashes[record["checkpoint_sha256"]] = p
+    paths = sorted((ROOT/"results/v3/validation").glob("*.json"))+sorted((ROOT/"results/v3/test").glob("*.json"))
+    for path in paths:
         saved = json.loads(path.read_text())
         out = ROOT / "artifacts/v3/evaluations" / path.stem
         if not (out / "identity.json").exists():
@@ -16,21 +24,22 @@ def audit():
         identity = saved["identity"]
         if identity["checkpoint_sha256"]:
             # Identify the corresponding immutable saved checkpoint by hash.
-            matches = [p for p in (ROOT / "artifacts/v3/runs").glob("*/best.pt")
-                       if sha(p) == identity["checkpoint_sha256"]]
-            assert matches, f"No local matching checkpoint for {path.name}"
+            assert identity["checkpoint_sha256"] in checkpoint_hashes, f"No local matching checkpoint for {path.name}"
         for row in saved["rollouts"]:
             trace = json.loads((out / "traces" / f"{row['scene_seed']}.json").read_text())
             assert len(trace) == row["steps"]
             starts = dict(physical=None, strict=None)
             success = dict(physical=False, strict=False)
-            released, previous = False, None
+            released, previous, maximum_height = False, None, 0.
             for step in trace:
                 timestamp = step["time_s"]
                 if previous is not None:
                     assert abs(timestamp - previous - .05) < 1e-8
                 previous = timestamp
                 position = np.asarray(step["selected_xyz_m"])
+                maximum_height = max(maximum_height, float(position[2]))
+                assert step["previously_lifted"] == (maximum_height > cfg["minimum_previous_lift_m"])
+                assert len(step["action"]) == 7 and max(abs(v) for v in step["action"]) <= 1.000001
                 rotation = np.asarray(step["rotation"])
                 goal = np.asarray(step["goal_xyz_m"])
                 # Independent of the eight-corner implementation in the evaluator.

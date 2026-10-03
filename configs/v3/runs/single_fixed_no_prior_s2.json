@@ -1,0 +1,21 @@
+{
+  "version": 3,
+  "model": "direct_bc",
+  "seed": 2,
+  "updates": 2000,
+  "batch_size": 32,
+  "limit": 80,
+  "continued": true,
+  "history": 4,
+  "binary_gripper": false,
+  "overfit_diagnostic": false,
+  "horizon": 8,
+  "execute_steps": 2,
+  "color_prior": false,
+  "device": "cuda",
+  "learning_rate": 0.0003,
+  "dataset_manifest_sha256": "63d44548bae22ea15bfcbbbbd0df92a5e61dbb0b4105f82321270b09711b1d46",
+  "task": "single",
+  "view": "fixed",
+  "named_views": true
+}

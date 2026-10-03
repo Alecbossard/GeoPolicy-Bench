@@ -1,0 +1,12 @@
+{
+  "evidence": "results/v3/instruction_diagnosis.json",
+  "hypothesis": "Weak initial instruction response may reflect difficulty selecting the relevant sensor moments through the shared encoder bottleneck. Explicit label-selected XYZRGB moments might help; no unique cause is established.",
+  "model": "routed_bc",
+  "changed_component": "Decoder additionally receives 12 label-selected XYZRGB moments computed by the same learned/color-prior camera attention. No simulator object poses, semantic masks or teacher phases. All seven action channels remain learned.",
+  "task": "two_objects_one_goal",
+  "fixed": "80 same continued demos, original-prefix normalization, history1, continuous gripper, same loss, 2000 updates, batch32, horizon8, execute2",
+  "pilot": "seed0, 111100-111119",
+  "gate": ">=12/20 physical before three-seed repetition and disjoint confirmation; otherwise stop this architecture pilot",
+  "capacity_control_if_promoted": "same routed model with its 12 extra decoder inputs zeroed; same initialization/parameter count/data/budget",
+  "reserved_test_used": false
+}

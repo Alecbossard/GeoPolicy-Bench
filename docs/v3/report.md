@@ -1,10 +1,11 @@
 # Rapport V3 provisoire — 3 octobre 2026
 
 La manipulation apprise fonctionne régulièrement sur la tâche simplifiée.
-Le projet V3 n'est pas encore terminé : confirmation de la recette candidate,
-progression de complexité, étude des vues, test réservé et démo finale restent
-à exécuter. Le worker est arrêté par le garde-fou mémoire Windows ; aucune
-modification des pilotes ou des paramètres système n'est nécessaire au code.
+Le projet V3 n'est pas encore terminé : étude des vues, test réservé et démo
+finale restent à exécuter. La progression à deux objets n'a pas franchi son gate.
+Après un arrêt mémoire Windows,
+la marge retrouvée a permis de reprendre sans changer les seuils, les pilotes
+ou les paramètres système.
 
 ## Références historiques à critères comparables
 
@@ -55,15 +56,39 @@ Les trois seeds d'entraînement sont 0, 1 et 2 ; chaque seed rencontre les même
 | Continuation + quatre états | 20, 20, 20 | 60/60 | 60/60 |
 
 La baseline originale est confirmée sur 110200–110219 : physique 20, 18, 17,
-soit 55/60 ; strict 17, 17, 5, soit 39/60. La recette combinée n'a encore exécuté
-que les dix premières scènes de seed 0 (10/10 aux deux critères). Elle n'est
-pas sélectionnée tant que la confirmation complète n'a pas satisfait la règle
-[enregistrée](../../configs/v3/interaction_confirmation_plan.json).
+soit 55/60 ; strict 17, 17, 5, soit 39/60. La recette combinée a achevé les trois
+seeds : 20/20 chacune, soit 60/60 aux deux critères. La règle
+[enregistrée](../../configs/v3/interaction_confirmation_plan.json) est satisfaite
+et la [sélection](../../configs/v3/selection.json) est sauvegardée. Les résultats
+proviennent de validation ; le test réservé reste verrouillé.
 
-La recette diffusion V1 réentraînée sur ces mêmes 80 préfixes et le même budget,
-seed 0 seulement, obtient 2/20 physique et 1/20 strict. Son L1 enregistré est
-plus faible que celui de BC ; cela ne correspond pas à un meilleur comportement.
-Ce contrôle à une seed ne suffit pas à attribuer l'écart à l'architecture seule.
+La recette diffusion V1 réentraînée sur ces mêmes 80 préfixes et le même budget
+obtient 2, 11, 13 placements physiques sur trois seeds, soit 26/60 ; scores
+stricts 1, 10, 5, soit 16/60. L'écart entre seeds est marqué. Son L1 enregistré
+en seed 0 est plus faible que celui de BC ; cela ne correspond pas à un meilleur
+comportement. La comparaison porte sur ces recettes indépendantes, pas une
+cause d'architecture unique à capacité égale.
+
+## Progression négative à deux objets
+
+80+10 nouvelles démonstrations scriptées sont stables. Les entrées enregistrées
+et live sont exactes sur 259 pas et deux consignes, y compris les trois vues.
+À budget constant, le pilote continuation/historique4 obtient 0/20 (13 approche,
+7 prise), état courant 0/20 (10 approche, 8 prise, 2 sélection), routage explicite
+des moments XYZRGB vers le décodeur 1/20. Chaque pilote est à une seed ; aucun
+n'est présenté comme une estimation robuste de sa performance générale.
+
+Les deux premières recettes répondent faiblement au changement initial de
+consigne : variations moyennes de translation 0,047 et 0,076, contre 1,6 pour
+la référence diagnostique ; signe Y correct dans 20/40 commandes. Ce contrôle
+initial ne démontre pas une cause unique. Le routage proposé n'a pas résolu le
+problème et est conservé comme expérience négative, sans action GT.
+
+Le surapprentissage de quatre trajectoires à deux objets réussit 4/4 strict
+sur train. Cela vérifie une capacité à mémoriser ces trajectoires, sans prouver
+la généralisation. Le passage à deux destinations est arrêté. Déviation :
+l'étude fixe/poignet/fusion et prior on/off est limitée à la tâche simple où
+la compétence est confirmée ; elle ne répondra pas au grounding multicible.
 
 ## Causes établies et hypothèses
 

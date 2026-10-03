@@ -1,0 +1,31 @@
+{
+  "task": "two_objects_one_goal",
+  "dataset_manifest_sha256": "59b020a7e1085f34774bc24de752042baaf363949d91075ebc4e810423115714",
+  "comparisons": [
+    {
+      "scene_seed": 12000,
+      "labels": "Place the red cube in the blue receptacle.",
+      "replay_steps": 124,
+      "three_view_comparisons": 15,
+      "maximum_errors": {
+        "robot_state": 0.0,
+        "normalized_history": 0.0,
+        "points": 0.0,
+        "instruction": 0.0
+      }
+    },
+    {
+      "scene_seed": 12001,
+      "labels": "Place the green cube in the blue receptacle.",
+      "replay_steps": 135,
+      "three_view_comparisons": 15,
+      "maximum_errors": {
+        "robot_state": 0.0,
+        "normalized_history": 0.0,
+        "points": 0.0,
+        "instruction": 0.0
+      }
+    }
+  ],
+  "interpretation": "Recorded/live inputs only, teacher replay diagnostic; not learned-policy success or test evaluation"
+}

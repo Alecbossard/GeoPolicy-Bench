@@ -93,9 +93,13 @@ def ablations():
 def progressive(task="two_objects_one_goal"):
     competence("bc")
     selection = json.loads((ROOT / "configs/v3/selection.json").read_text())
+    if task == "full":
+        path = ROOT / "configs/v3/two_objects_one_goal_selection.json"
+        if path.exists():
+            selection = json.loads(path.read_text())
     assert selection["reserved_test_used"] is False
     recipe = selection["recipe"]
-    extra = ["--history", str(selection["history"])]
+    extra = ["--history", str(selection["history"]), "--model", selection.get("model", "direct_bc")]
     if selection["continued"]:
         extra.append("--continued")
     if task == "full":
@@ -107,7 +111,7 @@ def progressive(task="two_objects_one_goal"):
               ("train_s0", ["train", "--name", name, "--task", task, "--limit", "80", *extra]),
               ("tuning_s0", ["evaluate", "--name", name + "_tuning", "--first", str(stage["tuning_first"]),
                               "--checkpoint", f"artifacts/v3/runs/{name}/best.pt"])]
-    supervise(task, stages)
+    supervise(f"{task}_{recipe}", stages)
     rows = json.loads((ROOT / f"results/v3/validation/{name}_tuning.json").read_text())["rollouts"]
     if sum(r["physical_success"] for r in rows) < 12:
         print(f"{task}: seed-0 competence gate not reached; no matrix is launched", flush=True)
@@ -123,7 +127,7 @@ def progressive(task="two_objects_one_goal"):
             ])
         repeat.append((f"confirmation_s{seed}", ["evaluate", "--name", name + "_confirmation",
                        "--first", str(stage["confirmation_first"]), "--checkpoint", f"artifacts/v3/runs/{name}/best.pt"]))
-    supervise(task, repeat)
+    supervise(f"{task}_{recipe}", repeat)
     progressive_gate(task, recipe)
 
 
@@ -144,6 +148,67 @@ def progressive_gate(task, recipe):
             assert count >= 12, f"Progressive gate failed: {name}: {count}/20"
     write(ROOT / f"results/v3/{task}_competence_gate.json", evidence)
     return evidence
+
+
+def two_object_control():
+    """Bounded one-factor control after the rejected multi-object history pilot."""
+    competence("bc")
+    task, recipe = "two_objects_one_goal", "continued_state1"
+    stage = json.loads((ROOT / "configs/v3/task_stages.json").read_text())[task]
+    stages = []
+    for seed in (0, 1, 2):
+        name = f"bc_{task}_{recipe}80_s{seed}"
+        stages.extend([
+            (f"train_s{seed}", ["train", "--name", name, "--task", task, "--limit", "80",
+             "--seed", str(seed), "--continued"]),
+            (f"tuning_s{seed}", ["evaluate", "--name", name + "_tuning", "--first", str(stage["tuning_first"]),
+             "--checkpoint", f"artifacts/v3/runs/{name}/best.pt"]),
+        ])
+        if seed == 0:
+            supervise("two_object_history_control", stages)
+            stages = []
+            result = json.loads((ROOT / f"results/v3/validation/{name}_tuning.json").read_text())
+            if validation_counts(result, 0, stage["tuning_first"])["physical"] < 12:
+                print("History1 control failed competence gate; no repetition or complexity expansion", flush=True)
+                return
+        stages.append((f"confirmation_s{seed}", ["evaluate", "--name", name + "_confirmation",
+                       "--first", str(stage["confirmation_first"]), "--checkpoint", f"artifacts/v3/runs/{name}/best.pt"]))
+    supervise("two_object_history_control", stages)
+    evidence = progressive_gate(task, recipe)
+    write(ROOT / "configs/v3/two_objects_one_goal_selection.json",
+          dict(recipe=recipe, continued=True, history=1, binary_gripper=False,
+               evidence=evidence, reserved_test_used=False,
+               decision="Three-seed physical competence on tuning and disjoint confirmation; only robot-state history differs from the rejected pilot"))
+
+
+def routed_control():
+    competence("bc")
+    task, recipe = "two_objects_one_goal", "routed_continued_state1"
+    stage = json.loads((ROOT / "configs/v3/task_stages.json").read_text())[task]
+    stages = []
+    for seed in (0, 1, 2):
+        name = f"bc_{task}_{recipe}80_s{seed}"
+        stages.extend([
+            (f"train_s{seed}", ["train", "--name", name, "--model", "routed_bc", "--task", task,
+             "--limit", "80", "--seed", str(seed), "--continued"]),
+            (f"tuning_s{seed}", ["evaluate", "--name", name + "_tuning", "--first", str(stage["tuning_first"]),
+             "--checkpoint", f"artifacts/v3/runs/{name}/best.pt"]),
+        ])
+        if seed == 0:
+            supervise("two_object_routing_control", stages)
+            stages = []
+            result = json.loads((ROOT / f"results/v3/validation/{name}_tuning.json").read_text())
+            if validation_counts(result, 0, stage["tuning_first"])["physical"] < 12:
+                print("Routing pilot failed competence gate; no repetition or complexity expansion", flush=True)
+                return
+        stages.append((f"confirmation_s{seed}", ["evaluate", "--name", name + "_confirmation",
+                       "--first", str(stage["confirmation_first"]), "--checkpoint", f"artifacts/v3/runs/{name}/best.pt"]))
+    supervise("two_object_routing_control", stages)
+    evidence = progressive_gate(task, recipe)
+    write(ROOT / "configs/v3/two_objects_one_goal_selection.json",
+          dict(recipe=recipe, model="routed_bc", continued=True, history=1, binary_gripper=False,
+               evidence=evidence, reserved_test_used=False,
+               decision="Three-seed physical competence on tuning and disjoint confirmation; sensor-moment routing is an explicit inductive bias"))
 
 
 def interaction():
@@ -194,6 +259,31 @@ def interaction_confirmation():
                      reserved_test_used=False)
     write(ROOT / "configs/v3/selection.json", selection)
     print(json.dumps(selection), flush=True)
+
+
+def single_study():
+    competence("bc")
+    selection = json.loads((ROOT / "configs/v3/selection.json").read_text())
+    assert selection["recipe"] == "continued_history4"
+    stages = [("named_views_check", ["stage-checks", "--task", "single"])]
+    for seed in (1,2):
+        name = f"diffusion_original80_s{seed}"
+        stages.extend([
+            (name+"_train", ["train","--name",name,"--model","v1_diffusion","--limit","80","--seed",str(seed)]),
+            (name+"_tuning", ["evaluate","--name",name+"_tuning","--checkpoint",f"artifacts/v3/runs/{name}/best.pt"]),
+        ])
+    for view in ("fusion","fixed","wrist"):
+        for prior in (True,False):
+            for seed in (0,1,2):
+                name = f"single_{view}_{'prior' if prior else 'no_prior'}_s{seed}"
+                checkpoint = f"artifacts/v3/runs/{name}/best.pt"
+                if view == "fusion" and prior:
+                    checkpoint = f"artifacts/v3/runs/bc_continued_history480_s{seed}/best.pt"
+                else:
+                    stages.append((name+"_train", ["train","--name",name,"--view",view,"--limit","80",
+                                   "--seed",str(seed),"--continued","--history","4", *([] if prior else ["--no-prior"])]))
+                stages.append((name+"_tuning", ["evaluate","--name",name+"_tuning","--checkpoint",checkpoint]))
+    supervise("single_view_prior_study",stages)
 
 
 def supervise(group, stages):

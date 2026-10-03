@@ -1,5 +1,5 @@
 {
-  "minimum_free_commit_before_heavy_job_gib": 6,
+  "minimum_free_commit_before_heavy_job_gib": 5.5,
   "minimum_free_gpu_mib": 1024,
-  "basis": "Observed evaluation private commit ~3.52 GiB, existing in-job 1 GiB guard, plus startup/system margin. This preflight does not change the scientific plan or relax any in-job guard."
+  "basis": "Refined after measured peaks: single BC80 training 2.86 GiB private, evaluation 3.53 GiB. Startup free commit 5.5 GiB leaves ~1.97 GiB after observed evaluation peak. Existing in-job 1 GiB/three-sample guard, disk and temperature limits unchanged. The earlier 4.1 GiB blocked state still fails startup."
 }

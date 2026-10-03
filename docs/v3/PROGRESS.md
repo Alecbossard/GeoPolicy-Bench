@@ -133,3 +133,46 @@ le garde-fou pendant calcul restent inchangés. Aucun nouveau job lourd actif.
 Reprise exacte après récupération de mémoire :
 `python -m geopolicy.v3 interaction-confirmation`. Les dix scènes terminées
 seront conservées et seules les scènes restantes seront exécutées.
+
+## Mémoire récupérée et confirmation achevée
+
+À 10:57:34 UTC, 8,07 Gio de commit Windows libres, GPU 39 °C : le preflight
+autorise la reprise. Les dix scènes sauvegardées sont conservées. Confirmation
+achevée à 10:59:42 UTC : **20/20 physique et strict V2 pour chaque seed**, soit
+60/60, contre 55/60 physique et 39/60 strict pour le contrôle original sur
+les mêmes scènes. Capteurs initiaux identiques. La règle préenregistrée est
+franchie ; `configs/v3/selection.json` retient continuation + quatre états robot.
+Ces résultats restent de la validation, pas un test final.
+
+La collecte et le pilote à deux cubes / un bac démarrent dans leur espace propre,
+avec cette recette et les mêmes 2 000 updates. Un résultat insuffisant du pilote
+arrêtera la progression, avant la matrice caméra/prior.
+
+## Diagnostic à deux objets et portée de l'étude
+
+80 démos train et 10 validation scriptées : toutes stables aux deux critères.
+Pilote continuation/historique4 : **0/20**, 13 échecs d'approche, 7 de prise,
+aucun mauvais objet levé, 11 épisodes avec collision. Replay de 124+135 pas
+sur les deux consignes, 30 comparaisons de vues : états, historique normalisé,
+points, masques et tokens exacts ; deux cubes et un seul bac vérifiés.
+
+Contrôle isolant historique4→état courant : **0/20**, dont 2 échecs de sélection.
+Changement initial de consigne sur 20 scènes : commande de translation change
+en moyenne de 0,047 (h4) / 0,076 (h1), contre 1,6 pour la référence diagnostique ;
+direction Y concordante dans 20/40 commandes pour chaque recette.
+Pas d'action oracle dans les rollouts étudiants.
+
+Pilote de routage des moments XYZRGB caméra vers le décodeur : **1/20**.
+Même encodeur (calcul vérifié exactement prior on/off), données, normalisation,
+état courant, loss, pince et 2 000 updates ; aucun GT objet ou phase teacher.
+Résultat négatif conservé. Dernier contrôle borné : BC sur quatre trajectoires
+à deux objets, 2 000 updates, **4/4 placements stricts sur train**. Le pipeline
+peut apprendre ces trajectoires ; aucune généralisation n'est démontrée.
+
+La progression à deux destinations est arrêtée ; pas de matrice sur la tâche
+complète. Déviation explicite : vues fixe/poignet/fusion et prior on/off seront
+comparés sur la tâche simple confirmée, avec mêmes 80+10 démos, actions,
+normalisations, trois seeds et 2 000 updates. Aucune conclusion sur le grounding
+multicible ne découlera de cette matrice. La recette diffusion V1 sera également
+répétée sur les deux seeds manquantes pour compléter la comparaison principale.
+Le plan est enregistré dans `configs/v3/single_study_plan.json`.

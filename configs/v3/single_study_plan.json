@@ -1,0 +1,20 @@
+{
+  "task": "single_cube_single_tray_fixed_instruction",
+  "deviation": "Multi-object pilots failed their competence gate (history4 0/20, history1 0/20, routed 1/20); four train scenes are learnable. No full-task view matrix or full-task V3 improvement claim. Named-camera/prior comparison is restricted to the confirmed functional simplified task.",
+  "baseline_recipe": "continued_history4",
+  "views": ["fixed", "wrist", "fusion"],
+  "color_prior": ["chroma40", false],
+  "seeds": [0, 1, 2],
+  "point_budget": 512,
+  "train_demos": 80,
+  "recorded_validation_demos": 10,
+  "tuning_scenes": [110100,110119],
+  "updates": 2000,
+  "batch_size": 32,
+  "horizon": 8,
+  "execute_steps": 2,
+  "normalization": "same original prefixes for every view/prior; unchanged actions and histories",
+  "reference_replication": "Repeat original-data V1 diffusion recipe on seeds1/2 to complete the three-seed model comparison after BC competence is established. No budget increase.",
+  "selection": "Keep the already confirmed fusion/prior recipe; the view/prior cells are prespecified ablations, without further tuning or architectural changes.",
+  "reserved_test_used": false
+}

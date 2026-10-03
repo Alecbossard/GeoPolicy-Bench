@@ -6,12 +6,12 @@ expliquer les changements utiles avant de reprendre la comparaison des caméras 
 Une baseline BC atteint 55/60 placements physiques sur une confirmation distincte,
 à une tâche **un cube / un bac / consigne fixe**. Une interaction ciblée entre
 30 actions réellement enregistrées après libération et un historique de quatre états robot
-atteint 60/60 sur tuning, y compris au critère strict V2. Sa confirmation est
-encore partielle : 10 scènes sur 60. Aucun score de test final V3 n'est disponible.
+atteint 60/60 sur tuning et 60/60 sur confirmation distincte, y compris au critère
+strict V2. Aucun score de test final V3 n'est disponible.
 
-Le calcul s'est arrêté proprement sur le garde-fou mémoire Windows. Les résultats,
-les checkpoints et la reprise sont conservés ; les tâches à plusieurs objets
-et la nouvelle matrice caméra/prior ne sont pas encore exécutées.
+Après un arrêt propre par le garde-fou mémoire Windows, la mémoire disponible
+a permis de reprendre et d'achever la confirmation. La progression à deux
+objets / un bac est en cours ; la matrice caméra/prior reste à exécuter.
 
 - [Code V3](../../src/geopolicy/v3/), [configurations](../../configs/v3/).
 - [Rapport provisoire et limites](report.md).

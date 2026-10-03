@@ -38,6 +38,17 @@ The lightweight preflight now checks this before importing CUDA-enabled Torch,
 using `configs/v3/runtime_limits.json`; it does not change the scientific plan
 or any recorded evaluation identity.
 
+Update after measured peaks: the startup threshold is now 5.5 GiB (training
+2.86 GiB private; evaluation 3.53 GiB). The in-job 1 GiB, temperature and disk
+guards are unchanged. The original 4.1 GiB blocked state still fails preflight.
+Confirmation has completed 60/60 physical and strict placements. Multi-object
+pilots failed their gate; the view/prior study is explicitly restricted to the
+simplified task:
+
+```powershell
+.venv\Scripts\python -m geopolicy.v3 single-study
+```
+
 ```powershell
 .venv\Scripts\python -m geopolicy.v3 interaction-confirmation
 ```

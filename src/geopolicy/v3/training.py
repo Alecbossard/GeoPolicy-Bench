@@ -13,7 +13,7 @@ from .models import build
 
 
 def train(name, model="direct_bc", seed=0, updates=2000, limit=4, continued=False,
-          history=1, binary=False, overfit=False, resume=False, task="single", view="fusion", prior=True):
+          history=1, binary=False, overfit=False, resume=False, task="single", view="fusion", prior=True, routing=True):
     assert name.replace("_", "").isalnum()
     plan = json.loads((ROOT / "configs/v3/plan.json").read_text())
     out = ROOT / "artifacts/v3/runs" / name
@@ -25,10 +25,14 @@ def train(name, model="direct_bc", seed=0, updates=2000, limit=4, continued=Fals
                device="cuda", learning_rate=plan["learning_rate"],
                dataset_manifest_sha256=sha(ROOT / "configs/v3" / ("single_dataset.json" if task == "single" else f"{task}_dataset.json")))
     dataset_class = Data
-    if task != "single":
+    if model == "routed_bc":
+        cfg["routing"] = routing
+    if task != "single" or view != "fusion" or not prior:
         from .stages import StageData
         dataset_class = StageData
         cfg.update(task=task, view=view)
+        if task == "single":
+            cfg["named_views"] = True
         cfg["color_prior"] = "chroma40" if prior else False
     ip = out / "config.json"
     if ip.exists():
