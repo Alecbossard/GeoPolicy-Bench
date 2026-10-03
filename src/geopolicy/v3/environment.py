@@ -1,4 +1,5 @@
 """One physical cube, one tray, fixed instruction; same Panda OSC and cameras."""
+
 import numpy as np
 from geopolicy.environment import SelectPlace
 from robosuite.environments.manipulation.lift import Lift
@@ -46,12 +47,19 @@ class SinglePlace(SelectPlace):
         goal = self.goal_positions[0]
         error = float(np.linalg.norm(position[:2] - goal[:2]))
         grasp = self._check_grasp(self.robots[0].gripper, self.cube)
-        return {"success": bool(error < 0.043 and 0.816 < position[2] < 0.855
-                                and not grasp and self.max_lift > 0.89),
-                "placement_error_m": error, "max_lift_m": self.max_lift,
-                "collision": self.collision_steps > 0,
-                "collision_steps": self.collision_steps,
-                "dropped": bool(position[2] < 0.75)}
+        return {
+            "success": bool(
+                error < 0.043
+                and 0.816 < position[2] < 0.855
+                and not grasp
+                and self.max_lift > 0.89
+            ),
+            "placement_error_m": error,
+            "max_lift_m": self.max_lift,
+            "collision": self.collision_steps > 0,
+            "collision_steps": self.collision_steps,
+            "dropped": bool(position[2] < 0.75),
+        }
 
     def step(self, action):
         obs, reward, done, info = Lift.step(self, np.clip(action, -1, 1))

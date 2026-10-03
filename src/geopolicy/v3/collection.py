@@ -1,4 +1,5 @@
 """Scripted V3 demonstrations with explicit provenance and exact prefix boundary."""
+
 import json
 import os
 from pathlib import Path
@@ -32,32 +33,57 @@ def collect(first, episodes):
                 watch.sample()
                 action = env.reference_action()
                 packet = camera_packet(env, obs)
-                packet.update(state=student_state(obs).copy(), action=action.copy(),
-                              instruction_tokens=np.array([1, 0, 1, 0], np.float32))
+                packet.update(
+                    state=student_state(obs).copy(),
+                    action=action.copy(),
+                    instruction_tokens=np.array([1, 0, 1, 0], np.float32),
+                )
                 frames.append(packet)
                 obs, _, done, info = env.step(action)
                 tracker.update(env, obs, action, info)
                 if info["success"] and original_frames is None:
                     original_frames = len(frames)
-                if done or (original_frames is not None and len(frames) >= original_frames + 30):
+                if done or (
+                    original_frames is not None and len(frames) >= original_frames + 30
+                ):
                     break
-            metadata = dict(scene_seed=seed, episode_id=seed,
-                            split="train" if seed < 100000 else "validation",
-                            success=tracker.physical.success, original_frames=original_frames,
-                            frames=len(frames), instruction=env.instruction,
-                            provenance="scripted_ground_truth_phase_reference_DIAGNOSTIC_teacher",
-                            scene_config=plan["task"], **tracker.summary())
+            metadata = dict(
+                scene_seed=seed,
+                episode_id=seed,
+                split="train" if seed < 100000 else "validation",
+                success=tracker.physical.success,
+                original_frames=original_frames,
+                frames=len(frames),
+                instruction=env.instruction,
+                provenance="scripted_ground_truth_phase_reference_DIAGNOSTIC_teacher",
+                scene_config=plan["task"],
+                **tracker.summary(),
+            )
             tmp = path.with_suffix(".tmp")
             with h5py.File(tmp, "w") as f:
                 f.attrs["metadata"] = json.dumps(metadata)
-                for key in ("state", "action", "instruction_tokens", "timestamp_s", "world_from_base"):
-                    f.create_dataset(key, data=np.array([p[key] for p in frames]),
-                                     compression="gzip", shuffle=True)
+                for key in (
+                    "state",
+                    "action",
+                    "instruction_tokens",
+                    "timestamp_s",
+                    "world_from_base",
+                ):
+                    f.create_dataset(
+                        key,
+                        data=np.array([p[key] for p in frames]),
+                        compression="gzip",
+                        shuffle=True,
+                    )
                 for camera in CAMERAS:
                     group = f.create_group(camera)
                     for key in frames[0][camera]:
-                        group.create_dataset(key, data=np.array([p[camera][key] for p in frames]),
-                                             compression="gzip", shuffle=True)
+                        group.create_dataset(
+                            key,
+                            data=np.array([p[camera][key] for p in frames]),
+                            compression="gzip",
+                            shuffle=True,
+                        )
             write(out / "teacher_traces" / f"{seed}.json", tracker.trace)
             os.replace(tmp, path)
             print(json.dumps(metadata), flush=True)
@@ -66,8 +92,13 @@ def collect(first, episodes):
     records = []
     for path in sorted(out.glob("*.h5")):
         with h5py.File(path) as f:
-            records.append(dict(json.loads(f.attrs["metadata"]),
-                                path=path.relative_to(ROOT).as_posix(), sha256=sha(path)))
+            records.append(
+                dict(
+                    json.loads(f.attrs["metadata"]),
+                    path=path.relative_to(ROOT).as_posix(),
+                    sha256=sha(path),
+                )
+            )
     write(ROOT / "configs/v3/single_dataset.json", records)
     manifest_sha = sha(ROOT / "configs/v3/single_dataset.json")
     write(ROOT / "configs/v3/datasets" / f"{manifest_sha}.json", records)
