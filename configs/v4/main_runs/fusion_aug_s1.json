@@ -1,0 +1,54 @@
+{
+  "updates": 2000,
+  "batch_size": 32,
+  "history": 4,
+  "horizon": 8,
+  "execute_steps": 2,
+  "learning_rate": 0.0003,
+  "minimum_learning_rate": 3e-05,
+  "weight_decay": 1e-05,
+  "ema_decay": 0.995,
+  "checkpoint_interval": 250,
+  "validation_interval": 500,
+  "validation_batches": 20,
+  "point_budget": 512,
+  "color_prior": "chroma40",
+  "binary_gripper": false,
+  "model": "direct_bc",
+  "version": 4,
+  "seed": 1,
+  "view": "fusion",
+  "augmented": true,
+  "continued": true,
+  "task": "single",
+  "device": "cuda",
+  "dataset_manifest_sha256": "63d44548bae22ea15bfcbbbbd0df92a5e61dbb0b4105f82321270b09711b1d46",
+  "augmentation_recipe": {
+    "probabilities": [
+      0.55,
+      0.15,
+      0.1,
+      0.1,
+      0.1
+    ],
+    "families": [
+      "nominal",
+      "absent",
+      "occlusion",
+      "depth",
+      "missing"
+    ],
+    "occlusion_range": [
+      0.2,
+      0.6
+    ],
+    "depth_sigma_range_m": [
+      0.003,
+      0.02
+    ],
+    "missing_range": [
+      0.2,
+      0.7
+    ]
+  }
+}

@@ -1,7 +1,7 @@
 {
-  "checked_rollouts": 120,
-  "checked_steps": 17519,
-  "initial_npz_recomputed": 120,
+  "checked_rollouts": 420,
+  "checked_steps": 63249,
+  "initial_npz_recomputed": 420,
   "corruptions_recomputed_exact": true,
   "zero_intensity_nominal_exact": true,
   "occlusion_masks_nested": true,
@@ -9,99 +9,291 @@
   "initial_clean_mismatches": [],
   "observed_point_retention": [
     {
+      "group": "fixed_aug",
+      "condition": "absent",
+      "camera": "agentview",
+      "retained": 0,
+      "clean": 921600,
+      "ratio": 0.0
+    },
+    {
+      "group": "fixed_aug",
+      "condition": "absent",
+      "camera": "robot0_eye_in_hand",
+      "retained": 723504,
+      "clean": 723504,
+      "ratio": 1.0
+    },
+    {
+      "group": "fixed_aug",
+      "condition": "depth010",
+      "camera": "agentview",
+      "retained": 329728,
+      "clean": 329728,
+      "ratio": 1.0
+    },
+    {
+      "group": "fixed_aug",
+      "condition": "depth010",
+      "camera": "robot0_eye_in_hand",
+      "retained": 329728,
+      "clean": 329728,
+      "ratio": 1.0
+    },
+    {
+      "group": "fixed_aug",
+      "condition": "depth025",
+      "camera": "agentview",
+      "retained": 330752,
+      "clean": 330752,
+      "ratio": 1.0
+    },
+    {
+      "group": "fixed_aug",
+      "condition": "depth025",
+      "camera": "robot0_eye_in_hand",
+      "retained": 330546,
+      "clean": 330752,
+      "ratio": 0.9993771768575851
+    },
+    {
+      "group": "fixed_aug",
+      "condition": "missing70",
+      "camera": "agentview",
+      "retained": 210391,
+      "clean": 700416,
+      "ratio": 0.3003800598501462
+    },
+    {
+      "group": "fixed_aug",
+      "condition": "missing70",
+      "camera": "robot0_eye_in_hand",
+      "retained": 203812,
+      "clean": 678846,
+      "ratio": 0.300233042545732
+    },
+    {
+      "group": "fixed_aug",
+      "condition": "nominal",
+      "camera": "agentview",
+      "retained": 570880,
+      "clean": 570880,
+      "ratio": 1.0
+    },
+    {
+      "group": "fixed_aug",
+      "condition": "nominal",
+      "camera": "robot0_eye_in_hand",
+      "retained": 570880,
+      "clean": 570880,
+      "ratio": 1.0
+    },
+    {
+      "group": "fixed_aug",
+      "condition": "occlusion60",
+      "camera": "agentview",
+      "retained": 173791,
+      "clean": 614400,
+      "ratio": 0.28286295572916664
+    },
+    {
+      "group": "fixed_aug",
+      "condition": "occlusion60",
+      "camera": "robot0_eye_in_hand",
+      "retained": 549544,
+      "clean": 549544,
+      "ratio": 1.0
+    },
+    {
       "group": "fixed_clean",
       "condition": "absent",
       "camera": "agentview",
       "retained": 0,
-      "clean": 614400,
+      "clean": 1536000,
       "ratio": 0.0
     },
     {
       "group": "fixed_clean",
       "condition": "absent",
       "camera": "robot0_eye_in_hand",
-      "retained": 614400,
-      "clean": 614400,
+      "retained": 1536000,
+      "clean": 1536000,
       "ratio": 1.0
     },
     {
       "group": "fixed_clean",
       "condition": "depth010",
       "camera": "agentview",
-      "retained": 326144,
-      "clean": 326144,
+      "retained": 652288,
+      "clean": 652288,
       "ratio": 1.0
     },
     {
       "group": "fixed_clean",
       "condition": "depth010",
       "camera": "robot0_eye_in_hand",
-      "retained": 326144,
-      "clean": 326144,
+      "retained": 652288,
+      "clean": 652288,
       "ratio": 1.0
     },
     {
       "group": "fixed_clean",
       "condition": "depth025",
       "camera": "agentview",
-      "retained": 325120,
-      "clean": 325120,
+      "retained": 650240,
+      "clean": 650240,
       "ratio": 1.0
     },
     {
       "group": "fixed_clean",
       "condition": "depth025",
       "camera": "robot0_eye_in_hand",
-      "retained": 324891,
-      "clean": 325120,
+      "retained": 649782,
+      "clean": 650240,
       "ratio": 0.9992956446850394
     },
     {
       "group": "fixed_clean",
       "condition": "missing70",
       "camera": "agentview",
-      "retained": 127657,
-      "clean": 424960,
-      "ratio": 0.3003976844879518
+      "retained": 343395,
+      "clean": 1142784,
+      "ratio": 0.30048985635080644
     },
     {
       "group": "fixed_clean",
       "condition": "missing70",
       "camera": "robot0_eye_in_hand",
-      "retained": 127802,
-      "clean": 424960,
-      "ratio": 0.3007388930722892
+      "retained": 343553,
+      "clean": 1142784,
+      "ratio": 0.30062811519937277
     },
     {
       "group": "fixed_clean",
       "condition": "nominal",
       "camera": "agentview",
-      "retained": 324608,
-      "clean": 324608,
+      "retained": 799232,
+      "clean": 799232,
       "ratio": 1.0
     },
     {
       "group": "fixed_clean",
       "condition": "nominal",
       "camera": "robot0_eye_in_hand",
-      "retained": 324608,
-      "clean": 324608,
+      "retained": 799232,
+      "clean": 799232,
       "ratio": 1.0
     },
     {
       "group": "fixed_clean",
       "condition": "occlusion60",
       "camera": "agentview",
-      "retained": 172778,
-      "clean": 614400,
+      "retained": 345556,
+      "clean": 1228800,
       "ratio": 0.2812141927083333
     },
     {
       "group": "fixed_clean",
       "condition": "occlusion60",
       "camera": "robot0_eye_in_hand",
-      "retained": 614400,
-      "clean": 614400,
+      "retained": 1228800,
+      "clean": 1228800,
+      "ratio": 1.0
+    },
+    {
+      "group": "fusion_aug",
+      "condition": "absent",
+      "camera": "agentview",
+      "retained": 0,
+      "clean": 595456,
+      "ratio": 0.0
+    },
+    {
+      "group": "fusion_aug",
+      "condition": "absent",
+      "camera": "robot0_eye_in_hand",
+      "retained": 595456,
+      "clean": 595456,
+      "ratio": 1.0
+    },
+    {
+      "group": "fusion_aug",
+      "condition": "depth010",
+      "camera": "agentview",
+      "retained": 326656,
+      "clean": 326656,
+      "ratio": 1.0
+    },
+    {
+      "group": "fusion_aug",
+      "condition": "depth010",
+      "camera": "robot0_eye_in_hand",
+      "retained": 326656,
+      "clean": 326656,
+      "ratio": 1.0
+    },
+    {
+      "group": "fusion_aug",
+      "condition": "depth025",
+      "camera": "agentview",
+      "retained": 326144,
+      "clean": 326144,
+      "ratio": 1.0
+    },
+    {
+      "group": "fusion_aug",
+      "condition": "depth025",
+      "camera": "robot0_eye_in_hand",
+      "retained": 325929,
+      "clean": 326144,
+      "ratio": 0.9993407819858713
+    },
+    {
+      "group": "fusion_aug",
+      "condition": "missing70",
+      "camera": "agentview",
+      "retained": 143351,
+      "clean": 477184,
+      "ratio": 0.3004103239002146
+    },
+    {
+      "group": "fusion_aug",
+      "condition": "missing70",
+      "camera": "robot0_eye_in_hand",
+      "retained": 143185,
+      "clean": 477184,
+      "ratio": 0.3000624497049356
+    },
+    {
+      "group": "fusion_aug",
+      "condition": "nominal",
+      "camera": "agentview",
+      "retained": 443904,
+      "clean": 443904,
+      "ratio": 1.0
+    },
+    {
+      "group": "fusion_aug",
+      "condition": "nominal",
+      "camera": "robot0_eye_in_hand",
+      "retained": 443904,
+      "clean": 443904,
+      "ratio": 1.0
+    },
+    {
+      "group": "fusion_aug",
+      "condition": "occlusion60",
+      "camera": "agentview",
+      "retained": 94166,
+      "clean": 334336,
+      "ratio": 0.28165079441041346
+    },
+    {
+      "group": "fusion_aug",
+      "condition": "occlusion60",
+      "camera": "robot0_eye_in_hand",
+      "retained": 334336,
+      "clean": 334336,
       "ratio": 1.0
     },
     {
@@ -109,99 +301,135 @@
       "condition": "absent",
       "camera": "agentview",
       "retained": 0,
-      "clean": 388608,
+      "clean": 989184,
       "ratio": 0.0
     },
     {
       "group": "fusion_clean",
       "condition": "absent",
       "camera": "robot0_eye_in_hand",
-      "retained": 388608,
-      "clean": 388608,
+      "retained": 989184,
+      "clean": 989184,
       "ratio": 1.0
     },
     {
       "group": "fusion_clean",
       "condition": "depth010",
       "camera": "agentview",
-      "retained": 291840,
-      "clean": 291840,
+      "retained": 583680,
+      "clean": 583680,
       "ratio": 1.0
     },
     {
       "group": "fusion_clean",
       "condition": "depth010",
       "camera": "robot0_eye_in_hand",
-      "retained": 291840,
-      "clean": 291840,
+      "retained": 583680,
+      "clean": 583680,
       "ratio": 1.0
     },
     {
       "group": "fusion_clean",
       "condition": "depth025",
       "camera": "agentview",
-      "retained": 294400,
-      "clean": 294400,
+      "retained": 588800,
+      "clean": 588800,
       "ratio": 1.0
     },
     {
       "group": "fusion_clean",
       "condition": "depth025",
       "camera": "robot0_eye_in_hand",
-      "retained": 294203,
-      "clean": 294400,
+      "retained": 588406,
+      "clean": 588800,
       "ratio": 0.9993308423913043
     },
     {
       "group": "fusion_clean",
       "condition": "missing70",
       "camera": "agentview",
-      "retained": 88222,
-      "clean": 293888,
-      "ratio": 0.30018918771777003
+      "retained": 221991,
+      "clean": 739328,
+      "ratio": 0.30026050683864264
     },
     {
       "group": "fusion_clean",
       "condition": "missing70",
       "camera": "robot0_eye_in_hand",
-      "retained": 88255,
-      "clean": 293888,
-      "ratio": 0.30030147539198604
+      "retained": 221922,
+      "clean": 739328,
+      "ratio": 0.3001671788434903
     },
     {
       "group": "fusion_clean",
       "condition": "nominal",
       "camera": "agentview",
-      "retained": 292864,
-      "clean": 292864,
+      "retained": 736768,
+      "clean": 736768,
       "ratio": 1.0
     },
     {
       "group": "fusion_clean",
       "condition": "nominal",
       "camera": "robot0_eye_in_hand",
-      "retained": 292864,
-      "clean": 292864,
+      "retained": 736768,
+      "clean": 736768,
       "ratio": 1.0
     },
     {
       "group": "fusion_clean",
       "condition": "occlusion60",
       "camera": "agentview",
-      "retained": 86711,
-      "clean": 305152,
+      "retained": 173422,
+      "clean": 610304,
       "ratio": 0.2841567481124161
     },
     {
       "group": "fusion_clean",
       "condition": "occlusion60",
       "camera": "robot0_eye_in_hand",
-      "retained": 305152,
-      "clean": 305152,
+      "retained": 610304,
+      "clean": 610304,
       "ratio": 1.0
     }
   ],
   "input_sources_sha256": {
+    "results/v4/validation/pilot1000_fixed_aug_absent.json": "90943d7ac09dc75067f27bf309e44726a86529f89b4dda56fc5424263579db9b",
+    "results/v4/validation/pilot1000_fixed_aug_missing70.json": "1a15d4d11127c137d26ab992da45d14bbab14ef517bcde1afe712a72aa465dc9",
+    "results/v4/validation/pilot1000_fixed_aug_nominal.json": "e113d13bff452ebaaabe955dac3f18e7cd622ece4eeb38cba406d89da6c5e7a5",
+    "results/v4/validation/pilot1000_fixed_clean_absent.json": "158fd829204b5f57c4bfc689fc035421161cfb51087f6dfe0cb01ef949e84946",
+    "results/v4/validation/pilot1000_fixed_clean_missing70.json": "4fd7371983957d6b8275b3d8e39d3668d72b1141dabacbd3899457684c2dcb69",
+    "results/v4/validation/pilot1000_fixed_clean_nominal.json": "ca6a974be7e26c3433d2b4e440f9e399f108cebc336ecbd1af8cc144d1e64e87",
+    "results/v4/validation/pilot1000_fusion_aug_absent.json": "50b39e09f9ca02153f8fd9a5f8f72b94c9ac440cad55fdb6bf721b114c9c9923",
+    "results/v4/validation/pilot1000_fusion_aug_missing70.json": "0226fb6523959b96d76dcdd49c9ce0be5ed1fae47376f4402508f4e1ad2bceb0",
+    "results/v4/validation/pilot1000_fusion_aug_nominal.json": "8e23cd2d3668db6fed73b876718ebc05ad2c683f8c8c9a412dc866b611104510",
+    "results/v4/validation/pilot1000_fusion_clean_absent.json": "b438da5ee2b824d7acb52a78f1f76eb51883866860481c7fd3b9571b60e83be2",
+    "results/v4/validation/pilot1000_fusion_clean_missing70.json": "162d4b067d5e2ffb21402db60a9c3c7610be14a0ea3a29b297b808b901f24a56",
+    "results/v4/validation/pilot1000_fusion_clean_nominal.json": "6410ad3a3b97840caa64bcdfd23864e0a96d059f9a529e55fa658a9b704b1e2e",
+    "results/v4/validation/pilot2000_fixed_aug_absent.json": "0e45cd002b6bb1ea438aa51d7803cb30a93efe794f8d4602f777074369d7e7c5",
+    "results/v4/validation/pilot2000_fixed_aug_depth010.json": "71279e56528bcc1a7f7901fa17200cfdd063bb630d48ec304096413e08521a95",
+    "results/v4/validation/pilot2000_fixed_aug_depth025.json": "748dbbb395eb306cdedb65e2070e99b1e7b2af2c2b8b73baf43146b9c64199df",
+    "results/v4/validation/pilot2000_fixed_aug_missing70.json": "e416f9a74c87ca8ea0129e0cfbe4d42f798b5cf3d2b262c3d329c1d50828f85b",
+    "results/v4/validation/pilot2000_fixed_aug_nominal.json": "b7ca827439036b92a863656c84628fb7a617422f1cfa6b11acfb2ce6ddb2c166",
+    "results/v4/validation/pilot2000_fixed_aug_occlusion60.json": "f5d050c9bbc89b7fa3a781916fee4d9168e3ba59929512c408ecdc076179c46e",
+    "results/v4/validation/pilot2000_fixed_clean_absent.json": "05209751db9bc228362389aef4252c07a29d6d025af4b4ded935d9cc07a9d4e9",
+    "results/v4/validation/pilot2000_fixed_clean_depth010.json": "43b3a244afc683cde7d802dbb7dea691912575231f93ac569c6398d17f7d5338",
+    "results/v4/validation/pilot2000_fixed_clean_depth025.json": "f280e1bb74015675dc43fbc15cae2ffecb0c44ccd6883202064aee7b2e86abd4",
+    "results/v4/validation/pilot2000_fixed_clean_missing70.json": "b33a1ccb9735004b1fb791b0433269d4faae53397ed292c5ccf4a0fcd69941b5",
+    "results/v4/validation/pilot2000_fixed_clean_nominal.json": "22fa8507ca2ea34281845ea57e292f44d701f0ee531aa524f2dbe22bf9eb39e8",
+    "results/v4/validation/pilot2000_fixed_clean_occlusion60.json": "f7ed201f44ea78bad21dd096cde180626fa64f5d015a510688bbac541defe461",
+    "results/v4/validation/pilot2000_fusion_aug_absent.json": "6c8cc92b0f084422146f84efe70ed8dcb6eb4a25099602e20b8ef1e6ee25180c",
+    "results/v4/validation/pilot2000_fusion_aug_depth010.json": "5251d4af0ee5d5efedb256b5873b599905ee204ffba435c77918a39ef3c6f975",
+    "results/v4/validation/pilot2000_fusion_aug_depth025.json": "22b513aae957cd8ec946a03dac9e4e4003f3d6a31e9f5117d246ac523b53832d",
+    "results/v4/validation/pilot2000_fusion_aug_missing70.json": "8ce6db2d3080ccffe6383f6f481b1fb79223d08c099403ba3b5857b76271bcf8",
+    "results/v4/validation/pilot2000_fusion_aug_nominal.json": "08e45c240966079bca9e535fb5933127310c9bb4138ca9ceeb263b83f3c27c69",
+    "results/v4/validation/pilot2000_fusion_aug_occlusion60.json": "af36a5cb0582d7e8c7f6e8b58375747c7a7d89662dccfb34e58ac1ade22521cb",
+    "results/v4/validation/pilot2000_fusion_clean_absent.json": "4a030e22c2b9b3a1915c15bc29e6f87844aae18e39502a21eabeaf1f2644a6d7",
+    "results/v4/validation/pilot2000_fusion_clean_depth010.json": "c2c951e60a1ea494013373de5794adf0fa762ceade9aa16fdd019f07baa94b41",
+    "results/v4/validation/pilot2000_fusion_clean_depth025.json": "f3262db43e2c320cd298a026509196b535e48377cb75060fe1d6c9b2f83fe6bc",
+    "results/v4/validation/pilot2000_fusion_clean_missing70.json": "db4ad5852c2eae9f6152e375eec6fdacbb492faea289c5975c71948cc538518b",
+    "results/v4/validation/pilot2000_fusion_clean_nominal.json": "34f57a87ce1d2b59e20688ae24bacc332ea54b98a10b3b73ba81c03ee8b04c54",
+    "results/v4/validation/pilot2000_fusion_clean_occlusion60.json": "db3666c1e9344df730b82dcaf73a3eca54c817ba8915ec0deb6eef1450b80cea",
     "results/v4/validation/pilot_v3_fixed_absent.json": "766b5242895ecf4df585e3a8694a88478c941d742e9bdbd9b458f6f2e6e68cc4",
     "results/v4/validation/pilot_v3_fixed_depth010.json": "d9277cda2de0951c58c45e4768f5852b22a15f6d0419c1353641854ed8a0b87d",
     "results/v4/validation/pilot_v3_fixed_depth025.json": "8689c4a00601fc78ef7c255b38fc055d5922c0bb8aaa3cae48c8e65420a829bf",

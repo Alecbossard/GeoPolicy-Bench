@@ -1,0 +1,7 @@
+{
+  "written_before_fusion_aug_2000_pilot_complete": true,
+  "nominal_retention_gate": "each augmented view loses at most1success/10 versus matched seed0 clean onpilot; operational small-sample gate, not noninferiority proof",
+  "usefulness_gate": "at least one view improves summed physical successes across5perturbed pilot conditions, or a clear diagnosis supports keeping failed augmentation as controlled negative comparison",
+  "recipe_search": "single predefined augmentation mixture; no test tuning; no extra training budget beyond2000per main run",
+  "negative_results": "retain1000-update pilot and all main view/augmentation comparisons regardless final gains"
+}

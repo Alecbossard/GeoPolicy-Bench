@@ -15,3 +15,7 @@ Reprise pilote : .venv\Scripts\python.exe scripts/v4/run_jobs.py configs/v4/pilo
 V3seed0/10scènes : nominal fixe9/10,fusion10/10 ; occultation60% fixe0/10,fusion10/10 ; absence fixe0/10,fusion7/10 ; bruit10/25mm fixe9/10,fusion10/10 ; pointsmanquants70% fixe6/10,fusion10/10. Audit120rollouts/17519pas conforme, observationsinitiales identiques.
 
 À1000updates/5scènes, fixe augmentée nominal2/5contre5/5clean ; fusionaug5/5clean5/5, absence3/5lesdeux. Ce résultat négatif précoce est conservé. Continuation au budgetV3prévu2000, sansaugmentation du budget ni conclusion fondée surloss. Les dossierspilotes sont conservés ; lespoids/rngà1000sont copiésdansmain_runs pour reprise indépendante.
+
+## Décision après pilote complet à2000updates
+
+Fixe clean/aug strict et physique identiques : nominal9/10,occultation0/10,absence0/10,profondeur10/25mm9/10,missing70%6/10. Fusionclean nominal10/10,occ10/10,absence7/10,noise10/10,missing10/10 ; fusionaug nominal10/10,occ9/10,absence7/10,noise9/10,missing9/10. Aucun gain d’augmentation démontré ; recette conservée pour comparaison négative contrôlée sur trois seeds, comme demandé. Pas de recherche de recette supplémentaire ni de budget au-delà2000par modèle.

@@ -1,0 +1,14 @@
+{
+  "files_checked": 10217,
+  "authorized_documentation_changes": [
+    "docs/v3/model_card.md",
+    "docs/v3/PROGRESS.md",
+    "docs/v3/README.md",
+    "docs/v3/report.md",
+    "docs/v3/reproduction.md",
+    "scripts/v3/build_report.py"
+  ],
+  "scientific_or_other_failures": [],
+  "original_documentation_snapshots_verified": true,
+  "checked_utc": "2026-10-03T16:20:02.690028+00:00"
+}

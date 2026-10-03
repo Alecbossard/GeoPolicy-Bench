@@ -1,0 +1,32 @@
+{
+  "phase": "seed0pilot2000",
+  "scores": {
+    "pilot2000_fixed_aug_absent": 0,
+    "pilot2000_fixed_aug_depth010": 9,
+    "pilot2000_fixed_aug_depth025": 9,
+    "pilot2000_fixed_aug_missing70": 6,
+    "pilot2000_fixed_aug_nominal": 9,
+    "pilot2000_fixed_aug_occlusion60": 0,
+    "pilot2000_fixed_clean_absent": 0,
+    "pilot2000_fixed_clean_depth010": 9,
+    "pilot2000_fixed_clean_depth025": 9,
+    "pilot2000_fixed_clean_missing70": 6,
+    "pilot2000_fixed_clean_nominal": 9,
+    "pilot2000_fixed_clean_occlusion60": 0,
+    "pilot2000_fusion_aug_absent": 7,
+    "pilot2000_fusion_aug_depth010": 9,
+    "pilot2000_fusion_aug_depth025": 9,
+    "pilot2000_fusion_aug_missing70": 9,
+    "pilot2000_fusion_aug_nominal": 10,
+    "pilot2000_fusion_aug_occlusion60": 9,
+    "pilot2000_fusion_clean_absent": 7,
+    "pilot2000_fusion_clean_depth010": 10,
+    "pilot2000_fusion_clean_depth025": 10,
+    "pilot2000_fusion_clean_missing70": 10,
+    "pilot2000_fusion_clean_nominal": 10,
+    "pilot2000_fusion_clean_occlusion60": 10
+  },
+  "main_nominal_retention_passed": true,
+  "decision": "Repeat the four prespecified view/augmentation cells across3seeds as the user-requested controlled negative comparison. Seed0 nominal retained; fixed perturbed scores unchanged, fusion augmentation loses4/50perturbed successes. No augmentation gain demonstrated. No extra recipe search or larger update budget.",
+  "new_reserved_test_accessed": false
+}
