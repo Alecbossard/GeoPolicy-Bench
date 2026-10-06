@@ -1,0 +1,59 @@
+{
+  "verified": true,
+  "checked_utc": "2026-10-06T08:42:06.965526+00:00",
+  "publication_url": "https://github.com/Alecbossard/GeoPolicy-Bench/releases/tag/v4-demo",
+  "published_at": "2026-10-06T08:41:59Z",
+  "release_id": 404491777,
+  "tag": "v4-demo",
+  "tagged_commit": "753379ec14c972b30aff0a28251075cb68e54e12",
+  "original_bundle_and_checkpoint_unchanged": true,
+  "public_downloads": {
+    "checkpoint.pt": {
+      "sha256": "702cc4604a593b48be1b69d9c8026e799524a24e2c7d41b4b4ee3becb14a4193",
+      "size_bytes": 1485301,
+      "download_url": "https://github.com/Alecbossard/GeoPolicy-Bench/releases/download/v4-demo/checkpoint.pt"
+    },
+    "checkpoint_manifest.json": {
+      "sha256": "da76b5969b4852c60806910edd833aebbf18e23582b1eeee54c9cf3e0d9812c3",
+      "size_bytes": 8360,
+      "download_url": "https://github.com/Alecbossard/GeoPolicy-Bench/releases/download/v4-demo/checkpoint_manifest.json"
+    },
+    "demo.gif": {
+      "sha256": "ed433afbf5d7e0ebfbc06d1eacb6fe691bc999860c8715143db40b882adb0b56",
+      "size_bytes": 1137809,
+      "download_url": "https://github.com/Alecbossard/GeoPolicy-Bench/releases/download/v4-demo/demo.gif"
+    },
+    "demo.mp4": {
+      "sha256": "842ae5fb9b7320b5a1b1ff9b3bd8b8d0e3d8e32690dff85a793127595aa75024",
+      "size_bytes": 263029,
+      "download_url": "https://github.com/Alecbossard/GeoPolicy-Bench/releases/download/v4-demo/demo.mp4"
+    },
+    "geopolicy-v4-demo.zip": {
+      "sha256": "c609fce309c21b9293cd868e90243d4c0815cf53e9a27b9f79479ce7422d9b05",
+      "size_bytes": 1602161,
+      "download_url": "https://github.com/Alecbossard/GeoPolicy-Bench/releases/download/v4-demo/geopolicy-v4-demo.zip"
+    },
+    "release_manifest.json": {
+      "sha256": "c3276812d0a02e69991b56900a5340f62ab1812367b83d15b8ac4197b49a7282",
+      "size_bytes": 11969,
+      "download_url": "https://github.com/Alecbossard/GeoPolicy-Bench/releases/download/v4-demo/release_manifest.json"
+    },
+    "requirements-lock.txt": {
+      "sha256": "29b65b07a00531c2cb6124b407e87af8ef78c7b9626099a2f530e0bbbb8f095b",
+      "size_bytes": 1105,
+      "download_url": "https://github.com/Alecbossard/GeoPolicy-Bench/releases/download/v4-demo/requirements-lock.txt"
+    },
+    "runtime.json": {
+      "sha256": "ec3e626ebb76b3c734be79d478ea5e22f2cad98dbe44cb7ca46e0a188858285e",
+      "size_bytes": 207,
+      "download_url": "https://github.com/Alecbossard/GeoPolicy-Bench/releases/download/v4-demo/runtime.json"
+    },
+    "SHA256SUMS.txt": {
+      "sha256": "336df6a6c1cfc5a28763fba88859f92918925ded888c0d4c011cdc5350e5a478",
+      "size_bytes": 672,
+      "download_url": "https://github.com/Alecbossard/GeoPolicy-Bench/releases/download/v4-demo/SHA256SUMS.txt"
+    }
+  },
+  "checksum_file_verified": true,
+  "no_training_executed": true
+}

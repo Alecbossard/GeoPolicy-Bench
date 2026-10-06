@@ -354,8 +354,8 @@ def check_asset_metadata(name, item):
 def check_v4_release():
     release = read("docs/releases/v4_demo.json")
     require(
-        release["status"] == "prepared_locally_not_published",
-        "V4 release status must describe the local preparation",
+        release["status"] in {"prepared_locally_not_published", "published"},
+        "Unexpected V4 publication status",
     )
     require(
         isinstance(release.get("release_tag"), str) and release["release_tag"],
@@ -371,10 +371,45 @@ def check_v4_release():
         check_asset_metadata(name, item)
     protocol = read("configs/v4/final_protocol.json")
     exported = read("results/v4/demo_export.json")
-    require(
-        release["publication_url"] is None,
-        "An unpublished release must not invent a download URL",
-    )
+    if release["status"] == "prepared_locally_not_published":
+        require(
+            release["publication_url"] is None,
+            "An unpublished release must not invent a download URL",
+        )
+    else:
+        url = "https://github.com/Alecbossard/GeoPolicy-Bench/releases/tag/v4-demo"
+        proof = read("docs/releases/v4_publication_verification.json")
+        require(
+            release["publication_url"] == proof["publication_url"] == url
+            and proof["verified"] is True
+            and proof["checksum_file_verified"] is True
+            and proof["tag"] == release["release_tag"] == "v4-demo"
+            and proof["tagged_commit"] == release["release_commit_sha"]
+            and proof["published_at"] == release["published_at"],
+            "Published release differs from its download verification",
+        )
+        publication_assets = release["publication_assets"]
+        require(
+            set(publication_assets)
+            == set(assets) | {"release_manifest.json", "SHA256SUMS.txt"}
+            and publication_assets == proof["public_downloads"],
+            "Published download list differs from the verified nine files",
+        )
+        for name, item in publication_assets.items():
+            check_asset_metadata(name, item)
+            require(
+                item["download_url"]
+                == f"https://github.com/Alecbossard/GeoPolicy-Bench/releases/download/v4-demo/{name}",
+                f"Unexpected public download URL: {name}",
+            )
+            if name in assets:
+                require(
+                    all(
+                        item[field] == assets[name][field]
+                        for field in ("sha256", "size_bytes")
+                    ),
+                    f"Published bytes differ from the original demo asset: {name}",
+                )
     require(
         release["demo_policy"] == exported["name"] == "fusion_aug_s0"
         and release["demo_scene"] == exported["scene_seed"] == 500000
@@ -467,7 +502,7 @@ def check():
     )
     print(json.dumps(checks, indent=2))
     print(
-        "Publication checks passed using repository files only; historical artifact links are local-only and V4 publication remains pending."
+        "Publication checks passed using repository files only; historical artifact links remain local-only."
     )
 
 

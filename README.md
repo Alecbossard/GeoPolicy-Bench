@@ -63,7 +63,9 @@ The student predicts every command from sensor points, masks, robot state and fi
 
 ## Replay the compact release
 
-The **V4 release is prepared locally and has not been published**. Its [manifest](docs/releases/v4_demo.json) records exact SHA-256 values, runtime versions and all 79 ZIP members. The source and checkpoint ZIP is **1.60 MB**; it includes normalization and expected observations/actions/physics, and needs no training HDF5 files. Video and GIF are separate assets.
+The **[V4 demo release](https://github.com/Alecbossard/GeoPolicy-Bench/releases/tag/v4-demo) is published**. [Download the ZIP](https://github.com/Alecbossard/GeoPolicy-Bench/releases/download/v4-demo/geopolicy-v4-demo.zip) · [Checkpoint](https://github.com/Alecbossard/GeoPolicy-Bench/releases/download/v4-demo/checkpoint.pt) · [SHA-256 checksums](https://github.com/Alecbossard/GeoPolicy-Bench/releases/download/v4-demo/SHA256SUMS.txt).
+
+Its [manifest](docs/releases/v4_demo.json) records exact SHA-256 values, runtime versions, all 79 ZIP members and the nine public downloads. The source and checkpoint ZIP is **1.60 MB**; it includes normalization and expected observations/actions/physics, and needs no training HDF5 files. Video and GIF are separate assets.
 
 After obtaining the prepared `geopolicy-v4-demo.zip`, verify it and extract it into a fresh directory. From that directory, using **Python 3.11.9**:
 
@@ -75,7 +77,7 @@ python -m venv .venv
 
 Validated on Windows and an RTX 4060 Laptop 8 GB. Policy inference uses CPU; MuJoCo rendering and resource checks require the tested NVIDIA setup. The full pinned environment is larger than the bundle. Exact replay was checked from a separately extracted source copy using a second pinned environment on the same PC; cross-platform bitwise reproducibility is untested.
 
-[Release assets, checksums and installation](docs/releases/v4.md) · [Delivery verification](docs/releases/v4_delivery_verification.json) · [Full V4 reproduction](docs/v4/reproduction.md)
+[Release assets, checksums and installation](docs/releases/v4.md) · [Local delivery verification](docs/releases/v4_delivery_verification.json) · [Public download verification](docs/releases/v4_publication_verification.json) · [Full V4 reproduction](docs/v4/reproduction.md)
 
 ## Verification and limits
 
